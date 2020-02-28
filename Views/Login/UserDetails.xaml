@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="CAA_Event_Management.UserDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CAA_Event_Management"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+                    <TextBox x:Name="txtFirstName" Header="First Name" Width="300"/>
+                    <TextBox x:Name="txtLastName" Header="Last Name" Width="300"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
+                    <TextBox x:Name="txtUserName" Header="User Name" Width="300"/>
+                    <TextBox x:Name="txtPassword" Header="Password" Width="300"/>
+                </StackPanel>
+
+                <CheckBox x:Name="chkAdmin" Content="Is User an Admin?" HorizontalAlignment="Center" Grid.Row="3"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

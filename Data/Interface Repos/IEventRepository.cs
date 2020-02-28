@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CAA_Event_Management.Models;
+/******************************
+*  Repository Created By: Jon Yade
+*  Edited by:
+*******************************/
+namespace CAA_Event_Management.Data
+{
+    /// <summary>
+    /// Interface for the Event Repository
+    /// </summary>
+    public interface IEventRepository
+    {
+        List<Event> GetEvents();
+        List<Event> GetEvents(bool deleted);
+        Event GetEvent(string EventID);
+        Event GetEventByName(string eventName);
+        Event GetLastEvent();
+        void AddEvent(Event eventToAdd);
+        void UpdateEvent(Event eventToUpdate);
+        void DeleteEvent(Event eventToDelete);
+        void DeleteEventPermanent(Event eventToDelete);
+    }
+}

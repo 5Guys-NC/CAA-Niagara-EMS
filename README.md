@@ -8,9 +8,10 @@
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 Pull the most recent changes before starting a new coding session to make sure your copy is up to date.
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-Work in "Development" Branch.
+Create a new branch for yourself off of "development"
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-Push to "Development" branch after implementing any working functionality (so most up to date work is always available). Anytime you are done with no errors... PUSH
+Push to your branch after implementing after every coding seesion (so most up to date work is always available). 
+Anytime you are done with no errors let me know and I can merge to Development
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 Make sure to leave detailed commit messages of the piece of funtionality that you are implementing. Try not to commit massive sections at 1 time. smaller commits work easier
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -50,7 +51,7 @@ at the bottom of Visual Studio is a status bar. On the right side of the status 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # to PUSH:
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-1) Make sure you are in "Development" so that you do not push directly to master. Make sure as well that you have pulled the most recent changes before pushing.
+1) Make sure you are in your branch so that you do not push directly to master. Make sure as well that you have pulled the most recent changes before pushing.
 
 2) In status Bar, select the Pencil on the right side. The number beside the pencil is the number of files in the project that you have edited. Once clicked, make sure that the files changed matches the work you have done.
 

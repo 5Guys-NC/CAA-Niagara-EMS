@@ -27,7 +27,7 @@ copy the url it provides
 3) Open Visual Studio. Continue without code. 
 (Make sure that you have Github extension, should be there automatically)
 
-4)Click "Team Explorer" Tab.
+4) Click "Team Explorer" Tab.
 
 5) Select "Clone". Copy the url from Step 2 into the provided textbox.
 (Make sure to note the location it is saving so you can find it, can also change location to preference)

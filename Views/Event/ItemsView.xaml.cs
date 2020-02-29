@@ -97,40 +97,36 @@ namespace CAA_Event_Management
             ClearFields();
         }
 
-        //private async void btnDelete_Click(object sender, RoutedEventArgs e)
-        //{
-            //if (btn)
-
-            //btnRemove.Visibility = Visibility.Visible;
-
-            //Item selectedItem = (Item)lstPreMadeQuestions.SelectedItem;
-            //selectedItem = (Item)gvAvailableQuestions.SelectedItem;
-            //string warning = "Do you wish to delete this question? Deleting questions that have been used in events is not permitted and will cause an error";
-
-            //if (selectedItem != null)
-            //{
-            //    var result = await Jeeves.ConfirmDialog("Warning", warning);
-
-            //    if (result == ContentDialogResult.Secondary)
-            //    {
-            //        try
-            //        {
-            //            itemRespository.DeleteItem(selectedItem);
-            //            FillFields();
-            //        }
-            //        catch
-            //        {
-            //            Jeeves.ShowMessage("Error", "The was an error in deleting this question");
-            //        }
-            //    }
-            //}
-        //}
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnDelete.Content.ToString() == "Delete Mode (OFF)")
+            {
+                btnDelete.Content = "Delete Mode (ON)";
+                gvAvailableQuestions.Visibility = Visibility.Collapsed;
+                gvAvailableQuestionsDeleteMode.Visibility = Visibility.Visible;
+                FillFields();
+            }
+            else
+            {
+                btnDelete.Content = "Delete Mode (OFF)";
+                gvAvailableQuestions.Visibility = Visibility.Visible;
+                gvAvailableQuestionsDeleteMode.Visibility = Visibility.Collapsed;
+                FillFields();
+            }
+        }
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
             int selected = Convert.ToInt32(((Button)sender).DataContext);
-            Item thisSelectedItem = itemRespository.GetItem(selected.ToString());
-            itemRespository.DeleteItem(thisSelectedItem);
+            try
+            {
+                Item thisSelectedItem = itemRespository.GetItem(selected.ToString());
+                itemRespository.DeleteItem(thisSelectedItem);
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "The was an error in deleting this question");
+            }
             Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
         }
 
@@ -149,6 +145,7 @@ namespace CAA_Event_Management
             {
                 List<Item> items = itemRespository.GetItems();
                 gvAvailableQuestions.ItemsSource = items;
+                gvAvailableQuestionsDeleteMode.ItemsSource = items;
             }
             catch (Exception)
             {

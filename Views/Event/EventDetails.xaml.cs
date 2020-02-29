@@ -73,6 +73,7 @@ namespace CAA_Event_Management
             //General Fill Methods
             FillGameField();
             FillSurveySelectionLists();
+            CheckForSelectedQuiz();
         }
 
         #endregion
@@ -217,6 +218,23 @@ namespace CAA_Event_Management
             catch (Exception ex)
             {
                 Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
+            }
+        }
+
+        private void CheckForSelectedQuiz()
+        {
+            if (view.QuizID == null) tbkChosenQuiz.Text = "Selected Quiz: None";
+            else
+            {
+                try
+                {
+                    var quiz = gameRepository.GetAGame((int)view.QuizID);
+                    tbkChosenQuiz.Text = "Selected Quiz: " + quiz.Title;
+                }
+                catch
+                {
+                    Jeeves.ShowMessage("Error", "The quiz failed to load");
+                }
             }
         }
 
@@ -409,5 +427,11 @@ namespace CAA_Event_Management
 
         #endregion
 
+        private void ltbAvailableQuiz_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var choosenGame = (Game)ltbAvailableQuiz.SelectedItem;
+            view.QuizID = choosenGame.ID;
+            CheckForSelectedQuiz();
+        }
     }
 }

@@ -163,6 +163,9 @@
     <Compile Include="Views\Event\EventStartView.xaml.cs">
       <DependentUpon>EventStartView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Games\PlayerGameView.xaml.cs">
+      <DependentUpon>PlayerGameView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login\UserDetails.xaml.cs">
       <DependentUpon>UserDetails.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Event\EventStartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Games\PlayerGameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

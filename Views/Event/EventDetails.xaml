@@ -234,13 +234,15 @@
                                      TextChanged="txtSearchBox_TextChanged" 
                                      HorizontalAlignment="Left"/>
 
-                                <TextBlock Text="Available Quizes:" 
+                                <TextBlock x:Name="tbkChosenQuiz"
+                                       Text="Selected Quiz: None" 
                                        TextWrapping="Wrap"
                                        Grid.Column="5"/>
                                 <ListBox x:Name="ltbAvailableQuiz"
                                      Grid.Row="1"
                                      Grid.Column="5"
-                                     DisplayMemberPath="Title"/>
+                                     DisplayMemberPath="Title"
+                                     SelectionChanged="ltbAvailableQuiz_SelectionChanged"/>
                             </Grid>
 
                         </Grid>

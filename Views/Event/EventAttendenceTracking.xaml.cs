@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using CAA_Event_Management.Utilities;
+using CAA_Event_Management.Views.Games;
 using System.Threading.Tasks;
 /***********************************
  * Created By: Jon Yade
@@ -67,7 +68,8 @@ namespace CAA_Event_Management
             bool refreshScreen = SaveAttendenceItem();
 
             //maybe add a bool return for saveSurveyResponses
-            if (refreshScreen) Frame.Navigate(this.GetType(), currentEvent);
+            if (refreshScreen && currentEvent.QuizID == null) Frame.Navigate(this.GetType(), currentEvent);
+            else if (refreshScreen) Frame.Navigate(typeof(PlayerGameView), (Event)currentEvent);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

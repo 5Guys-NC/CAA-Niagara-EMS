@@ -14,7 +14,7 @@ namespace CAA_Event_Management.Utilities
 
             try
             {
-                int numberCheck1 = Convert.ToInt32(memberNumber);
+                double numberCheck1 = Convert.ToDouble(memberNumber);
             }
             catch
             {

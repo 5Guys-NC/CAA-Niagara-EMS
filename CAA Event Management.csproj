@@ -160,6 +160,9 @@
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Event\EventStartView.xaml.cs">
+      <DependentUpon>EventStartView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login\UserDetails.xaml.cs">
       <DependentUpon>UserDetails.xaml</DependentUpon>
     </Compile>
@@ -226,6 +229,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Event\EventStartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Login\UserDetails.xaml">
       <SubType>Designer</SubType>

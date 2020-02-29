@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Views.Games;
 using CAA_Event_Management.Views;
+using CAA_Event_Management.Views.Event;
 //using CAA_Event_Management.Views.Event;
 using Windows.System;
 using CAA_Event_Management.Models;
@@ -39,7 +40,7 @@ namespace CAA_Event_Management
             this.InitializeComponent();
             usersRepository = new UsersRepository();
             isAuthenticated(out s);
-            MyFrame.Navigate(typeof(GameMenu));
+            MyFrame.Navigate(typeof(EventStartView));
             DataContext = this;
             Timer.Tick += Timer_Tick;
             Timer.Interval = new TimeSpan(0, 0, 1);
@@ -77,7 +78,7 @@ namespace CAA_Event_Management
                 switch (item)
                 {
                     case "Home":
-                        MyFrame.Navigate(typeof(UsersSummary));
+                        MyFrame.Navigate(typeof(EventStartView));
                         break;
 
                     case "Events":

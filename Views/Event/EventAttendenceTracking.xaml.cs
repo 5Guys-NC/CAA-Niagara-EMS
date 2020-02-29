@@ -63,7 +63,29 @@ namespace CAA_Event_Management
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckFormForCompletion()) return;
-            if (!CheckAnswersForCompletion()) return;
+            //if (!CheckAnswersForCompletion()) return;   //Thsi and the attached function should be deleted
+            SaveAttendenceItem();
+
+
+            Frame.Navigate(this.GetType(), currentEvent);
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            //I need an if statement here tied to the login to determine what view to return to:
+
+            //if () Frame.Navigate(typeof(EventStartView));
+            //else 
+
+            Frame.Navigate(typeof(CAAEvents));
+        }
+
+        #endregion
+
+        #region Helper Methods - SaveSurveyResponses, Card Reading
+
+        private void SaveAttendenceItem()
+        {
             bool loadSurveyQuestionsView = true;
 
             var x = new MemberNumberCheck();
@@ -94,17 +116,7 @@ namespace CAA_Event_Management
             }
 
             if (loadSurveyQuestionsView == true) SaveSurveyResponses();
-            Frame.Navigate(this.GetType(), currentEvent);
         }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(CAAEvents));
-        }
-
-        #endregion
-
-        #region Helper Methods - SaveSurveyResponses, Card Reading
 
         private void SaveSurveyResponses()
         {
@@ -159,7 +171,9 @@ namespace CAA_Event_Management
         private void cardEntryTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             string entry = memberNumTextBox.Text;
-            if (entry.Length > 40 && entry.EndsWith("?") && entry.IndexOf("%") == 0)
+            if (entry.StartsWith(" ")) memberNumTextBox.Text = entry.Trim();
+
+            if (entry.Length > 77 && entry.EndsWith("?") && entry.IndexOf("%") == 0)
             {
                 memberNumTextBox.Text = entry.Substring(2, 16);
                 int firstName = entry.IndexOf("/");
@@ -172,6 +186,12 @@ namespace CAA_Event_Management
                 firstNameTextBox.Text = firstNameLetters.Substring(0, 1).ToUpper() + firstNameLetters.Substring(1).ToLower(); ;
                 lastNameTextBox.Text = entry.Substring(lastName + 1, 1) + entry.Substring(lastName + 2, firstName - lastName - 2).ToLower();
                 isMembersCheck.IsChecked = true;
+
+                if (ListOfEID.Count == 0)
+                {
+                    SaveAttendenceItem();
+                    Frame.Navigate(this.GetType(), currentEvent);
+                }
             }
         }
 

@@ -10,9 +10,25 @@ namespace CAA_Event_Management.Utilities
     {
         internal bool CheckMemberNumber(string memberNumber)
         {
-            double[] number = ReverseNumber(memberNumber);
-            double runningTotal = 0;
+            double[] number = new double[16];
 
+            try
+            {
+                int numberCheck1 = Convert.ToInt32(memberNumber);
+            }
+            catch
+            {
+                return false;
+            }
+
+            int reverseNumberCount = 0;
+            for (int i = 15; i >= 0; i--)
+            {
+                number[reverseNumberCount] = Convert.ToDouble(memberNumber.Substring(i, 1));
+                reverseNumberCount++;
+            }
+
+            double runningTotal = 0;
             for (int i = 1; i < 16; i++)
             {
                 if (i%2 != 0)
@@ -30,20 +46,6 @@ namespace CAA_Event_Management.Utilities
 
             if (finalCheck == number[0]) return true;
             else return false;
-        }
-
-        private double[] ReverseNumber(string memberNumber)
-        {
-            string strMemberNumber = memberNumber;
-            double[] number = new double[16];
-            int reverseNumberCount = 0;
-
-            for (int i = 15; i >= 0; i--)
-            {
-                number[reverseNumberCount] = Convert.ToDouble(memberNumber.Substring(i,1));
-                reverseNumberCount++;
-            }
-            return number;
         }
     }
 }

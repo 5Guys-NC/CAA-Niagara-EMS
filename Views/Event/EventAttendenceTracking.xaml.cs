@@ -63,11 +63,11 @@ namespace CAA_Event_Management
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckFormForCompletion()) return;
-            //if (!CheckAnswersForCompletion()) return;   //Thsi and the attached function should be deleted
-            SaveAttendenceItem();
+            //if (!CheckAnswersForCompletion()) return;   //This and the attached function should be deleted
+            bool refreshScreen = SaveAttendenceItem();
 
-
-            Frame.Navigate(this.GetType(), currentEvent);
+            //maybe add a bool return for saveSurveyResponses
+            if (refreshScreen) Frame.Navigate(this.GetType(), currentEvent);
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -84,7 +84,7 @@ namespace CAA_Event_Management
 
         #region Helper Methods - SaveSurveyResponses, Card Reading
 
-        private void SaveAttendenceItem()
+        private bool SaveAttendenceItem()
         {
             bool loadSurveyQuestionsView = true;
 
@@ -96,7 +96,7 @@ namespace CAA_Event_Management
             if (!check)
             {
                 numberError.Visibility = Visibility;
-                return;
+                return false;
             }
 
             try
@@ -113,9 +113,11 @@ namespace CAA_Event_Management
             catch (Exception exc)
             {
                 Jeeves.ShowMessage("Error", exc.InnerException.ToString());
+                return false;
             }
 
             if (loadSurveyQuestionsView == true) SaveSurveyResponses();
+            return true;
         }
 
         private void SaveSurveyResponses()
@@ -173,19 +175,19 @@ namespace CAA_Event_Management
             string entry = memberNumTextBox.Text;
             if (entry.StartsWith(" ")) memberNumTextBox.Text = entry.Trim();
 
-            if (entry.Length > 77 && entry.EndsWith("?") && entry.IndexOf("%") == 0)
+            if (entry.Length > 76 && entry.EndsWith("?") && entry.IndexOf("%") == 0)
             {
                 memberNumTextBox.Text = entry.Substring(2, 16);
-                int firstName = entry.IndexOf("/");
-                int lastName = entry.IndexOf("^");
+                //int firstName = entry.IndexOf("/");
+                //int lastName = entry.IndexOf("^");
 
-                string firstNamePlusRemainingString = entry.Substring(firstName + 1);
-                //inspired by: https://stackoverflow.com/questions/24028945/find-first-character-in-string-that-is-a-letter
-                string firstNameLetters = new string(firstNamePlusRemainingString.TakeWhile(Char.IsLetter).ToArray());
+                //string firstNamePlusRemainingString = entry.Substring(firstName + 1);
+                ////inspired by: https://stackoverflow.com/questions/24028945/find-first-character-in-string-that-is-a-letter
+                //string firstNameLetters = new string(firstNamePlusRemainingString.TakeWhile(Char.IsLetter).ToArray());
 
-                firstNameTextBox.Text = firstNameLetters.Substring(0, 1).ToUpper() + firstNameLetters.Substring(1).ToLower(); ;
-                lastNameTextBox.Text = entry.Substring(lastName + 1, 1) + entry.Substring(lastName + 2, firstName - lastName - 2).ToLower();
-                isMembersCheck.IsChecked = true;
+                //firstNameTextBox.Text = firstNameLetters.Substring(0, 1).ToUpper() + firstNameLetters.Substring(1).ToLower(); ;
+                //lastNameTextBox.Text = entry.Substring(lastName + 1, 1) + entry.Substring(lastName + 2, firstName - lastName - 2).ToLower();
+                //isMembersCheck.IsChecked = true;
 
                 if (ListOfEID.Count == 0)
                 {

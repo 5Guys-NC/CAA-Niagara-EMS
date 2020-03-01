@@ -46,7 +46,7 @@ namespace CAA_Event_Management.Views.Event
             if (eventsList.Count > 0)
             {
                 currentEvents = eventsList
-                    .Where(c => c.EventStart <= now.AddHours(3) && c.EventEnd >= now.AddHours(-2))
+                    .Where(c => c.EventStart <= now.AddHours(3) && c.EventEnd >= now.AddHours(-5))
                     .OrderBy(c => c.EventName)
                     .ToList();
             }

@@ -44,5 +44,6 @@
             <Setter Property="Background" Value="#eaeaea"/>
             <Setter Property="Width" Value="180"/>
         </Style>
+        
     </Application.Resources>
 </Application>

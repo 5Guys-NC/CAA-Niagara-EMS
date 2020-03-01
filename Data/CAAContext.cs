@@ -1,16 +1,12 @@
 ﻿using CAA_Event_Management.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 /******************************
 *  Model Created By: Brian Culp
 *  Edited by: Jon Yade
 *  Edited by: Max Cashmore
 *******************************/
+
 namespace CAA_Event_Management.Data
 {
     /// <summary>
@@ -34,6 +30,7 @@ namespace CAA_Event_Management.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //Name of Database
             optionsBuilder.UseSqlite("Data Source=CAANiagara.db");
             base.OnConfiguring(optionsBuilder);
         }
@@ -42,29 +39,35 @@ namespace CAA_Event_Management.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //AttendanceItem composite key
             modelBuilder.Entity<AttendanceItem>()
                 .HasKey(d => new { d.MemberAttendanceID, d.EventItemID });
 
+            //Users unique username
             modelBuilder.Entity<Users>().HasIndex(d => d.UserName).IsUnique();
 
+            //EventItem - Item Delete Restrict
             modelBuilder.Entity<EventItem>()
                 .HasOne(d => d.Item)
                 .WithMany(d => d.EventItems)
                 .HasForeignKey(d => d.ItemID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //EventItem - Event Delete Restrict
             modelBuilder.Entity<EventItem>()
                 .HasOne(d => d.Event)
                 .WithMany(d => d.EventItems)
                 .HasForeignKey(d => d.EventID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //AttendanceTracking - Event Delete Restrict
             modelBuilder.Entity<AttendanceTracking>()
                 .HasOne(d => d.Event)
                 .WithMany(d => d.AttendanceTrackings)
                 .HasForeignKey(d => d.EventID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //Answer - Question Delete Restrict
             modelBuilder.Entity<Answer>()
                 .HasOne(d => d.Question)
                 .WithMany(d => d.Answers)

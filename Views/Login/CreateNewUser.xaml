@@ -7,7 +7,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <!--******************
+    Created By: Brian Culp
+    Edited By:
+    ******************-->
     <Grid>
         <Grid Background="LightBlue">
             <Grid.RowDefinitions>
@@ -26,16 +29,24 @@
                    Margin="0,10,0,30"/>
 
             <StackPanel Orientation="Vertical" Grid.Row="1" Width="300">
+                
                 <TextBox Header="First Name:" x:Name="txtFName"/>
+                
                 <TextBox Header="Last Name:" x:Name="txtLName"/>
+                
                 <TextBox Header="User Name:" x:Name="txtUserName"/>
+                
                 <PasswordBox Header="Password:" x:Name="txtPassword"/>
+                
                 <PasswordBox Header="Confirm Password:" x:Name="txtConfirmPassword"/>
+                
                 <CheckBox x:Name="chkAdmin" Content="Is User Admin?" HorizontalAlignment="Center"/>
+                
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button x:Name="btnCreate" Content="Create" Margin="20" Click="BtnCreate_Click"/>
                     <Button x:Name="btnCancel" Content="Cancel" Margin="20"/>
                 </StackPanel>
+            
             </StackPanel>
         </Grid>
     </Grid>

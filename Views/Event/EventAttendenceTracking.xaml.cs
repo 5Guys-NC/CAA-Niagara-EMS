@@ -1,25 +1,17 @@
-﻿using System;
+﻿using CAA_Event_Management.Data;
+using CAA_Event_Management.Models;
+using CAA_Event_Management.Utilities;
+using CAA_Event_Management.ViewModels;
+using CAA_Event_Management.Views.Games;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.Data;
-using CAA_Event_Management.Utilities;
-using CAA_Event_Management.Views.Games;
-using System.Threading.Tasks;
 /***********************************
  * Created By: Jon Yade
- * Edited By: Brian Culp, Jon Yade
+ * Edited By: Brian Culp
  * ********************************/
 
 namespace CAA_Event_Management
@@ -317,14 +309,4 @@ namespace CAA_Event_Management
 
         #endregion
     }
-    #region  Survey Question Class
-
-    internal class SurveyQuestion
-    {
-        internal int ID { get; set; }
-        internal string questPhrase { get; set; } = "";
-        internal string questDataType { get; set; } = "";
-    }
-
-    #endregion
 }

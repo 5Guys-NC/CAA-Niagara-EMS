@@ -7,28 +7,34 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+<!--*****************************
+    Created By: Nathan Smith
+    Edited By: Brian Culp
+******************************-->
     <Page.Resources>
         <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#81489c"/>
         <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#81489c"/>
         <StaticResource x:Key="NavigationViewItemBackgroundPointerOver" ResourceKey="SystemControlHighlightListLowRevealBackgroundBrush"/>
     </Page.Resources>
-    
+
     <Grid Background="#eaeaea">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50">
                 </RowDefinition>
             </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
+<!--Logo-->
             <Image Name="imgCAALogo" 
                        Source="Assets/CAA Logo.png"  
                        Grid.Column="0"
@@ -37,7 +43,7 @@
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Width="70"/>
-            <TextBlock Name="Time" HorizontalAlignment="Left" Grid.Column="1"  VerticalAlignment="Center" Grid.Row="1"/>
+<!--Title-->
             <TextBlock Name ="txtTitle" 
                    Grid.Column="1"
                    Foreground="#1b3e6e" 
@@ -47,28 +53,11 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    TextWrapping="WrapWholeWords"/>
-            <!--<Button Name="btnSignIn" 
-                        Grid.Column="2"
-                        Background="White"
-                        BorderBrush="#1b3e6e" 
-                        BorderThickness="5"
-                        CornerRadius="110"
-                        Content="Sign In"
-                        FontSize="14"
-                        FontWeight="ExtraBold"
-                        Width="75"
-                        Height="45"
-                        Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
-            <!--<HyperlinkButton Name="btnSignIn"
-                             Content="Sign In"
-                             Foreground="#1b3e6e"
-                             Grid.Column="2"
-                             FontSize="16"
-                             />-->
-            
+<!--User Message-->
             <TextBlock x:Name="txtUser" Text="Hello, (USER)" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,10,0"
                        HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Visibility="Collapsed"/>
             
+<!--Sign in Flyout-->
             <Button Name="btnSignInFlyout" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" 
                     Grid.Row="2" Content="Sign In" Foreground="#1b3e6e" Grid.Column="2" FontSize="16">
                 <Button.Flyout>
@@ -81,7 +70,7 @@
                                 <Setter Property="TabNavigation" Value="Cycle"/>
                             </Style>
                         </Flyout.FlyoutPresenterStyle>
-                        
+
                         <Grid Background="LightBlue">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -106,24 +95,22 @@
                                     <Button x:Name="btnCancel" Content="Cancel" Margin="20"/>
                                 </StackPanel>
                             </StackPanel>
-                            <TextBlock x:Name="txttest" Text="BOOL" HorizontalAlignment="Center" Grid.Row="3"/>
                         </Grid>
                     </Flyout>
                 </Button.Flyout>
             </Button>
-            
         </Grid>
+        
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+<!--Frame-->
             <Frame Name="MyFrame" Grid.Column="1" Background="{StaticResource BackgroundColor}">
-
-
             </Frame>
         </Grid>
-
+<!--Navigation Menu-->
         <NavigationView Name="NavigationView" 
                         PaneDisplayMode="LeftCompact" 
                         IsBackButtonVisible="Auto"
@@ -175,7 +162,6 @@
                 
             </NavigationView.MenuItems>
         </NavigationView>
-        
         
     </Grid>
 </Page>

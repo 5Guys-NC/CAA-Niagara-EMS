@@ -1,11 +1,8 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
 /******************************
-*  Repository Created By: Jon Yade
+*  Created By: Jon Yade
 *  Edited by: Brian Culp
 *******************************/
 namespace CAA_Event_Management.Data
@@ -15,7 +12,12 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class EventRepository : IEventRepository
     {
-        #region Get
+        #region Get Requests
+
+        /// <summary>
+        /// Get all Events
+        /// </summary>
+        /// <returns>List of EVENTS</returns>
         public List<Event> GetEvents()
         {
             using (CAAContext context = new CAAContext())
@@ -28,6 +30,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Events by Delete Status
+        /// </summary>
+        /// <param name="deleted"></param>
+        /// <returns>List of EVENTS</returns>
         public List<Event> GetEvents(bool deleted)
         {
             using (CAAContext context = new CAAContext())
@@ -40,6 +47,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Event by ID
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns>A Single EVENT</returns>
         public Event GetEvent(string eventID)
         {
             using (CAAContext context = new CAAContext())
@@ -51,6 +63,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Event by Name
+        /// </summary>
+        /// <param name="eventName"></param>
+        /// <returns>A Single EVENT</returns>
         public Event GetEventByName(string eventName)
         {
             using (CAAContext context = new CAAContext())
@@ -62,7 +79,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
-
+        /// <summary>
+        /// Get Last Event
+        /// </summary>
+        /// <returns>A Single EVENT</returns>
         public Event GetLastEvent()
         {
             using (CAAContext context = new CAAContext())
@@ -74,7 +94,10 @@ namespace CAA_Event_Management.Data
         }
         #endregion
 
-        #region Add
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="eventToAdd"></param>
         public void AddEvent(Event eventToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -83,9 +106,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Update
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="eventToUpdate"></param>
         public void UpdateEvent(Event eventToUpdate)
         {
             using (CAAContext context = new CAAContext())
@@ -94,9 +119,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Delete
+        /// <summary>
+        /// Delete (but kept in Database)
+        /// </summary>
+        /// <param name="eventToDelete"></param>
         public void DeleteEvent(Event eventToDelete)
         {
             using (CAAContext context = new CAAContext())
@@ -108,6 +135,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Permanent Delete (No Longer in Database)
+        /// </summary>
+        /// <param name="eventToDelete"></param>
         public void DeleteEventPermanent(Event eventToDelete)
         {
             using (CAAContext context = new CAAContext())
@@ -116,6 +147,5 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
     }
 }

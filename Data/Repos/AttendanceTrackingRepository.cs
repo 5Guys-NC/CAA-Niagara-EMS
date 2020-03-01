@@ -1,11 +1,8 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
 /******************************
-*  Repository Created By: Jon Yade
+*  Created By: Jon Yade
 *  Edited by: Brian Culp
 *******************************/
 namespace CAA_Event_Management.Data
@@ -15,7 +12,12 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class AttendanceTrackingRepository : IAttendanceTrackingRepository
     {
-        #region Get
+        #region Get Requests
+
+        /// <summary>
+        /// Get all AttendanceTrackings
+        /// </summary>
+        /// <returns>List of ATTENDANCETRACKINGS</returns>
         public List<AttendanceTracking> GetAttendanceTrackings()
         {
             using (CAAContext context = new CAAContext())
@@ -27,6 +29,12 @@ namespace CAA_Event_Management.Data
                 return attendanceTrackings;
             }
         }
+
+        /// <summary>
+        /// Get AttendanceTracking by ID
+        /// </summary>
+        /// <param name="memberAttendanceID"></param>
+        /// <returns>a Single ATTENDANCETRACKING</returns>
         public AttendanceTracking GetAttendanceTracking(string memberAttendanceID)
         {
             using (CAAContext context = new CAAContext())
@@ -37,6 +45,12 @@ namespace CAA_Event_Management.Data
                 return attendanceTracking;
             }
         }
+
+        /// <summary>
+        /// Get AttendanceTrackings by EventID
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns>List of ATTENDANCETRACKINGS</returns>
         public List<AttendanceTracking> GetAttendanceTrackingByEvent(string eventID)
         {
             using (CAAContext context = new CAAContext())
@@ -49,7 +63,10 @@ namespace CAA_Event_Management.Data
         }
         #endregion
 
-        #region Add
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="attendanceTrackingToAdd"></param>
         public void AddAttendanceTracking(AttendanceTracking attendanceTrackingToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -58,9 +75,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Update
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="attendanceTrackingToUpdate"></param>
         public void UpdateAttendanceTracking(AttendanceTracking attendanceTrackingToUpdate)
         {
             using (CAAContext context = new CAAContext())
@@ -69,9 +88,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Delete
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="attendanceTrackingToDelete"></param>
         public void DeleteAttendanceTracking(AttendanceTracking attendanceTrackingToDelete)
         {
             using (CAAContext context = new CAAContext())
@@ -80,6 +101,5 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
     }
 }

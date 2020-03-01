@@ -1,11 +1,8 @@
-﻿    using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
 /******************************
-*  Repository Created By: Jon Yade
+*  Created By: Jon Yade
 *  Edited by: Brian Culp
 *******************************/
 namespace CAA_Event_Management.Data
@@ -15,7 +12,12 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class EventItemRepository : IEventItemRepository
     {
-        #region Get
+        #region Get Requests
+
+        /// <summary>
+        /// Get all EventItems
+        /// </summary>
+        /// <returns>List of EVENTITEMS</returns>
         public List<EventItem> GetEventItems()
         {
             using (CAAContext context = new CAAContext())
@@ -27,6 +29,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get EventItems by EventID
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns>List of EVENTITEMS</returns>
         public List<EventItem> GetEventItems(string eventID)
         {
             using (CAAContext context = new CAAContext())
@@ -39,6 +46,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get EventItem by ID
+        /// </summary>
+        /// <param name="eventItemID"></param>
+        /// <returns>A Single EVENTITEM</returns>
         public EventItem GetEventItem(string eventItemID)
         {
             using (CAAContext context = new CAAContext())
@@ -50,6 +62,12 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get EventItem by EventID, ItemID combo
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <param name="itemID"></param>
+        /// <returns>A single EVENTITEM</returns>
         public EventItem GetEventItem(string eventID, string itemID)
         {
             using (CAAContext context = new CAAContext())
@@ -63,8 +81,10 @@ namespace CAA_Event_Management.Data
         }
         #endregion
 
-        #region Add
-
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="eventItemToAdd"></param>
         public void AddEventItem(EventItem eventItemToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -73,9 +93,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Update
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="eventItemToUpdate"></param>
         public void UpdateEventItem(EventItem eventItemToUpdate)
         {
             using (CAAContext context = new CAAContext())
@@ -84,9 +106,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Delete
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="eventItemToDelete"></param>
         public void DeleteEventItem(EventItem eventItemToDelete)
         {
             using (CAAContext context = new CAAContext())
@@ -95,6 +119,5 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
     }
 }

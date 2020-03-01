@@ -1,23 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Data;
 using CAA_Event_Management.Models;
-using CAA_Event_Management.Views;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 /******************************
-*  Model Created By: Jon Yade
+*  Created By: Jon Yade
 *  Edited by: Nathan Smith
 *******************************/
 
@@ -220,11 +211,5 @@ namespace CAA_Event_Management
 
 
         #endregion
-
-        //tester window - delete this later
-        //private void btnPOSTester_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(POSTestView));
-        //}
     }
 }

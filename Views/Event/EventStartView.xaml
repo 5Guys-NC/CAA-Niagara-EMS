@@ -9,14 +9,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundColor}">
     <!--************************
-    Created By: Nathan Smith, adapted by Jon Yade
-    Edited By:
+    Created By: Jon Yade
+    Edited By: 
     ************************-->
+    
     <Page.Resources>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
     </Page.Resources>
-    
-    
+
     <Grid>
 
         <!--Nathan will have to make changes here on the setter Target properties-->

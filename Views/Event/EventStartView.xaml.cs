@@ -1,33 +1,24 @@
-﻿using System;
+﻿using CAA_Event_Management.Data;
+using CAA_Event_Management.Models;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.Data;
-using CAA_Event_Management.Models;
+/*********************************
+ * Created By: Jon Yade
+ * *******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace CAA_Event_Management.Views.Event
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Frame for EventStartView
     /// </summary>
     public sealed partial class EventStartView : Page
     {
 
         IEventRepository eventRepository;
-
-
 
         public EventStartView()
         {

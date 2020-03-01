@@ -8,10 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundColor}">
-<!--************************
-    Created By: Nathan Smith, adapted by Jon Yade
-    Edited By:
-    ************************-->
+    <!--************************
+        Created By: Nathan Smith
+        Edited By: Jon Yade
+    **************************-->
 
     <Page.Resources>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>

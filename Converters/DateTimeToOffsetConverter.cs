@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
-using CAA_Event_Management.Converters;
 /******************************
 *  Model Created By: Nathan Smith
 *  Edited by:
 *******************************/
+
 namespace CAA_Event_Management.Converters
 {
     /// <summary>
@@ -16,6 +12,14 @@ namespace CAA_Event_Management.Converters
     /// </summary>
     public class DateTimeToOffsetConverter : IValueConverter
     {
+        /// <summary>
+        /// Converts DateTime to DateTimeOffset
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="language"></param>
+        /// <returns>DateTimeOffset</returns>
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             try
@@ -30,6 +34,14 @@ namespace CAA_Event_Management.Converters
             }
         }
 
+        /// <summary>
+        /// Convert DateTimeOffset to DateTime
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="language"></param>
+        /// <returns>DatTime</returns>
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             try

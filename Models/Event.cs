@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 /******************************
-*  Model Created By: Brian Culp
+*  Created By: Brian Culp
 *  Edited by: Jon Yade
 *******************************/
 namespace CAA_Event_Management.Models

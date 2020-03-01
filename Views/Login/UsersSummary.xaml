@@ -26,5 +26,6 @@
             <Button x:Name="btnDelete" Content="Delete" Click="BtnDelete_Click"/>
             <Button x:Name="btnCreate" Content="New" Click="BtnCreate_Click"/>
         </StackPanel>
+        
     </Grid>
 </Page>

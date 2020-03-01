@@ -1,11 +1,8 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
 /******************************
-*  Repository Created By: Brian Culp
+*  Created By: Brian Culp
 *  Edited by:
 *******************************/
 namespace CAA_Event_Management.Data
@@ -15,6 +12,10 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class UsersRepository : IUsersRepository
     {
+        /// <summary>
+        /// ADD
+        /// </summary>
+        /// <param name="userToAdd"></param>
         public void AddUser(Users userToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -24,6 +25,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="userToDelete"></param>
         public void DeleteUser(Users userToDelete)
         {
             using (CAAContext context = new CAAContext())
@@ -33,6 +38,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get User by ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>A Single USER</returns>
         public Users GetUser(int ID)
         {
             using (CAAContext context = new CAAContext())
@@ -44,6 +54,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get all Users
+        /// </summary>
+        /// <returns>List of USERS</returns>
         public List<Users> GetUsers()
         {
            using (CAAContext context = new CAAContext())
@@ -55,6 +69,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get User by UserName
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns>A Single USER</returns>
         public Users GetUser(string userName)
         {
             using (CAAContext context = new CAAContext())
@@ -67,6 +86,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="userToUpdate"></param>
         public void UpdateUser(Users userToUpdate)
         {
             using (CAAContext context = new CAAContext())

@@ -9,7 +9,10 @@
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundColor}">
-
+    <!--***********************
+    Created By: Jon Yade
+    Edited By: Nathan Smith
+    *************************-->
     <Page.Resources>
         <converters:FormatStringConverter x:Key="StringConverter"/>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>

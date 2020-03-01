@@ -1,11 +1,8 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
 /******************************
-*  Repository Created By: Jon Yade
+*  Created By: Jon Yade
 *  Edited by: Brian Culp
 *******************************/
 namespace CAA_Event_Management.Data
@@ -15,7 +12,12 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class ItemRepository : IItemRepository
     {
-        #region Get
+        #region Get Requests
+
+        /// <summary>
+        /// Get all Items
+        /// </summary>
+        /// <returns>List of ITEMS</returns>
         public List<Item> GetItems()
         {
             using (CAAContext context = new CAAContext())
@@ -26,6 +28,12 @@ namespace CAA_Event_Management.Data
                 return items;
             }
         }
+
+        /// <summary>
+        /// Get Item by ID
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <returns>A Single ITEM</returns>
         public Item GetItem(string itemID)
         {
             using (CAAContext context = new CAAContext())
@@ -38,7 +46,10 @@ namespace CAA_Event_Management.Data
         }
         #endregion
 
-        #region Add
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="itemToAdd"></param>
         public void AddItem(Item itemToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -47,9 +58,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Update
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="itemToUpdate"></param>
         public void UpdateItem(Item itemToUpdate)
         {
             using (CAAContext context = new CAAContext())
@@ -58,9 +71,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Delete
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="itemToDelete"></param>
         public void DeleteItem(Item itemToDelete)
         {
             using (CAAContext context = new CAAContext())
@@ -69,6 +84,5 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+/********************************
+ * Created By: Jon Yade
+ * *****************************/
 
 namespace CAA_Event_Management.Models
 {
+    /// <summary>
+    /// This page is a model to template the Auditable table in the database
+    /// </summary>
     public abstract class Auditable : IAuditable
     {
         [ScaffoldColumn(false)]

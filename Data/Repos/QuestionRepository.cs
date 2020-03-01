@@ -15,7 +15,12 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class QuestionRepository : IQuestionRepository
     {
-        #region Get
+        #region Get Requests
+
+        /// <summary>
+        /// Get All Question
+        /// </summary>
+        /// <returns></returns>
         public List<Question> GetQuestions()
         {
             using (CAAContext context = new CAAContext())

@@ -1,34 +1,22 @@
 ﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Models;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 /***************************************
  * Created By: Brian Culp
  * Edited By:
  * *************************************/
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 namespace CAA_Event_Management
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Frame for Create New User
     /// </summary>
-    
     public sealed partial class CreateNewUser : Page
     {
-        Users u;
+        Users newUser;
 
         IUsersRepository userRepository;
 
@@ -38,54 +26,77 @@ namespace CAA_Event_Management
             userRepository = new UsersRepository();
         }
 
+        /// <summary>
+        /// Create Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
-            u = new Users();
-            this.DataContext = u;
+            newUser = new Users();
+            this.DataContext = newUser;
 
             try
             {
+                //if first name exists
                 if (txtFName.Text != "")
                 {
-                    u.FirstName = txtFName.Text;
+                    //set first name
+                    newUser.FirstName = txtFName.Text;
                 }
 
+                //if last name exists
                 if (txtLName.Text != "")
                 {
-                    u.LastName = txtLName.Text;
+                    //set last name
+                    newUser.LastName = txtLName.Text;
                 }
 
+                //if admin
                 if (chkAdmin.IsChecked == true)
                 {
-                    u.isAdmin = true;
+                    //set admin to true
+                    newUser.isAdmin = true;
                 }
                 else
                 {
-                    u.isAdmin = false;
+                    //set admin to false
+                    newUser.isAdmin = false;
                 }
 
+                //if password matches confirm password
                 if (txtPassword.Password == txtConfirmPassword.Password)
                 {
-                    u.Password = txtPassword.Password;
+                    //set password
+                    newUser.Password = txtPassword.Password;
                 }
                 else
                 {
+                    //return error message
                     Jeeves.ShowMessage("Error", "Passwords do not match");
                     return;
                 }
 
-                u.UserName = txtUserName.Text;
+                //set username
+                newUser.UserName = txtUserName.Text;
 
-                userRepository.AddUser(u);
+                //add user
+                userRepository.AddUser(newUser);
+                
+                //clear fields to allow new creation
                 ClearFields();
 
             }
             catch (Exception ex)
             {
+                //error if adding user was unsuccessful
                 Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
             }
         }
 
+        /// <summary>
+        /// Method to clear the text boxes for new creation
+        /// </summary>
         private void ClearFields()
         {
             txtUserName.Text = "";
@@ -96,10 +107,6 @@ namespace CAA_Event_Management
             chkAdmin.IsChecked = false;
 
         }
-
     }
-
-
-
 }
      

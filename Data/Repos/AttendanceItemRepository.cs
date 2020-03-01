@@ -1,11 +1,8 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
 /******************************
-*  Repository Created By: Jon Yade
+*  Created By: Jon Yade
 *  Edited by: Brian Culp
 *******************************/
 namespace CAA_Event_Management.Data
@@ -15,7 +12,12 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class AttendanceItemRepository : IAttendanceItemRepository
     {
-        #region Get
+        #region Get Requests
+
+        /// <summary>
+        /// Get all AttendanceItems
+        /// </summary>
+        /// <returns>List of ATTENDANCEITEMS</returns>
         public List<AttendanceItem> GetAttendanceItems()
         {
             using (CAAContext context = new CAAContext())
@@ -27,6 +29,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get AttendanceItem by ID
+        /// </summary>
+        /// <param name="attendanceItemID"></param>
+        /// <returns>A Single ATTENDANCEITEMS</returns>
         public AttendanceItem GetAttendanceItem(string attendanceItemID)
         {
             using (CAAContext context = new CAAContext())
@@ -39,7 +46,10 @@ namespace CAA_Event_Management.Data
         }
         #endregion
 
-        #region Add
+        /// <summary>
+        /// Add
+        /// </summary>
+        /// <param name="attendanceItemToAdd"></param>
         public void AddAttendanceItem(AttendanceItem attendanceItemToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -48,9 +58,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Update
+        /// <summary>
+        /// Update
+        /// </summary>
+        /// <param name="attendanceItemToUpdate"></param>
         public void UpdateAttendanceItem(AttendanceItem attendanceItemToUpdate)
         {
             using (CAAContext context = new CAAContext())
@@ -59,9 +71,11 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Delete
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="attendanceItemToDelete"></param>
         public void DeleteAttendanceItem(AttendanceItem attendanceItemToDelete)
         {
             using (CAAContext context = new CAAContext())
@@ -70,6 +84,5 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
     }
 }

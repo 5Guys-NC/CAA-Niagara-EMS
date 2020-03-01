@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-/******************************
-*  Repository Created By: Jon Yade
+﻿/******************************
+*  Created By: Jon Yade
 *  Edited by:
 *******************************/
-namespace CAA_Event_Management.Data
+
+namespace CAA_Event_Management.ViewModels
 {
+    /// <summary>
+    /// View Model for EventItems Details
+    /// </summary>
     public class EventItemDetails
     {
         internal int ID { get; set; }

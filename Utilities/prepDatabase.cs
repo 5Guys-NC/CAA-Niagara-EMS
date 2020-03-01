@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Data;
+﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 /******************************
-*  Model Created By: Jon Yade
+*  Created By: Jon Yade
 *  Edited by: Brian Culp
 *  Edited by: Max Cashmore
 *  Edited by: Nathan Smith

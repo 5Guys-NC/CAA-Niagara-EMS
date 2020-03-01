@@ -89,10 +89,10 @@
 
                             <StackPanel Orientation="Vertical" Grid.Row="1" Width="300">
                                 <TextBox Header="User Name:" x:Name="txtUserName"/>
-                                <PasswordBox Header="Password:" x:Name="txtPassword"/>
+                                <PasswordBox Header="Password:" x:Name="txtPassword" KeyDown="txtPassword_KeyDown"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                     <Button x:Name="btnSignIn" Content="Sign In" Margin="20" Click="BtnSignIn_Click"/>
-                                    <Button x:Name="btnCancel" Content="Cancel" Margin="20"/>
+                                    <Button x:Name="btnCancel" Content="Cancel" Margin="20" Click="btnCancel_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

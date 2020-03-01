@@ -1,6 +1,7 @@
 ﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Models;
 using System;
+using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 /***************************************
@@ -76,9 +77,18 @@ namespace CAA_Event_Management
                     Jeeves.ShowMessage("Error", "Passwords do not match");
                     return;
                 }
-
-                //set username
-                newUser.UserName = txtUserName.Text;
+                
+                //if username contains Capital, Number, and 8-20 characters
+                //if (Regex.IsMatch(txtUserName.Text, @"/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d][A-Za-z\d]{8,20}$/"))
+                //{
+                    //set username
+                    newUser.UserName = txtUserName.Text;
+                //}
+                //else
+                //{
+                //    Jeeves.ShowMessage("Error", "Username must contain 1 capital, 1 number, and be 8-20 characters");
+                //    return;
+                //}
 
                 //add user
                 userRepository.AddUser(newUser);
@@ -91,6 +101,7 @@ namespace CAA_Event_Management
             {
                 //error if adding user was unsuccessful
                 Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
+                return;
             }
         }
 

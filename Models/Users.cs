@@ -19,6 +19,7 @@ namespace CAA_Event_Management.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "UserName Required")]
+        [RegularExpression(@"/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d][A-Za-z\d]{8,20}$/", ErrorMessage = "Username must contain a Capital and a Number")]
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "Password is Required")]

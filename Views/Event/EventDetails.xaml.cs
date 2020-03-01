@@ -135,6 +135,13 @@ namespace CAA_Event_Management
             view.MembersOnly = false;
         }
 
+        private void ltbAvailableQuiz_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var choosenGame = (Game)ltbAvailableQuiz.SelectedItem;
+            view.QuizID = choosenGame.ID;
+            CheckForSelectedQuiz();
+        }
+
         #endregion
 
         #region Buttons - Survey Questions - Add, Remove
@@ -420,11 +427,6 @@ namespace CAA_Event_Management
 
         #endregion
 
-        private void ltbAvailableQuiz_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var choosenGame = (Game)ltbAvailableQuiz.SelectedItem;
-            view.QuizID = choosenGame.ID;
-            CheckForSelectedQuiz();
-        }
+        
     }
 }

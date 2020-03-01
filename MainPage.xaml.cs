@@ -4,6 +4,7 @@ using CAA_Event_Management.Views.Event;
 using CAA_Event_Management.Views.Games;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 /***********************************
 * Edited By: Nathan Smith
 * Edited By: Brian Culp
@@ -22,7 +23,9 @@ namespace CAA_Event_Management
             IUsersRepository usersRepository;
             bool AuthStatus;
 
-            public MainPage()
+        public object Keys { get; private set; }
+
+        public MainPage()
             {
                 this.InitializeComponent();
                 usersRepository = new UsersRepository();
@@ -150,6 +153,37 @@ namespace CAA_Event_Management
                     throw;
                 }
             }
+            
+            /// <summary>
+            /// Cancel button
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            private void btnCancel_Click(object sender, RoutedEventArgs e)
+            {
+                //empty text boxes
+                txtUserName.Text = "";
+                txtPassword.Password = "";
+                //close flyout
+                flySignin.Hide();
+            }
+
+            /// <summary>
+            /// Check for enter key press on password text box. If Enter is pressed, act as button click
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+            private void txtPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+            {
+                //if key pressed is enter key
+                if(e.Key == Windows.System.VirtualKey.Enter)
+                {
+                    //set that key press was handled
+                    e.Handled = true;
+                    //call sign in button click method
+                    BtnSignIn_Click(sender, e);
+                }
+            }
         #endregion
 
         #region Helper Methods
@@ -223,6 +257,9 @@ namespace CAA_Event_Management
                 //check authentication of new user (will return true and show restricted navs)
                 isAuthenticated(out AuthStatus);
             }
+
         #endregion
+
+        
     }
 }

@@ -12,8 +12,8 @@
     Edited By: Brian Culp
 ******************************-->
     <Page.Resources>
-        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#81489c"/>
-        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#81489c"/>
+        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#64B345"/>
+        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#64B345"/>
         <StaticResource x:Key="NavigationViewItemBackgroundPointerOver" ResourceKey="SystemControlHighlightListLowRevealBackgroundBrush"/>
     </Page.Resources>
 

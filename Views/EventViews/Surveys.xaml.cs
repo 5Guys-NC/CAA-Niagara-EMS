@@ -1,12 +1,19 @@
-﻿using CAA_Event_Management.Data;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using CAA_Event_Management.Data;
+using CAA_Event_Management.Models;
 using Windows.UI.Xaml.Media.Animation;
 /********************************
 * Created By: Jon Yade
@@ -14,12 +21,12 @@ using Windows.UI.Xaml.Media.Animation;
 * ******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-namespace CAA_Event_Management.Views.EventViews
+namespace CAA_Event_Management.Views.Events
 {
     /// <summary>
     /// Frame for Items
     /// </summary>
-    public sealed partial class ItemsView : Page
+    public sealed partial class Surveys : Page
     {
         #region Startup - variables, respositories, methods
 
@@ -30,10 +37,11 @@ namespace CAA_Event_Management.Views.EventViews
 
         IItemRepository itemRespository;
 
-        public ItemsView()
+        public Surveys()
         {
             this.InitializeComponent();
             itemRespository = new ItemRepository();
+
             FillDataTypeComboBox();
             FillFields();
         }
@@ -45,23 +53,41 @@ namespace CAA_Event_Management.Views.EventViews
         private void btnAddSurveyQuestion_Click(object sender, RoutedEventArgs e)
         {
             ScreenLockDown();
+            tbkEnterQuestion.Visibility = Visibility.Visible;
+            txtNewSurveyQuestion.Visibility = Visibility.Visible;
+            tbkDataType.Visibility = Visibility.Visible;
+            cboDataType.Visibility = Visibility.Visible;
+
             addOrEdit = 1;
         }
 
         private async void btnEditMultipurpose_Click(object sender, RoutedEventArgs e)
         {
-            string warning = "Please exercise caution when editing this question. Do you wish to continue?";
+            addOrEdit = 2;
+
+            //Item selectedItem = (Item)lstPreMadeQuestions.SelectedItem;
             selectedItem = (Item)gvAvailableQuestions.SelectedItem;
+            string warning = "Please exercise caution when editing this question. This question may " +
+                "have been used in events and may have saved results.  Thus, changing the question and " +
+                "datatypes may cause the program to become unstable and make previously collected data useless. " +
+                "Do you wish to continue?";
 
             if (selectedItem != null)
             {
+                tbkEnterQuestion.Visibility = Visibility.Visible;
+                txtNewSurveyQuestion.Visibility = Visibility.Visible;
+                tbkDataType.Visibility = Visibility.Visible;
+                cboDataType.Visibility = Visibility.Visible;
+                //rpSaveAndCancel.Visibility = Visibility.Visible;
                 var result = await Jeeves.ConfirmDialog("Warning", warning);
 
-                if (result == ContentDialogResult.Secondary)
+                if (result == ContentDialogResult.Secondary && btnEditQuestion.Content.ToString() == "Edit Question")
                 {
-                    addOrEdit = 2;
                     BeginUpdate(selectedItem);
-                    ScreenLockDown();
+                }
+                else if (result == ContentDialogResult.Secondary)
+                {
+                    SaveQuestion(selectedItem);
                 }
             }
         }
@@ -70,21 +96,64 @@ namespace CAA_Event_Management.Views.EventViews
         {
             if (addOrEdit == 1)
             {
-                SaveCreate();
+
+                item = new Item();
+                this.DataContext = item;
+
+                try
+                {
+                    if (cboDataType.SelectedItem == null)
+                    {
+                        Jeeves.ShowMessage("Error", "Please select a data type");
+                        return;
+                    }
+                    else if (txtNewSurveyQuestion.Text != "")
+                    {
+                        DataType selectedDataType = (DataType)cboDataType.SelectedItem;
+
+                        item.ItemID = Guid.NewGuid().ToString();
+                        item.ItemName = (string)txtNewSurveyQuestion.Text;
+                        item.ValueType = selectedDataType.DisplayText;
+                        itemRespository.AddItem(item);
+                        ClearFields();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
+                }
+                addOrEdit = 0;
+                tbkEnterQuestion.Visibility = Visibility.Collapsed;
+                txtNewSurveyQuestion.Visibility = Visibility.Collapsed;
+                tbkDataType.Visibility = Visibility.Collapsed;
+                cboDataType.Visibility = Visibility.Collapsed;
+                //rpSaveAndCancel.Visibility = Visibility.Collapsed;
+                ScreenUnlock();
+                ClearFields();
+                FillFields();
             }
-            else if (addOrEdit == 2)
+            else
             {
-                SaveUpdate(selectedItem);
+                tbkEnterQuestion.Visibility = Visibility.Collapsed;
+                txtNewSurveyQuestion.Visibility = Visibility.Collapsed ;
+                tbkDataType.Visibility = Visibility.Collapsed;
+                cboDataType.Visibility = Visibility.Collapsed;
+                //rpSaveAndCancel.Visibility = Visibility.Collapsed; ;
+                SaveQuestion(selectedItem);
                 selectedItem = null;
+                addOrEdit = 0;
             }
-            else Jeeves.ShowMessage("Error", "There was a problem saving the question; please try again");
-            ScreenUnlock();
-            ClearFields();
-            FillFields();
+
         }
 
         private void btnCancelSave_Click(object sender, RoutedEventArgs e)
         {
+            tbkEnterQuestion.Visibility = Visibility.Collapsed;
+            txtNewSurveyQuestion.Visibility = Visibility.Collapsed;
+            tbkDataType.Visibility = Visibility.Collapsed;
+            cboDataType.Visibility = Visibility.Collapsed;
+            //rpSaveAndCancel.Visibility = Visibility.Collapsed;
             selectedItem = null;
             ScreenUnlock();
             ClearFields();
@@ -95,32 +164,27 @@ namespace CAA_Event_Management.Views.EventViews
             if (btnDelete.Content.ToString() == "Delete Mode (OFF)")
             {
                 btnDelete.Content = "Delete Mode (ON)";
-                gvAvailableQuestions.Visibility = Visibility.Collapsed;
-                gvAvailableQuestionsDeleteMode.Visibility = Visibility.Visible;
+                rpSurvey.Visibility = Visibility.Collapsed;
+                rpSurveyDeleteMode.Visibility = Visibility.Visible;
                 FillFields();
             }
             else
             {
                 btnDelete.Content = "Delete Mode (OFF)";
-                gvAvailableQuestions.Visibility = Visibility.Visible;
-                gvAvailableQuestionsDeleteMode.Visibility = Visibility.Collapsed;
+                rpSurvey.Visibility = Visibility.Visible;
+                rpSurveyDeleteMode.Visibility = Visibility.Collapsed;
                 FillFields();
             }
         }
+    
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            int selected = Convert.ToInt32(((Button)sender).DataContext);
-            try
-            {
-                Item thisSelectedItem = itemRespository.GetItem(selected.ToString());
-                itemRespository.DeleteItem(thisSelectedItem);
-            }
-            catch
-            {
-                Jeeves.ShowMessage("Error", "The was an error in deleting this question");
-            }
-            Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
+            string selected = Convert.ToString(((Button)sender).DataContext);
+            //Item thisSelectedEvent = new Item();
+            Item thisSelectedItem = itemRespository.GetItem(selected.ToString());
+            itemRespository.DeleteItem(thisSelectedItem);
+            Frame.Navigate(typeof(Surveys), null, new SuppressNavigationTransitionInfo());
         }
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
@@ -130,13 +194,14 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - FillFields, FillDataTypeComboBox, SearchField
+        #region Helper Methods - FillFields, FillDataTypeComboBox, SearchField, BeginUpdate, SaveQuestion, ClearFields
 
         private void FillFields()
         {
             try
             {
                 List<Item> items = itemRespository.GetItems();
+                //lstPreMadeQuestions.ItemsSource = items;
                 gvAvailableQuestions.ItemsSource = items;
                 gvAvailableQuestionsDeleteMode.ItemsSource = items;
             }
@@ -197,85 +262,55 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
-        #endregion
-
-        #region Helper Methods - Creating, Updating, Clearing Screen, Locking/Unlocking Screen
-
-        private void SaveCreate()
-        {
-            item = new Item();
-            this.DataContext = item;
-
-            try
-            {
-                if (cboDataType.SelectedItem == null)
-                {
-                    Jeeves.ShowMessage("Error", "Please select a data type");
-                    return;
-                }
-                else if (txtNewSurveyQuestionText.Text != "")
-                {
-                    DataType selectedDataType = (DataType)cboDataType.SelectedItem;
-
-                    item.ItemID = Guid.NewGuid().ToString();
-                    item.ItemName = (string)txtNewSurveyQuestionText.Text;
-                    item.ValueType = selectedDataType.DisplayText;
-                    itemRespository.AddItem(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
-            }
-        }
-
         private void BeginUpdate(Item selectedItem)
         {
             DataType selectedDataType = dataList
                 .Where(c => c.DisplayText == selectedItem.ValueType)
                 .FirstOrDefault();
             cboDataType.SelectedItem = selectedDataType;
-            txtNewSurveyQuestionText.Text = selectedItem.ItemName;
+            txtNewSurveyQuestion.Text = selectedItem.ItemName;
+            ScreenLockDown();
         }
 
-        private void SaveUpdate(Item selectedItem)
+        private void SaveQuestion(Item selectedItem)
         {
             try
             {
-                selectedItem.ItemName = txtNewSurveyQuestionText.Text;
+                selectedItem.ItemName = txtNewSurveyQuestion.Text;
                 DataType selectedDataType = (DataType)cboDataType.SelectedItem;
 
                 selectedItem.ValueType = selectedDataType.DisplayText;
                 itemRespository.UpdateItem(selectedItem);
+
+                ScreenUnlock();
+                ClearFields();
             }
             catch
             {
                 Jeeves.ShowMessage("Error", "Unable to save the question");
             }
+            FillFields();
         }
 
         private void ClearFields()
         {
-            txtNewSurveyQuestionText.Text = "";
+            txtNewSurveyQuestion.Text = "";
             txtSearchBox.Text = "";
             cboDataType.SelectedItem = null;
         }
 
         private void ScreenLockDown()
         {
-            panelManageQuestions.Visibility = Visibility.Visible;
             btnEditQuestion.IsEnabled = false;
             btnAddSurveyQuestion.IsEnabled = false;
-            //btnDelete.IsEnabled = false;
+            btnDelete.IsEnabled = false;
             gvAvailableQuestions.IsEnabled = false;
         }
 
         private void ScreenUnlock()
         {
-            addOrEdit = 0;
-            panelManageQuestions.Visibility = Visibility.Collapsed;
             btnAddSurveyQuestion.IsEnabled = true;
-            //btnDelete.IsEnabled = true;
+            btnDelete.IsEnabled = true;
             btnEditQuestion.IsEnabled = true;
             gvAvailableQuestions.IsEnabled = true;
         }
@@ -283,4 +318,10 @@ namespace CAA_Event_Management.Views.EventViews
         #endregion
     }
 
+    internal class DataType
+    {
+        internal int ID { get; set; }
+        public string DisplayText { get; set; }
+        internal string Type { get; set; }
+    }
 }

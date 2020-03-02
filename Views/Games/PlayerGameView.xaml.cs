@@ -86,7 +86,7 @@ namespace CAA_Event_Management.Views.Games
             var result = await Jeeves.ConfirmDialog("Stop Game", "Do you wish to stop the game?");
             if (result == ContentDialogResult.Secondary)
             {
-                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)thisEvent);
+                Frame.Navigate(typeof(EventAttendenceTracking), (Models.Event)thisEvent);
             }
         }
 
@@ -126,7 +126,7 @@ namespace CAA_Event_Management.Views.Games
             }
             else
             {
-                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)thisEvent);
+                Frame.Navigate(typeof(EventAttendenceTracking), (Models.Event)thisEvent);
             }
         }
 

@@ -24,7 +24,7 @@ using CAA_Event_Management.ViewModels;
 *  Edited By:  
 *******************************/
 
-namespace CAA_Event_Management.Views.Events
+namespace CAA_Event_Management.Views.EventViews
 {
     public sealed partial class EventDetails : Page
     {
@@ -56,7 +56,7 @@ namespace CAA_Event_Management.Views.Events
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            view = (Models.Event)e.Parameter;
+            view = (Event)e.Parameter;
             this.DataContext = view;
 
             if (view.EventID == "0")

@@ -16,6 +16,7 @@ using CAA_Event_Management.Data;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Views;
 using Windows.UI.Xaml.Media.Animation;
+using CAA_Event_Management.Views.EventViews;
 /******************************
 *  Model Created By: Jon Yade
 *  Edited by: Nathan Smith
@@ -88,7 +89,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void NewEvent_Click(object sender, RoutedEventArgs e)
         {
-            Event newEvent = new Event();
+            Models.Event newEvent = new Models.Event();
             Frame.Navigate(typeof(EventDetails), newEvent);
         }
 
@@ -113,7 +114,7 @@ namespace CAA_Event_Management.Views.EventViews
             if (gdvEvents.SelectedItem != null)
             {
                 var selectedEvent = gdvEvents.SelectedItem;
-                Frame.Navigate(typeof(EventDetails), (Event)selectedEvent);
+                Frame.Navigate(typeof(EventDetails), (Models.Event)selectedEvent);
             }
 
         }

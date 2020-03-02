@@ -1,6 +1,7 @@
 ﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.ViewModels;
+using CAA_Event_Management.Views.EventViews;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ using Windows.UI.Xaml.Media.Animation;
 * ******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-namespace CAA_Event_Management.Views.EventViews
+namespace CAA_Event_Management
 {
     /// <summary>
     /// Frame for Items

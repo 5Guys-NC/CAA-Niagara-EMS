@@ -1,6 +1,7 @@
 ﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Models;
-using CAA_Event_Management.Views.EventViews;
+using CAA_Event_Management.Views.Event;
+using CAA_Event_Management.Views.Events;
 using CAA_Event_Management.Views.Games;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

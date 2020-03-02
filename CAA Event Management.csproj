@@ -166,24 +166,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\SurveyQuestion.cs" />
     <Compile Include="ViewModels\UserParams.cs" />
-    <Compile Include="Views\EventViews\CAAEvents.xaml.cs">
-      <DependentUpon>CAAEvents.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EventViews\CreateSurveyQuestion.xaml.cs">
-      <DependentUpon>CreateSurveyQuestion.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EventViews\EventAttendanceTracking.xaml.cs">
-      <DependentUpon>EventAttendanceTracking.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EventViews\EventAttendenceTracking.xaml.cs">
-      <DependentUpon>EventAttendenceTracking.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EventViews\EventDetails.xaml.cs">
-      <DependentUpon>EventDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EventViews\EventItemView.xaml.cs">
-      <DependentUpon>EventItemView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EventViews\EventStartView.xaml.cs">
       <DependentUpon>EventStartView.xaml</DependentUpon>
     </Compile>
@@ -202,6 +184,21 @@
     <Compile Include="Utilities\Jeeves.cs" />
     <Compile Include="Utilities\MemberNumberCheck.cs" />
     <Compile Include="Utilities\prepDatabase.cs" />
+    <Compile Include="Views\EventViews\CAAEvents.xaml.cs">
+      <DependentUpon>CAAEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventViews\EventAttendenceTracking.xaml.cs">
+      <DependentUpon>EventAttendenceTracking.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventViews\EventDetails.xaml.cs">
+      <DependentUpon>EventDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventViews\EventItemView.xaml.cs">
+      <DependentUpon>EventItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventViews\ItemsView.xaml.cs">
+      <DependentUpon>ItemsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Games\GameDetails.xaml.cs">
       <DependentUpon>GameDetails.xaml</DependentUpon>
     </Compile>
@@ -243,7 +240,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\EventViews\CAAEvents.xaml">
+    <Page Include="Views\EventViews\EventStartView.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -259,31 +257,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\EventViews\EventDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\EventViews\CAAEvents.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EventViews\EventItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\EventViews\EventStartView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\EventViews\EventAttendenceTracking.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EventViews\Surveys.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Games\PlayerGameView.xaml">
+    <Page Include="Views\EventViews\EventDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Login\UserDetails.xaml">
+    <Page Include="Views\EventViews\EventItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Login\UsersSummary.xaml">
+    <Page Include="Views\EventViews\ItemsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

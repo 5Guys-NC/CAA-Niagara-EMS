@@ -1,32 +1,23 @@
 ﻿using System;
-/*******************************
- * Created By: Jon Yade
- * ****************************/
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CAA_Event_Management.Utilities
 {
-    /// <summary>
-    /// Utility to check Member Number using Luhn Algorithm
-    /// </summary>
     internal class MemberNumberCheck
     {
-        /// <summary>
-        /// Function to check Member Number
-        /// </summary>
-        /// <param name="memberNumber"></param>
-        /// <returns>Boolean</returns>
         internal bool CheckMemberNumber(string memberNumber)
         {
             double[] number = new double[16];
 
-            //try to convert number to double
             try
             {
                 double numberCheck1 = Convert.ToDouble(memberNumber);
             }
             catch
             {
-                //failed check
                 return false;
             }
 
@@ -40,7 +31,7 @@ namespace CAA_Event_Management.Utilities
             double runningTotal = 0;
             for (int i = 1; i < 16; i++)
             {
-                if (i%2 != 0)
+                if (i % 2 != 0)
                 {
                     double doubleNumber = number[i] * 2;
                     if (doubleNumber > 9) doubleNumber -= 9;

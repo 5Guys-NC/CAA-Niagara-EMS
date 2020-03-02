@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using CAA_Event_Management.Utilities;
+using CAA_Event_Management.Views.Events;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
 
@@ -85,7 +86,7 @@ namespace CAA_Event_Management.Views.Games
             var result = await Jeeves.ConfirmDialog("Stop Game", "Do you wish to stop the game?");
             if (result == ContentDialogResult.Secondary)
             {
-                Frame.Navigate(typeof(EventAttendenceTracking), (Models.Event)thisEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)thisEvent);
             }
         }
 
@@ -125,7 +126,7 @@ namespace CAA_Event_Management.Views.Games
             }
             else
             {
-                Frame.Navigate(typeof(EventAttendenceTracking), (Models.Event)thisEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)thisEvent);
             }
         }
 

@@ -1,19 +1,28 @@
-using CAA_Event_Management.Data;
-using CAA_Event_Management.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using CAA_Event_Management.Data;
+using CAA_Event_Management.Models;
+using CAA_Event_Management.Views;
 using Windows.UI.Xaml.Media.Animation;
 /******************************
-*  Created By: Jon Yade
+*  Model Created By: Jon Yade
 *  Edited by: Nathan Smith
 *******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-namespace CAA_Event_Management
+namespace CAA_Event_Management.Views.Events
 {
     /// <summary>
     /// Frame for Events
@@ -33,7 +42,7 @@ namespace CAA_Event_Management
 
         private void FillDropDown(int check)
         {
-            DateTime now = DateTime.Today.AddDays(-1);
+            DateTime now = DateTime.Today.AddDays(1);
 
             try
             {
@@ -85,12 +94,16 @@ namespace CAA_Event_Management
 
         private void btnCurrentEvents_Click(object sender, RoutedEventArgs e)
         {
+            Canvas.SetZIndex(btnCurrentEvents, 2);
+            Canvas.SetZIndex(btnPastEvents, -1);
             CurrentOrPast = 1;
             FillDropDown(1);
         }
 
         private void btnPastEvents_Click(object sender, RoutedEventArgs e)
         {
+            Canvas.SetZIndex(btnPastEvents, 2);
+            Canvas.SetZIndex(btnCurrentEvents, -1);
             CurrentOrPast = 2;
             FillDropDown(2);
         }
@@ -126,7 +139,7 @@ namespace CAA_Event_Management
             if (gdvEvents.SelectedItem != null)
             {
                 Event selectedEvent = (Event)gdvEvents.SelectedItem;
-                Frame.Navigate(typeof(EventAttendenceTracking), (Event)selectedEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Event)selectedEvent);
             }
             else
             {
@@ -151,14 +164,14 @@ namespace CAA_Event_Management
             //Frame.Navigate(typeof(ItemsView));
         }
 
-        private void btnRegisterAttendee_Tapped(object sender, TappedRoutedEventArgs e)
+        private void btnBeginEvent_Tapped(object sender, TappedRoutedEventArgs e)
         {
             return;
         }
 
         private void btnItems_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(ItemsView));
+            Frame.Navigate(typeof(Surveys));
         }
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
@@ -208,8 +221,6 @@ namespace CAA_Event_Management
                 }
             }
         }
-
-
         #endregion
     }
 }

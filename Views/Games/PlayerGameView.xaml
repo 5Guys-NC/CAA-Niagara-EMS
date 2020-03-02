@@ -11,26 +11,30 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-
-        <RelativePanel Grid.Row="0">
-            <Button x:Name="btnCancel"
-                    RelativePanel.AlignLeftWithPanel="True"
-                    Content="Cancel"
-                    Click="btnCancel_Click"
-                    FontSize="40"/>
-            <TextBlock x:Name="tbkEventName"
-                       RelativePanel.AlignHorizontalCenterWithPanel="True"
+        <Image Name="imgCAALogo" 
+               Source="/Assets/CAA Logo.png"
+               Height="300"
+               HorizontalAlignment="Left"
+               Width="300"/>
+        <TextBlock x:Name="tbkEventName"
+                       HorizontalAlignment="Center"
                        FontSize="30"/>
-            <Button x:Name="btnNextQuestion"
+        <Button x:Name="btnClose"
+                    Background="Transparent"
                     RelativePanel.AlignRightWithPanel="True"
-                    Content="Next"
+                    Content="X"
+                    Foreground="Red"
+                    Width="50"
+                    Height="50"
+                    HorizontalAlignment="Right"
                     Click="btnNextQuestion_Click"
-                    FontSize="40"/>
-        </RelativePanel>
+                    FontSize="30"
+                    VerticalAlignment="Top"/>
+
         <TextBlock x:Name="tbkcurrentQuestion"
                    Grid.Row="1"
                    FontWeight="ExtraBlack"
@@ -38,7 +42,7 @@
                    TextWrapping="Wrap"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"/>
-        
+
         <GridView x:Name="gvDisplayAnswers"
                   Grid.Row="2"
                   HorizontalAlignment="Center"

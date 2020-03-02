@@ -1,22 +1,30 @@
-﻿using CAA_Event_Management.Data;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.ViewModels;
+﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using CAA_Event_Management.Data;
+using CAA_Event_Management.Models;
+using CAA_Event_Management.Utilities;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.Graphics.Display;
+using System.ComponentModel.DataAnnotations;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 /******************************
-*  Created By: Jon Yade
-*  Edited By:  Brian Culp
+*  Model Created By: Jon Yade
+*  Edited By:  
 *******************************/
 
-namespace CAA_Event_Management
+namespace CAA_Event_Management.Views.Events
 {
-    /// <summary>
-    /// The code behind for the EventDetails Frame
-    /// </summary>
     public sealed partial class EventDetails : Page
     {
         #region Startup - variables, respositories, methods
@@ -66,9 +74,7 @@ namespace CAA_Event_Management
             //General Fill Methods
             FillGameField();
             FillSurveySelectionLists();
-            CheckForSelectedQuiz();
         }
-
         #endregion
 
         #region Buttons - Event - Save, Delete, Cancel, and MemberCheckBox Methods
@@ -77,7 +83,28 @@ namespace CAA_Event_Management
         {
             try
             {
-                ConstructEventNames();
+                string[] eventNameArray = eventNameTextBox.Text.Trim().Split(' ');
+
+                string tempEventNameString = "";
+                for (int x = 0; x < eventNameArray.Length; x++)
+                {
+                    if (eventNameArray[x] != "")
+                    {
+                        tempEventNameString += eventNameArray[x].Substring(0, 1).ToUpper() + eventNameArray[x].Substring(1).ToLower() + " ";
+                    }
+                }
+                tempEventNameString = tempEventNameString.Trim();
+                view.DisplayName = tempEventNameString;
+
+                string[] eventDisplayNameArray = tempEventNameString.Split(' ');
+                view.EventName = string.Join("", eventDisplayNameArray);
+                //view.EventName = view.EventName + DateTime.Today.Year.ToString();
+
+                string eventAbbreviateName = "";
+                foreach (string x in eventDisplayNameArray) eventAbbreviateName += x.Substring(0, 1).ToUpper();
+                //eventAbbreviateName += view.EventStart.ToString().Substring(0, 10);
+                view.AbrevEventname = eventAbbreviateName;
+
                 CheckForDatesOnNames();
 
                 if (membersOnlyCheck.IsChecked == true)
@@ -121,7 +148,7 @@ namespace CAA_Event_Management
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)   //This should be removed later as it will serve no prupose
         {
-            if (view.EventID != "0") eventRepository.DeleteEvent(view);
+            eventRepository.DeleteEvent(view);
             Frame.GoBack();
         }
 
@@ -135,13 +162,6 @@ namespace CAA_Event_Management
             view.MembersOnly = false;
         }
 
-        private void ltbAvailableQuiz_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var choosenGame = (Game)ltbAvailableQuiz.SelectedItem;
-            view.QuizID = choosenGame.ID;
-            CheckForSelectedQuiz();
-        }
-
         #endregion
 
         #region Buttons - Survey Questions - Add, Remove
@@ -150,9 +170,9 @@ namespace CAA_Event_Management
         {
             try
             {
-                if (ltbAvailableSurevyItems != null && questionCount < 5)
+                if (lstAvailableSurveyQuestions != null && questionCount < 5)
                 {
-                    EventItemDetails selectedItem = (EventItemDetails)ltbAvailableSurevyItems.SelectedItem;
+                    EventItemDetails selectedItem = (EventItemDetails)lstAvailableSurveyQuestions.SelectedItem;
                     EventItemDetails changeItem = listOfEventItemsDetails
                         .Where(d => d.EIDItemID == selectedItem.EIDItemID)
                         .FirstOrDefault();
@@ -175,9 +195,9 @@ namespace CAA_Event_Management
         {
             try
             {
-                if (ltbAvailableSurevyItems != null)
+                if (lstAvailableSurveyQuestions != null)
                 {
-                    EventItemDetails selectedItem = (EventItemDetails)ltbSelectedSurveyItems.SelectedItem;
+                    EventItemDetails selectedItem = (EventItemDetails)lstSelectedSurveyQuestions.SelectedItem;
                     EventItemDetails changeItem = listOfEventItemsDetails
                         .Where(d => d.EIDItemID == selectedItem.EIDItemID)
                         .FirstOrDefault();
@@ -221,23 +241,6 @@ namespace CAA_Event_Management
             }
         }
 
-        private void CheckForSelectedQuiz()
-        {
-            if (view.QuizID == null) tbkChosenQuiz.Text = "Selected Quiz: None";
-            else
-            {
-                try
-                {
-                    var quiz = gameRepository.GetAGame((int)view.QuizID);
-                    tbkChosenQuiz.Text = "Selected Quiz: " + quiz.Title;
-                }
-                catch
-                {
-                    Jeeves.ShowMessage("Error", "The quiz failed to load");
-                }
-            }
-        }
-
         private void InitialDeterminationOfEventItemAssignment()
         {
             try
@@ -274,8 +277,8 @@ namespace CAA_Event_Management
                 .Where(d => d.EIDItemAssigned == false)
                 .ToList();
 
-            ltbSelectedSurveyItems.ItemsSource = selectedItems;
-            ltbAvailableSurevyItems.ItemsSource = availableItems;
+            lstSelectedSurveyQuestions.ItemsSource = selectedItems;
+            lstAvailableSurveyQuestions.ItemsSource = availableItems;
         }
 
         private void FillGameField()
@@ -283,7 +286,7 @@ namespace CAA_Event_Management
             try
             {
                 List<Game> games = gameRepository.GetGames();
-                ltbAvailableQuiz.ItemsSource = games;
+                lstAvailableQuizzes.ItemsSource = games;
             }
             catch
             {
@@ -293,7 +296,7 @@ namespace CAA_Event_Management
 
         #endregion
 
-        #region Helper Methods - SaveEventItems, TextSearchBox, ConstructEventNames, CheckForDatesOnNames
+        #region Helper Methods - SaveEventItems, TextSearchBox, CheckForDatesOnNames
 
         private void SaveEventItemsToThisEvent()
         {
@@ -380,36 +383,13 @@ namespace CAA_Event_Management
                             searchResultEventItemDetails.Add(x);
                         }
                     }
-                    ltbAvailableSurevyItems.ItemsSource = searchResultEventItemDetails;
+                    lstAvailableSurveyQuestions.ItemsSource = searchResultEventItemDetails;
                 }
                 catch (Exception)
                 {
                     Jeeves.ShowMessage("Error", "There was an error in retreving the questions");
                 }
             }
-        }
-        
-        private void ConstructEventNames()
-        {
-            string[] eventNameArray = eventNameTextBox.Text.Trim().Split(' ');
-
-            string tempEventNameString = "";
-            for (int x = 0; x < eventNameArray.Length; x++)
-            {
-                if (eventNameArray[x] != "")
-                {
-                    tempEventNameString += eventNameArray[x].Substring(0, 1).ToUpper() + eventNameArray[x].Substring(1).ToLower() + " ";
-                }
-            }
-            tempEventNameString = tempEventNameString.Trim();
-            view.DisplayName = tempEventNameString;
-
-            string[] eventDisplayNameArray = tempEventNameString.Split(' ');
-            view.EventName = string.Join("", eventDisplayNameArray);
-
-            string eventAbbreviateName = "";
-            foreach (string x in eventDisplayNameArray) eventAbbreviateName += x.Substring(0, 1).ToUpper();
-            view.AbrevEventname = eventAbbreviateName;
         }
 
         private void CheckForDatesOnNames()
@@ -419,7 +399,6 @@ namespace CAA_Event_Management
 
             if (eventDate != viewEnd)
             {
-                view.DisplayName = view.DisplayName + " " + eventDate;
                 view.EventName = view.EventName + eventDate;
                 view.AbrevEventname = view.AbrevEventname + eventDate;
             }
@@ -427,6 +406,5 @@ namespace CAA_Event_Management
 
         #endregion
 
-        
     }
 }

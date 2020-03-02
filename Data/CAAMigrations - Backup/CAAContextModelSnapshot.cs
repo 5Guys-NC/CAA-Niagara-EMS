@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using CAA_Event_Management.Data;
-
-namespace CAA_Event_Management.Migrations
+/*************
+ * AUTO GENERATED DATABASE MODEL SNAPHSOT
+ * **********/
+namespace CAA_Event_Management.Data.CAAMigrations
 {
     [DbContext(typeof(CAAContext))]
     partial class CAAContextModelSnapshot : ModelSnapshot
@@ -65,12 +67,11 @@ namespace CAA_Event_Management.Migrations
             modelBuilder.Entity("CAA_Event_Management.Models.AttendanceTracking", b =>
                 {
                     b.Property<string>("MemberAttendanceID")
-                        .HasMaxLength(36);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("ArrivalTime");
 
-                    b.Property<string>("EventID")
-                        .IsRequired();
+                    b.Property<string>("EventID");
 
                     b.Property<bool>("ExternalData");
 
@@ -98,7 +99,7 @@ namespace CAA_Event_Management.Migrations
             modelBuilder.Entity("CAA_Event_Management.Models.Event", b =>
                 {
                     b.Property<string>("EventID")
-                        .HasMaxLength(36);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("AbrevEventname")
                         .HasMaxLength(20);
@@ -141,37 +142,14 @@ namespace CAA_Event_Management.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("CAA_Event_Management.Models.EventGameUserAnswer", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasMaxLength(36);
-
-                    b.Property<string>("EventID")
-                        .IsRequired();
-
-                    b.Property<int>("QuestionID");
-
-                    b.Property<bool>("answerWasCorrect");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("EventID");
-
-                    b.HasIndex("QuestionID");
-
-                    b.ToTable("EventGameUserAnswers");
-                });
-
             modelBuilder.Entity("CAA_Event_Management.Models.EventItem", b =>
                 {
                     b.Property<string>("EventItemID")
-                        .HasMaxLength(36);
+                        .ValueGeneratedOnAdd();
 
-                    b.Property<string>("EventID")
-                        .IsRequired();
+                    b.Property<string>("EventID");
 
-                    b.Property<string>("ItemID")
-                        .IsRequired();
+                    b.Property<string>("ItemID");
 
                     b.HasKey("EventItemID");
 
@@ -209,11 +187,7 @@ namespace CAA_Event_Management.Migrations
             modelBuilder.Entity("CAA_Event_Management.Models.Item", b =>
                 {
                     b.Property<string>("ItemID")
-                        .HasMaxLength(36);
-
-                    b.Property<bool>("IsDeleted");
-
-                    b.Property<int>("ItemCount");
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ItemName")
                         .IsRequired()
@@ -227,6 +201,34 @@ namespace CAA_Event_Management.Migrations
 
                     b.ToTable("Items");
                 });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.Users", b =>
+            {
+                b.Property<int>("ID")
+                    .ValueGeneratedOnAdd();
+
+                b.Property<string>("FirstName")
+                    .HasMaxLength(25);
+
+                b.Property<string>("LastName")
+                    .HasMaxLength(25);
+
+                b.Property<string>("UserName")
+                    .IsRequired();
+
+                b.Property<string>("Password")
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                b.Property<bool>("isAdmin");
+
+                b.HasKey("ID");
+
+                b.HasIndex("UserName")
+                .IsUnique();
+
+                b.ToTable("Users");
+            });
 
             modelBuilder.Entity("CAA_Event_Management.Models.Question", b =>
                 {
@@ -260,39 +262,12 @@ namespace CAA_Event_Management.Migrations
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("CAA_Event_Management.Models.Users", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(25);
-
-                    b.Property<string>("LastName")
-                        .HasMaxLength(25);
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<string>("UserName")
-                        .IsRequired();
-
-                    b.Property<bool>("isAdmin");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("UserName")
-                        .IsUnique();
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("CAA_Event_Management.Models.Answer", b =>
                 {
                     b.HasOne("CAA_Event_Management.Models.Question", "Question")
                         .WithMany("Answers")
-                        .HasForeignKey("QuestionID");
+                        .HasForeignKey("QuestionID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CAA_Event_Management.Models.AttendanceItem", b =>
@@ -320,19 +295,6 @@ namespace CAA_Event_Management.Migrations
                     b.HasOne("CAA_Event_Management.Models.Game", "Quiz")
                         .WithOne("Event")
                         .HasForeignKey("CAA_Event_Management.Models.Event", "QuizID");
-                });
-
-            modelBuilder.Entity("CAA_Event_Management.Models.EventGameUserAnswer", b =>
-                {
-                    b.HasOne("CAA_Event_Management.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("CAA_Event_Management.Models.Question", "Question")
-                        .WithMany()
-                        .HasForeignKey("QuestionID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CAA_Event_Management.Models.EventItem", b =>

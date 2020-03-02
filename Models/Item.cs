@@ -47,6 +47,12 @@ namespace CAA_Event_Management.Models
         [StringLength(25, ErrorMessage = "valueType cannot be more then 25 characters")]
         public string ValueType { get; set; }
 
+
+        public int ItemCount { get; set; } = 0;
+
+        [Display(Name = "isDeleted?")]
+        public bool IsDeleted { get; set; } = false;
+
         #endregion
 
         #region Table Connections

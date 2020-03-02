@@ -8,9 +8,10 @@ using CAA_Event_Management.Data;
 namespace CAA_Event_Management.Migrations
 {
     [DbContext(typeof(CAAContext))]
-    partial class CAAContextModelSnapshot : ModelSnapshot
+    [Migration("20200302005157_CAA-Migration")]
+    partial class CAAMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.6");

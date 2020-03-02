@@ -119,17 +119,19 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\DateTimeToOffsetConverter.cs" />
-    <Compile Include="Data\CAAMigrations\20200209173328_init.cs" />
-    <Compile Include="Data\CAAMigrations\20200209173328_init.designer.cs">
-      <DependentUpon>20200209173328_init.cs</DependentUpon>
+    <Compile Include="Data\CAAMigrations\20200302005157_CAA-Migration.cs" />
+    <Compile Include="Data\CAAMigrations\20200302005157_CAA-Migration.designer.cs">
+      <DependentUpon>20200302005157_CAA-Migration.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\CAAMigrations\CAAContextModelSnapshot.cs" />
+    <Compile Include="Data\Interface Repos\IEventGameUserAnswerRepository.cs" />
     <Compile Include="Data\Interface Repos\IUsersRepository.cs" />
     <Compile Include="Data\Repos\AnswerRepository.cs" />
     <Compile Include="Data\Repos\AttendanceItemRepository.cs" />
     <Compile Include="Data\Repos\AttendanceTrackingRepository.cs" />
     <Compile Include="Data\CAAContext.cs" />
     <Compile Include="Data\EventItemDetails.cs" />
+    <Compile Include="Data\Repos\EventGameUserAnswerRepository.cs" />
     <Compile Include="Data\Repos\EventItemRepository.cs" />
     <Compile Include="Data\Repos\EventRepository.cs" />
     <Compile Include="Data\Repos\GameRepository.cs" />
@@ -152,6 +154,7 @@
     <Compile Include="Models\AttendanceTracking.cs" />
     <Compile Include="Models\Auditable.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventGameUserAnswer.cs" />
     <Compile Include="Models\EventItem.cs" />
     <Compile Include="Models\IAuditable.cs" />
     <Compile Include="Models\Pictures.cs" />

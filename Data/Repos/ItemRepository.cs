@@ -38,7 +38,8 @@ namespace CAA_Event_Management.Data
         }
         #endregion
 
-        #region Add
+        #region CRUD operations
+
         public void AddItem(Item itemToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -47,9 +48,7 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Update
         public void UpdateItem(Item itemToUpdate)
         {
             using (CAAContext context = new CAAContext())
@@ -58,9 +57,7 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Delete
         public void DeleteItem(Item itemToDelete)
         {
             using (CAAContext context = new CAAContext())

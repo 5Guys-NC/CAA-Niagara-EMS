@@ -1,6 +1,6 @@
 ﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Models;
-using CAA_Event_Management.Views.Event;
+using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Views.Games;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -87,7 +87,7 @@ namespace CAA_Event_Management
 
                         //For Surveys Button
                         case "Surveys":
-                            MyFrame.Navigate(typeof(ItemsView));
+                            MyFrame.Navigate(typeof(Surveys));
                             break;
 
                         //For Sign Out Button

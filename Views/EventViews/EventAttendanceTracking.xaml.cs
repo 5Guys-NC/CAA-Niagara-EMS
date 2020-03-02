@@ -17,12 +17,13 @@ using CAA_Event_Management.Data;
 using CAA_Event_Management.Utilities;
 using CAA_Event_Management.Views.Games;
 using System.Threading.Tasks;
+using CAA_Event_Management.ViewModels;
 /***********************************
- * Created By: Jon Yade
- * Edited By: Brian Culp, Jon Yade
- * ********************************/
+* Created By: Jon Yade
+* Edited By: Brian Culp, Jon Yade
+* ********************************/
 
-namespace CAA_Event_Management.Views.Events
+namespace CAA_Event_Management.Views.EventViews
 {
     public sealed partial class EventAttendanceTracking : Page
     {

@@ -1,4 +1,5 @@
 ﻿using CAA_Event_Management.Models;
+using CAA_Event_Management.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,7 @@ using CAA_Event_Management.Data;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace CAA_Event_Management.Views.Events
+namespace CAA_Event_Management.Views.EventViews
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -182,12 +183,6 @@ namespace CAA_Event_Management.Views.Events
         #endregion
     }
 
-    internal class DataType
-    {
-        internal int ID { get; set; }
-        public string DisplayText { get; set; }
-        internal string Type { get; set; }
-    }
 }
 
 

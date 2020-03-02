@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Media.Animation;
 * ******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-namespace CAA_Event_Management.Views.Events
+namespace CAA_Event_Management.Views.EventViews
 {
     /// <summary>
     /// Frame for Items

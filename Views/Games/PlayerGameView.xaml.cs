@@ -15,9 +15,9 @@ using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using CAA_Event_Management.Utilities;
-using CAA_Event_Management.Views.Events;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using CAA_Event_Management.Views.EventViews;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -86,7 +86,7 @@ namespace CAA_Event_Management.Views.Games
             var result = await Jeeves.ConfirmDialog("Stop Game", "Do you wish to stop the game?");
             if (result == ContentDialogResult.Secondary)
             {
-                Frame.Navigate(typeof(EventAttendenceTracking), (Models.Event)thisEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)thisEvent);
             }
         }
 

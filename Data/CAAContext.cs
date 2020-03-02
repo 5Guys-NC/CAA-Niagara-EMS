@@ -21,6 +21,7 @@ namespace CAA_Event_Management.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<AttendanceTracking> AttendanceTrackings { get; set; }
         public DbSet<AttendanceItem> AttendanceItems { get; set; }
+        public DbSet<EventGameUserAnswer> EventGameUserAnswers { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }

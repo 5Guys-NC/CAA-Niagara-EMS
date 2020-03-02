@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using CAA_Event_Management.Utilities;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,6 +35,7 @@ namespace CAA_Event_Management.Views.Games
         int questionTotalCount = 0;
         int currentQuestionCount = 0;
 
+        IEventGameUserAnswerRepository eventGameUserAnswerRepository;
         IEventRepository eventRepository;
         IGameRepository gameRepository;
         IQuestionRepository questionRepository;
@@ -45,6 +48,7 @@ namespace CAA_Event_Management.Views.Games
             gameRepository = new GameRepository();
             questionRepository = new QuestionRepository();
             answerRepository = new AnswerRepository();
+            eventGameUserAnswerRepository = new EventGameUserAnswerRepository();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -70,6 +74,7 @@ namespace CAA_Event_Management.Views.Games
                 }
                 else Jeeves.ShowMessage("Incorrect", "Your answer was wrong");
 
+                SaveQuestionAnswer((bool)choosenAnswer.IsCorrect);
                 NextQuestion();
             }
 
@@ -134,6 +139,23 @@ namespace CAA_Event_Management.Views.Games
             catch
             {
                 Jeeves.ShowMessage("Error", "There was a problem retrieving the answers");
+            }
+        }
+
+        private void SaveQuestionAnswer(bool isCorrect)
+        {
+            try
+            {
+                EventGameUserAnswer answer = new EventGameUserAnswer();
+                answer.ID = Guid.NewGuid().ToString();
+                answer.EventID = thisEvent.EventID;
+                answer.QuestionID = thisQuizQuestions[currentQuestionCount-1].ID;
+                answer.answerWasCorrect = isCorrect;
+                eventGameUserAnswerRepository.AddEventGameUserAnswer(answer);
+            }
+            catch
+            {
+
             }
         }
 

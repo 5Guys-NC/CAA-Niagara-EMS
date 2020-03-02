@@ -45,7 +45,8 @@ namespace CAA_Event_Management.Data
             }
         }
         #endregion
-
+       
+        #region CRUD operations
         /// <summary>
         /// Add
         /// </summary>
@@ -84,5 +85,6 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
+        #endregion
     }
 }

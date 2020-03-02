@@ -40,7 +40,8 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
+        <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="95"/>
@@ -51,7 +52,6 @@
             </Grid.RowDefinitions>
 
             <RelativePanel Name="rpTitleBar"  Grid.Row="0" Background="#1b3e6e">
-
 
                 <TextBlock Name="txtGameMenu"
                            Margin="130,0,0,0" 
@@ -91,20 +91,58 @@
                          Width="150"/>
             </RelativePanel>
 
-            <GridView Name="gameList" Grid.Row="1" HorizontalAlignment="Center" IsItemClickEnabled="True" MaxHeight="200" ItemClick="GameList_ItemClick" Margin="90,0,50,0">
-                <GridView.ItemTemplate>
-                    <DataTemplate  x:DataType="data:Game">
-                        <RelativePanel Width="300" Background="#eaeaea" BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
-                            <TextBlock Name ="txtGameTitle" Text="{x:Bind Title.ToUpper()}" 
+            <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="50,50,0,0" HorizontalAlignment="Center">
+                <Button Name="btnRecentGames" 
+                    Background="#f8bf38" 
+                    BorderBrush="white" 
+                    BorderThickness="3,3,3,0"
+                    CornerRadius="20,20,0,0" 
+                    FontSize="14"  
+                    Height="50"
+                    Margin="10,3,-10,0"
+                    Style="{StaticResource ButtonStyle}"
+                    Width="105"
+                    Canvas.ZIndex="1">
+                    <TextBlock Text= "Recently Created" TextWrapping="WrapWholeWords"/>
+                </Button>
+                <Button Name="btnMostUsedGames" 
+                    Background="#f8bf38 "
+                    BorderBrush="white"
+                    BorderThickness="3,3,3,0"
+                    Content="Most Used"
+                    CornerRadius="20,20,0,0"
+                    FontSize="14"
+                    RelativePanel.RightOf="btnRecentGames" 
+                    RelativePanel.AlignBottomWith="btnRecentGames"
+                    Height="50" 
+                    Style="{StaticResource ButtonStyle}" 
+                    Width="105"
+                    Canvas.ZIndex="0"/>
+
+                <GridView Name="gameList"
+                      Background="#f8bf38"
+                      CornerRadius="0,20,20,0"
+                      BorderBrush="White"
+                      BorderThickness="0,2,0,0"
+                      Grid.Row="1" 
+                      HorizontalAlignment="Center" 
+                      IsItemClickEnabled="True" 
+                      Margin="10,50,30,0"
+                      MinHeight="400"
+                      MinWidth="300"
+                      Padding="15"
+                      ItemClick="GameList_ItemClick">
+                    <GridView.ItemTemplate>
+                        <DataTemplate  x:DataType="data:Game">
+                            <RelativePanel Width="300" Background="#f79326" BorderBrush="White" BorderThickness="3" Height="100" Margin="10">
+                                <TextBlock Name ="txtGameTitle" Text="{x:Bind Title.ToUpper()}" 
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                                            RelativePanel.AlignVerticalCenterWithPanel="True"
                                            FontSize="24"
                                            FontWeight="ExtraBold"
                                            Foreground="#1b3e6e"/>
-                            <!--Margin="0,0,0,0"
-                                           VerticalAlignment="Center"-->
-                            <Button Name="btnRemove" 
-                                Background="#eaeaea" 
+                                <Button Name="btnRemove" 
+                                Background="#f79326" 
                                 RelativePanel.AlignRightWithPanel="True"
                                 RelativePanel.AlignTopWithPanel="True"
                                 VerticalAlignment="Top"  
@@ -112,25 +150,26 @@
                                 FontFamily="Segoe MDL2 Assets" 
                                 Foreground="Red" Content="&#xE738;" 
                                 Style="{StaticResource AddRemoveStyle}">
-                                <Button.Flyout>
-                                    <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">
-                                        <Flyout.FlyoutPresenterStyle>
-                                            <Style TargetType="FlyoutPresenter"/>
-                                        </Flyout.FlyoutPresenterStyle>
-                                        <StackPanel>
-                                            <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button Name="btnConfirmRemove" Style="{StaticResource ButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
-                                                <Button Name="btnCancel" Style="{StaticResource ButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                    <Button.Flyout>
+                                        <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">
+                                            <Flyout.FlyoutPresenterStyle>
+                                                <Style TargetType="FlyoutPresenter"/>
+                                            </Flyout.FlyoutPresenterStyle>
+                                            <StackPanel>
+                                                <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
+                                                <StackPanel Name="spAddRemove" Orientation="Horizontal">
+                                                    <Button Name="btnConfirmRemove" Style="{StaticResource ButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
+                                                    <Button Name="btnCancel" Style="{StaticResource ButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                                </StackPanel>
                                             </StackPanel>
-                                        </StackPanel>
-                                    </Flyout>
-                                </Button.Flyout>
-                            </Button>
-                        </RelativePanel>
-                    </DataTemplate>
-                </GridView.ItemTemplate>
-            </GridView>
+                                        </Flyout>
+                                    </Button.Flyout>
+                                </Button>
+                            </RelativePanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+            </RelativePanel>
 
             <Button Name="btnCreateNewGame" 
                     Style="{StaticResource ButtonStyle}"
@@ -156,5 +195,6 @@
                 </Button.Flyout>
             </Button>
         </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

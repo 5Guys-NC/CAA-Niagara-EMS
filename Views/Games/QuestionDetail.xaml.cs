@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Media.Animation;
 *  Model Created By: Max Cashmore
 *  Edited by: Brian Culp
 *******************************/
+
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 namespace CAA_Event_Management.Views.Games
 {
@@ -35,6 +36,7 @@ namespace CAA_Event_Management.Views.Games
         IGameRepository gameRepo;
         IAnswerRepository answerRepo;
         IQuestionRepository questionRepo;
+
         public QuestionDetail()
         {
             this.InitializeComponent();

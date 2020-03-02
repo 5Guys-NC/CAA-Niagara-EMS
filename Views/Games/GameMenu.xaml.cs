@@ -72,7 +72,8 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            return;
+            Flyout FlyDelete = new Flyout();
+            FlyDelete.Hide();
         }
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)

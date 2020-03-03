@@ -4,25 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/******************************
-*  Model Created By: Max Cashmore
-*  Edited By: Brian Culp
-*******************************/
+
 namespace CAA_Event_Management.Models
 {
-    /// <summary>
-    /// This page is a model to template the ANSWER table in the database
-    /// </summary>
-    public class Answer
+    public class Tag
     {
         public int ID { get; set; }
+        public string Name { get; set; }
 
-        [Display(Name = "Answer")]
-        [StringLength(50, ErrorMessage = "Answer cannot be more then 50 characters")]
-        public string Text { get; set; }
-
-        public int TimesUsed { get; set; }
-        #region Table Fields
         [Display(Name = "Created By")]
         public string CreatedBy { get; set; }
 
@@ -34,6 +23,5 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Last Modified Date")]
         public DateTime? LastModifiedDate { get; set; }
-        #endregion
     }
 }

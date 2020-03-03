@@ -10,7 +10,7 @@ namespace CAA_Event_Management.ViewModels
     /// </summary>
     public class UserParams
     {
-        internal Users selectedUser { get; set; }
+        internal User selectedUser { get; set; }
         internal bool editMode { get; set; }
     }
 }

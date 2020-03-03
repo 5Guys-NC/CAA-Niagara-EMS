@@ -17,7 +17,7 @@ namespace CAA_Event_Management
     /// </summary>
     public sealed partial class CreateNewUser : Page
     {
-        Users newUser;
+        User newUser;
 
         IUsersRepository userRepository;
 
@@ -34,7 +34,7 @@ namespace CAA_Event_Management
         /// <param name="e"></param>
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
-            newUser = new Users();
+            newUser = new User();
             this.DataContext = newUser;
 
             try

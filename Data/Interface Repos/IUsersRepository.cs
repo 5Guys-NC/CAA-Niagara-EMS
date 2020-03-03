@@ -11,16 +11,16 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public interface IUsersRepository
     {
-        List<Users> GetUsers();
+        List<User> GetUsers();
 
-        Users GetUser(int ID);
+        User GetUser(int ID);
 
-        Users GetUser(string userName);
+        User GetUser(string userName);
 
-        void AddUser(Users userToAdd);
+        void AddUser(User userToAdd);
 
-        void UpdateUser(Users userToUpdate);
+        void UpdateUser(User userToUpdate);
 
-        void DeleteUser(Users userToDelete);
+        void DeleteUser(User userToDelete);
     }
 }

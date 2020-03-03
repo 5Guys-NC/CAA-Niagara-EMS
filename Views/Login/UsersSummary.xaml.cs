@@ -39,7 +39,7 @@ namespace CAA_Event_Management
             try
             {
                 //get users
-                List<Users> users = usersRepository.GetUsers();
+                List<User> users = usersRepository.GetUsers();
 
                 //set source for the ListView to the list of users
                 lvUsers.ItemsSource = users;
@@ -66,7 +66,7 @@ namespace CAA_Event_Management
             if (lvUsers.SelectedItem != null)
             {
                 //put selected user data in UserParams object
-                up.selectedUser = (Users)lvUsers.SelectedItem;
+                up.selectedUser = (User)lvUsers.SelectedItem;
                 //navigate to corresponding frame
                 Frame.Navigate(typeof(UserDetails), up);
             }
@@ -87,7 +87,7 @@ namespace CAA_Event_Management
             //get user
             var u = lvUsers.SelectedItem;
             //delete user
-            usersRepository.DeleteUser((Users)u);
+            usersRepository.DeleteUser((User)u);
             Frame.GoBack();
         }
 

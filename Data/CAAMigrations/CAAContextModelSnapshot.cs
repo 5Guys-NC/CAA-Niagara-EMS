@@ -20,30 +20,58 @@ namespace CAA_Event_Management.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(250);
+                    b.Property<string>("CreatedBy");
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<bool?>("IsCorrect");
-
-                    b.Property<string>("Keywords");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(75);
+                    b.Property<string>("LastModifiedBy");
 
                     b.Property<DateTime?>("LastModifiedDate");
 
-                    b.Property<string>("Phrase")
+                    b.Property<string>("Text")
                         .HasMaxLength(50);
 
-                    b.Property<int>("QuestionID");
+                    b.Property<int>("TimesUsed");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("QuestionID");
-
                     b.ToTable("Answers");
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.AnswerPicture", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AnswerID");
+
+                    b.Property<int>("PictureID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AnswerID");
+
+                    b.HasIndex("PictureID");
+
+                    b.ToTable("AnswerPictures");
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.AnswerTag", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AnswerID");
+
+                    b.Property<int>("TagID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AnswerID");
+
+                    b.HasIndex("TagID");
+
+                    b.ToTable("AnswerTags");
                 });
 
             modelBuilder.Entity("CAA_Event_Management.Models.AttendanceItem", b =>
@@ -135,8 +163,7 @@ namespace CAA_Event_Management.Migrations
 
                     b.HasKey("EventID");
 
-                    b.HasIndex("QuizID")
-                        .IsUnique();
+                    b.HasIndex("QuizID");
 
                     b.ToTable("Events");
                 });
@@ -187,15 +214,11 @@ namespace CAA_Event_Management.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(250);
+                    b.Property<string>("CreatedBy");
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<string>("Keywords");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(75);
+                    b.Property<string>("LastModifiedBy");
 
                     b.Property<DateTime?>("LastModifiedDate");
 
@@ -204,6 +227,44 @@ namespace CAA_Event_Management.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.GameModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AnswerText");
+
+                    b.Property<int>("GameID");
+
+                    b.Property<string>("OptionsText");
+
+                    b.Property<string>("QuestionText");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("GameID");
+
+                    b.ToTable("GameModels");
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.GameTag", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("GameID");
+
+                    b.Property<int>("TagID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("GameID");
+
+                    b.HasIndex("TagID");
+
+                    b.ToTable("GameTags");
                 });
 
             modelBuilder.Entity("CAA_Event_Management.Models.Item", b =>
@@ -228,39 +289,89 @@ namespace CAA_Event_Management.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("CAA_Event_Management.Models.Picture", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<byte[]>("Image");
+
+                    b.Property<string>("ImageFileName");
+
+                    b.Property<string>("LastModifiedBy");
+
+                    b.Property<DateTime?>("LastModifiedDate");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Pictures");
+                });
+
             modelBuilder.Entity("CAA_Event_Management.Models.Question", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CorrectFeedback");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(250);
+                    b.Property<string>("CreatedBy");
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<int>("GameID");
-
-                    b.Property<string>("Keywords");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(75);
+                    b.Property<string>("LastModifiedBy");
 
                     b.Property<DateTime?>("LastModifiedDate");
 
-                    b.Property<string>("Phrase");
+                    b.Property<string>("Text");
 
-                    b.Property<int>("TotalFeedback");
+                    b.Property<int>("TimesUsed");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("GameID");
 
                     b.ToTable("Questions");
                 });
 
-            modelBuilder.Entity("CAA_Event_Management.Models.Users", b =>
+            modelBuilder.Entity("CAA_Event_Management.Models.QuestionTag", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("QuestionID");
+
+                    b.Property<int>("TagID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("QuestionID");
+
+                    b.HasIndex("TagID");
+
+                    b.ToTable("QuestionTags");
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.Tag", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("CreatedDate");
+
+                    b.Property<string>("LastModifiedBy");
+
+                    b.Property<DateTime?>("LastModifiedDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.User", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -288,11 +399,30 @@ namespace CAA_Event_Management.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("CAA_Event_Management.Models.Answer", b =>
+            modelBuilder.Entity("CAA_Event_Management.Models.AnswerPicture", b =>
                 {
-                    b.HasOne("CAA_Event_Management.Models.Question", "Question")
-                        .WithMany("Answers")
-                        .HasForeignKey("QuestionID");
+                    b.HasOne("CAA_Event_Management.Models.Answer", "Answer")
+                        .WithMany()
+                        .HasForeignKey("AnswerID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CAA_Event_Management.Models.Picture", "Picture")
+                        .WithMany("answerPictures")
+                        .HasForeignKey("PictureID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.AnswerTag", b =>
+                {
+                    b.HasOne("CAA_Event_Management.Models.Answer", "Answer")
+                        .WithMany()
+                        .HasForeignKey("AnswerID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CAA_Event_Management.Models.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("CAA_Event_Management.Models.AttendanceItem", b =>
@@ -318,8 +448,8 @@ namespace CAA_Event_Management.Migrations
             modelBuilder.Entity("CAA_Event_Management.Models.Event", b =>
                 {
                     b.HasOne("CAA_Event_Management.Models.Game", "Quiz")
-                        .WithOne("Event")
-                        .HasForeignKey("CAA_Event_Management.Models.Event", "QuizID");
+                        .WithMany()
+                        .HasForeignKey("QuizID");
                 });
 
             modelBuilder.Entity("CAA_Event_Management.Models.EventGameUserAnswer", b =>
@@ -346,11 +476,37 @@ namespace CAA_Event_Management.Migrations
                         .HasForeignKey("ItemID");
                 });
 
-            modelBuilder.Entity("CAA_Event_Management.Models.Question", b =>
+            modelBuilder.Entity("CAA_Event_Management.Models.GameModel", b =>
                 {
                     b.HasOne("CAA_Event_Management.Models.Game", "Game")
-                        .WithMany("Questions")
+                        .WithMany("GameModels")
                         .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.GameTag", b =>
+                {
+                    b.HasOne("CAA_Event_Management.Models.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CAA_Event_Management.Models.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.QuestionTag", b =>
+                {
+                    b.HasOne("CAA_Event_Management.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CAA_Event_Management.Models.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
         }

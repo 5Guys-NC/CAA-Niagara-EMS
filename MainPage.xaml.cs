@@ -19,7 +19,7 @@ namespace CAA_Event_Management
     public sealed partial class MainPage : Page
     {
         #region Startup - variables, repositories, constructor
-            Users currentUser;
+            User currentUser;
             IUsersRepository usersRepository;
             bool AuthStatus;
 

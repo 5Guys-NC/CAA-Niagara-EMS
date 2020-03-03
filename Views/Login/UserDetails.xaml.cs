@@ -16,7 +16,7 @@ namespace CAA_Event_Management
     /// </summary>
     public sealed partial class UserDetails : Page
     {
-        Users view;
+        User view;
         private bool editMode = true;
 
         IUsersRepository userRepository;

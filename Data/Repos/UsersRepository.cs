@@ -16,7 +16,7 @@ namespace CAA_Event_Management.Data
         /// ADD
         /// </summary>
         /// <param name="userToAdd"></param>
-        public void AddUser(Users userToAdd)
+        public void AddUser(User userToAdd)
         {
             using (CAAContext context = new CAAContext())
             {
@@ -29,7 +29,7 @@ namespace CAA_Event_Management.Data
         /// Delete
         /// </summary>
         /// <param name="userToDelete"></param>
-        public void DeleteUser(Users userToDelete)
+        public void DeleteUser(User userToDelete)
         {
             using (CAAContext context = new CAAContext())
             {
@@ -43,7 +43,7 @@ namespace CAA_Event_Management.Data
         /// </summary>
         /// <param name="ID"></param>
         /// <returns>A Single USER</returns>
-        public Users GetUser(int ID)
+        public User GetUser(int ID)
         {
             using (CAAContext context = new CAAContext())
             {
@@ -58,7 +58,7 @@ namespace CAA_Event_Management.Data
         /// Get all Users
         /// </summary>
         /// <returns>List of USERS</returns>
-        public List<Users> GetUsers()
+        public List<User> GetUsers()
         {
            using (CAAContext context = new CAAContext())
             {
@@ -74,7 +74,7 @@ namespace CAA_Event_Management.Data
         /// </summary>
         /// <param name="userName"></param>
         /// <returns>A Single USER</returns>
-        public Users GetUser(string userName)
+        public User GetUser(string userName)
         {
             using (CAAContext context = new CAAContext())
             {
@@ -90,7 +90,7 @@ namespace CAA_Event_Management.Data
         /// Update
         /// </summary>
         /// <param name="userToUpdate"></param>
-        public void UpdateUser(Users userToUpdate)
+        public void UpdateUser(User userToUpdate)
         {
             using (CAAContext context = new CAAContext())
             {

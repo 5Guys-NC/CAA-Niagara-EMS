@@ -55,7 +55,7 @@
             <RelativePanel Grid.Row="0" Background="#1b3e6e">
                 <TextBlock Name="tbCAASurveys"
                        Text="Surveys"
-                       Foreground="#eaeaea"
+                       Foreground="#eaeaea"  
                        FontWeight="Bold"
                        FontSize="30"/>
                 <Button x:Name="btnAddSurveyQuestion" 

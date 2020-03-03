@@ -41,6 +41,7 @@ namespace CAA_Event_Management.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //Name of Database
             optionsBuilder.UseSqlite("Data Source=CAANiagara.db");
             base.OnConfiguring(optionsBuilder);
         }
@@ -60,23 +61,21 @@ namespace CAA_Event_Management.Data
                 .HasForeignKey(d => d.ItemID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //EventItem - Event Delete Restrict
             modelBuilder.Entity<EventItem>()
                 .HasOne(d => d.Event)
                 .WithMany(d => d.EventItems)
                 .HasForeignKey(d => d.EventID)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            //AttendanceTracking - Event Delete Restrict
             modelBuilder.Entity<AttendanceTracking>()
                 .HasOne(d => d.Event)
                 .WithMany(d => d.AttendanceTrackings)
                 .HasForeignKey(d => d.EventID)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<Answer>()
-            //    .HasOne(d => d.Question)
-            //    .WithMany(d => d.Answers)
-            //    .HasForeignKey(d => d.QuestionID)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            
         }
 
         #endregion

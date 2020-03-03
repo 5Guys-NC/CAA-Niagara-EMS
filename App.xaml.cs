@@ -16,7 +16,6 @@ namespace CAA_Event_Management
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-
     sealed partial class App : Application
     {
         /// <summary>

@@ -7,7 +7,7 @@ using CAA_Event_Management.Models;
 using Microsoft.EntityFrameworkCore;
 /******************************
 *  Repository Created By: Max Cashmore
-
+*  Edited by: Brian Culp
 *******************************/
 namespace CAA_Event_Management.Data
 {

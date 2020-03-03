@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Media.Animation;
 * ******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-namespace CAA_Event_Management.Views.Events
+namespace CAA_Event_Management.Views.EventViews
 {
     /// <summary>
     /// Frame for Items
@@ -45,7 +45,7 @@ namespace CAA_Event_Management.Views.Events
             FillDataTypeComboBox();
             FillFields();
         }
-
+          
         #endregion
 
         #region Buttons - Add, Edit, Delete Questions
@@ -57,6 +57,7 @@ namespace CAA_Event_Management.Views.Events
             txtNewSurveyQuestion.Visibility = Visibility.Visible;
             tbkDataType.Visibility = Visibility.Visible;
             cboDataType.Visibility = Visibility.Visible;
+            rpSaveAndCancel.Visibility = Visibility.Visible;
 
             addOrEdit = 1;
         }
@@ -78,6 +79,7 @@ namespace CAA_Event_Management.Views.Events
                 txtNewSurveyQuestion.Visibility = Visibility.Visible;
                 tbkDataType.Visibility = Visibility.Visible;
                 cboDataType.Visibility = Visibility.Visible;
+                rpSaveAndCancel.Visibility = Visibility.Visible;
                 //rpSaveAndCancel.Visibility = Visibility.Visible;
                 var result = await Jeeves.ConfirmDialog("Warning", warning);
 
@@ -128,7 +130,7 @@ namespace CAA_Event_Management.Views.Events
                 txtNewSurveyQuestion.Visibility = Visibility.Collapsed;
                 tbkDataType.Visibility = Visibility.Collapsed;
                 cboDataType.Visibility = Visibility.Collapsed;
-                //rpSaveAndCancel.Visibility = Visibility.Collapsed;
+                rpSaveAndCancel.Visibility = Visibility.Collapsed;
                 ScreenUnlock();
                 ClearFields();
                 FillFields();
@@ -139,7 +141,7 @@ namespace CAA_Event_Management.Views.Events
                 txtNewSurveyQuestion.Visibility = Visibility.Collapsed ;
                 tbkDataType.Visibility = Visibility.Collapsed;
                 cboDataType.Visibility = Visibility.Collapsed;
-                //rpSaveAndCancel.Visibility = Visibility.Collapsed; ;
+                rpSaveAndCancel.Visibility = Visibility.Collapsed; ;
                 SaveQuestion(selectedItem);
                 selectedItem = null;
                 addOrEdit = 0;
@@ -153,7 +155,7 @@ namespace CAA_Event_Management.Views.Events
             txtNewSurveyQuestion.Visibility = Visibility.Collapsed;
             tbkDataType.Visibility = Visibility.Collapsed;
             cboDataType.Visibility = Visibility.Collapsed;
-            //rpSaveAndCancel.Visibility = Visibility.Collapsed;
+            rpSaveAndCancel.Visibility = Visibility.Collapsed;
             selectedItem = null;
             ScreenUnlock();
             ClearFields();

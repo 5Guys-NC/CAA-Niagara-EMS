@@ -18,18 +18,19 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using CAA_Event_Management.ViewModels;
 /******************************
 *  Model Created By: Jon Yade
 *  Edited By:  
 *******************************/
 
-namespace CAA_Event_Management.Views.Events
+namespace CAA_Event_Management.Views.EventViews
 {
     public sealed partial class EventDetails : Page
     {
         #region Startup - variables, respositories, methods
 
-        Event view;
+        Models.Event view;
         private int questionCount = 0;
         private bool insertMode = true;
 

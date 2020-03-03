@@ -1,0 +1,219 @@
+﻿<Page
+    x:Class="CAA_Event_Management.Views.Games.GameNew"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CAA_Event_Management"
+    xmlns:data="using:CAA_Event_Management.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <!--*********************
+    Created By: Max Cashmore
+    Edited By: Nathan Smith
+    *************************-->
+    
+    <ScrollViewer>
+        <Grid>
+            <Grid.Background>
+                <SolidColorBrush Color="LightBlue"/>
+            </Grid.Background>
+            <Grid Name="GameGrid" Margin="10,0,-10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" 
+                               Text="New Game" 
+                               TextWrapping="Wrap" 
+                               Margin="0,20,0,0"
+                               VerticalAlignment="Top" 
+                               FontSize="32" />
+
+                    <TextBlock Name="txtGameTitle"
+                               FontSize="24"
+                               HorizontalAlignment="Center"
+                               Margin="0,20"
+                               Text="GameTitle"/>
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Center" 
+                   Text="Question" 
+                   Grid.Row="1"
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   FontSize="18"/>
+                <TextBox x:Name="txtQuestion" Text="{x:Bind view.Phrase}" 
+                 HorizontalAlignment="Center" 
+                 Grid.Row="2"
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="360"/>
+                <TextBlock HorizontalAlignment="Center" 
+                   Margin="0,40,0,10"
+                   Text="Answer One" 
+                   TextWrapping="Wrap" 
+                   Grid.Row="3"
+                   VerticalAlignment="Top" 
+                   FontSize="18"/>
+                <TextBox x:Name="txtAnswerOne" Text="{x:Bind view.Phrase}" 
+                 HorizontalAlignment="Center" 
+                 TextWrapping="Wrap" 
+                 Grid.Row="4"
+                 VerticalAlignment="Top" 
+                 Width="260"/>
+                
+                <CheckBox Name="chkSelect1"  
+                             Content="Correct Answer" 
+                             Grid.Row="4" 
+                             HorizontalAlignment="Center" 
+                             Margin="570,0,0,0"/>
+                
+                <TextBlock HorizontalAlignment="Center" 
+                   Name="AnswerTwoBlock"
+                   Margin="0,20,0,10"
+                   Text="Answer Two" 
+                   TextWrapping="Wrap" 
+                   Grid.Row="5"
+                   VerticalAlignment="Top" 
+                   FontSize="18"/>
+
+                <TextBox x:Name="txtAnswerTwo" Text="{x:Bind view.Phrase}" 
+                    RelativePanel.AlignHorizontalCenterWithPanel="True"
+                    Grid.Row="6"
+                    TextWrapping="Wrap" 
+                    VerticalAlignment="Top" 
+                    Width="260"/>
+
+                <CheckBox Name="chkSelect2" 
+                             Content="Correct Answer" 
+                             Grid.Row="6" 
+                             HorizontalAlignment="Center" 
+                             Margin="570,0,0,0"/>
+
+                <RelativePanel Name="rpButtons" Grid.Row="6" HorizontalAlignment="Center" Margin="310,0,0,0">
+                    <Button Name="btnAddAnswer" 
+                    Background="LightBlue"
+                    FontFamily="Segoe MDL2 Assets" 
+                    Content="&#xE710;" 
+                    FontSize="20"
+                    Foreground="DarkGreen"
+                    Grid.Row="6"
+                    FontWeight="Bold" 
+                    Tapped="btnAddAnswer_Tapped"/>
+
+                    <Button Name="btnRemoveAnswer"
+                    Background="LightBlue"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE738;"
+                    FontSize="20"
+                    Foreground="Red"
+                    Grid.Row="6"
+                    FontWeight="Bold"
+                    Visibility="Collapsed"
+                    RelativePanel.RightOf="btnAddAnswer"
+                    Tapped="btnRemoveAnswer_Tapped"/>
+                </RelativePanel>
+
+
+                <TextBlock HorizontalAlignment="Center" 
+                        Name="AnswerThreeBlock"
+                        Grid.Row="7"
+                        Margin="0,20,0,10"
+                        Text="Answer Three" 
+                        TextWrapping="Wrap" 
+                        VerticalAlignment="Top" 
+                        Visibility="Collapsed"
+                        FontSize="18"/>
+                <TextBox x:Name="txtAnswerThree" Text="{x:Bind view.Phrase}" 
+                    HorizontalAlignment="Center" 
+                    Grid.Row="8" 
+                    TextWrapping="Wrap" 
+                    VerticalAlignment="Top" 
+                    Visibility="Collapsed"
+                    Width="260"/>
+                <TextBlock HorizontalAlignment="Center"
+                   Name="AnswerFourBlock"
+                   Grid.Row="9"
+                   Margin="0,20,0,10"
+                   Text="Answer Four" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   Visibility="Collapsed"
+                   FontSize="18"/>
+                <TextBox x:Name="txtAnswerFour" Text="{x:Bind view.Phrase}" 
+                 HorizontalAlignment="Center" 
+                 Grid.Row="10"
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Visibility="Collapsed"
+                 Width="260"/>
+                <TextBlock HorizontalAlignment="Center" 
+                   Name="AnswerFiveBlock"
+                   Grid.Row="11"
+                   Margin="0,20,0,10"
+                   Text="Answer Five" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   Visibility="Collapsed"
+                   FontSize="18"/>
+                <TextBox x:Name="txtAnswerFive" Text="{x:Bind view.Phrase}" 
+                 HorizontalAlignment="Center" 
+                 Grid.Row="12"
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Visibility="Collapsed"
+                 Width="260"/>
+                <TextBlock HorizontalAlignment="Center"
+                   Name="AnswerSixBlock"
+                   Grid.Row="13"
+                   Margin="0,20,0,10"
+                   Text="Answer Six" 
+                   TextWrapping="Wrap" 
+                   VerticalAlignment="Top" 
+                   Visibility="Collapsed"
+                   FontSize="18"/>
+                <TextBox x:Name="txtAnswerSix" Text="{x:Bind view.Phrase}" 
+                 HorizontalAlignment="Center" 
+                 Grid.Row="14"
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Visibility="Collapsed"
+                 Width="260"/>
+                <Button x:Name="btnAdd" Style="{StaticResource ButtonStyle}"
+                Content="Add"
+                Grid.Row="15"
+                HorizontalAlignment="Center"
+                Margin="0,40,0,0">
+                    <Button.Flyout>
+                        <Flyout LightDismissOverlayMode="On">
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter"></Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
+                                    <Button Name="btnCreateConfirm" Content="Add Question"  Style="{StaticResource ButtonStyle}" Margin="0,0,10,0" Tapped="btnCreateConfirm_Tapped" />
+                                    <Button Name="btnSave" Content="Save Game"  Style="{StaticResource ButtonStyle}" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
+</Page>

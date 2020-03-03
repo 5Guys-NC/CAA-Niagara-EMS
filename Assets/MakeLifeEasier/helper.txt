@@ -1,0 +1,29 @@
+CAA blue light - #FFB6E1FC
+Darker blue - #FF00529B
+
+http://modernicons.io/segoe-mdl2/cheatsheet/ - useful for some icons/simple visuals
+
+Potential icons: 
+Home: E80F, EA8A
+Games: E7FC, EA86
+Events: EADF, EB47,ED28
+Stats: EB05
+
+Typical button: Any of this can change, but this will help us keep them uniform
+            <Button Name="SelectEvent" 
+                    Content="Select Event" 
+                    FontSize="20"
+                    Background="RoyalBlue"
+                    Foreground="White"
+                    BorderBrush="AntiqueWhite"
+                    BorderThickness="2"
+                    Padding="10"
+                    CornerRadius="20"
+                    
+https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/xaml-styles?redirectedfrom=MSDN - shows you how to set styles for elements so you don't have to set properties each time for elements that will look the same (like buttons)
+
+https://docs.microsoft.com/en-us/windows/uwp/design/controls-and-patterns/navigationview#anatomy
+
+https://blogs.msmvps.com/bsonnino/2019/02/13/navigationview-in-uwp/
+
+https://channel9.msdn.com/Events/Windows/Windows-Developer-Day-Fall-Creators-Update/WinDev010

@@ -128,8 +128,8 @@ namespace CAA_Event_Management
                     //if user exists
                     if (currentUser != null)
                     {
-                        //if password matches one in db
-                        if (currentUser.Password == txtPassword.Password)
+                        //if encrypted version of password matches one in db
+                        if (currentUser.Password == currentUser.EncryptPassword(txtPassword.Password))
                         {
                             //sign user in
                             SignUserIn();

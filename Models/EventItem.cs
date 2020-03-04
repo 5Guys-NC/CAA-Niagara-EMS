@@ -10,7 +10,7 @@ namespace CAA_Event_Management.Models
     /// <summary>
     /// This page is a model to template the EVENTITEMS table in the database
     /// </summary>
-    public class EventItem
+    public class EventItem : Auditable
     {
         public EventItem()
         {

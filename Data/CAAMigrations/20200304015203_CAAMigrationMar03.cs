@@ -48,9 +48,13 @@ namespace CAA_Event_Management.Migrations
                 columns: table => new
                 {
                     ItemID = table.Column<string>(maxLength: 36, nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     ItemCount = table.Column<int>(nullable: false),
                     ItemName = table.Column<string>(maxLength: 75, nullable: false),
+                    LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    LastModifiedDate = table.Column<DateTime>(nullable: true),
                     ValueType = table.Column<string>(maxLength: 25, nullable: false)
                 },
                 constraints: table =>
@@ -117,7 +121,11 @@ namespace CAA_Event_Management.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
                     FirstName = table.Column<string>(maxLength: 25, nullable: true),
+                    LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    LastModifiedDate = table.Column<DateTime>(nullable: true),
                     LastName = table.Column<string>(maxLength: 25, nullable: true),
                     Password = table.Column<string>(maxLength: 50, nullable: false),
                     UserName = table.Column<string>(nullable: false),
@@ -134,7 +142,7 @@ namespace CAA_Event_Management.Migrations
                 {
                     EventID = table.Column<string>(maxLength: 36, nullable: false),
                     AbrevEventname = table.Column<string>(maxLength: 20, nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 250, nullable: true),
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     DisplayName = table.Column<string>(maxLength: 100, nullable: true),
                     EventEnd = table.Column<DateTime>(nullable: true),
@@ -142,7 +150,7 @@ namespace CAA_Event_Management.Migrations
                     EventStart = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     Keywords = table.Column<string>(nullable: true),
-                    LastModifiedBy = table.Column<string>(maxLength: 75, nullable: true),
+                    LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
                     LastModifiedDate = table.Column<DateTime>(nullable: true),
                     MembersOnly = table.Column<bool>(nullable: false),
                     QuizID = table.Column<int>(nullable: true)
@@ -340,8 +348,12 @@ namespace CAA_Event_Management.Migrations
                 columns: table => new
                 {
                     EventItemID = table.Column<string>(maxLength: 36, nullable: false),
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
                     EventID = table.Column<string>(nullable: false),
-                    ItemID = table.Column<string>(nullable: false)
+                    ItemID = table.Column<string>(nullable: false),
+                    LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    LastModifiedDate = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {

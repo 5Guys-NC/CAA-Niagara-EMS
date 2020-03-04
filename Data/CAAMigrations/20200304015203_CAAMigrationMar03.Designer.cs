@@ -8,7 +8,7 @@ using CAA_Event_Management.Data;
 namespace CAA_Event_Management.Migrations
 {
     [DbContext(typeof(CAAContext))]
-    [Migration("20200304000329_CAAMigrationMar03")]
+    [Migration("20200304015203_CAAMigrationMar03")]
     partial class CAAMigrationMar03
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -133,7 +133,7 @@ namespace CAA_Event_Management.Migrations
                         .HasMaxLength(20);
 
                     b.Property<string>("CreatedBy")
-                        .HasMaxLength(250);
+                        .HasMaxLength(256);
 
                     b.Property<DateTime?>("CreatedDate");
 
@@ -154,7 +154,7 @@ namespace CAA_Event_Management.Migrations
                     b.Property<string>("Keywords");
 
                     b.Property<string>("LastModifiedBy")
-                        .HasMaxLength(75);
+                        .HasMaxLength(256);
 
                     b.Property<DateTime?>("LastModifiedDate");
 
@@ -195,11 +195,21 @@ namespace CAA_Event_Management.Migrations
                     b.Property<string>("EventItemID")
                         .HasMaxLength(36);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime?>("CreatedDate");
+
                     b.Property<string>("EventID")
                         .IsRequired();
 
                     b.Property<string>("ItemID")
                         .IsRequired();
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime?>("LastModifiedDate");
 
                     b.HasKey("EventItemID");
 
@@ -273,6 +283,11 @@ namespace CAA_Event_Management.Migrations
                     b.Property<string>("ItemID")
                         .HasMaxLength(36);
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime?>("CreatedDate");
+
                     b.Property<bool>("IsDeleted");
 
                     b.Property<int>("ItemCount");
@@ -280,6 +295,11 @@ namespace CAA_Event_Management.Migrations
                     b.Property<string>("ItemName")
                         .IsRequired()
                         .HasMaxLength(75);
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime?>("LastModifiedDate");
 
                     b.Property<string>("ValueType")
                         .IsRequired()
@@ -377,8 +397,18 @@ namespace CAA_Event_Management.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime?>("CreatedDate");
+
                     b.Property<string>("FirstName")
                         .HasMaxLength(25);
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime?>("LastModifiedDate");
 
                     b.Property<string>("LastName")
                         .HasMaxLength(25);

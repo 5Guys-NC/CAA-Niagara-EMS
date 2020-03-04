@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CAA_Event_Management.Models
 {
-    public class UserAccount
+    public class UserAccount : Auditable
     {
         public int ID { get; set; }
 

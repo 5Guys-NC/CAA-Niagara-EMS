@@ -51,7 +51,7 @@ namespace CAA_Event_Management.Views.Games
         {
             view = (Game)e.Parameter;
             this.DataContext = view;
-            questions = questionRepo.GetQuestionsByGame(view.ID); 
+            //questions = questionRepo.GetQuestionsByGame(view.ID); 
             questionList.ItemsSource = questions; 
         }
         #endregion
@@ -70,14 +70,14 @@ namespace CAA_Event_Management.Views.Games
         private void btnAddQuestion_Tapped(object sender, RoutedEventArgs e)
         {
             Question newQuestion = new Question();
-            newQuestion.GameID = view.ID;
+            //newQuestion.GameID = view.ID;
             questionRepo.AddQuestion(newQuestion);
             Frame.Navigate(typeof(QuestionDetail), (newQuestion));
         }
 
         private void btnSave_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            gameRepo.UpdateGame(view);
+            //gameRepo.UpdateGame(view);
             Frame.Navigate(typeof(GameMenu), (view));
         }
 
@@ -85,7 +85,7 @@ namespace CAA_Event_Management.Views.Games
         {
             Game game = new Game();
             game = view;
-            gameRepo.DeleteGame(game);
+            //gameRepo.DeleteGame(game);
             Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
         }
 
@@ -96,7 +96,7 @@ namespace CAA_Event_Management.Views.Games
 
         private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            questionList.ItemsSource = questionRepo.SearchQuestion(txtSearch.Text);
+            //questionList.ItemsSource = questionRepo.SearchQuestion(txtSearch.Text);
         }
 
         #endregion
@@ -111,8 +111,8 @@ namespace CAA_Event_Management.Views.Games
         {
             int selected = Convert.ToInt32(((Button)sender).DataContext);
             Question question = new Question();
-            question = questionRepo.GetQuestion(selected);
-            questionRepo.DeleteQuestion(question);
+            //question = questionRepo.GetQuestion(selected);
+            //questionRepo.DeleteQuestion(question);
             Frame.Navigate(typeof(GameDetails), (view), new SuppressNavigationTransitionInfo());
         }
     }

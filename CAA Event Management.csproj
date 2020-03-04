@@ -120,13 +120,15 @@
     </Compile>
     <Compile Include="Converters\DateTimeToOffsetConverter.cs" />
     <Compile Include="Data\CAAContext.cs" />
-    <Compile Include="Data\CAAMigrations\20200303202903_CAAMigration-Mar-03.cs" />
+    <Compile Include="Data\CAAMigrations\20200304000329_CAAMigrationMar03.cs" />
+    <Compile Include="Data\CAAMigrations\20200304000329_CAAMigrationMar03.Designer.cs" />
     <Compile Include="Data\CAAMigrations\CAAContextModelSnapshot.cs" />
     <Compile Include="Data\Interface Repos\IEventGameUserAnswerRepository.cs" />
-    <Compile Include="Data\Interface Repos\IUsersRepository.cs" />
+    <Compile Include="Data\Interface Repos\IUserAccountRepository.cs" />
     <Compile Include="Data\Repos\AnswerRepository.cs" />
     <Compile Include="Data\Repos\AttendanceItemRepository.cs" />
     <Compile Include="Data\Repos\AttendanceTrackingRepository.cs" />
+    <Compile Include="Data\Repos\UserAccountRepository.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerPicture.cs" />
     <Compile Include="Models\AnswerTag.cs" />
@@ -137,7 +139,7 @@
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionTag.cs" />
     <Compile Include="Models\Tag.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAccount.cs" />
     <Compile Include="ViewModels\DataType.cs" />
     <Compile Include="ViewModels\EventItemDetails.cs" />
     <Compile Include="Data\Repos\EventGameUserAnswerRepository.cs" />
@@ -154,7 +156,6 @@
     <Compile Include="Data\Interface Repos\IQuestionRepository.cs" />
     <Compile Include="Data\Repos\ItemRepository.cs" />
     <Compile Include="Data\Repos\QuestionRepository.cs" />
-    <Compile Include="Data\Repos\UsersRepository.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

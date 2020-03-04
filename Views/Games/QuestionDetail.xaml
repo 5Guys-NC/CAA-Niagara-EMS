@@ -50,7 +50,7 @@
 
             <StackPanel Name="spAnswers" Grid.Row="1">
                 <TextBlock Name="tbQuestion" Foreground="White" Text="Question" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
-                <TextBox x:Name="txtQuestion" Text="{x:Bind view.Phrase, Mode=TwoWay}" FontSize="16" HorizontalAlignment="Center" Margin="35,10,0,0" Width="440"/>
+                <!--<TextBox x:Name="txtQuestion" Text="{x:Bind view.Phrase, Mode=TwoWay}" FontSize="16" HorizontalAlignment="Center" Margin="35,10,0,0" Width="440"/>-->
                 <TextBlock Name="tbAnswers" Foreground="White" Text="Answers (Check correct answer(s))" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
             </StackPanel>
 
@@ -86,9 +86,9 @@
                         <GridView.ItemTemplate>
                             <DataTemplate  x:DataType="data:Answer" >
                                 <StackPanel Name="spAnswers" Orientation="Horizontal">
-                                    <CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
+                                    <!--<CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
                                     <TextBox Text="{x:Bind Phrase, Mode=TwoWay}" Width="260"
-                                     FontSize="18"/>
+                                     FontSize="18"/>-->
                                     <Button Name="btnRemove" 
                                         Background="#f8bf38"
                                         DataContext="{x:Bind ID}" 

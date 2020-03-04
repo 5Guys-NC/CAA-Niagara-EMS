@@ -28,7 +28,7 @@ namespace CAA_Event_Management.Data
         public DbSet<Game> Games { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<EventGameUserAnswer> EventGameUserAnswers { get; set; }
         public DbSet<AnswerPicture> AnswerPictures { get; set; }
         public DbSet<Picture> Pictures { get; set; }
@@ -52,7 +52,7 @@ namespace CAA_Event_Management.Data
             modelBuilder.Entity<AttendanceItem>()
                 .HasKey(d => new { d.MemberAttendanceID, d.EventItemID });
 
-            modelBuilder.Entity<User>().HasIndex(d => d.UserName).IsUnique();
+            modelBuilder.Entity<UserAccount>().HasIndex(d => d.UserName).IsUnique();
 
             modelBuilder.Entity<EventItem>()
                 .HasOne(d => d.Item)

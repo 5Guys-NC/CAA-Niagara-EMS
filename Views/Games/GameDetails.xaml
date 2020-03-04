@@ -129,8 +129,8 @@
                                                 </Flyout>
                                             </Button.Flyout>
                                         </Button>
-                                        <TextBlock Text="{x:Bind Phrase}" 
-                                      FontSize="16" TextWrapping="WrapWholeWords" Foreground="#1b3e6e" FontWeight="Bold" Margin="10,0,10,20" VerticalAlignment="Bottom"/>
+                                        <!--<TextBlock Text="{x:Bind Phrase}" 
+                                      FontSize="16" TextWrapping="WrapWholeWords" Foreground="#1b3e6e" FontWeight="Bold" Margin="10,0,10,20" VerticalAlignment="Bottom"/>-->
                                     </StackPanel>
                                 </DataTemplate>
                             </GridView.ItemTemplate>

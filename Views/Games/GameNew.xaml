@@ -57,12 +57,12 @@
                    TextWrapping="Wrap" 
                    VerticalAlignment="Top" 
                    FontSize="18"/>
-                <TextBox x:Name="txtQuestion" Text="{x:Bind view.Phrase}" 
+                <!--<TextBox x:Name="txtQuestion" Text="{x:Bind view.Phrase}" 
                  HorizontalAlignment="Center" 
                  Grid.Row="2"
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
-                 Width="360"/>
+                 Width="360"/>-->
                 <TextBlock HorizontalAlignment="Center" 
                    Margin="0,40,0,10"
                    Text="Answer One" 
@@ -70,12 +70,12 @@
                    Grid.Row="3"
                    VerticalAlignment="Top" 
                    FontSize="18"/>
-                <TextBox x:Name="txtAnswerOne" Text="{x:Bind view.Phrase}" 
+                <!--<TextBox x:Name="txtAnswerOne" Text="{x:Bind view.Phrase}" 
                  HorizontalAlignment="Center" 
                  TextWrapping="Wrap" 
                  Grid.Row="4"
                  VerticalAlignment="Top" 
-                 Width="260"/>
+                 Width="260"/>-->
                 
                 <CheckBox Name="chkSelect1"  
                              Content="Correct Answer" 
@@ -92,12 +92,12 @@
                    VerticalAlignment="Top" 
                    FontSize="18"/>
 
-                <TextBox x:Name="txtAnswerTwo" Text="{x:Bind view.Phrase}" 
+                <!--<TextBox x:Name="txtAnswerTwo" Text="{x:Bind view.Phrase}" 
                     RelativePanel.AlignHorizontalCenterWithPanel="True"
                     Grid.Row="6"
                     TextWrapping="Wrap" 
                     VerticalAlignment="Top" 
-                    Width="260"/>
+                    Width="260"/>-->
 
                 <CheckBox Name="chkSelect2" 
                              Content="Correct Answer" 
@@ -139,13 +139,13 @@
                         VerticalAlignment="Top" 
                         Visibility="Collapsed"
                         FontSize="18"/>
-                <TextBox x:Name="txtAnswerThree" Text="{x:Bind view.Phrase}" 
+                <!--<TextBox x:Name="txtAnswerThree" Text="{x:Bind view.Phrase}" 
                     HorizontalAlignment="Center" 
                     Grid.Row="8" 
                     TextWrapping="Wrap" 
                     VerticalAlignment="Top" 
                     Visibility="Collapsed"
-                    Width="260"/>
+                    Width="260"/>-->
                 <TextBlock HorizontalAlignment="Center"
                    Name="AnswerFourBlock"
                    Grid.Row="9"
@@ -155,13 +155,13 @@
                    VerticalAlignment="Top" 
                    Visibility="Collapsed"
                    FontSize="18"/>
-                <TextBox x:Name="txtAnswerFour" Text="{x:Bind view.Phrase}" 
+                <!--<TextBox x:Name="txtAnswerFour" Text="{x:Bind view.Phrase}" 
                  HorizontalAlignment="Center" 
                  Grid.Row="10"
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  Visibility="Collapsed"
-                 Width="260"/>
+                 Width="260"/>-->
                 <TextBlock HorizontalAlignment="Center" 
                    Name="AnswerFiveBlock"
                    Grid.Row="11"
@@ -171,13 +171,13 @@
                    VerticalAlignment="Top" 
                    Visibility="Collapsed"
                    FontSize="18"/>
-                <TextBox x:Name="txtAnswerFive" Text="{x:Bind view.Phrase}" 
+                <!--<TextBox x:Name="txtAnswerFive" Text="{x:Bind view.Phrase}" 
                  HorizontalAlignment="Center" 
                  Grid.Row="12"
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  Visibility="Collapsed"
-                 Width="260"/>
+                 Width="260"/>-->
                 <TextBlock HorizontalAlignment="Center"
                    Name="AnswerSixBlock"
                    Grid.Row="13"
@@ -187,13 +187,13 @@
                    VerticalAlignment="Top" 
                    Visibility="Collapsed"
                    FontSize="18"/>
-                <TextBox x:Name="txtAnswerSix" Text="{x:Bind view.Phrase}" 
+                <!--<TextBox x:Name="txtAnswerSix" Text="{x:Bind view.Phrase}" 
                  HorizontalAlignment="Center" 
                  Grid.Row="14"
                  TextWrapping="Wrap" 
                  VerticalAlignment="Top" 
                  Visibility="Collapsed"
-                 Width="260"/>
+                 Width="260"/>-->
                 <Button x:Name="btnAdd" Style="{StaticResource ButtonStyle}"
                 Content="Add"
                 Grid.Row="15"

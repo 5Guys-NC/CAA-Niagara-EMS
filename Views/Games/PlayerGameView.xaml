@@ -47,9 +47,9 @@
                 <DataTemplate x:Name="oneAnswer"
                               x:DataType="data:Answer">
                     <TextBlock Name="txtEvents" Foreground="#1b3e6e">                                     
-                                   <Run FontSize="24" 
+                                   <!--<Run FontSize="24" 
                                         FontWeight="ExtraBold"
-                                        Text="{x:Bind Phrase}"/>
+                                        Text="{x:Bind Phrase}"/>-->
                     </TextBlock>
                 </DataTemplate>
 

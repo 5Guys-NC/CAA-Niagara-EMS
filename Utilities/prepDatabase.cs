@@ -41,16 +41,16 @@ namespace CAA_Event_Management.Utilities
 
                 #region Users
 
-                if (!context.Users.Any())
+                if (!context.UserAccounts.Any())
                 {
-                    context.Users.AddRange(
-                     new Users
+                    context.UserAccounts.AddRange(
+                     new UserAccount
                      {
                          UserName = "CAAUser1",
                          Password = "password",
                          isAdmin = false
                      },
-                     new Users
+                     new UserAccount
                      {
                          FirstName = "CAA",
                          LastName = "Admin",
@@ -58,7 +58,7 @@ namespace CAA_Event_Management.Utilities
                          Password = "password",
                          isAdmin = true
                      },
-                     new Users
+                     new UserAccount
                      {
                          FirstName = "Jon",
                          LastName = "Doe",
@@ -87,64 +87,64 @@ namespace CAA_Event_Management.Utilities
                     context.SaveChanges();
                 }
 
-                if (!context.Questions.Any())
-                {
-                    context.Questions.AddRange(
-                    new Question
-                    {
-                        Phrase = "CAA Members save 10% on their bill at which restaurants?",
-                        GameID = 1,
-                    },
-                    new Question
-                    {
-                        Phrase = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park. ",
-                        GameID = 1,
-                    }
-                    );
-                    context.SaveChanges();
-                }
-                if (!context.Answers.Any())
-                {
-                    context.Answers.AddRange(
-                       new Answer
-                       {
-                           Phrase = "Harvey's",
-                           IsCorrect = false,
-                           QuestionID = 1
-                       },
-                       new Answer
-                       {
-                           Phrase = "Kelsey's",
-                           IsCorrect = false,
-                           QuestionID = 1
-                       },
-                       new Answer
-                       {
-                           Phrase = "Montana's",
-                           IsCorrect = false,
-                           QuestionID = 1
-                       },
-                       new Answer
-                       {
-                           Phrase = "All of the Above",
-                           IsCorrect = true,
-                           QuestionID = 1
-                       },
-                       new Answer
-                       {
-                           Phrase = "True",
-                           IsCorrect = true,
-                           QuestionID = 2
-                       },
-                       new Answer
-                       {
-                           Phrase = "False",
-                           IsCorrect = false,
-                           QuestionID = 2
-                       }
-                       );
-                    context.SaveChanges();
-                }
+                //if (!context.Questions.Any())
+                //{
+                //    context.Questions.AddRange(
+                //    new Question
+                //    {
+                //        Phrase = "CAA Members save 10% on their bill at which restaurants?",
+                //        GameID = 1,
+                //    },
+                //    new Question
+                //    {
+                //        Phrase = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park. ",
+                //        GameID = 1,
+                //    }
+                //    );
+                //    context.SaveChanges();
+                //}
+                //if (!context.Answers.Any())
+                //{
+                //    context.Answers.AddRange(
+                //       new Answer
+                //       {
+                //           Phrase = "Harvey's",
+                //           IsCorrect = false,
+                //           QuestionID = 1
+                //       },
+                //       new Answer
+                //       {
+                //           Phrase = "Kelsey's",
+                //           IsCorrect = false,
+                //           QuestionID = 1
+                //       },
+                //       new Answer
+                //       {
+                //           Phrase = "Montana's",
+                //           IsCorrect = false,
+                //           QuestionID = 1
+                //       },
+                //       new Answer
+                //       {
+                //           Phrase = "All of the Above",
+                //           IsCorrect = true,
+                //           QuestionID = 1
+                //       },
+                //       new Answer
+                //       {
+                //           Phrase = "True",
+                //           IsCorrect = true,
+                //           QuestionID = 2
+                //       },
+                //       new Answer
+                //       {
+                //           Phrase = "False",
+                //           IsCorrect = false,
+                //           QuestionID = 2
+                //       }
+                //       );
+                //    context.SaveChanges();
+                //}
 
                 #endregion
 

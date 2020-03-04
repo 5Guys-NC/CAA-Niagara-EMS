@@ -91,7 +91,7 @@ namespace CAA_Event_Management.Views.Games
             if (displayedQuestion == 6)
             {
                 AnswerThreeBlock.Visibility = Visibility.Visible;
-                txtAnswerThree.Visibility = Visibility.Visible;
+                //txtAnswerThree.Visibility = Visibility.Visible;
                 btnRemoveAnswer.Visibility = Visibility.Visible;
                 rpButtons.Margin = new Thickness(350, 0, 0, 0);
                 displayedQuestion += 2;
@@ -107,7 +107,7 @@ namespace CAA_Event_Management.Views.Games
             else if (displayedQuestion == 8)
             {
                 AnswerFourBlock.Visibility = Visibility.Visible;
-                txtAnswerFour.Visibility = Visibility.Visible;
+                //txtAnswerFour.Visibility = Visibility.Visible;
                 displayedQuestion += 2;
 
                 chkSelect4.Name = "chkSelect4";
@@ -120,7 +120,7 @@ namespace CAA_Event_Management.Views.Games
             else if (displayedQuestion == 10)
             {
                 AnswerFiveBlock.Visibility = Visibility.Visible;
-                txtAnswerFive.Visibility = Visibility.Visible;
+                //txtAnswerFive.Visibility = Visibility.Visible;
                 displayedQuestion += 2;
 
                 chkSelect5.Name = "chkSelect5";
@@ -133,7 +133,7 @@ namespace CAA_Event_Management.Views.Games
             else if (displayedQuestion == 12)
             {
                 AnswerSixBlock.Visibility = Visibility.Visible;
-                txtAnswerSix.Visibility = Visibility.Visible;
+                //txtAnswerSix.Visibility = Visibility.Visible;
                 btnAddAnswer.Visibility = Visibility.Collapsed;
                 rpButtons.Margin = new Thickness(350, 0, 0, 0);
                 displayedQuestion += 2;
@@ -154,7 +154,7 @@ namespace CAA_Event_Management.Views.Games
             if (displayedQuestion == 14)
             {
                 AnswerSixBlock.Visibility = Visibility.Collapsed;
-                txtAnswerSix.Visibility = Visibility.Collapsed;
+                //txtAnswerSix.Visibility = Visibility.Collapsed;
                 btnAddAnswer.Visibility = Visibility.Visible;
                 rpButtons.Margin = new Thickness(350, 0, 0, 0);
                 displayedQuestion -= 2;
@@ -166,7 +166,7 @@ namespace CAA_Event_Management.Views.Games
             else if (displayedQuestion == 12)
             {
                 AnswerFiveBlock.Visibility = Visibility.Collapsed;
-                txtAnswerFive.Visibility = Visibility.Collapsed;
+                //txtAnswerFive.Visibility = Visibility.Collapsed;
                 displayedQuestion -= 2;
 
                 if (GameGrid.Children.Contains(chkSelect5))
@@ -176,7 +176,7 @@ namespace CAA_Event_Management.Views.Games
             else if (displayedQuestion == 10)
             {
                 AnswerFourBlock.Visibility = Visibility.Collapsed;
-                txtAnswerFour.Visibility = Visibility.Collapsed;
+                //txtAnswerFour.Visibility = Visibility.Collapsed;
                 displayedQuestion -= 2;
 
                 if (GameGrid.Children.Contains(chkSelect4))
@@ -186,7 +186,7 @@ namespace CAA_Event_Management.Views.Games
             else if (displayedQuestion == 8)
             {
                 AnswerThreeBlock.Visibility = Visibility.Collapsed;
-                txtAnswerThree.Visibility = Visibility.Collapsed;
+                //txtAnswerThree.Visibility = Visibility.Collapsed;
                 btnRemoveAnswer.Visibility = Visibility.Collapsed;
                 rpButtons.Margin = new Thickness(310, 0, 0, 0);
                 displayedQuestion -= 2;

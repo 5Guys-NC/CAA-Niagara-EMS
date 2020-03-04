@@ -55,7 +55,7 @@ namespace CAA_Event_Management.Views.Games
         private void BtnCreateConfirm_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Game newGame = new Game();
-            newGame.Title = txtCreateNewGame.Text.ToUpper();
+            //newGame.Title = txtCreateNewGame.Text.ToUpper();
             gameRepo.AddGame(newGame);
             Frame.Navigate(typeof(GameDetails), (newGame));
         }
@@ -80,8 +80,8 @@ namespace CAA_Event_Management.Views.Games
         {
             int selected = Convert.ToInt32(((Button)sender).DataContext);
             Game game = new Game();
-            game = gameRepo.GetAGame(selected);
-            gameRepo.DeleteGame(game);
+            game = gameRepo.GetGame(selected);
+            //gameRepo.DeleteGame(game);
             Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
         }
 
@@ -89,7 +89,7 @@ namespace CAA_Event_Management.Views.Games
         {
             List<Game> g = new List<Game>();
             
-            gameList.ItemsSource = gameRepo.SearchGame(txtSearch.Text);
+            //gameList.ItemsSource = gameRepo.SearchGame(txtSearch.Text);
         }
         #endregion
 

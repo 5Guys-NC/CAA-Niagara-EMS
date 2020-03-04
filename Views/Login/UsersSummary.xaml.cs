@@ -1,4 +1,6 @@
 ﻿using CAA_Event_Management.Data;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.ViewModels;
 using System;
@@ -20,12 +22,12 @@ namespace CAA_Event_Management
     {
         #region Startup - variables. repositories, methods
 
-        IUsersRepository usersRepository;
+        IUserAccountRepository usersRepository;
 
         public UsersSummary()
         {
             this.InitializeComponent();
-            usersRepository = new UsersRepository();
+            usersRepository = new UserAccountRepository();
             
             //Fill list of Users
             FillUserList();
@@ -39,7 +41,7 @@ namespace CAA_Event_Management
             try
             {
                 //get users
-                List<User> users = usersRepository.GetUsers();
+                List<UserAccount> users = usersRepository.GetUsers();
 
                 //set source for the ListView to the list of users
                 lvUsers.ItemsSource = users;
@@ -66,7 +68,7 @@ namespace CAA_Event_Management
             if (lvUsers.SelectedItem != null)
             {
                 //put selected user data in UserParams object
-                up.selectedUser = (User)lvUsers.SelectedItem;
+                up.selectedUser = (UserAccount)lvUsers.SelectedItem;
                 //navigate to corresponding frame
                 Frame.Navigate(typeof(UserDetails), up);
             }
@@ -87,7 +89,7 @@ namespace CAA_Event_Management
             //get user
             var u = lvUsers.SelectedItem;
             //delete user
-            usersRepository.DeleteUser((User)u);
+            usersRepository.DeleteUser((UserAccount)u);
             Frame.GoBack();
         }
 

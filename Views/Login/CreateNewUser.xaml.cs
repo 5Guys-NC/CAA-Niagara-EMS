@@ -4,6 +4,8 @@ using System;
 using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
 /***************************************
  * Created By: Brian Culp
  * Edited By:
@@ -17,14 +19,14 @@ namespace CAA_Event_Management
     /// </summary>
     public sealed partial class CreateNewUser : Page
     {
-        User newUser;
+        UserAccount newUser;
 
-        IUsersRepository userRepository;
+        IUserAccountRepository userRepository;
 
         public CreateNewUser()
         {
             this.InitializeComponent();
-            userRepository = new UsersRepository();
+            userRepository = new UserAccountRepository();
         }
 
         /// <summary>
@@ -34,7 +36,7 @@ namespace CAA_Event_Management
         /// <param name="e"></param>
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
-            newUser = new User();
+            newUser = new UserAccount();
             this.DataContext = newUser;
 
             try

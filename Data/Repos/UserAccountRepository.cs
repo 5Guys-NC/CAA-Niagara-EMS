@@ -1,26 +1,24 @@
-﻿using CAA_Event_Management.Models;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-/******************************
-*  Created By: Brian Culp
-*  Edited by:
-*******************************/
-namespace CAA_Event_Management.Data
+using System.Text;
+using System.Threading.Tasks;
+using CAA_Event_Management.Models;
+using CAA_Event_Management.Data.Interface_Repos;
+
+namespace CAA_Event_Management.Data.Repos
 {
-    /// <summary>
-    /// Users Repository that contains the CRUD functions for the User Table
-    /// </summary>
-    public class UsersRepository : IUsersRepository
+    public class UserAccountRepository : IUserAccountRepository
     {
         /// <summary>
         /// ADD
         /// </summary>
         /// <param name="userToAdd"></param>
-        public void AddUser(User userToAdd)
+        public void AddUser(UserAccount userToAdd)
         {
             using (CAAContext context = new CAAContext())
             {
-                context.Users.Add(userToAdd);
+                context.UserAccounts.Add(userToAdd);
                 context.SaveChanges();
             }
         }
@@ -29,11 +27,11 @@ namespace CAA_Event_Management.Data
         /// Delete
         /// </summary>
         /// <param name="userToDelete"></param>
-        public void DeleteUser(User userToDelete)
+        public void DeleteUser(UserAccount userToDelete)
         {
             using (CAAContext context = new CAAContext())
             {
-                context.Users.Remove(userToDelete);
+                context.UserAccounts.Remove(userToDelete);
                 context.SaveChanges();
             }
         }
@@ -43,11 +41,11 @@ namespace CAA_Event_Management.Data
         /// </summary>
         /// <param name="ID"></param>
         /// <returns>A Single USER</returns>
-        public User GetUser(int ID)
+        public UserAccount GetUser(int ID)
         {
             using (CAAContext context = new CAAContext())
             {
-                var u = context.Users
+                var u = context.UserAccounts
                     .Where(d => d.ID == ID)
                     .FirstOrDefault();
                 return u;
@@ -58,12 +56,12 @@ namespace CAA_Event_Management.Data
         /// Get all Users
         /// </summary>
         /// <returns>List of USERS</returns>
-        public List<User> GetUsers()
+        public List<UserAccount> GetUsers()
         {
-           using (CAAContext context = new CAAContext())
+            using (CAAContext context = new CAAContext())
             {
-                var users = context.Users
-                    .OrderBy(d=>d.UserName)
+                var users = context.UserAccounts
+                    .OrderBy(d => d.UserName)
                     .ToList();
                 return users;
             }
@@ -74,14 +72,14 @@ namespace CAA_Event_Management.Data
         /// </summary>
         /// <param name="userName"></param>
         /// <returns>A Single USER</returns>
-        public User GetUser(string userName)
+        public UserAccount GetUser(string userName)
         {
             using (CAAContext context = new CAAContext())
             {
-                var users = context.Users
+                var users = context.UserAccounts
                     .Where(d => d.UserName == userName)
                     .FirstOrDefault();
-                    
+
                 return users;
             }
         }
@@ -90,7 +88,7 @@ namespace CAA_Event_Management.Data
         /// Update
         /// </summary>
         /// <param name="userToUpdate"></param>
-        public void UpdateUser(User userToUpdate)
+        public void UpdateUser(UserAccount userToUpdate)
         {
             using (CAAContext context = new CAAContext())
             {

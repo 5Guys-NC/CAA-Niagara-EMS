@@ -112,7 +112,7 @@ namespace CAA_Event_Management.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "UserAccounts",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -125,7 +125,7 @@ namespace CAA_Event_Management.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.ID);
+                    table.PrimaryKey("PK_UserAccounts", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -466,8 +466,8 @@ namespace CAA_Event_Management.Migrations
                 column: "TagID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_UserName",
-                table: "Users",
+                name: "IX_UserAccounts_UserName",
+                table: "UserAccounts",
                 column: "UserName",
                 unique: true);
         }
@@ -496,7 +496,7 @@ namespace CAA_Event_Management.Migrations
                 name: "QuestionTags");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "UserAccounts");
 
             migrationBuilder.DropTable(
                 name: "Pictures");

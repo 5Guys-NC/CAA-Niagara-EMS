@@ -7,7 +7,7 @@ using CAA_Event_Management.Models;
 using Microsoft.EntityFrameworkCore;
 /******************************
 *  Repository Created By: Max Cashmore
-*  Edited by: Brian Culp
+
 *******************************/
 namespace CAA_Event_Management.Data
 {
@@ -16,110 +16,54 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class AnswerRepository : IAnswerRepository
     {
-        #region Get
         public List<Answer> GetAnswers()
         {
             using (CAAContext context = new CAAContext())
             {
-                var items = context.Answers
-                    .OrderBy(d => d.ID)
-                    .ToList();
+                var items = context.Answers.OrderByDescending(o => o.TimesUsed).ToList();
                 return items;
             }
         }
-        public List<Answer> GetAnswersByQuestion(int ID)
+
+        public GameModel GetGameModel(int ID)
         {
             using (CAAContext context = new CAAContext())
             {
-                var answer = context.Answers
-                    .Where(d => d.QuestionID == ID).ToList();
-                return answer;
+                var items = context.GameModels.Where(i => i.ID == ID).FirstOrDefault();
+                return items;
             }
         }
-        public Answer GetAnswer(int ID)
+
+        /// <summary>
+        /// Displays Answers not already in the question
+        /// Work in progress
+        /// </summary>
+        /// <returns></returns>
+        public List<Answer> GetAnswerSelection()
         {
             using (CAAContext context = new CAAContext())
             {
-                var answer = context.Answers
-                    .Where(d => d.ID == ID).FirstOrDefault();
-                return answer;
+                var items = context.Answers.OrderBy(o => o.TimesUsed).ToList();
+                return items;
             }
         }
-        #endregion
 
-        #region Add
-
-        //When adding multiple answers
-        public void AddAnswers(List<Answer> ansToAdd)
+        public void AddAnswer(Answer toAdd)
         {
             using (CAAContext context = new CAAContext())
             {
-                foreach (Answer a in ansToAdd)
-                {
-                    context.Answers.Add(a);
-
-                }
+                context.Answers.Add(toAdd);
                 context.SaveChanges();
             }
         }
 
-        public void AddAnswer(Answer anToAdd)
+        public void UpdateGM(GameModel UpdateGM)
         {
             using (CAAContext context = new CAAContext())
             {
-                context.Answers.Add(anToAdd);
+                context.GameModels.Update(UpdateGM);
                 context.SaveChanges();
             }
         }
-        #endregion
-        
-        #region Update
-
-        public void UpdateAnswer(Answer anToUpdate)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                context.Answers.Update(anToUpdate);
-                context.SaveChanges();
-            }
-        }
-        public void UpdateAnswers(List<Answer> ansToUpdate)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                foreach (Answer a in ansToUpdate)
-                {
-                    context.Answers.Update(a);
-                    context.SaveChanges();
-                }
-            }
-        }
-        #endregion
-        
-        #region Delete
-
-        public void DeleteAnswer(Answer ansToDelete)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                context.Answers.Remove(ansToDelete);
-                context.SaveChanges();
-            }
-        }
-        #endregion
-        
-        #region Search
-        public List<Answer> SearchAnswer(string search)
-        {
-
-            using (CAAContext context = new CAAContext())
-            {
-                var answer = context.Answers
-                    .Where(d => d.Phrase.ToUpper().Contains(search.ToUpper())).ToList();
-                return answer;
-            }
-
-        }
-        #endregion
     }
 }

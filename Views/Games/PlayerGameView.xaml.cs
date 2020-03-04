@@ -69,13 +69,13 @@ namespace CAA_Event_Management.Views.Games
             {
                 choosenAnswer = (Answer)gvDisplayAnswers.SelectedItem;
 
-                if (choosenAnswer.IsCorrect == true)
-                {
-                    Jeeves.ShowMessage("Correct", "Your answer was correct!");
-                }
-                else Jeeves.ShowMessage("Incorrect", "Your answer was wrong");
+                //if (choosenAnswer.IsCorrect == true)
+                //{
+                //    Jeeves.ShowMessage("Correct", "Your answer was correct!");
+                //}
+                //else Jeeves.ShowMessage("Incorrect", "Your answer was wrong");
 
-                SaveQuestionAnswer((bool)choosenAnswer.IsCorrect);
+                //SaveQuestionAnswer((bool)choosenAnswer.IsCorrect);
                 NextQuestion();
             }
 
@@ -97,7 +97,7 @@ namespace CAA_Event_Management.Views.Games
         {
             try
             {
-                thisQuizQuestions = questionRepository.GetQuestionsByGame((int)thisEvent.QuizID);
+                //thisQuizQuestions = questionRepository.GetQuestionsByGame((int)thisEvent.QuizID);
                 questionTotalCount = thisQuizQuestions.Count;
             }
             catch
@@ -108,7 +108,7 @@ namespace CAA_Event_Management.Views.Games
 
         private void StartQuiz()
         {
-            tbkcurrentQuestion.Text = thisQuizQuestions[currentQuestionCount].Phrase.ToString();
+            //tbkcurrentQuestion.Text = thisQuizQuestions[currentQuestionCount].Phrase.ToString();
             GetQuestionAnswers(thisQuizQuestions[currentQuestionCount].ID);
 
             currentQuestionCount++;
@@ -119,7 +119,7 @@ namespace CAA_Event_Management.Views.Games
         {
             if (currentQuestionCount < questionTotalCount)
             {
-                tbkcurrentQuestion.Text = thisQuizQuestions[currentQuestionCount].Phrase.ToString();
+                //tbkcurrentQuestion.Text = thisQuizQuestions[currentQuestionCount].Phrase.ToString();
                 GetQuestionAnswers(thisQuizQuestions[currentQuestionCount].ID);
 
                 currentQuestionCount++;
@@ -134,7 +134,7 @@ namespace CAA_Event_Management.Views.Games
         {
             try
             {
-                answersForThisQuestion = answerRepository.GetAnswersByQuestion(QuestionID);
+                //answersForThisQuestion = answerRepository.GetAnswersByQuestion(QuestionID);
                 gvDisplayAnswers.ItemsSource = answersForThisQuestion;
             }
             catch

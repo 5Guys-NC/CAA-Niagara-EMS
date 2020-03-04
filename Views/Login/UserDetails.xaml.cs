@@ -3,6 +3,8 @@ using CAA_Event_Management.Models;
 using CAA_Event_Management.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
 /******************************
 *  Created By: Brian Culp
 *  Edited by:
@@ -16,15 +18,15 @@ namespace CAA_Event_Management
     /// </summary>
     public sealed partial class UserDetails : Page
     {
-        User view;
+        UserAccount view;
         private bool editMode = true;
 
-        IUsersRepository userRepository;
+        IUserAccountRepository userRepository;
 
         public UserDetails()
         {
             this.InitializeComponent();
-            userRepository = new UsersRepository();
+            userRepository = new UserAccountRepository();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

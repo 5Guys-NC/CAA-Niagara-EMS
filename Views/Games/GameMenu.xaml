@@ -185,7 +185,7 @@
                         </Flyout.FlyoutPresenterStyle>
                         <StackPanel>
                             <TextBlock Name="tbCreateNewGame" Text="Enter A Game Name" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                            <TextBox Name ="txtCreateNewGame" Text="{x:Bind view.Game.Title}" Width="360"/>
+                            <!--<TextBox Name ="txtCreateNewGame" Text="{x:Bind view.Game.Title}" Width="360"/>-->
                             <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
                                 <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource ButtonStyle}" Margin="0,0,10,0" Tapped="BtnCreateConfirm_Tapped"/>
                                 <Button Name="btnCreateCancel" Content="CANCEL"  Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="BtnCreateCancel_Tapped"/>

@@ -1,4 +1,5 @@
-﻿using CAA_Event_Management.Data;
+﻿using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Views.Games;
@@ -19,8 +20,8 @@ namespace CAA_Event_Management
     public sealed partial class MainPage : Page
     {
         #region Startup - variables, repositories, constructor
-            User currentUser;
-            IUsersRepository usersRepository;
+            UserAccount currentUser;
+            IUserAccountRepository usersRepository;
             bool AuthStatus;
 
         public object Keys { get; private set; }
@@ -28,7 +29,7 @@ namespace CAA_Event_Management
         public MainPage()
             {
                 this.InitializeComponent();
-                usersRepository = new UsersRepository();
+                usersRepository = new UserAccountRepository();
                 isAuthenticated(out AuthStatus);
                 MyFrame.Navigate(typeof(EventStartView));
                 DataContext = this;

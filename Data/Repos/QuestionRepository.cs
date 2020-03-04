@@ -15,87 +15,58 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class QuestionRepository : IQuestionRepository
     {
-        #region Get Requests
-
-        /// <summary>
-        /// Get All Question
-        /// </summary>
-        /// <returns></returns>
         public List<Question> GetQuestions()
         {
             using (CAAContext context = new CAAContext())
             {
-                var items = context.Questions
-                    .OrderBy(d => d.ID)
-                    .ToList();
+                var items = context.Questions.OrderByDescending(o => o.TimesUsed).ToList();
                 return items;
             }
         }
 
-        public List<Question> GetQuestionsByGame(int ID)
+        public List<GameModel> GetModelQuestions(int ID)
         {
             using (CAAContext context = new CAAContext())
             {
-                var items = context.Questions
-                    .Where(d => d.GameID == ID).ToList();
+                var items = context.GameModels.Where(i => i.GameID == ID).ToList();
                 return items;
             }
         }
 
-        public Question GetQuestion(int ID)
+        public GameModel GetModelQuestion(int ID)
         {
             using (CAAContext context = new CAAContext())
             {
-                var question = context.Questions
-                    .Where(d => d.ID == ID).FirstOrDefault();
-                return question;
+                var items = context.GameModels.Where(i => i.ID == ID).FirstOrDefault();
+                return items;
             }
         }
-        #endregion
 
-        #region Add
-        public void AddQuestion(Question queToAdd)
+        public List<Question> GetQuestionSelection()
         {
             using (CAAContext context = new CAAContext())
             {
-                context.Questions.Add(queToAdd);
+                var items = context.Questions.OrderBy(o => o.TimesUsed).ToList();
+                return items;
+            }
+        }
+
+        public void AddQuestion(Question toAdd)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.Questions.Add(toAdd);
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Update
-        public void UpdateQuestion(Question queToUpdate)
+        public void RemoveGameModel(GameModel toRemove)
         {
             using (CAAContext context = new CAAContext())
             {
-                context.Update(queToUpdate);
+                context.GameModels.Remove(toRemove);
                 context.SaveChanges();
             }
         }
-        #endregion
-
-        #region Delete
-        public void DeleteQuestion(Question queToDelete)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                context.Questions.Remove(queToDelete);
-                context.SaveChanges();
-            }
-        }
-        #endregion
-
-        #region Search
-        public List<Question> SearchQuestion(string search)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                var question = context.Questions
-                    .Where(d => d.Phrase.ToUpper().Contains(search.ToUpper())).ToList();
-                return question;
-            }
-        }
-        #endregion
     }
 }

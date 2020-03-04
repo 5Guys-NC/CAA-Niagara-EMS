@@ -48,7 +48,7 @@ namespace CAA_Event_Management.Views.Games
             view = (Question)e.Parameter;
             this.DataContext = view;
 
-            answers = answerRepo.GetAnswersByQuestion(view.ID);
+            //answers = answerRepo.GetAnswersByQuestion(view.ID);
             AnswerList.ItemsSource = answers;
         }
         #endregion
@@ -64,34 +64,35 @@ namespace CAA_Event_Management.Views.Games
 
         private void btnSave_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            questionRepo.UpdateQuestion(view);
-            answerRepo.UpdateAnswers(answers);
+            //questionRepo.UpdateQuestion(view);
+            //answerRepo.UpdateAnswers(answers);
 
-            gameRepo = new GameRepository();
-            Game game = new Game();
-            game = gameRepo.GetAGame(view.GameID);
-            Frame.Navigate(typeof(GameDetails), (game));
+            //gameRepo = new GameRepository();
+            //Game game = new Game();
+            //game = gameRepo.GetAGame(view.GameID);
+            //Frame.Navigate(typeof(GameDetails), (game));
         }
 
         private void btnAdd_Tapped(object sender, RoutedEventArgs e)
         {
-            answerRepo.UpdateAnswers(answers);
-            Answer newAnswer = new Answer();
-            newAnswer.QuestionID = view.ID;
-            answerRepo.AddAnswer(newAnswer);
-            Frame.Navigate(typeof(QuestionDetail), (view), new SuppressNavigationTransitionInfo());
-            Frame.BackStack.Remove(this.Frame.BackStack.Last());
+            //answerRepo.UpdateAnswers(answers);
+            //Answer newAnswer = new Answer();
+            //newAnswer.QuestionID = view.ID;
+            //answerRepo.AddAnswer(newAnswer);
+            //Frame.Navigate(typeof(QuestionDetail), (view), new SuppressNavigationTransitionInfo());
+            //Frame.BackStack.Remove(this.Frame.BackStack.Last());
         }
 
         private void btnRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            answerRepo.UpdateAnswers(answers);
-            int selected = Convert.ToInt32(((Button)sender).DataContext);
-            Answer answer = new Answer();
-            answer = answerRepo.GetAnswer(selected);
-            answerRepo.DeleteAnswer(answer);
-            Frame.Navigate(typeof(QuestionDetail), (view), new SuppressNavigationTransitionInfo());
-            Frame.BackStack.Remove(this.Frame.BackStack.Last());        }
+            //answerRepo.UpdateAnswers(answers);
+            //int selected = Convert.ToInt32(((Button)sender).DataContext);
+            //Answer answer = new Answer();
+            //answer = answerRepo.GetAnswer(selected);
+            //answerRepo.DeleteAnswer(answer);
+            //Frame.Navigate(typeof(QuestionDetail), (view), new SuppressNavigationTransitionInfo());
+            //Frame.BackStack.Remove(this.Frame.BackStack.Last());        
+        }
 
         private void btnDeleteQuestion_Tapped(object sender, RoutedEventArgs e)
         {

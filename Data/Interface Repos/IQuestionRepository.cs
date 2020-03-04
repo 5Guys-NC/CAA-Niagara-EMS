@@ -16,11 +16,10 @@ namespace CAA_Event_Management.Data
     public interface IQuestionRepository
     {
         List<Question> GetQuestions();
-        List<Question> GetQuestionsByGame(int ID);
-        Question GetQuestion(int ID);
-        void AddQuestion(Question queToAdd);
-        void UpdateQuestion(Question queToUpdate);
-        void DeleteQuestion(Question queToDelete);
-        List<Question> SearchQuestion(string search);
+        List<GameModel> GetModelQuestions(int ID);
+        GameModel GetModelQuestion(int ID);
+        List<Question> GetQuestionSelection();
+        void AddQuestion(Question toAdd);
+        void RemoveGameModel(GameModel toRemove);
     }
 }

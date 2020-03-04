@@ -4,16 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-/***************************
- * Model Created By: Brian Culp
- * Edited By:
- * *************************/
+
 namespace CAA_Event_Management.Models
 {
-    /// <summary>
-    /// This page is a model to template the USERS table in the database
-    /// </summary>
-    public class User
+    public class UserAccount
     {
         public int ID { get; set; }
 
@@ -33,6 +27,5 @@ namespace CAA_Event_Management.Models
 
         [Required(ErrorMessage = "Is this person an Admin?")]
         public bool isAdmin { get; set; } = false;
-
     }
 }

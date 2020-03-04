@@ -16,80 +16,39 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class GameRepository : IGameRepository
     {
-        #region Get
-        public List<Game> GetGame(int ID)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                var game = context.Games
-                    .Where(g => g.ID == ID).Include(q => q.Questions).ToList();
-                return game;
-            }
-        }
-
-        public Game GetAGame(int ID)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                var game = context.Games
-                    .Where(g => g.ID == ID).Include(q => q.Questions).FirstOrDefault();
-                return game;
-            }
-        }
-
         public List<Game> GetGames()
         {
             using (CAAContext context = new CAAContext())
             {
-                var games = context.Games.OrderBy(g => g.ID).ToList();
-                return games;
+                var items = context.Games.OrderBy(o => o.CreatedDate).ToList();
+                return items;
             }
         }
-        #endregion
 
-        #region Add
-        public void AddGame(Game gameToAdd)
+        public void SaveGameModel(GameModel gmToSave)
         {
             using (CAAContext context = new CAAContext())
             {
-                context.Games.Add(gameToAdd);
+                context.GameModels.Add(gmToSave);
                 context.SaveChanges();
             }
         }
-        #endregion
 
-        #region Delete
-        public void DeleteGame(Game gameToDelete)
+        public void AddGame(Game toAdd)
         {
             using (CAAContext context = new CAAContext())
             {
-                context.Games.Remove(gameToDelete);
+                context.Games.Add(toAdd);
                 context.SaveChanges();
             }
         }
-        #endregion
-
-        #region Update
-        public void UpdateGame(Game gameToUpdate)
+        public Game GetGame(int ID)
         {
             using (CAAContext context = new CAAContext())
             {
-                context.Games.Update(gameToUpdate);
-                context.SaveChanges();
+                var items = context.Games.Where(g => g.ID == ID).FirstOrDefault();
+                return items;
             }
         }
-        #endregion
-
-        #region Search
-        public List<Game> SearchGame(string search)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                var question = context.Games
-                    .Where(d => d.Title.ToUpper().Contains(search.ToUpper())).ToList();
-                return question;
-            }
-        }
-        #endregion
     }
 }

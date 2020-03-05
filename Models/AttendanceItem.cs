@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 /******************************
-*  Created By: Brian Culp
+*  Model Created By: Brian Culp
 *  Edited by: Jon Yade
 *******************************/
 namespace CAA_Event_Management.Models
 {
-    /// <summary>
-    /// This page is a model to template the ATTENDENCE ITEM table in the database
-    /// </summary>
     public class AttendanceItem
     {
         #region Table Fields
@@ -23,14 +25,18 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Event Items ID")]
         [Required(ErrorMessage = "Event Items ID Required")]
+        [StringLength(36)]
         public string EventItemID { get; set; }
         public virtual EventItem EventItem { get; set; }
+        //public ICollection<EventItem> EventItems { get; set; }
 
 
         [Display(Name = "Member Attendance ID")]
         [Required(ErrorMessage = "Member Attendence ID Required")]
+        [StringLength(36)]
         public string MemberAttendanceID { get; set; }
         public virtual AttendanceTracking AttendanceTracking { get; set; }    //Is this going to be a problem
+        //public ICollection<AttendanceTracking> AttendanceTrackings { get; set; }
 
         #endregion
     }

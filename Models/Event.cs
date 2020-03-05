@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 /******************************
-*  Created By: Brian Culp
+*  Model Created By: Brian Culp
 *  Edited by: Jon Yade
 *******************************/
 namespace CAA_Event_Management.Models
@@ -31,7 +34,7 @@ namespace CAA_Event_Management.Models
         {
             get
             {
-                return string.Format("{0:dd-MM-yyyy}",EventStart) + " - " + string.Format("{0:dd-MM-yyyy}", EventEnd);
+                return string.Format("{0:yyyy-MM-dd}", EventStart) + " - " + string.Format("{0:yyyy-MM-dd}", EventEnd);
             }
         }
 
@@ -87,7 +90,7 @@ namespace CAA_Event_Management.Models
         #endregion
 
         #region Table Connections
-        
+
         public ICollection<EventItem> EventItems { get; set; }
         public ICollection<AttendanceTracking> AttendanceTrackings { get; set; }
 

@@ -11,7 +11,7 @@ namespace CAA_Event_Management.Data.Interface_Repos
     {
         List<UserAccount> GetUsers();
 
-        UserAccount GetUser(int ID);
+        UserAccount GetUserByID(string ID);
 
         UserAccount GetUser(string userName);
 

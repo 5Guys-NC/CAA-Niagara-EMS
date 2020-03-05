@@ -41,7 +41,7 @@ namespace CAA_Event_Management.Data.Repos
         /// </summary>
         /// <param name="ID"></param>
         /// <returns>A Single USER</returns>
-        public UserAccount GetUser(int ID)
+        public UserAccount GetUserByID(string ID)
         {
             using (CAAContext context = new CAAContext())
             {

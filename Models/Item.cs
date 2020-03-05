@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 /******************************
-*  Created By: Brian Culp
+*  Model Created By: Brian Culp
 *  Edited by: Jon Yade
 *******************************/
 namespace CAA_Event_Management.Models
@@ -35,7 +39,7 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Item")]
         [Required(ErrorMessage = "ItemName Required")]
-        [StringLength(75,ErrorMessage ="Item Name cannot be more then 75 characters")]
+        [StringLength(75, ErrorMessage = "Item Name cannot be more then 75 characters")]
         public string ItemName { get; set; }
 
         [Display(Name = "Type")]
@@ -43,10 +47,8 @@ namespace CAA_Event_Management.Models
         [StringLength(25, ErrorMessage = "valueType cannot be more then 25 characters")]
         public string ValueType { get; set; }
 
-
         public int? ItemCount { get; set; } = 0;
 
-        [Display(Name = "isDeleted?")]
         public bool? IsDeleted { get; set; } = false;
 
         #endregion

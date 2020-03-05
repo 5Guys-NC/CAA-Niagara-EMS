@@ -59,7 +59,7 @@ namespace CAA_Event_Management.Views.EventViews
             if (gvAvailableEvents.SelectedItem != null)
             {
                 Models.Event selectedEvent = (Models.Event)gvAvailableEvents.SelectedItem;
-                Frame.Navigate(typeof(EventAttendenceTracking), (Models.Event)selectedEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)selectedEvent);
             }
             else
             {

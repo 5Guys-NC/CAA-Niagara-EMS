@@ -126,7 +126,7 @@ namespace CAA_Event_Management.Views.Games
             }
             else
             {
-                Frame.Navigate(typeof(EventAttendenceTracking), (Models.Event)thisEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)thisEvent);
             }
         }
 

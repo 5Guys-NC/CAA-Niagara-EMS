@@ -44,10 +44,10 @@ namespace CAA_Event_Management.Models
         public string ValueType { get; set; }
 
 
-        public int ItemCount { get; set; } = 0;
+        public int? ItemCount { get; set; } = 0;
 
         [Display(Name = "isDeleted?")]
-        public bool IsDeleted { get; set; } = false;
+        public bool? IsDeleted { get; set; } = false;
 
         #endregion
 

@@ -29,6 +29,30 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        public List<Item> GetUndeletedItems()
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                var items = context.Items
+                    .Where(d => d.IsDeleted == false || d.IsDeleted == null)
+                    .OrderBy(d => d.ItemName)
+                    .ToList();
+                return items;
+            }
+        }
+
+        public List<Item> GetUndeletedItemsByCount()
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                var items = context.Items
+                    .Where(d => d.IsDeleted == false || d.IsDeleted == null)
+                    .OrderBy(d => d.ItemCount)
+                    .ThenBy(d => d.ItemName)
+                    .ToList();
+                return items;
+            }
+        }
         /// <summary>
         /// Get Item by ID
         /// </summary>
@@ -69,6 +93,15 @@ namespace CAA_Event_Management.Data
             using (CAAContext context = new CAAContext())
             {
                 context.Update(itemToUpdate);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteUpdateItem(Item itemToDelete)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.Update(itemToDelete);
                 context.SaveChanges();
             }
         }

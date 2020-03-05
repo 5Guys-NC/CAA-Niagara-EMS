@@ -50,6 +50,12 @@ namespace CAA_Event_Management.Utilities
                          Password = "password",
                          isAdmin = false
                      },
+                    new UserAccount
+                    {
+                        UserName = "a",
+                        Password = "a",
+                        isAdmin = true
+                    },
                      new UserAccount
                      {
                          FirstName = "CAA",

@@ -179,9 +179,6 @@
     <Compile Include="Views\EventViews\EventAttendanceTracking.xaml.cs">
       <DependentUpon>EventAttendanceTracking.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EventViews\EventAttendenceTracking.xaml.cs">
-      <DependentUpon>EventAttendenceTracking.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EventViews\EventDetails.xaml.cs">
       <DependentUpon>EventDetails.xaml</DependentUpon>
     </Compile>
@@ -256,10 +253,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EventViews\EventAttendanceTracking.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\EventViews\EventAttendenceTracking.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

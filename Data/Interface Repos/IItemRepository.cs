@@ -12,9 +12,12 @@ namespace CAA_Event_Management.Data
     public interface IItemRepository
     {
         List<Item> GetItems();
+        List<Item> GetUndeletedItems();
+        List<Item> GetUndeletedItemsByCount();
         Item GetItem(string itemID);
         void AddItem(Item itemToAdd);
         void UpdateItem(Item itemToUpdate);
+        void DeleteUpdateItem(Item itemToDelete);
         void DeleteItem(Item itemToDelete);
     }
 }

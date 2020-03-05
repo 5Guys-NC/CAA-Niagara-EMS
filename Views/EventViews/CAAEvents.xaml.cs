@@ -153,33 +153,35 @@ namespace CAA_Event_Management.Views.EventViews
             return;
         }
 
-        private void btnCreateEvent_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Event newEvent = new Event();
-            Frame.Navigate(typeof(EventDetails), newEvent);
-        }
+        //private void btnCreateEvent_Tapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    Event newEvent = new Event();
+        //    Frame.Navigate(typeof(EventDetails), newEvent);
+        //}
 
-        private void btnCreateSurvey_Tapped(object sender, TappedRoutedEventArgs e)
-        {
+        //private void btnCreateSurvey_Tapped(object sender, TappedRoutedEventArgs e)
+        //{
 
-            //Frame.Navigate(typeof(ItemsView));
-        }
+        //    //Frame.Navigate(typeof(ItemsView));
+        //}
 
-        private void btnBeginEvent_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            return;
-        }
+        //private void btnBeginEvent_Tapped(object sender, TappedRoutedEventArgs e)
+        //{
+        //    return;
+        //}
 
-        private void btnItems_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(Surveys));
-        }
+        //private void btnItems_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Frame.Navigate(typeof(Surveys));
+        //}
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
             int selected = Convert.ToInt32(((Button)sender).DataContext);
             Event selectedEvent = new Event();
             selectedEvent = eventRepository.GetEvent(selected.ToString());
+            App userInfo = (App)Application.Current;
+            selectedEvent.LastModifiedBy = userInfo.userAccountName;
             eventRepository.DeleteEvent(selectedEvent);
             Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
         }
@@ -189,11 +191,11 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - SearchBox_TextChanged
 
-        private void cboCurrentEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ////var selectedEvent = cboCurrentEvents.SelectedItem;
-            //var selectedEvent = ListViewBox.SelectedItem;
-        }
+        //private void cboCurrentEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    ////var selectedEvent = cboCurrentEvents.SelectedItem;
+        //    //var selectedEvent = ListViewBox.SelectedItem;
+        //}
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {

@@ -57,7 +57,7 @@ namespace CAA_Event_Management.Views.EventViews
             txtNewSurveyQuestion.Visibility = Visibility.Visible;
             tbkDataType.Visibility = Visibility.Visible;
             cboDataType.Visibility = Visibility.Visible;
-
+            
             addOrEdit = 1;
         }
 
@@ -67,10 +67,7 @@ namespace CAA_Event_Management.Views.EventViews
 
             //Item selectedItem = (Item)lstPreMadeQuestions.SelectedItem;
             selectedItem = (Item)gvAvailableQuestions.SelectedItem;
-            string warning = "Please exercise caution when editing this question. This question may " +
-                "have been used in events and may have saved results.  Thus, changing the question and " +
-                "datatypes may cause the program to become unstable and make previously collected data useless. " +
-                "Do you wish to continue?";
+            string warning = "Please exercise caution when editing this question. Do you wish to continue?";
 
             if (selectedItem != null)
             {
@@ -78,7 +75,6 @@ namespace CAA_Event_Management.Views.EventViews
                 txtNewSurveyQuestion.Visibility = Visibility.Visible;
                 tbkDataType.Visibility = Visibility.Visible;
                 cboDataType.Visibility = Visibility.Visible;
-                //rpSaveAndCancel.Visibility = Visibility.Visible;
                 var result = await Jeeves.ConfirmDialog("Warning", warning);
 
                 if (result == ContentDialogResult.Secondary && btnEditQuestion.Content.ToString() == "Edit Question")
@@ -96,7 +92,6 @@ namespace CAA_Event_Management.Views.EventViews
         {
             if (addOrEdit == 1)
             {
-
                 item = new Item();
                 this.DataContext = item;
 
@@ -110,14 +105,15 @@ namespace CAA_Event_Management.Views.EventViews
                     else if (txtNewSurveyQuestion.Text != "")
                     {
                         DataType selectedDataType = (DataType)cboDataType.SelectedItem;
-
+                        App userInfo = (App)Application.Current;
                         item.ItemID = Guid.NewGuid().ToString();
                         item.ItemName = (string)txtNewSurveyQuestion.Text;
                         item.ValueType = selectedDataType.DisplayText;
+                        item.CreatedBy = userInfo.userAccountName;
+                        item.LastModifiedBy = userInfo.userAccountName;
                         itemRespository.AddItem(item);
                         ClearFields();
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -128,7 +124,6 @@ namespace CAA_Event_Management.Views.EventViews
                 txtNewSurveyQuestion.Visibility = Visibility.Collapsed;
                 tbkDataType.Visibility = Visibility.Collapsed;
                 cboDataType.Visibility = Visibility.Collapsed;
-                //rpSaveAndCancel.Visibility = Visibility.Collapsed;
                 ScreenUnlock();
                 ClearFields();
                 FillFields();
@@ -139,12 +134,14 @@ namespace CAA_Event_Management.Views.EventViews
                 txtNewSurveyQuestion.Visibility = Visibility.Collapsed ;
                 tbkDataType.Visibility = Visibility.Collapsed;
                 cboDataType.Visibility = Visibility.Collapsed;
-                //rpSaveAndCancel.Visibility = Visibility.Collapsed; ;
+
+                App userInfo = (App)Application.Current;
+                selectedItem.LastModifiedBy = userInfo.userAccountName;
+                selectedItem.LastModifiedDate = DateTime.Now;
                 SaveQuestion(selectedItem);
                 selectedItem = null;
                 addOrEdit = 0;
             }
-
         }
 
         private void btnCancelSave_Click(object sender, RoutedEventArgs e)
@@ -183,7 +180,12 @@ namespace CAA_Event_Management.Views.EventViews
             string selected = Convert.ToString(((Button)sender).DataContext);
             //Item thisSelectedEvent = new Item();
             Item thisSelectedItem = itemRespository.GetItem(selected.ToString());
-            itemRespository.DeleteItem(thisSelectedItem);
+
+            App userInfo = (App)Application.Current;
+            thisSelectedItem.IsDeleted = true;
+            thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
+            thisSelectedItem.LastModifiedDate = DateTime.Now;
+            itemRespository.DeleteUpdateItem(thisSelectedItem);
             Frame.Navigate(typeof(Surveys), null, new SuppressNavigationTransitionInfo());
         }
 
@@ -200,7 +202,7 @@ namespace CAA_Event_Management.Views.EventViews
         {
             try
             {
-                List<Item> items = itemRespository.GetItems();
+                List<Item> items = itemRespository.GetUndeletedItems();
                 //lstPreMadeQuestions.ItemsSource = items;
                 gvAvailableQuestions.ItemsSource = items;
                 gvAvailableQuestionsDeleteMode.ItemsSource = items;
@@ -216,6 +218,7 @@ namespace CAA_Event_Management.Views.EventViews
             DataType dt1 = new DataType();
             DataType dt2 = new DataType();
             DataType dt3 = new DataType();
+            DataType dt4 = new DataType();
 
             dt1.DisplayText = "Yes-No";
             dt1.Type = "yesNo";
@@ -226,9 +229,13 @@ namespace CAA_Event_Management.Views.EventViews
             dt3.DisplayText = "Words";
             dt3.Type = "word";
 
+            dt4.DisplayText = "Dates";
+            dt4.Type = "date";
+
             dataList.Add(dt1);
             dataList.Add(dt2);
             dataList.Add(dt3);
+            dataList.Add(dt4);
             cboDataType.ItemsSource = dataList;
         }
 
@@ -241,7 +248,7 @@ namespace CAA_Event_Management.Views.EventViews
 
                 try
                 {
-                    List<Item> items = itemRespository.GetItems();
+                    List<Item> items = itemRespository.GetUndeletedItems();
                     List<Item> searchItems = new List<Item>();
                     string searchString = txtSearchBox.Text.ToLower();
 
@@ -305,6 +312,7 @@ namespace CAA_Event_Management.Views.EventViews
             btnAddSurveyQuestion.IsEnabled = false;
             btnDelete.IsEnabled = false;
             gvAvailableQuestions.IsEnabled = false;
+            rpSaveAndCancel.Visibility = Visibility.Visible;
         }
 
         private void ScreenUnlock()
@@ -313,6 +321,7 @@ namespace CAA_Event_Management.Views.EventViews
             btnDelete.IsEnabled = true;
             btnEditQuestion.IsEnabled = true;
             gvAvailableQuestions.IsEnabled = true;
+            rpSaveAndCancel.Visibility = Visibility.Collapsed;
         }
 
         #endregion

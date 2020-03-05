@@ -71,8 +71,10 @@ namespace CAA_Event_Management.Views.EventViews
 
             //if () Frame.Navigate(typeof(EventStartView));
             //else 
+            App userCheck = new App();
 
-            Frame.Navigate(typeof(CAAEvents));
+            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView));
+            else Frame.Navigate(typeof(CAAEvents));
         }
 
         #endregion

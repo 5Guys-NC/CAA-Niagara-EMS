@@ -106,7 +106,7 @@ namespace CAA_Event_Management.Views.EventViews
                 //eventAbbreviateName += view.EventStart.ToString().Substring(0, 10);
                 view.AbrevEventname = eventAbbreviateName;
 
-                CheckForDatesOnNames();
+                //CheckForDatesOnNames();
 
                 if (membersOnlyCheck.IsChecked == true)
                 {
@@ -116,14 +116,20 @@ namespace CAA_Event_Management.Views.EventViews
 
                 if (view.EventID == "0")
                 {
-                    view.CreatedDate = DateTime.Now;  //may want to use DateTime.Now
-                    view.LastModifiedDate = DateTime.Now;
+                    App userInfo = (App)Application.Current;
+                    //view.CreatedDate = DateTime.Now;  //may want to use DateTime.Now   Delete both of these later
+                    //view.LastModifiedDate = DateTime.Now;
                     view.EventID = Guid.NewGuid().ToString();
+                    view.CreatedBy = userInfo.userAccountName;
+                    view.LastModifiedBy = userInfo.userAccountName;
                     eventRepository.AddEvent(view);
                     SaveEventItemsToThisEvent();
                 }
                 else
                 {
+                    App userInfo = (App)Application.Current;
+                    //view.LastModifiedDate = DateTime.Now;   Delete later
+                    view.LastModifiedBy = userInfo.userAccountName;
                     view.LastModifiedDate = DateTime.Now;
                     eventRepository.UpdateEvent(view);
                     SaveEventItemsToThisEvent();
@@ -149,6 +155,9 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)   //This should be removed later as it will serve no prupose
         {
+            App userInfo = (App)Application.Current;
+            view.LastModifiedBy = userInfo.userAccountName;
+            view.LastModifiedDate = DateTime.Now;
             eventRepository.DeleteEvent(view);
             Frame.GoBack();
         }
@@ -307,10 +316,13 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     foreach (var x in selectedItems)
                     {
+                        App userInfo = (App)Application.Current;
                         EventItem eventItemToAdd = new EventItem();
                         eventItemToAdd.EventID = view.EventID;
                         eventItemToAdd.EventItemID = Guid.NewGuid().ToString();
                         eventItemToAdd.ItemID = x.EIDItemID;
+                        eventItemToAdd.CreatedBy = userInfo.userAccountName;
+                        eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
                         eventItemRepository.AddEventItem(eventItemToAdd);
                     }
                 }
@@ -348,10 +360,13 @@ namespace CAA_Event_Management.Views.EventViews
 
                         if (selectedItems.Contains(x) && checkForItem == null)
                         {
+                            App userInfo = (App)Application.Current;
                             EventItem eventItemToAdd = new EventItem();
                             eventItemToAdd.EventItemID = Guid.NewGuid().ToString();
                             eventItemToAdd.ItemID = x.EIDItemID;
                             eventItemToAdd.EventID = view.EventID;
+                            eventItemToAdd.CreatedBy = userInfo.userAccountName;
+                            eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
                             eventItemRepository.AddEventItem(eventItemToAdd);
                         }
                         else if (checkForItem != null && !selectedItems.Contains(x))

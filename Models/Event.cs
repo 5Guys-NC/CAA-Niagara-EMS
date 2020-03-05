@@ -77,23 +77,9 @@ namespace CAA_Event_Management.Models
 
         public string Keywords { get; set; } = "";
 
-        [Display(Name = "Created By")]
-        [StringLength(250, ErrorMessage = "Created By cannot be more then 250 characters")]
-        public string CreatedBy { get; set; } = "CAA Employee";
-
-        [Display(Name = "Date Created")]
-        public DateTime? CreatedDate { get; set; } = DateTime.Today;
-
         [Display(Name = "Display Name")]
         [StringLength(100, ErrorMessage = "Display Name cannot be more then 100 characters")]
         public string DisplayName { get; set; } = "";
-
-        [Display(Name = "Last Modified By")]
-        [StringLength(75, ErrorMessage = "Last Modified By cannot be more then 75 characters")]
-        public string LastModifiedBy { get; set; } = "CAA Emplyee";
-
-        [Display(Name = "Last Modified Date")]
-        public DateTime? LastModifiedDate { get; set; } = DateTime.Today;
 
         [Display(Name = "isDeleted?")]
         public bool IsDeleted { get; set; } = false;

@@ -75,16 +75,15 @@ namespace CAA_Event_Management.Views.EventViews
 
             if (selectedItem != null)
             {
-                tbkEnterQuestion.Visibility = Visibility.Visible;
-                txtNewSurveyQuestion.Visibility = Visibility.Visible;
-                tbkDataType.Visibility = Visibility.Visible;
-                cboDataType.Visibility = Visibility.Visible;
-                rpSaveAndCancel.Visibility = Visibility.Visible;
-                //rpSaveAndCancel.Visibility = Visibility.Visible;
                 var result = await Jeeves.ConfirmDialog("Warning", warning);
 
                 if (result == ContentDialogResult.Secondary && btnEditQuestion.Content.ToString() == "Edit Question")
                 {
+                    tbkEnterQuestion.Visibility = Visibility.Visible;
+                    txtNewSurveyQuestion.Visibility = Visibility.Visible;
+                    tbkDataType.Visibility = Visibility.Visible;
+                    cboDataType.Visibility = Visibility.Visible;
+                    rpSaveAndCancel.Visibility = Visibility.Visible;
                     BeginUpdate(selectedItem);
                 }
                 else if (result == ContentDialogResult.Secondary)
@@ -192,6 +191,18 @@ namespace CAA_Event_Management.Views.EventViews
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             return;
+        }
+
+        private void btnMostUsedQuestions_Click(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetZIndex(btnMostUsedQuestions, 1);
+            Canvas.SetZIndex(btnAlphabeticalQuestions, 0);
+        }
+
+        private void btnAlphabeticalQuestions_Click(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetZIndex(btnAlphabeticalQuestions, 1);
+            Canvas.SetZIndex(btnMostUsedQuestions, 0);
         }
 
         #endregion
@@ -318,6 +329,7 @@ namespace CAA_Event_Management.Views.EventViews
         }
 
         #endregion
+
     }
 
     internal class DataType

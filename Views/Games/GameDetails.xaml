@@ -35,6 +35,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="txtGameDetails.Margin" Value="130,0,0,0" />
+                        <Setter Target="questionList.MinWidth" Value="700"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -112,7 +113,7 @@
                                 VerticalAlignment="Top"  
                                 DataContext="{x:Bind ID}" 
                                 FontFamily="Segoe MDL2 Assets" 
-                                Foreground="Red" Content="&#xE738;" 
+                                Foreground="DarkRed" Content="&#xE74D;" 
                                 Style="{StaticResource AddRemoveStyle}">
                                             <Button.Flyout>
                                                 <Flyout LightDismissOverlayMode="On">

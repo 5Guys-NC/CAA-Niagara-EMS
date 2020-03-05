@@ -2,9 +2,12 @@
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Views.Games;
+using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 /***********************************
 * Edited By: Nathan Smith
 * Edited By: Brian Culp
@@ -22,6 +25,7 @@ namespace CAA_Event_Management
             Users currentUser;
             IUsersRepository usersRepository;
             bool AuthStatus;
+            DispatcherTimer Timer = new DispatcherTimer();
 
         public object Keys { get; private set; }
 
@@ -30,9 +34,18 @@ namespace CAA_Event_Management
                 this.InitializeComponent();
                 usersRepository = new UsersRepository();
                 isAuthenticated(out AuthStatus);
-                MyFrame.Navigate(typeof(EventStartView));
                 DataContext = this;
-            }
+                Timer.Tick += Timer_Tick;
+                Timer.Interval = new TimeSpan(0, 0, 1);
+                Timer.Start();
+                MyFrame.Navigate(typeof(EventStartView), null, new SuppressNavigationTransitionInfo());
+        }
+        //Clock code adapted from https://stackoverflow.com/questions/38562704/make-clock-uwp-c, posted by Frauke and edited by Mafii
+        private void Timer_Tick(object sender, object e)
+        {
+            Time.Text = DateTime.Now.ToString("h:mm tt");
+        }
+    
         #endregion
 
         #region Button - Click events
@@ -67,27 +80,28 @@ namespace CAA_Event_Management
                     {
                         //For Home Button
                         case "Home":
-                            MyFrame.Navigate(typeof(EventStartView));
+                            MyFrame.Navigate(typeof(EventStartView),null, new SuppressNavigationTransitionInfo());
+                            
                             break;
 
                         //For Events Button
                         case "Events":
-                            MyFrame.Navigate(typeof(CAAEvents));
+                            MyFrame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
                             break;
 
                         //For Games Button
                         case "Games":
-                            MyFrame.Navigate(typeof(GameMenu));
+                            MyFrame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
                             break;
 
                         //For Users Button
                         case "Users":
-                            MyFrame.Navigate(typeof(UsersSummary));
+                        MyFrame.Navigate(typeof(UsersSummary), null, new SuppressNavigationTransitionInfo());
                             break;
 
                         //For Surveys Button
                         case "Surveys":
-                            MyFrame.Navigate(typeof(Surveys));
+                            MyFrame.Navigate(typeof(Surveys), null, new SuppressNavigationTransitionInfo());
                             break;
 
                         //For Sign Out Button
@@ -206,7 +220,7 @@ namespace CAA_Event_Management
                     UsersLink.Visibility = Visibility.Collapsed;
 
                     //navigate to home page
-                    MyFrame.Navigate(typeof(CAAEvents));
+                    MyFrame.Navigate(typeof(EventStartView));
                 }
                 else
                 {
@@ -217,9 +231,10 @@ namespace CAA_Event_Management
                     GamesLink.Visibility = Visibility.Visible;
                     SurveysLink.Visibility = Visibility.Visible;
                     SignOutLink.Visibility = Visibility.Visible;
+                    MyFrame.Navigate(typeof(CAAEvents));
 
-                    //if user has admin rights, show those restricted views
-                    if (currentUser.isAdmin == true)
+                //if user has admin rights, show those restricted views
+                if (currentUser.isAdmin == true)
                     {
                         UsersLink.Visibility = Visibility.Visible;
                     }
@@ -258,8 +273,13 @@ namespace CAA_Event_Management
                 isAuthenticated(out AuthStatus);
             }
 
-        #endregion
+        private void flySignin_Opened(object sender, object e)
+        {
+            txtUserName.Text = "";
+            txtPassword.Password = "";
+            txtUserName.Focus(FocusState.Programmatic);
+        }
 
-        
+        #endregion
     }
 }

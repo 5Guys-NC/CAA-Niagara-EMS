@@ -25,7 +25,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="tbCAAEvents.Margin" Value="45,0,0,0" />
-                        <Setter Target="btnCreateEvent.Margin" Value="80,60,10,0"/>
+                        <Setter Target="btnCreateEvent.Margin" Value="80,50,10,0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
@@ -35,7 +35,7 @@
                     <VisualState.Setters>
                         <Setter Target="tbCAAEvents.Margin" Value="130,0,0,0" />
                         <Setter Target="rpEventsTabs.Margin" Value="170,50,50,0"/>
-                        <Setter Target="gdvEvents.MinWidth" Value="800"/>
+                        <Setter Target="gdvEvents.MinWidth" Value="700"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -51,34 +51,50 @@
 
 
             <RelativePanel Grid.Row="0" Background="#1b3e6e">
-                <TextBlock Name="tbCAAEvents"
+                    <Image Name="imgCAALogo" 
+                       Source="/Assets/CAA Logo.png"  
+                       Grid.Column="0"
+                       Margin="10,0,0,0" 
+                       Height="80"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"
+                       Width="80"/>
+                    <TextBlock Name="tbCAAEvents"
                        Text="CAA Events"
                        Foreground="#eaeaea"
                        FontWeight="Bold"
-                       FontSize="30"/>
-                <Button Name="btnCreateEvent" 
-                    Background="Transparent"
-                    Content="Create An Event"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    Margin="140,60,10,0"
-                    Click="NewEvent_Click"/>
+                       FontSize="30"
+                       RelativePanel.RightOf="imgCAALogo"/>
+                    <Button Name="btnCreateEvent" 
+                        Background="#eaeaea"
+                        BorderBrush="#9ab33b"
+                        BorderThickness="3"
+                        Content="CREATE EVENT"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="#9ab33b"
+                        Margin="200,50,10,0"
+                        RelativePanel.RightOf="imgCAALogo"
+                        Click="NewEvent_Click"/>
                 <Button Name="btnEditEvent" 
-                    Background="Transparent"
-                    Content="Edit An Event"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
+                        Background="#eaeaea"
+                        BorderBrush="#9ab33b"
+                        BorderThickness="3"
+                        Content="EDIT EVENT"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="#9ab33b"
+                        Margin="0,0,10,0"
                     RelativePanel.AlignBottomWith="btnCreateEvent"
                     RelativePanel.RightOf="btnCreateEvent"
                     Click="btnSelectedEvent_Click"/>
                 <Button Name="btnBeginEvent"
-                    Background="Transparent"
-                    Content="Begin Event"
+                    Background="#eaeaea"
+                    BorderBrush="#9ab33b"
+                    BorderThickness="3"
+                    Content="BEGIN EVENT"
                     FontSize="16"
                     FontWeight="Bold"
-                    Foreground="#eaeaea"
+                    Foreground="#9ab33b"
                     RelativePanel.AlignBottomWith="btnEditEvent"
                     RelativePanel.RightOf="btnEditEvent"
                     Click="btnRegisterAttendance_Click"/>
@@ -90,8 +106,8 @@
                        Foreground="#eaeaea"/>
                 <TextBox Name="txtSearch"
                      Background="White"
-                     Height="26"
-                     Margin="5,5,2,0"
+                     Height="30"
+                     Margin="5,5,5,0"
                      RelativePanel.AlignRightWithPanel="True"
                      Width="150"
                      TextChanged="txtSearch_TextChanged"/>
@@ -100,48 +116,50 @@
 
             <RelativePanel Name="rpEventsTabs" Grid.Row="2" Margin="35,50,0,20" HorizontalAlignment="Center">
                 <Button Name="btnCurrentEvents" 
-                    Background="#f8bf38" 
-                    BorderBrush="white" 
+                    Background="#5291bf" 
+                    BorderBrush="#0d4e97" 
                     BorderThickness="3,3,3,0"
                     Content="Current"
                     CornerRadius="20,20,0,0" 
-                    FontSize="16"  
-                    Height="50"
+                    FontSize="20"  
+                    Foreground="#eaeaea"
+                    Height="49"
                     Margin="10,3,-10,0"
                     Style="{StaticResource ButtonStyle}"
                     Width="105"
                     Canvas.ZIndex="1"
                     Click="btnCurrentEvents_Click"/>
                 <Button Name="btnPastEvents" 
-                    Background="#f8bf38 "
-                    BorderBrush="white"
+                    Background="#5291bf "
+                    BorderBrush="#0d4e97"
                     BorderThickness="3,3,3,0"
                     Content="Past"
                     CornerRadius="20,20,0,0"
-                    FontSize="16"
+                    FontSize="20"
+                    Foreground="#eaeaea"
                     RelativePanel.RightOf="btnCurrentEvents" 
                     RelativePanel.AlignBottomWith="btnCurrentEvents"
-                    Height="50" 
+                    Height="49" 
                     Style="{StaticResource ButtonStyle}" 
                     Width="105"
                     Canvas.ZIndex="0"
                     Click="btnPastEvents_Click"/>
                 <GridView Name="gdvEvents"
-                      Background="#f8bf38"
-                      BorderBrush="White"
-                      BorderThickness="0,2,0,0"
-                      CornerRadius="0,20,20,0"
+                      Background="#5291bf"
+                      BorderBrush="#0d4e97"
+                      BorderThickness="2"
+                      CornerRadius="0,20,0,0"
                       Grid.Row="2"
                       HorizontalAlignment="Center"
                       IsItemClickEnabled="True"
-                      Margin="10,50,50,0"
-                      MinHeight="450"
-                      MinWidth="380"
+                      Margin="10,50,30,0"
+                      MinHeight="400"
+                      MinWidth="300"
                       Padding="15">
                     <GridView.ItemTemplate>
                         <DataTemplate x:Name="dtEvents" x:DataType="data:Event">
-                            <RelativePanel Name="rpEvents" Width="330" Background="#f79326" BorderBrush="White" BorderThickness="3" MinHeight="80" Margin="10">
-                                <TextBlock Name="txtEvents" Foreground="#1b3e6e">                                     
+                                <RelativePanel Name="rpEvents" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" MinHeight="100" Margin="10">
+                                <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,0,0">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind DisplayName}"/>
@@ -151,13 +169,13 @@
                                          Text="{x:Bind SummaryDisplay}"/>
                                 </TextBlock>
                                 <Button Name="btnRemove" 
-                                Background="#f79326"
+                                Background="#eaeaea"
                                 RelativePanel.AlignRightWithPanel="True"
                                 RelativePanel.AlignTopWithPanel="True"
                                 VerticalAlignment="Top"  
                                 DataContext="{x:Bind EventID}" 
                                 FontFamily="Segoe MDL2 Assets" 
-                                Foreground="Red" Content="&#xE738;" 
+                                Foreground="DarkRed" Content="&#xE74D;" 
                                 Style="{StaticResource AddRemoveStyle}">
                                     <Button.Flyout>
                                         <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">

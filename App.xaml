@@ -10,20 +10,21 @@
     <Application.Resources>
 
 
-        <SolidColorBrush x:Key="BackgroundColor" Color="#5291bf"/>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#eaeaea"/>
         <SolidColorBrush x:Key="FlyoutPresenterBackground" Color="#5291bf"/>
         <SolidColorBrush x:Key="FlyoutBorderThemeBrush" Color="#eaeaea"/>
-        <SolidColorBrush x:Key="NavigationViewItemForeground" Color="#eaeaea"/>
+        <SolidColorBrush x:Key="NavigationViewItemForeground" Color="#000"/>
         <Thickness x:Key="FlyoutBorderThemeThickness">3</Thickness>
 
         <SolidColorBrush x:Key="CheckboxForegroundUncheckedPointerOver" Color="Transparent"></SolidColorBrush>
 
         <Style TargetType="Button" x:Key="ButtonStyle">
-            <Setter Property="Background" Value="#eaeaea"/>
-            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="Background" Value="#64b345"/>
+            <Setter Property="BorderBrush" Value="#64b345"/>
+            <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="ExtraBold"/>
-            <Setter Property="Foreground" Value="#1b3e6e"/>
+            <Setter Property="Foreground" Value="#eaeaea"/>
             <Setter Property="Width" Value="170"/>
         </Style>
 

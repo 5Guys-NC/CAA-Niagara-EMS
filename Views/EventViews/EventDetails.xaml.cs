@@ -61,7 +61,7 @@ namespace CAA_Event_Management.Views.EventViews
 
             if (view.EventID == "0")
             {
-                btnDelete.IsEnabled = false;
+                //btnDelete.IsEnabled = false;
                 insertMode = false;
             }
             else if (view.MembersOnly == true)
@@ -242,6 +242,23 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        private void CheckForSelectedQuiz()
+        {
+            if (view.QuizID == null) tbChosenQuiz.Text = "Selected Quiz: None";
+            else
+            {
+                try
+                {
+                    var quiz = gameRepository.GetAGame((int)view.QuizID);
+                    tbChosenQuiz.Text = "Selected Quiz: " + quiz.Title;
+                }
+                catch
+                {
+                    Jeeves.ShowMessage("Error", "The quiz failed to load");
+                }
+            }
+        }
+
         private void InitialDeterminationOfEventItemAssignment()
         {
             try
@@ -366,6 +383,20 @@ namespace CAA_Event_Management.Views.EventViews
                 }
             }
         }
+        private void txtSearchIcon_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbSearch.Visibility == Visibility.Collapsed && txtSearchBox.Visibility == Visibility.Collapsed)
+            {
+                tbSearch.Visibility = Visibility.Visible;
+                txtSearchBox.Visibility = Visibility.Visible;
+                txtSearchBox.Focus(FocusState.Programmatic);
+            }
+            else
+            {
+                tbSearch.Visibility = Visibility.Collapsed;
+                txtSearchBox.Visibility = Visibility.Collapsed;
+            }
+        }
 
         private void txtSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -406,6 +437,13 @@ namespace CAA_Event_Management.Views.EventViews
         }
 
         #endregion
+
+        private void lstAvailableQuizzes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var choosenGame = (Game)lstAvailableQuizzes.SelectedItem;
+            view.QuizID = choosenGame.ID;
+            CheckForSelectedQuiz();
+        }
 
     }
 }

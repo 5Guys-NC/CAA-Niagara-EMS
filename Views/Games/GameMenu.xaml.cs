@@ -91,6 +91,18 @@ namespace CAA_Event_Management.Views.Games
             
             gameList.ItemsSource = gameRepo.SearchGame(txtSearch.Text);
         }
+
+        private void btnRecentGames_Click(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetZIndex(btnRecentGames, 1);
+            Canvas.SetZIndex(btnMostUsedGames, 0);
+        }
+
+        private void btnMostUsedGames_Click(object sender, RoutedEventArgs e)
+        {
+            Canvas.SetZIndex(btnMostUsedGames, 1);
+            Canvas.SetZIndex(btnRecentGames, 1);
+        }
         #endregion
 
         #region Helper Methods
@@ -108,6 +120,7 @@ namespace CAA_Event_Management.Views.Games
             }
         }
         #endregion
+
     }
 }
 

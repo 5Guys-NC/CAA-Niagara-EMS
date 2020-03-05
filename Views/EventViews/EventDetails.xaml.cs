@@ -258,8 +258,8 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 try
                 {
-                    var quiz = gameRepository.GetAGame((int)view.QuizID);
-                    tbChosenQuiz.Text = "Selected Quiz: " + quiz.Title;
+                    //var quiz = gameRepository.GetAGame((int)view.QuizID);
+                    //tbChosenQuiz.Text = "Selected Quiz: " + quiz.Title;
                 }
                 catch
                 {

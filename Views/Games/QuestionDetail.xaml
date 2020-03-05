@@ -83,7 +83,7 @@
                               MinHeight="250"
                               MinWidth="325"
                               Padding="15">
-                        <GridView.ItemTemplate>
+                        <!--<GridView.ItemTemplate>
                             <DataTemplate  x:DataType="data:Answer" >
                                 <StackPanel Name="spAnswers" Orientation="Horizontal">
                                     <CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
@@ -101,7 +101,7 @@
                                             Tapped="btnRemove_Tapped"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </GridView.ItemTemplate>
+                        </GridView.ItemTemplate>-->
                     </GridView>
                     <Button Name="btnAdd" 
                             Background="#f8bf38" 

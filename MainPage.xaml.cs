@@ -280,6 +280,6 @@ namespace CAA_Event_Management
             txtPassword.Password = "";
             txtUserName.Focus(FocusState.Programmatic);
         }
-
+        #endregion
     }
 }

@@ -135,8 +135,18 @@ namespace CAA_Event_Management
                     //if password matches one in db
                     if (currentUser.Password == txtPassword.Password)
                     {
-                        //sign user in
-                        SignUserIn();
+                        //if encrypted version of password matches one in db
+                        if (currentUser.Password == currentUser.EncryptPassword(txtPassword.Password))
+                        {
+                            //sign user in
+                            SignUserIn();
+                        }
+                        else
+                        {
+                            //incorrect password
+                            Jeeves.ShowMessage("Error", "Password does not match the one on file");
+                        }
+
                     }
                     else
                     {

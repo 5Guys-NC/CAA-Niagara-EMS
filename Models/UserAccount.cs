@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,12 +25,48 @@ namespace CAA_Event_Management.Models
         [Required(ErrorMessage = "UserName Required")]
         public string UserName { get; set; }
 
+        private string password;
         [Required(ErrorMessage = "Password is Required")]
-        [StringLength(50, MinimumLength = 8, ErrorMessage = "Password must be 8-50 characters")]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
-        public string Password { get; set; }
+        public string Password 
+        {
+            get
+            {
+                return password;
+            }
+            set
+            {
+                //encrypt password on setting
+                password = EncryptPassword(value.ToString());
+            }
+        }
 
         [Required(ErrorMessage = "Is this person an Admin?")]
         public bool isAdmin { get; set; } = false;
+
+
+        internal string EncryptPassword(string password)
+        {
+            //for information on this method go to:
+            //https://www.c-sharpcorner.com/article/compute-sha256-hash-in-c-sharp/
+
+            //using the SHA256 method of encryption
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                //encrypt password (returns byte array)
+                byte[] bytesHashed = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+
+                //loop through byte  array and build string with it
+                for (int i = 0; i < bytesHashed.Length; i++)
+                {
+                    builder.Append(bytesHashed[i].ToString("x2"));
+                }
+
+                //return final StringBuilder object as string
+                return builder.ToString();
+            }
+        }
     }
 }

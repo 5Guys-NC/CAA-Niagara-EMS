@@ -6,10 +6,12 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using System.Security.Cryptography;
+using System.Text;
 /***************************************
- * Created By: Brian Culp
- * Edited By:
- * *************************************/
+* Created By: Brian Culp
+* Edited By:
+* *************************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 namespace CAA_Event_Management
@@ -70,7 +72,7 @@ namespace CAA_Event_Management
                 //if password matches confirm password
                 if (txtPassword.Password == txtConfirmPassword.Password)
                 {
-                    //set password
+                    //set password after encryption
                     newUser.Password = txtPassword.Password;
                 }
                 else
@@ -80,17 +82,9 @@ namespace CAA_Event_Management
                     return;
                 }
                 
-                //if username contains Capital, Number, and 8-20 characters
-                //if (Regex.IsMatch(txtUserName.Text, @"/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d][A-Za-z\d]{8,20}$/"))
-                //{
                     //set username
                     newUser.UserName = txtUserName.Text;
-                //}
-                //else
-                //{
-                //    Jeeves.ShowMessage("Error", "Username must contain 1 capital, 1 number, and be 8-20 characters");
-                //    return;
-                //}
+                
 
                 //add user
                 userRepository.AddUser(newUser);
@@ -118,7 +112,6 @@ namespace CAA_Event_Management
             txtPassword.Password = "";
             txtConfirmPassword.Password = "";
             chkAdmin.IsChecked = false;
-
         }
     }
 }

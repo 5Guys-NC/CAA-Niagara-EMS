@@ -126,7 +126,7 @@ namespace CAA_Event_Management.Migrations
                     LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
                     LastModifiedDate = table.Column<DateTime>(nullable: true),
                     LastName = table.Column<string>(maxLength: 25, nullable: true),
-                    Password = table.Column<string>(maxLength: 50, nullable: false),
+                    Password = table.Column<string>(nullable: false),
                     UserName = table.Column<string>(nullable: false),
                     isAdmin = table.Column<bool>(nullable: false)
                 },

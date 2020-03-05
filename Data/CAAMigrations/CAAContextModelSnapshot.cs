@@ -424,8 +424,7 @@ namespace CAA_Event_Management.Migrations
                         .HasMaxLength(25);
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .IsRequired();
 
                     b.Property<string>("UserName")
                         .IsRequired();

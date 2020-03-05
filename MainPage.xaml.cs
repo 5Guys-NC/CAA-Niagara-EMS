@@ -3,9 +3,12 @@ using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Views.Games;
+using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 /***********************************
 * Edited By: Nathan Smith
 * Edited By: Brian Culp
@@ -271,8 +274,12 @@ namespace CAA_Event_Management
             isAuthenticated(out AuthStatus);
         }
 
-        #endregion
-
+        private void flySignin_Opened(object sender, object e)
+        {
+            txtUserName.Text = "";
+            txtPassword.Password = "";
+            txtUserName.Focus(FocusState.Programmatic);
+        }
 
     }
 }

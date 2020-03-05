@@ -31,7 +31,7 @@ namespace CAA_Event_Management.Models
         {
             get
             {
-                return string.Format("{0:yyyy-MM-dd}",EventStart) + " - " + string.Format("{0:yyyy-MM-dd}", EventEnd);
+                return string.Format("{0:dd-MM-yyyy}",EventStart) + " - " + string.Format("{0:dd-MM-yyyy}", EventEnd);
             }
         }
 

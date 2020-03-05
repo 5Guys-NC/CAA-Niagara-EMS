@@ -209,9 +209,6 @@
     <Compile Include="Views\Games\GameMenu.xaml.cs">
       <DependentUpon>GameMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Games\GameNew.xaml.cs">
-      <DependentUpon>GameNew.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Games\QuestionDetail.xaml.cs">
       <DependentUpon>QuestionDetail.xaml</DependentUpon>
     </Compile>
@@ -289,10 +286,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Games\GameMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Games\GameNew.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

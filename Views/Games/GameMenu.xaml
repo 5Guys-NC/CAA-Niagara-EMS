@@ -36,6 +36,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="txtGameMenu.Margin" Value="130,0,0,0" />
+                        <Setter Target="gameList.MinWidth" Value="700"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -102,10 +103,11 @@
                     Margin="10,3,-10,0"
                     Style="{StaticResource ButtonStyle}"
                     Width="105"
-                    Canvas.ZIndex="1">
-                    <TextBlock Text= "Recently Created" TextWrapping="WrapWholeWords"/>
-                </Button>
-                <Button Name="btnMostUsedGames" 
+                    Canvas.ZIndex="1"
+                        Click="btnRecentGames_Click">
+                        <TextBlock Text= "Recently Created" TextWrapping="WrapWholeWords"/>
+                    </Button>
+                    <Button Name="btnMostUsedGames" 
                     Background="#f8bf38 "
                     BorderBrush="white"
                     BorderThickness="3,3,3,0"
@@ -117,11 +119,11 @@
                     Height="50" 
                     Style="{StaticResource ButtonStyle}" 
                     Width="105"
-                    Canvas.ZIndex="0"/>
-
-                <GridView Name="gameList"
+                    Canvas.ZIndex="0"
+                    Click="btnMostUsedGames_Click"/>
+                    <GridView Name="gameList"
                       Background="#f8bf38"
-                      CornerRadius="0,20,20,0"
+                      CornerRadius="0,20,0,0"
                       BorderBrush="White"
                       BorderThickness="0,2,0,0"
                       Grid.Row="1" 
@@ -129,7 +131,7 @@
                       IsItemClickEnabled="True" 
                       Margin="10,50,30,0"
                       MinHeight="400"
-                      MinWidth="300"
+                      MinWidth="380"
                       Padding="15"
                       ItemClick="GameList_ItemClick">
                     <GridView.ItemTemplate>
@@ -148,7 +150,7 @@
                                 VerticalAlignment="Top"  
                                 DataContext="{x:Bind ID}" 
                                 FontFamily="Segoe MDL2 Assets" 
-                                Foreground="Red" Content="&#xE738;" 
+                                Foreground="DarkRed" Content="&#xE74D;" 
                                 Style="{StaticResource AddRemoveStyle}">
                                     <Button.Flyout>
                                         <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">

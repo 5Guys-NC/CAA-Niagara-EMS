@@ -12,20 +12,21 @@
     Edited By: Brian Culp
 ******************************-->
     <Page.Resources>
-        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#64B345"/>
-        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#64B345"/>
+        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#64b345"/>
+        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#64b345"/>
         <StaticResource x:Key="NavigationViewItemBackgroundPointerOver" ResourceKey="SystemControlHighlightListLowRevealBackgroundBrush"/>
+   
     </Page.Resources>
 
     <Grid Background="#eaeaea">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50">
+                <RowDefinition Height="30">
                 </RowDefinition>
             </Grid.RowDefinitions>
 
@@ -34,16 +35,9 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-<!--Logo-->
-            <Image Name="imgCAALogo" 
-                       Source="Assets/CAA Logo.png"  
-                       Grid.Column="0"
-                       Margin="10,0,0,0" 
-                       Height="70"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Width="70"/>
-<!--Title-->
+            <!--Clock-->
+            <TextBlock Name="Time" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
+            <!--Title-->
             <TextBlock Name ="txtTitle" 
                    Grid.Column="1"
                    Foreground="#1b3e6e" 
@@ -58,10 +52,11 @@
                        HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Visibility="Collapsed"/>
             
 <!--Sign in Flyout-->
-            <Button Name="btnSignInFlyout" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" 
-                    Grid.Row="2" Content="Sign In" Foreground="#1b3e6e" Grid.Column="2" FontSize="16">
+            <Button Name="btnSignInFlyout" Background="Transparent" Height="40" Margin="0,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                    Grid.Row="2" Foreground="#1b3e6e" Grid.Column="2" FontSize="16">
+                <TextBlock Name="tbSignIn" FontSize="18" FontWeight="Bold" Text="Sign In" TextDecorations="Underline"/>
                 <Button.Flyout>
-                    <Flyout Placement="Full" x:Name="flySignin">
+                    <Flyout Placement="Full" x:Name="flySignin" Opened="flySignin_Opened">
                         <Flyout.FlyoutPresenterStyle>
                             <Style TargetType="FlyoutPresenter">
                                 <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Disabled"/>
@@ -85,7 +80,7 @@
                                Text="Sign In" 
                                VerticalAlignment="Top" 
                                FontSize="30" 
-                               Margin="0,10,0,30"/>
+                               Margin="0,0,0,30"/>
 
                             <StackPanel Orientation="Vertical" Grid.Row="1" Width="300">
                                 <TextBox Header="User Name:" x:Name="txtUserName"/>
@@ -118,6 +113,7 @@
                         BackRequested="NavView_BackRequested"
                         IsBackEnabled="True"                         
                         OpenPaneLength="125"  
+                        Margin="0,95,0,0"
                         ItemInvoked="NavView_ItemInvoked"  
                         Grid.Row="1" 
                         CompactModeThresholdWidth="10" 

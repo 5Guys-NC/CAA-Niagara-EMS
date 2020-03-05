@@ -84,8 +84,10 @@ namespace CAA_Event_Management
                 
                     //set username
                     newUser.UserName = txtUserName.Text;
-                
 
+                //make new Guid for ID
+                newUser.ID = Guid.NewGuid().ToString();
+                
                 //add user
                 userRepository.AddUser(newUser);
                 

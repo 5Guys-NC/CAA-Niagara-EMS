@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CAA_Event_Management.Migrations
 {
-    public partial class CAAMigrationMar03 : Migration
+    public partial class CAAMigrationMar04 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,8 +50,8 @@ namespace CAA_Event_Management.Migrations
                     ItemID = table.Column<string>(maxLength: 36, nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    ItemCount = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: true),
+                    ItemCount = table.Column<int>(nullable: true),
                     ItemName = table.Column<string>(maxLength: 75, nullable: false),
                     LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
                     LastModifiedDate = table.Column<DateTime>(nullable: true),
@@ -119,8 +119,7 @@ namespace CAA_Event_Management.Migrations
                 name: "UserAccounts",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    ID = table.Column<string>(maxLength: 36, nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     FirstName = table.Column<string>(maxLength: 25, nullable: true),
@@ -298,7 +297,7 @@ namespace CAA_Event_Management.Migrations
                 {
                     MemberAttendanceID = table.Column<string>(maxLength: 36, nullable: false),
                     ArrivalTime = table.Column<DateTime>(nullable: false),
-                    EventID = table.Column<string>(nullable: false),
+                    EventID = table.Column<string>(maxLength: 36, nullable: false),
                     ExternalData = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 25, nullable: true),
                     IsMember = table.Column<string>(maxLength: 20, nullable: true),
@@ -322,8 +321,10 @@ namespace CAA_Event_Management.Migrations
                 columns: table => new
                 {
                     ID = table.Column<string>(maxLength: 36, nullable: false),
-                    EventID = table.Column<string>(nullable: false),
+                    AttendantID = table.Column<string>(maxLength: 36, nullable: true),
+                    EventID = table.Column<string>(maxLength: 36, nullable: false),
                     QuestionID = table.Column<int>(nullable: false),
+                    answerID = table.Column<int>(nullable: true),
                     answerWasCorrect = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -350,8 +351,8 @@ namespace CAA_Event_Management.Migrations
                     EventItemID = table.Column<string>(maxLength: 36, nullable: false),
                     CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
-                    EventID = table.Column<string>(nullable: false),
-                    ItemID = table.Column<string>(nullable: false),
+                    EventID = table.Column<string>(maxLength: 36, nullable: false),
+                    ItemID = table.Column<string>(maxLength: 36, nullable: false),
                     LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
                     LastModifiedDate = table.Column<DateTime>(nullable: true)
                 },
@@ -376,8 +377,8 @@ namespace CAA_Event_Management.Migrations
                 name: "AttendanceItems",
                 columns: table => new
                 {
-                    MemberAttendanceID = table.Column<string>(nullable: false),
-                    EventItemID = table.Column<string>(nullable: false),
+                    MemberAttendanceID = table.Column<string>(maxLength: 36, nullable: false),
+                    EventItemID = table.Column<string>(maxLength: 36, nullable: false),
                     Answer = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>

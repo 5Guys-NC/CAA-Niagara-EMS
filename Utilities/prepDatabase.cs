@@ -46,18 +46,21 @@ namespace CAA_Event_Management.Utilities
                     context.UserAccounts.AddRange(
                      new UserAccount
                      {
+                         ID = Guid.NewGuid().ToString(),
                          UserName = "CAAUser1",
                          Password = "password",
                          isAdmin = false
                      },
                     new UserAccount
                     {
+                        ID = Guid.NewGuid().ToString(),
                         UserName = "a",
                         Password = "a",
                         isAdmin = true
                     },
                      new UserAccount
                      {
+                         ID = Guid.NewGuid().ToString(),
                          FirstName = "CAA",
                          LastName = "Admin",
                          UserName = "admin1",
@@ -66,6 +69,7 @@ namespace CAA_Event_Management.Utilities
                      },
                      new UserAccount
                      {
+                         ID = Guid.NewGuid().ToString(),
                          FirstName = "Jon",
                          LastName = "Doe",
                          UserName = "jdoe",

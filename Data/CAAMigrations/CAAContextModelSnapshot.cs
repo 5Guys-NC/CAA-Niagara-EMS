@@ -76,9 +76,11 @@ namespace CAA_Event_Management.Migrations
 
             modelBuilder.Entity("CAA_Event_Management.Models.AttendanceItem", b =>
                 {
-                    b.Property<string>("MemberAttendanceID");
+                    b.Property<string>("MemberAttendanceID")
+                        .HasMaxLength(36);
 
-                    b.Property<string>("EventItemID");
+                    b.Property<string>("EventItemID")
+                        .HasMaxLength(36);
 
                     b.Property<string>("Answer")
                         .HasMaxLength(50);
@@ -98,7 +100,8 @@ namespace CAA_Event_Management.Migrations
                     b.Property<DateTime>("ArrivalTime");
 
                     b.Property<string>("EventID")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(36);
 
                     b.Property<bool>("ExternalData");
 
@@ -173,10 +176,16 @@ namespace CAA_Event_Management.Migrations
                     b.Property<string>("ID")
                         .HasMaxLength(36);
 
+                    b.Property<string>("AttendantID")
+                        .HasMaxLength(36);
+
                     b.Property<string>("EventID")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(36);
 
                     b.Property<int>("QuestionID");
+
+                    b.Property<int?>("answerID");
 
                     b.Property<bool>("answerWasCorrect");
 
@@ -200,10 +209,12 @@ namespace CAA_Event_Management.Migrations
                     b.Property<DateTime?>("CreatedDate");
 
                     b.Property<string>("EventID")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(36);
 
                     b.Property<string>("ItemID")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(36);
 
                     b.Property<string>("LastModifiedBy")
                         .HasMaxLength(256);
@@ -287,9 +298,9 @@ namespace CAA_Event_Management.Migrations
 
                     b.Property<DateTime?>("CreatedDate");
 
-                    b.Property<bool>("IsDeleted");
+                    b.Property<bool?>("IsDeleted");
 
-                    b.Property<int>("ItemCount");
+                    b.Property<int?>("ItemCount");
 
                     b.Property<string>("ItemName")
                         .IsRequired()
@@ -393,8 +404,8 @@ namespace CAA_Event_Management.Migrations
 
             modelBuilder.Entity("CAA_Event_Management.Models.UserAccount", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<string>("ID")
+                        .HasMaxLength(36);
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256);

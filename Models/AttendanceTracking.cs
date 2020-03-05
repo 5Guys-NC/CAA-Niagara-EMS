@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 /******************************
-*  Created By: Brian Culp
+*  Model Created By: Brian Culp
 *  Edited by: Jon Yade
 *******************************/
 namespace CAA_Event_Management.Models
@@ -27,7 +30,7 @@ namespace CAA_Event_Management.Models
         public string MemberAttendanceID { get; set; } = "0";
 
         [Display(Name = "Member Number")]
-        [StringLength(16,MinimumLength = 16, ErrorMessage = "Member Number must be 16 characters")]
+        [StringLength(16, MinimumLength = 16, ErrorMessage = "Member Number must be 16 characters")]
         public string MemberNo { get; set; }
 
         [Display(Name = "Arrival Time")]
@@ -59,10 +62,11 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Event Items ID")]
         [Required(ErrorMessage = "Event Items ID Required")]
+        [StringLength(36)]
         public string EventID { get; set; }
         public virtual Event Event { get; set; }
         //public ICollection<Event> Events { get; set; }
-        
+
         public ICollection<AttendanceItem> AttendanceItems { get; set; }
 
         #endregion

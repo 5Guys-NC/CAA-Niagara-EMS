@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 /******************************
-*  Created By: Brian Culp
+*  Model Created By: Brian Culp
 *  Edited by: Jon Yade
 *******************************/
 namespace CAA_Event_Management.Models
@@ -31,12 +35,14 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Event ID")]
         [Required(ErrorMessage = "Event ID Required")]
+        [StringLength(36)]
         public string EventID { get; set; }
         public virtual Event Event { get; set; }
         //public ICollection<Event> Events { get; set; }
 
         [Display(Name = "Item ID")]
         [Required(ErrorMessage = "Item ID Required")]
+        [StringLength(36)]
         public string ItemID { get; set; }
         public virtual Item Item { get; set; }
         //public ICollection<Item> Items {get; set;}

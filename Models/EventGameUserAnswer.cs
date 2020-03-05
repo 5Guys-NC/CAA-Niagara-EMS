@@ -24,7 +24,13 @@ namespace CAA_Event_Management.Models
 
         #region Table Connections
 
+        public int? answerID { get; set; }
+
+        [StringLength(36)]
+        public string AttendantID { get; set; }
+
         [Required(ErrorMessage = "Event ID Required")]
+        [StringLength(36)]
         public string EventID { get; set; }
         public virtual Event Event { get; set; }
 

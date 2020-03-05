@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,10 @@ namespace CAA_Event_Management.Models
 {
     public class UserAccount : Auditable
     {
-        public int ID { get; set; }
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [StringLength(36)]
+        public string ID { get; set; }
 
         [StringLength(25, ErrorMessage = "First Name cannot be more than 25 characters long.")]
         public string FirstName { get; set; }

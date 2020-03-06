@@ -26,5 +26,6 @@ obj/
 # Visual Studo cache/options directory
 .vs/
 
+README.md
 *.[Cc]ache
 .vs/CAA Event Management/v16/.suo

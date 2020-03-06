@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="CAA_Event_Management.Views.Games.GameModelQuestion"
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CAA_Event_Management.Views.Games"
+    xmlns:data="using:CAA_Event_Management.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <!--******************************
+     *  Model Created By: Max Cashmore
+     *  Edited by: Brian Culp
+    
+   Displays all questions for Game using the Game Models
+    *******************************-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <!--'navigate views'-->
+            <RowDefinition Height="*"/>
+            <!--Views-->
+            <RowDefinition Height="*"/>
+            <!--selection list-->
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="btnViewGame" Content="View Games" Click="btnViewGame_Click" Width="100" />
+            <Button  Name="btnViewQuestion" Content="View Questions" Click="btnViewQuestion_Click" Width="100"/>
+            <Button  Name="btnViewAnswer" Content="View Answers" Click="btnViewAnswer_Click" Width="100"/>
+        </StackPanel>
+
+        <GridView Name="ModelQuestList" Grid.Row="1" HorizontalAlignment="Center" IsItemClickEnabled="True" ItemClick="ModelQuestList_ItemClick" Margin="50,0,50,0">
+            <GridView.ItemTemplate>
+                <DataTemplate  x:DataType="data:GameModel">
+                    <ScrollViewer>
+                        <StackPanel BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
+                            <TextBlock Text="{x:Bind QuestionText}" TextWrapping="Wrap"/>
+                            <!--Comment out delete button to make question selct work
+                            Why it does this I don't know-->
+                            <Button Name="btnDelete" Content="X" DataContext="{Binding ID}" Click="btnDelete_Click" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <GridView Name="QuestionSelection" Grid.Row="2" HorizontalAlignment="Center" IsItemClickEnabled="True" ItemClick="QuestionSelection_ItemClick"  Margin="50,0,50,0">
+            <GridView.ItemTemplate>
+                <DataTemplate  x:DataType="data:Question">
+                    <ScrollViewer>
+                        <StackPanel BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
+                            <TextBlock Text="{x:Bind Text}" TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+    </Grid>
+</Page>

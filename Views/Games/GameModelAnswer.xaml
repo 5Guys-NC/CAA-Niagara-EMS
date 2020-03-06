@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="CAA_Event_Management.Views.Games.GameModelAnswer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CAA_Event_Management.Views.Games"
+    xmlns:data="using:CAA_Event_Management.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <!--******************************
+     *  Model Created By: Max Cashmore
+     *  Edited by: Brian Culp
+    *******************************-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <!--'navigate views'-->
+            <RowDefinition Height="*"/>
+            <!--Question -->
+            <RowDefinition Height="*"/>
+            <!--Views-->
+            <RowDefinition Height="*"/>
+            <!--Selection list-->
+            <RowDefinition Height="auto"/>
+            <!--Interactions-->
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Name="btnViewGame" Content="View Games" Click="btnViewGame_Click" Width="100" />
+            <Button  Name="btnViewQuestion" Content="View Questions" Click="btnViewQuestion_Click" Width="100"/>
+            <Button  Name="btnViewAnswer" Content="View Answers" Click="btnViewAnswer_Click" Width="100"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1">
+            <TextBlock Name="txtQuestionHeader"/>
+        </StackPanel>
+        <GridView Name="ModelAnswerList" Grid.Row="2" HorizontalAlignment="Center" Margin="50,0,50,0">
+            <GridView.ItemTemplate>
+                <DataTemplate >
+                    <StackPanel Orientation="Vertical">
+
+                        <!--<TextBlock Text="{Binding Text}"/>-->
+                        <!--used check box's content for the text. Looks nicer I think -->
+                        <CheckBox IsChecked="{Binding IsTrue, Mode=TwoWay}" Content="{Binding Text}"/>
+                        <Button Name="btnDelete" Content="X" DataContext="{Binding Index}" Click="btnDelete_Click"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <GridView Name="AnswerSelectionList" Grid.Row="3" HorizontalAlignment="Center" IsItemClickEnabled="True" ItemClick="AnswerSelectionList_ItemClick" Margin="50,0,50,0">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
+                        <TextBlock Text="{Binding Text}"  TextWrapping="Wrap"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="btnSave" Content="Save" Click="UpdateGM"/>
+        </StackPanel>
+    </Grid>
+</Page>

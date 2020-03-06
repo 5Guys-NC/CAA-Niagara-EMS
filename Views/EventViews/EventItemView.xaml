@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="CAA_Event_Management.Views.EventViews.EventItemView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CAA_Event_Management"
+    xmlns:data="using:CAA_Event_Management.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+<!--*****************************
+    Created By: Jon Yade
+    Edited By:
+    *****************************-->
+    <Grid Margin="40,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock x:Name="tbkCurrentEventName" Grid.Column="1"></TextBlock>
+
+        <TextBlock Text="Currently Chosen Event Survey Question(s):"></TextBlock>
+
+        <ListBox x:Name="lstCurrentSurveyQuestions"
+                 Grid.Row="2"
+                 DisplayMemberPath="EIDItemPhrase"></ListBox>
+
+        <ComboBox x:Name="cboAvailableItems"
+                  DisplayMemberPath="ItemName"
+                  Grid.Row="2"
+                  Grid.Column="1" Width="162"></ComboBox>
+        <Button Name="btnAddSurveyQuestion"
+                Content="Add Selected Question"
+                Grid.Row="3"
+                Grid.Column="1"
+                Click="btnAddSurveyQuestion_Click"></Button>
+
+        <Button Name="btnDeleteSurveyQuestion"
+                Content="Remove Question"
+                Grid.Row="3"
+                HorizontalAlignment="Right"
+                Click="btnDeleteSurveyQuestion_Click"></Button>
+
+        <RelativePanel Grid.Row="3" Grid.Column="2" >
+            <TextBlock RelativePanel.AlignLeftWithPanel="True"  Name="textboxText" Text="Search box:" Margin="0,0,5,0"></TextBlock>
+            <TextBox RelativePanel.RightOf="textboxText" x:Name="txtSearchBox" Width="200" TextChanged="txtSearchBox_TextChanged"></TextBox>
+        </RelativePanel>
+    </Grid>
+</Page>

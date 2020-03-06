@@ -1,0 +1,125 @@
+﻿using CAA_Event_Management.Data;
+using CAA_Event_Management.Models;
+using System;
+using System.Text.RegularExpressions;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
+/***************************************
+ * Created By: Brian Culp
+ * Edited By:
+ * *************************************/
+
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+namespace CAA_Event_Management
+{
+    /// <summary>
+    /// Frame for Create New User
+    /// </summary>
+    public sealed partial class CreateNewUser : Page
+    {
+        UserAccount newUser;
+
+        IUserAccountRepository userRepository;
+
+        public CreateNewUser()
+        {
+            this.InitializeComponent();
+            userRepository = new UserAccountRepository();
+        }
+
+        /// <summary>
+        /// Create Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            newUser = new UserAccount();
+            this.DataContext = newUser;
+
+            try
+            {
+                //if first name exists
+                if (txtFName.Text != "")
+                {
+                    //set first name
+                    newUser.FirstName = txtFName.Text;
+                }
+
+                //if last name exists
+                if (txtLName.Text != "")
+                {
+                    //set last name
+                    newUser.LastName = txtLName.Text;
+                }
+
+                //if admin
+                if (chkAdmin.IsChecked == true)
+                {
+                    //set admin to true
+                    newUser.isAdmin = true;
+                }
+                else
+                {
+                    //set admin to false
+                    newUser.isAdmin = false;
+                }
+
+                //if password matches confirm password
+                if (txtPassword.Password == txtConfirmPassword.Password)
+                {
+                    //set password
+                    newUser.Password = txtPassword.Password;
+                }
+                else
+                {
+                    //return error message
+                    Jeeves.ShowMessage("Error", "Passwords do not match");
+                    return;
+                }
+                
+                //if username contains Capital, Number, and 8-20 characters
+                //if (Regex.IsMatch(txtUserName.Text, @"/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d][A-Za-z\d]{8,20}$/"))
+                //{
+                    //set username
+                    newUser.UserName = txtUserName.Text;
+                //}
+                //else
+                //{
+                //    Jeeves.ShowMessage("Error", "Username must contain 1 capital, 1 number, and be 8-20 characters");
+                //    return;
+                //}
+
+                //add user
+                userRepository.AddUser(newUser);
+                
+                //clear fields to allow new creation
+                ClearFields();
+
+            }
+            catch (Exception ex)
+            {
+                //error if adding user was unsuccessful
+                Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
+                return;
+            }
+        }
+
+        /// <summary>
+        /// Method to clear the text boxes for new creation
+        /// </summary>
+        private void ClearFields()
+        {
+            txtUserName.Text = "";
+            txtFName.Text = "";
+            txtLName.Text = "";
+            txtPassword.Password = "";
+            txtConfirmPassword.Password = "";
+            chkAdmin.IsChecked = false;
+
+        }
+    }
+}
+     

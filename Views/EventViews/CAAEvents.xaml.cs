@@ -39,6 +39,8 @@ namespace CAA_Event_Management.Views.EventViews
             this.InitializeComponent();
             eventRepository = new EventRepository();
             FillDropDown(1);
+
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("CAA Current Events");
         }
 
         private void FillDropDown(int check)
@@ -59,12 +61,12 @@ namespace CAA_Event_Management.Views.EventViews
                 //    .ToList();
                 if (check == 1)
                 {
-
                     List<Models.Event> upcomingEvents = noDeletedEvents
                     .Where(c => c.EventEnd >= now)
                     .OrderBy(c => c.EventStart)
                     .ToList();
-                    gdvEvents.ItemsSource = upcomingEvents;
+                    gdvEditEvents.ItemsSource = upcomingEvents;
+                    gdvDeleteEvents.ItemsSource = upcomingEvents;
                 }
                 else
                 {
@@ -72,7 +74,8 @@ namespace CAA_Event_Management.Views.EventViews
                     .Where(c => c.EventEnd < now)
                     .OrderByDescending(c => c.EventStart)
                     .ToList();
-                    gdvEvents.ItemsSource = pastEvents;
+                    gdvEditEvents.ItemsSource = pastEvents;
+                    gdvDeleteEvents.ItemsSource = pastEvents;
                 }
                 //UpcomingEventList.ItemsSource = pastEvents;
                 //UpcomingEventList.ItemsSource = noDeletedEvents;
@@ -109,15 +112,34 @@ namespace CAA_Event_Management.Views.EventViews
             FillDropDown(2);
         }
 
-        private void btnSelectedEvent_Click(object sender, RoutedEventArgs e)
-        {
-            if (gdvEvents.SelectedItem != null)
-            {
-                var selectedEvent = gdvEvents.SelectedItem;
-                Frame.Navigate(typeof(EventDetails), (Models.Event)selectedEvent);
-            }
+        //private void btnSelectedEvent_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (gdvEditEvents.SelectedItem != null)
+        //    {
+        //        var selectedEvent = gdvEditEvents.SelectedItem;
+        //        Frame.Navigate(typeof(EventDetails), (Models.Event)selectedEvent);
+        //    }
 
+        //}
+
+        private void btnDeleteMode_Click(object sender, RoutedEventArgs e)
+        {
+            if(btnDeleteMode.Content.ToString() == "Delete Mode (OFF)")
+            {
+                gdvEditEvents.Visibility = Visibility.Collapsed;
+                gdvDeleteEvents.Visibility = Visibility.Visible;
+                btnDeleteMode.Content = "Delete Mode (ON)";
+                FillDropDown(CurrentOrPast);
+            }
+            else if(btnDeleteMode.Content.ToString() == "Delete Mode (ON)")
+            {
+                gdvEditEvents.Visibility = Visibility.Visible;
+                gdvDeleteEvents.Visibility = Visibility.Collapsed;
+                btnDeleteMode.Content = "Delete Mode (OFF)";
+                FillDropDown(CurrentOrPast);
+            }
         }
+
 
         //private void btnEventDelete_Click(object sender, RoutedEventArgs e)
         //{
@@ -133,13 +155,18 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Buttons - Adding: Attendees, Items, EventItems
+        #region Buttons - Adding: Attendees, Items, EventItems, 
 
         private void btnRegisterAttendance_Click(object sender, RoutedEventArgs e)
         {
-            if (gdvEvents.SelectedItem != null)
+            if (gdvEditEvents.SelectedItem != null)
             {
-                Event selectedEvent = (Event)gdvEvents.SelectedItem;
+                Event selectedEvent = (Event)gdvEditEvents.SelectedItem;
+                Frame.Navigate(typeof(EventAttendanceTracking), (Event)selectedEvent);
+            }
+            else if (gdvDeleteEvents.SelectedItem != null)
+            {
+                Event selectedEvent = (Event)gdvDeleteEvents.SelectedItem;
                 Frame.Navigate(typeof(EventAttendanceTracking), (Event)selectedEvent);
             }
             else
@@ -177,13 +204,37 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            int selected = Convert.ToInt32(((Button)sender).DataContext);
-            Event selectedEvent = new Event();
-            selectedEvent = eventRepository.GetEvent(selected.ToString());
-            App userInfo = (App)Application.Current;
-            selectedEvent.LastModifiedBy = userInfo.userAccountName;
-            eventRepository.DeleteEvent(selectedEvent);
-            Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
+            string selected = (((Button)sender).DataContext).ToString();
+            try
+            {
+                Event selectedEvent = new Event();
+                selectedEvent = eventRepository.GetEvent(selected);
+                App userInfo = (App)Application.Current;
+                selectedEvent.LastModifiedBy = userInfo.userAccountName;
+                selectedEvent.LastModifiedDate = DateTime.Now;
+                selectedEvent.IsDeleted = true;
+                eventRepository.UpdateEvent(selectedEvent);
+                Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "There was a problem deleting the selected record");
+            }
+        }
+
+        private void btnEditEvent_Click(object sender, RoutedEventArgs e)
+        {
+            string selected = (((Button)sender).DataContext).ToString();
+            try
+            {
+                Event selectedEvent = new Event();
+                selectedEvent = eventRepository.GetEvent(selected.ToString());
+                Frame.Navigate(typeof(EventDetails), (Models.Event)selectedEvent);
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "There was a problem editing the selected record");
+            }
         }
 
 
@@ -216,7 +267,8 @@ namespace CAA_Event_Management.Views.EventViews
                             searchEvents.Add(x);
                         }
                     }
-                    gdvEvents.ItemsSource = searchEvents;
+                    gdvEditEvents.ItemsSource = searchEvents;
+                    gdvDeleteEvents.ItemsSource = searchEvents;
                 }
                 catch (Exception)
                 {
@@ -225,5 +277,6 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
         #endregion
+
     }
 }

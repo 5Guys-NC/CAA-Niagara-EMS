@@ -271,6 +271,11 @@ namespace CAA_Event_Management
             isAuthenticated(out AuthStatus);
         }
 
+        internal void ChangeMainPageTitleName(string newTitle)
+        {
+            txtTitle.Text = newTitle;
+        }
+
         #endregion
 
 

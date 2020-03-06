@@ -129,6 +129,7 @@ namespace CAA_Event_Management.Data
             using (CAAContext context = new CAAContext())
             {
                 Event thisEvent = GetEvent(eventToDelete.EventID);
+
                 thisEvent.IsDeleted = true;
                 context.Update(thisEvent);
                 context.SaveChanges();

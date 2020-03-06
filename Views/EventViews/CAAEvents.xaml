@@ -64,23 +64,23 @@
                     Foreground="#eaeaea"
                     Margin="140,60,10,0"
                     Click="NewEvent_Click"/>
-                <Button Name="btnEditEvent" 
+                <Button Name="btnDeleteMode" 
                     Background="Transparent"
-                    Content="Edit An Event"
+                    Content="Delete Mode (OFF)"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="#eaeaea"
                     RelativePanel.AlignBottomWith="btnCreateEvent"
                     RelativePanel.RightOf="btnCreateEvent"
-                    Click="btnSelectedEvent_Click"/>
+                    Click="btnDeleteMode_Click"/>
                 <Button Name="btnBeginEvent"
                     Background="Transparent"
                     Content="Begin Event"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="#eaeaea"
-                    RelativePanel.AlignBottomWith="btnEditEvent"
-                    RelativePanel.RightOf="btnEditEvent"
+                    RelativePanel.AlignBottomWith="btnDeleteMode"
+                    RelativePanel.RightOf="btnDeleteMode"
                     Click="btnRegisterAttendance_Click"/>
                 <TextBlock Name="tbSearch" 
                        FontSize="14"
@@ -126,7 +126,9 @@
                     Width="105"
                     Canvas.ZIndex="0"
                     Click="btnPastEvents_Click"/>
-                <GridView Name="gdvEvents"
+
+                <!--Edit events grid view--> 
+                <GridView Name="gdvEditEvents"
                       Background="#f8bf38"
                       BorderBrush="White"
                       BorderThickness="0,2,0,0"
@@ -137,9 +139,51 @@
                       Margin="10,50,50,0"
                       MinHeight="450"
                       MinWidth="380"
-                      Padding="15">
+                      Padding="15"
+                      Visibility="Visible">
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:Name="dtEditEvents" x:DataType="data:Event">
+                                <RelativePanel Name="rpEvents" Width="330" Background="#f79326" BorderBrush="White" BorderThickness="3" MinHeight="80" Margin="10">
+                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e">                                     
+                                   <Run FontSize="24" 
+                                        FontWeight="ExtraBold"
+                                        Text="{x:Bind DisplayName}"/>
+                                    <LineBreak/>
+                                    <LineBreak/>
+                                    <Run FontSize="14"
+                                         Text="{x:Bind SummaryDisplay}"/>
+                                    </TextBlock>
+                                    <Button Name="btnEditEvent" 
+                                            Background="#f79326"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.AlignTopWithPanel="True"
+                                            VerticalAlignment="Top"  
+                                            DataContext="{x:Bind EventID}" 
+                                            Content="ED"
+                                            Style="{StaticResource AddRemoveStyle}"
+                                            Click="btnEditEvent_Click">
+                                    </Button>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+
+                <!--Delete events grid view-->
+                    <GridView Name="gdvDeleteEvents"
+                      Background="#f8bf38"
+                      BorderBrush="White"
+                      BorderThickness="0,2,0,0"
+                      CornerRadius="0,20,20,0"
+                      Grid.Row="2"
+                      HorizontalAlignment="Center"
+                      IsItemClickEnabled="True"
+                      Margin="10,50,50,0"
+                      MinHeight="450"
+                      MinWidth="380"
+                      Padding="15"
+                      Visibility="Collapsed">
                     <GridView.ItemTemplate>
-                        <DataTemplate x:Name="dtEvents" x:DataType="data:Event">
+                        <DataTemplate x:Name="dtDeleteEvents" x:DataType="data:Event">
                             <RelativePanel Name="rpEvents" Width="330" Background="#f79326" BorderBrush="White" BorderThickness="3" MinHeight="80" Margin="10">
                                 <TextBlock Name="txtEvents" Foreground="#1b3e6e">                                     
                                    <Run FontSize="24" 
@@ -178,6 +222,11 @@
                         </DataTemplate>
                     </GridView.ItemTemplate>
                 </GridView>
+
+
+
+
+
             </RelativePanel>
         </Grid>
     </ScrollViewer>

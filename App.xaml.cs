@@ -32,9 +32,8 @@ namespace CAA_Event_Management
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-
-            //initialize database
-            prepDatabase.Initial();
+        //initialize database
+        prepDatabase.Initial();
         }
 
         /// <summary>

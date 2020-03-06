@@ -34,7 +34,10 @@ namespace CAA_Event_Management.Models
         {
             get
             {
-                return string.Format("{0:yyyy-MM-dd}", EventStart) + " - " + string.Format("{0:yyyy-MM-dd}", EventEnd);
+                string startDate = string.Format("{0:yyyy-MM-dd}", EventStart);
+                string endDate = string.Format("{0:yyyy-MM-dd}", EventEnd);
+                if (startDate == endDate) return startDate + " (One day)";
+                else return startDate + " - " + endDate;
             }
         }
 

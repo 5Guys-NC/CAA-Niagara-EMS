@@ -82,6 +82,8 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
+            if (!CheckForProperDateUsage()) return;
+
             try
             {
                 string[] eventNameArray = eventNameTextBox.Text.Trim().Split(' ');
@@ -420,7 +422,36 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        private bool CheckForProperDateUsage()
+        {
+            var eventStart = Convert.ToDateTime(eventStartDate.Date.ToString());
+            var eventEnd = Convert.ToDateTime(eventEndDate.Date.ToString());
+            if (eventStart > eventEnd)
+            {
+                Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");
+                return false;
+            }
+            else if (eventStart < (DateTime.Now.AddDays(-1)))
+            {
+                Jeeves.ShowMessage("Error", "Please choose a start date in the future");
+                return false;
+            }
+            return true;
+        }
+
+
+
         #endregion
 
+        private void eventStartDate_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
+        {
+           // DateTime start = Convert.ToDateTime(eventStartDate.Date.ToString());
+            //eventEndDate.Date =  
+
+            //eventEndDate = eventStartDate;
+
+
+
+        }
     }
 }

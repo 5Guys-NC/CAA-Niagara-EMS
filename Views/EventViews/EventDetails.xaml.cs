@@ -157,11 +157,18 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)   //This should be removed later as it will serve no prupose
         {
-            App userInfo = (App)Application.Current;
-            view.LastModifiedBy = userInfo.userAccountName;
-            view.LastModifiedDate = DateTime.Now;
-            eventRepository.DeleteEvent(view);
-            Frame.GoBack();
+            try
+            {
+                App userInfo = (App)Application.Current;
+                view.LastModifiedBy = userInfo.userAccountName;
+                view.LastModifiedDate = DateTime.Now;
+                eventRepository.DeleteEvent(view);
+                Frame.GoBack();
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Failure to delete record; please try again");
+            }
         }
 
         private void membersOnlyCheck_Checked(object sender, RoutedEventArgs e)

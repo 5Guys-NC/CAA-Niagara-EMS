@@ -75,8 +75,49 @@ namespace CAA_Event_Management.Views.EventViews
             //General Fill Methods
             FillGameField();
             FillSurveySelectionLists();
+
+            SetTimes();
+
+        }
+
+        private void SetTimes()
+        {
+            var start = view.EventStart.ToString().Substring(view.EventStart.ToString().IndexOf(" ")+1);
+            var end = view.EventEnd.ToString().Substring(view.EventStart.ToString().IndexOf(" ")+1);
+
+            var start2 = start.Substring(4, 1);
+
+            if (start.Substring(start.IndexOf(" ") + 1) == "PM")
+            {
+                int newTime = Convert.ToInt32(start.Substring(0, 2)) + 12;
+                if (newTime == 24) start = "00" + start.Substring(2, 3);
+                else start = newTime.ToString() + start.Substring(2, 3);
+            }
+            else if (start.Substring(0, 2) == "12") start = "00" + start.Substring(2, 3);
+            else
+            {
+                if (start.Substring(4,1) == ":") start = start.Substring(0, 4);
+                else start = start.Substring(0, 5);
+            }
+
+            if (end.Substring(start.IndexOf(" ")+1) == "PM")
+            {
+                int newTime = Convert.ToInt32(end.Substring(0, 2)) + 12;
+                if (newTime == 24) end = "00" + end.Substring(2, 3);
+                else end = newTime.ToString() + end.Substring(2, 3);
+            }
+            else if (end.Substring(0, 2) == "12") end = "00" + end.Substring(2, 3);
+            else
+            {
+                if (end.Substring(4,1) == ":") end = end.Substring(0, 4);
+                else end = end.Substring(0, 5);
+            }
+
+            tpEventStart.Time = TimeSpan.Parse(start);
+            tpEventEnd.Time = TimeSpan.Parse(end);
         }
         #endregion
+
 
         #region Buttons - Event - Save, Delete, Cancel, and MemberCheckBox Methods
 
@@ -109,6 +150,8 @@ namespace CAA_Event_Management.Views.EventViews
                 view.AbrevEventname = eventAbbreviateName;
 
                 //CheckForDatesOnNames();
+
+                if(!AddEventDatesAndTimes()) return;
 
                 if (membersOnlyCheck.IsChecked == true)
                 {
@@ -143,6 +186,8 @@ namespace CAA_Event_Management.Views.EventViews
                 Jeeves.ShowMessage("Error", "Failed to save Event; please try again");
             }
         }
+
+
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -473,7 +518,7 @@ namespace CAA_Event_Management.Views.EventViews
                 Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");
                 return false;
             }
-            else if (eventStart < (DateTime.Now.AddDays(-1)))
+            else if (eventStart < (DateTime.Now.AddDays(-2)))
             {
                 Jeeves.ShowMessage("Error", "Please choose a start date in the future");
                 return false;
@@ -481,9 +526,32 @@ namespace CAA_Event_Management.Views.EventViews
             return true;
         }
 
-
-
         #endregion
+
+
+        private bool AddEventDatesAndTimes()
+        {
+            var startDate = eventStartDate.Date.ToString().Substring(0,10);
+            var startTime = tpEventStart.Time.ToString();
+
+            var endDate = cdpEventEnd.Date.ToString().Substring(0, 10);
+            var endTime = tpEventEnd.Time.ToString();
+
+            DateTime start = Convert.ToDateTime(startDate + " " + startTime);
+            DateTime end = Convert.ToDateTime(endDate + " " + endTime);
+
+            if (start > end)
+            {
+                Jeeves.ShowMessage("Error", "Please set a start date/time that is before the end date/time");
+                return false;
+            }
+
+            view.EventStart = start;
+            view.EventEnd = end;
+
+            return true;
+        }
+
 
         private void lstAvailableQuizzes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

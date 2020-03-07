@@ -47,7 +47,7 @@ namespace CAA_Event_Management.Data
             {
                 var items = context.Items
                     .Where(d => d.IsDeleted == false || d.IsDeleted == null)
-                    .OrderBy(d => d.ItemCount)
+                    .OrderByDescending(d => d.ItemCount)
                     .ThenBy(d => d.ItemName)
                     .ToList();
                 return items;
@@ -93,6 +93,19 @@ namespace CAA_Event_Management.Data
             using (CAAContext context = new CAAContext())
             {
                 context.Update(itemToUpdate);
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateItemCount(string itemID, int countChange)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                var item = context.Items
+                    .Where(d => d.ItemID == itemID)
+                    .FirstOrDefault();
+                item.ItemCount += countChange;
+                context.Update(item);
                 context.SaveChanges();
             }
         }

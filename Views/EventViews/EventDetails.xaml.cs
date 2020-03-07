@@ -342,6 +342,7 @@ namespace CAA_Event_Management.Views.EventViews
                         eventItemToAdd.ItemID = x.EIDItemID;
                         eventItemToAdd.CreatedBy = userInfo.userAccountName;
                         eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
+                        itemRepository.UpdateItemCount(x.EIDItemID, 1);
                         eventItemRepository.AddEventItem(eventItemToAdd);
                     }
                 }
@@ -357,6 +358,7 @@ namespace CAA_Event_Management.Views.EventViews
                     List<EventItem> currentSelectedItems = eventItemRepository.GetEventItems(view.EventID);
                     foreach (var x in currentSelectedItems)
                     {
+                        itemRepository.UpdateItemCount(x.ItemID, -1);
                         eventItemRepository.DeleteEventItem(x);
                     }
                 }
@@ -386,10 +388,12 @@ namespace CAA_Event_Management.Views.EventViews
                             eventItemToAdd.EventID = view.EventID;
                             eventItemToAdd.CreatedBy = userInfo.userAccountName;
                             eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
+                            itemRepository.UpdateItemCount(x.EIDItemID, 1);
                             eventItemRepository.AddEventItem(eventItemToAdd);
                         }
                         else if (checkForItem != null && !selectedItems.Contains(x))
                         {
+                            itemRepository.UpdateItemCount(x.EIDItemID, -1);
                             eventItemRepository.DeleteEventItem(checkForItem);
                         }
                     }

@@ -32,6 +32,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         Item item;
         Item selectedItem;
+        int displayChoice = 1;
         int addOrEdit;
         readonly List<DataType> dataList = new List<DataType>();
 
@@ -43,7 +44,7 @@ namespace CAA_Event_Management.Views.EventViews
             itemRespository = new ItemRepository();
 
             FillDataTypeComboBox();
-            FillFields();
+            FillFields(displayChoice);
         }
           
         #endregion
@@ -131,7 +132,7 @@ namespace CAA_Event_Management.Views.EventViews
                 cboDataType.Visibility = Visibility.Collapsed;
                 ScreenUnlock();
                 ClearFields();
-                FillFields();
+                FillFields(displayChoice);
             }
             else
             {
@@ -168,14 +169,14 @@ namespace CAA_Event_Management.Views.EventViews
                 btnDelete.Content = "Delete Mode (ON)";
                 rpSurvey.Visibility = Visibility.Collapsed;
                 rpSurveyDeleteMode.Visibility = Visibility.Visible;
-                FillFields();
+                FillFields(displayChoice);
             }
             else
             {
                 btnDelete.Content = "Delete Mode (OFF)";
                 rpSurvey.Visibility = Visibility.Visible;
                 rpSurveyDeleteMode.Visibility = Visibility.Collapsed;
-                FillFields();
+                FillFields(displayChoice);
             }
         }
     
@@ -203,23 +204,38 @@ namespace CAA_Event_Management.Views.EventViews
         {
             Canvas.SetZIndex(btnMostUsedQuestions, 1);
             Canvas.SetZIndex(btnAlphabeticalQuestions, 0);
+            displayChoice = 1;
+            FillFields(displayChoice);
         }
 
         private void btnAlphabeticalQuestions_Click(object sender, RoutedEventArgs e)
         {
             Canvas.SetZIndex(btnAlphabeticalQuestions, 1);
             Canvas.SetZIndex(btnMostUsedQuestions, 0);
+            displayChoice = 0;
+            FillFields(displayChoice);
         }
 
         #endregion
 
         #region Helper Methods - FillFields, FillDataTypeComboBox, SearchField, BeginUpdate, SaveQuestion, ClearFields
 
-        private void FillFields()
+        private void FillFields(int itemDisplayOption)
         {
             try
             {
-                List<Item> items = itemRespository.GetUndeletedItems();
+                List<Item> items = new List<Item>();
+
+                if (itemDisplayOption == 1)
+                {
+                    items = itemRespository.GetUndeletedItemsByCount();
+                }
+                else if (itemDisplayOption == 0)
+                {
+                    items = itemRespository.GetUndeletedItems();
+                }
+
+                //List<Item> items = itemRespository.GetUndeletedItems();
                 //lstPreMadeQuestions.ItemsSource = items;
                 gvAvailableQuestions.ItemsSource = items;
                 gvAvailableQuestionsDeleteMode.ItemsSource = items;
@@ -258,7 +274,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void txtSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (txtSearchBox.Text == "") FillFields();
+            if (txtSearchBox.Text == "") FillFields(displayChoice);
             else
             {
                 DataType dataTypes = new DataType();
@@ -313,7 +329,7 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 Jeeves.ShowMessage("Error", "Unable to save the question");
             }
-            FillFields();
+            FillFields(displayChoice);
         }
 
         private void ClearFields()

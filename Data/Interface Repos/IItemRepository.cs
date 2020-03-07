@@ -17,6 +17,7 @@ namespace CAA_Event_Management.Data
         Item GetItem(string itemID);
         void AddItem(Item itemToAdd);
         void UpdateItem(Item itemToUpdate);
+        void UpdateItemCount(string itemID, int countChange);
         void DeleteUpdateItem(Item itemToDelete);
         void DeleteItem(Item itemToDelete);
     }

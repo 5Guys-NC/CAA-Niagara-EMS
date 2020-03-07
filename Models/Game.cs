@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 /******************************
-*  Model Created By: Max Cashmore
+*  Created By: Max Cashmore
 *  Edited by: Brian Culp
 *******************************/
 namespace CAA_Event_Management.Models
 {
-
-        public class Game
+    /// <summary>
+    ///  Model for Game Table
+    /// </summary>
+    public class Game
         {
             public Game()
             {

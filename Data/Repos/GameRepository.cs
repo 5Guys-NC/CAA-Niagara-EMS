@@ -1,10 +1,6 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
-using Microsoft.EntityFrameworkCore;
 /******************************
 *  Repository Created By: Max Cashmore
 *  Edited by: Brian Culp

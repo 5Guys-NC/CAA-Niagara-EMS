@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿/*************************
+ * Created By: Max Cashmore
+ * **********************/
 namespace CAA_Event_Management.Models
 {
+    /// <summary>
+    /// Model for GameTag Table
+    /// </summary>
     public class GameTag
     {
         public int ID { get; set; }

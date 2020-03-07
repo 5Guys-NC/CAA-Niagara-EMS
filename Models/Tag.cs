@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+/*************************
+ * Created By: Max Cashmore
+ * **********************/
 namespace CAA_Event_Management.Models
 {
+    /// <summary>
+    /// Model for Tag table
+    /// </summary>
     public class Tag
     {
         public int ID { get; set; }

@@ -14,6 +14,11 @@ namespace CAA_Event_Management.Models
     /// </summary>
     public static class Jeeves
     {
+        /// <summary>
+        /// Show Message in Popup Window
+        /// </summary>
+        /// <param name="strTitle"></param>
+        /// <param name="Msg"></param>
         internal async static void ShowMessage(string strTitle, string Msg)
         {
             ContentDialog diag = new ContentDialog()
@@ -25,6 +30,12 @@ namespace CAA_Event_Management.Models
             await diag.ShowAsync();
         }
 
+        /// <summary>
+        /// Popup that allows for user to select Yes or No
+        /// </summary>
+        /// <param name="strTitle"></param>
+        /// <param name="Msg"></param>
+        /// <returns>result of click on Popup</returns>
         internal async static Task<ContentDialogResult> ConfirmDialog(string strTitle, string Msg)
         {
             ContentDialog diag = new ContentDialog()

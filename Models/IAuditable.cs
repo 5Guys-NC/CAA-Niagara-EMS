@@ -6,7 +6,7 @@
 namespace CAA_Event_Management.Models
 {
     /// <summary>
-    /// This page interface for IAuditable
+    /// The page interface for IAuditable
     /// </summary>
     internal interface IAuditable
     {

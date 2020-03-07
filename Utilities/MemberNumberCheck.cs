@@ -1,13 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+/*******************************
+ * Created By: Jon Yade
+ * ****************************/
 
 namespace CAA_Event_Management.Utilities
 {
+    /// <summary>
+    /// Class to check Membership number to Luhn Algorithm
+    /// </summary>
     internal class MemberNumberCheck
     {
+        /// <summary>
+        /// Method to Check Member Number
+        /// </summary>
+        /// <param name="memberNumber"></param>
+        /// <returns>boolean</returns>
         internal bool CheckMemberNumber(string memberNumber)
         {
             double[] number = new double[16];

@@ -22,7 +22,6 @@ namespace CAA_Event_Management
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-
         public string userAccountName = "";
         public bool userAccountIsAdmin = false;
         public bool userIsLogIn = false;
@@ -31,8 +30,8 @@ namespace CAA_Event_Management
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-        //initialize database
-        prepDatabase.Initial();
+            //initialize database
+            prepDatabase.Initial();
         }
 
         /// <summary>

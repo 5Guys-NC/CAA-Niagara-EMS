@@ -12,14 +12,14 @@ namespace CAA_Event_Management.Models
     public abstract class Auditable : IAuditable
     {
         [ScaffoldColumn(false)]
-        [StringLength(256)] //maybe make this 256 later
+        [StringLength(256)]
         public string CreatedBy { get; set; } = "CAA Employee";
 
         [ScaffoldColumn(false)]
         public DateTime? CreatedDate { get; set; } = DateTime.Now;
 
         [ScaffoldColumn(false)]
-        [StringLength(256)]  //maybe make this 256 later
+        [StringLength(256)]
         public string LastModifiedBy { get; set; } = "CAA Emplyee";
 
         [ScaffoldColumn(false)]

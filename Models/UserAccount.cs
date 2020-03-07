@@ -1,14 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+/*********************************
+ * Created By: Brian Culp
+ * Edited By: Jon Yade
+ * ******************************/
 
 namespace CAA_Event_Management.Models
 {
+    /// <summary>
+    /// Model for UserAccount Table
+    /// </summary>
     public class UserAccount : Auditable
     {
         [Required]
@@ -44,7 +47,11 @@ namespace CAA_Event_Management.Models
         [Required(ErrorMessage = "Is this person an Admin?")]
         public bool isAdmin { get; set; } = false;
 
-
+        /// <summary>
+        /// Method to Encrypt Password
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns>string</returns>
         internal string EncryptPassword(string password)
         {
             //for information on this method go to:

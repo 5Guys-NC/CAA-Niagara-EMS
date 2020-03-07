@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿/*************************
+ * Created By: Max Cashmore
+ * **********************/
 namespace CAA_Event_Management.Models
 {
+    /// <summary>
+    /// Model for QuestionTag table
+    /// </summary>
     public class QuestionTag
     {
         public int ID { get; set; }

@@ -40,7 +40,7 @@ namespace CAA_Event_Management.Views.EventViews
             eventRepository = new EventRepository();
             FillDropDown(1);
 
-            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("CAA Current Events");
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("GENERAL EVENT MANAGEMENT");
         }
 
         private void FillDropDown(int check)

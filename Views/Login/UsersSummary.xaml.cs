@@ -31,6 +31,8 @@ namespace CAA_Event_Management
             
             //Fill list of Users
             FillUserList();
+
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("USER SUMMARY");
         }
 
         /// <summary>

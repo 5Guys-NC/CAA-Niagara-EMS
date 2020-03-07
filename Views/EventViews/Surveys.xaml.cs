@@ -42,6 +42,7 @@ namespace CAA_Event_Management.Views.EventViews
         {
             this.InitializeComponent();
             itemRespository = new ItemRepository();
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("SURVEY QUESTION MANAGEMENT");
 
             FillDataTypeComboBox();
             FillFields(displayChoice);

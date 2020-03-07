@@ -52,7 +52,7 @@
                        Background="#1b3e6e">
             <TextBlock Name="txtCAAEvents"
                        Margin="130,0,0,0"
-                       Text="CAA Events"
+                       Text=""
                        Foreground="#eaeaea"
                        FontWeight="Bold"
                        FontSize="55"/>
@@ -66,6 +66,13 @@
                     Click="btnStartEvent_Click"
                     RelativePanel.AlignRightWithPanel="True"/>
         </RelativePanel>
+
+        <TextBlock x:Name="tbkEventInfo"
+                   FontSize="60"
+                   Grid.Row="1"
+                   Margin="100,150,0,0"
+                   Visibility="Collapsed"
+                   Text="No Current Events"/>
 
         <!--Code for the construction of Current Events in the grid-->
         <GridView Name="gvAvailableEvents"

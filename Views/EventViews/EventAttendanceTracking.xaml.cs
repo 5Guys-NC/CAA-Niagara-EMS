@@ -44,6 +44,7 @@ namespace CAA_Event_Management.Views.EventViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             currentEvent = (Event)e.Parameter;
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName(currentEvent.DisplayName.ToUpper());
             this.DataContext = tracker;
             tracker.EventID = currentEvent.EventID;
             tracker.ArrivalTime = DateTime.Now;
@@ -67,11 +68,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //I need an if statement here tied to the login to determine what view to return to:
-
-            //if () Frame.Navigate(typeof(EventStartView));
-            //else 
-            App userCheck = new App();
+            App userCheck = (App)Application.Current;
 
             if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView));
             else Frame.Navigate(typeof(CAAEvents));

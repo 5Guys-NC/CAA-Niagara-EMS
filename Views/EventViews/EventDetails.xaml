@@ -117,26 +117,15 @@
                                   Unchecked="membersOnlyCheck_Unchecked" RelativePanel.RightOf="membersOnlyBlock" RelativePanel.AlignVerticalCenterWith="membersOnlyBlock" Width="25" />
                     </RelativePanel>
 
-                        <TextBlock Name="tbDisplayName"  Grid.Column="0" Foreground="#eaeaea" HorizontalAlignment="Left" Margin="3,0,5,0"
-                                 VerticalAlignment="Center" Text="Display Name"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Height="30" Name="displayNameTextBox" 
-                                 InputScope="Text" Text="{x:Bind view.EventName,Mode=TwoWay}" AcceptsReturn="False" Margin="0,20,0,20" Width="250"/>
-
-                        <TextBlock Foreground="#eaeaea" Grid.Row="1" HorizontalAlignment="Left" Margin="3,0,0,0"
-                                  VerticalAlignment="Center" Name="startDateTextBlock" Text="Event Start Date" />
-                    <RelativePanel Grid.Column="1" Grid.Row="1">
-                        <CalendarDatePicker Header="" Width="150" Margin="5,0,0,0" VerticalAlignment="Center" 
-                                            Date="{x:Bind view.EventStart, Converter={StaticResource DateTimeToOffsetConverter}, Mode=TwoWay}"
-                                            HorizontalAlignment="Left" Name="eventStartDate" Grid.ColumnSpan="2" 
-                                            RelativePanel.AlignLeftWithPanel="True"
-                                            DateChanged="eventStartDate_DateChanged"/>
-                        <TimePicker x:Name="eventStartTime" 
-                                    Header="" 
-                                    Time="12:00"
-                                    RelativePanel.RightOf="eventStartDate"
-                                    />
-                        <!--Time="{x:Bind view.EventStart, Converter={StaticResource DateTimeToOffsetConverter}, Mode=TwoWay}"-->
-
+                    <RelativePanel x:Name="rpEventStart" Grid.Column="0" Grid.Row="2" BorderBrush="#1b3e6e" BorderThickness="1" Margin="0,10,3,0">
+                        <TextBlock FontSize="16"  FontWeight="Bold" Foreground="#000" Grid.Row="1"
+                                   RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True"
+                                   Name="startDateTextBlock" Text="Event Start Date" />
+                        <CalendarDatePicker Header="" Grid.Column="0" Grid.Row="2" Width="150" Margin="5,0,0,0" VerticalAlignment="Center" 
+                                        Date="{x:Bind view.EventStart, Converter={StaticResource DateTimeToOffsetConverter}, Mode=TwoWay}"
+                                        RelativePanel.Below="startDateTextBlock"
+                                        RelativePanel.AlignHorizontalCenterWithPanel="True" Name="eventStartDate" Grid.ColumnSpan="2" />
+                        <TimePicker Name="tpEventStart" RelativePanel.Below="eventStartDate" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="4" MinuteIncrement="15"/>
                     </RelativePanel>
 
                     <RelativePanel x:Name="rpEventEnd" Grid.Column="1" Grid.Row="2" BorderBrush="#1b3e6e" BorderThickness="1" Margin="0,10,3,0">
@@ -146,33 +135,9 @@
 
                         <CalendarDatePicker Name="cdpEventEnd" Header="" Grid.Column="1" Grid.Row="2" Width="150" Margin="85,0,0,0" 
                                             Date="{x:Bind view.EventEnd, Converter={StaticResource DateTimeToOffsetConverter}, Mode=TwoWay}"
-                                            HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" 
-                                        x:Name="eventEndDate"/>
-
-                    <TextBlock Text="Members Only?" Foreground="#eaeaea" Grid.Row="3" Grid.Column="0"  HorizontalAlignment="Left"  Margin="3,0,0,0"
-                                 VerticalAlignment="Center" Name="membersOnlyBlock" />
-                    <CheckBox x:Name="membersOnlyCheck" Content="Yes"
-                              Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" RequestedTheme="Dark"
-                              Checked="membersOnlyCheck_Checked"
-                              Unchecked="membersOnlyCheck_Unchecked" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-                    <TextBlock Grid.Row="4" Grid.Column="0" Foreground="#eaeaea" HorizontalAlignment="Left" Margin="3,0,5,0"
-                                 VerticalAlignment="Center" Name="eventNameBlock" Text="Event Name" />
-                    <TextBox Grid.Row="4" Grid.Column="1" Height="30"  Name="eventNameTextBox" MaxLength="50" 
-                                 Text="{x:Bind  view.EventName, Mode=TwoWay}" AcceptsReturn="False" InputScope="Text" Grid.ColumnSpan="2" Margin="0,20,0,20" Width="250" />
-                    
-                    <TextBlock Grid.Row="5" Grid.Column="0" Foreground="#eaeaea" HorizontalAlignment="Left"  Margin="3,0,5,0"
-                                 VerticalAlignment="Center"  Name="AbbrevEventName" Text="Abbrev. Event Name" />
-                    <TextBox Grid.Row="5" Grid.Column="1" Height="30" Name="abbrevEventName" 
-                                  MaxLength="50" Text="{x:Bind view.AbrevEventname, Mode=TwoWay}" AcceptsReturn="True"  InputScope="Text" Margin="0,20,0,20" Width="250" />
-
-                    <RelativePanel Grid.Row="9" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
-                        <Button x:Name="btnDelete" Content="Delete" RelativePanel.LeftOf="btnSave"
-                        Click="btnDelete_Click" Margin="6,6,0,6" RelativePanel.AlignVerticalCenterWithPanel="True" />
-                        <Button x:Name="btnSave" Content="Save" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" 
-                        Click="btnSave_Click" Margin="6,6,6,6" />
-                        <Button x:Name="btnCancel" Content="Cancel" RelativePanel.RightOf="btnSave" RelativePanel.AlignVerticalCenterWithPanel="True" 
-                        Click="btnCancel_Click" Margin="0,6,6,6" />
+                                            RelativePanel.Below="endDateTextBlock"
+                                            Grid.ColumnSpan="2" />
+                        <TimePicker x:Name="tpEventEnd" RelativePanel.Below="cdpEventEnd" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="4" MinuteIncrement="15"/>
                     </RelativePanel>
 
                     <Grid Name="gdListBoxes" Grid.Row="4" Grid.ColumnSpan="3">
@@ -260,7 +225,7 @@
                                     Content="&#xF78B;" Click="txtSearchIcon_Click"/>
                         </RelativePanel>
                         <RelativePanel Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center">
-                        <TextBlock Name="tbSearch"
+                            <TextBlock Name="tbSearch"
                                        Text="Search:" 
                                        FontSize="16"
                                        FontWeight="Bold"

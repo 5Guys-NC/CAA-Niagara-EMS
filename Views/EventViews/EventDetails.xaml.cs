@@ -456,7 +456,7 @@ namespace CAA_Event_Management.Views.EventViews
         private bool CheckForProperDateUsage()
         {
             var eventStart = Convert.ToDateTime(eventStartDate.Date.ToString());
-            var eventEnd = Convert.ToDateTime(eventEndDate.Date.ToString());
+            var eventEnd = Convert.ToDateTime(cdpEventEnd.Date.ToString());
             if (eventStart > eventEnd)
             {
                 Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");

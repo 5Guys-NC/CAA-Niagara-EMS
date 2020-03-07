@@ -69,21 +69,43 @@ namespace CAA_Event_Management
                     newUser.isAdmin = false;
                 }
 
+
+                string userInput = txtPassword.Password;
                 //if password matches confirm password
-                if (txtPassword.Password == txtConfirmPassword.Password)
+                if (userInput == txtConfirmPassword.Password)
                 {
-                    //set password after encryption
-                    newUser.Password = txtPassword.Password;
+                    //check to make sure password contains a capital, contains a digit, and contains a special character
+                    if (Regex.IsMatch(userInput, "[A-Z]") && Regex.IsMatch(userInput, "\\d") && Regex.IsMatch(userInput, "[ _!@#$%^&*()\\./,';:]"))
+                    {
+                        //check to see if password provided is between 6 and 30 characters
+                        if (userInput.Length < 30 && userInput.Length > 6)
+                        {
+                            //set password (encrypted in model)
+                            newUser.Password = txtPassword.Password;
+                        }
+                        else
+                        {
+                            //return error message
+                            Jeeves.ShowMessage("Error", "Password must be between 6 and 30 characters");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        //return error message
+                        Jeeves.ShowMessage("Error", "Password must contain a capital letter, a number, and a special character");
+                        return;
+                    }   
                 }
                 else
                 {
                     //return error message
-                    Jeeves.ShowMessage("Error", "Passwords do not match");
+                    Jeeves.ShowMessage("Error", "Password does not match");
                     return;
                 }
-                
-                    //set username
-                    newUser.UserName = txtUserName.Text;
+
+                //set username
+                newUser.UserName = userInput;
 
                 //make new Guid for ID
                 newUser.ID = Guid.NewGuid().ToString();

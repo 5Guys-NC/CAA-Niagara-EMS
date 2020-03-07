@@ -3,15 +3,13 @@ using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Views.Games;
-using System;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media.Animation;
 /***********************************
 * Edited By: Nathan Smith
 * Edited By: Brian Culp
+* Edited By: Jon Yade
 ***********************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -24,6 +22,7 @@ namespace CAA_Event_Management
     {
 
         #region Startup - variables, repositories, constructor
+
         UserAccount currentUser;
         IUserAccountRepository usersRepository;
         bool AuthStatus;
@@ -34,13 +33,16 @@ namespace CAA_Event_Management
         {
             this.InitializeComponent();
             usersRepository = new UserAccountRepository();
+            //check authentication of user, return out boolean
             isAuthenticated(out AuthStatus);
+            //Beginning Frame on Startup
             MyFrame.Navigate(typeof(EventStartView));
             DataContext = this;
         }
         #endregion
 
         #region Button - Click events
+
         /// <summary>
         /// Functionality for Back Button
         /// </summary>
@@ -169,6 +171,7 @@ namespace CAA_Event_Management
             //empty text boxes
             txtUserName.Text = "";
             txtPassword.Password = "";
+
             //close flyout
             flySignin.Hide();
         }
@@ -189,9 +192,11 @@ namespace CAA_Event_Management
                 BtnSignIn_Click(sender, e);
             }
         }
+
         #endregion
 
         #region Helper Methods
+
         /// <summary>
         /// Check is user is signed in and authenticated, show or hide the corresponding items
         /// </summary>
@@ -253,6 +258,9 @@ namespace CAA_Event_Management
             isAuthenticated(out AuthStatus);
         }
 
+        /// <summary>
+        /// Called to complete the Sign In process
+        /// </summary>
         private void SignUserIn()
         {
             //hide flyout
@@ -274,12 +282,24 @@ namespace CAA_Event_Management
             isAuthenticated(out AuthStatus);
         }
 
+        /// <summary>
+        /// Reset Sign In flyout when it gets opened
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void flySignin_Opened(object sender, object e)
         {
+            //clear fields on open
             txtUserName.Text = "";
             txtPassword.Password = "";
+            //set focus to username textbox
             txtUserName.Focus(FocusState.Programmatic);
         }
+
+        /// <summary>
+        /// Method to change the Title in the header to the name of the navigated page
+        /// </summary>
+        /// <param name="newTitle"></param>
         internal void ChangeMainPageTitleName(string newTitle)
         {
             txtTitle.Text = newTitle;

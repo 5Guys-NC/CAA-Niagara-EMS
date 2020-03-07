@@ -3,6 +3,9 @@
  * **********************/
 namespace CAA_Event_Management.ViewModels
 {
+    /// <summary>
+    /// ViewModel for Survey Questions
+    /// </summary>
     internal class SurveyQuestion
     {
         internal int ID { get; set; }

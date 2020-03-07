@@ -1,11 +1,7 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
 /******************************
-*  Repository Created By: Max Cashmore
+*  Created By: Max Cashmore
 *  Edited by:
 *******************************/
 namespace CAA_Event_Management.Data

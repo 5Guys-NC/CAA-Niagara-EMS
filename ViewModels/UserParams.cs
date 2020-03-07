@@ -6,7 +6,7 @@
 namespace CAA_Event_Management.ViewModels
 {
     /// <summary>
-    /// View Model to record extra parameters for User
+    /// View Model to record extra parameters for UserAccount
     /// </summary>
     public class UserParams
     {

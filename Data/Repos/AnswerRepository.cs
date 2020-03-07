@@ -1,12 +1,8 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
-using Microsoft.EntityFrameworkCore;
 /******************************
-*  Repository Created By: Max Cashmore
+*  Created By: Max Cashmore
 *  Edited by: Brian Culp
 *******************************/
 namespace CAA_Event_Management.Data
@@ -16,6 +12,12 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class AnswerRepository : IAnswerRepository
     {
+        #region Get Requests
+
+        /// <summary>
+        /// Get All Answers
+        /// </summary>
+        /// <returns>List of ANSWERS</returns>
         public List<Answer> GetAnswers()
         {
             using (CAAContext context = new CAAContext())
@@ -25,6 +27,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Game Model by ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>A single GameModel</returns>
         public GameModel GetGameModel(int ID)
         {
             using (CAAContext context = new CAAContext())
@@ -38,7 +45,7 @@ namespace CAA_Event_Management.Data
         /// Displays Answers not already in the question
         /// Work in progress
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of ANSWERS</returns>
         public List<Answer> GetAnswerSelection()
         {
             using (CAAContext context = new CAAContext())
@@ -48,6 +55,12 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// Add Answer
+        /// </summary>
+        /// <param name="toAdd"></param>
         public void AddAnswer(Answer toAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -57,6 +70,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Update GameModel
+        /// </summary>
+        /// <param name="UpdateGM"></param>
         public void UpdateGM(GameModel UpdateGM)
         {
             using (CAAContext context = new CAAContext())

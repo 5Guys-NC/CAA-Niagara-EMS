@@ -1,14 +1,17 @@
-﻿using System;
+﻿using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Data.Interface_Repos;
-using CAA_Event_Management.Models;
+/*********************************
+ * Created By: Max Cashmore
+ ********************************/
 
 namespace CAA_Event_Management.Data.Repos
 {
-    class EventGameUserAnswerRepository:IEventGameUserAnswerRepository
+    /// <summary>
+    /// EventGameUserAnswer Repository that contains the CRUD functions for the EventGameUserAnswer Table
+    /// </summary>
+    class EventGameUserAnswerRepository :IEventGameUserAnswerRepository
     {
         public List<EventGameUserAnswer> GetEventGameUserAnswers()
         {

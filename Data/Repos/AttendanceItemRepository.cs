@@ -44,6 +44,7 @@ namespace CAA_Event_Management.Data
                 return attendanceItem;
             }
         }
+
         #endregion
 
         /// <summary>

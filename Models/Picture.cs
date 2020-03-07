@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+/*****************************
+ * Created By: Max Cashmore
+ * ***************************/
 namespace CAA_Event_Management.Models
 {
+    /// <summary>
+    /// Model for Picture Table
+    /// </summary>
     public class Picture
     {
         public int ID { get; set; }

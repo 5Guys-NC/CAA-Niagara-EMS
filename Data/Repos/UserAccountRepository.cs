@@ -1,17 +1,21 @@
-﻿using System;
+﻿using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.Data.Interface_Repos;
+/*********************************
+ * Created By: Brian Culp
+ * Edited By: Jon Yade
+ * *******************************/
 
 namespace CAA_Event_Management.Data.Repos
 {
+    /// <summary>
+    /// Repository for CRUD of UserAccount
+    /// </summary>
     public class UserAccountRepository : IUserAccountRepository
     {
         /// <summary>
-        /// ADD
+        /// Add
         /// </summary>
         /// <param name="userToAdd"></param>
         public void AddUser(UserAccount userToAdd)

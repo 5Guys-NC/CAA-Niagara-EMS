@@ -14,6 +14,8 @@ namespace CAA_Event_Management.Data
         List<Answer> GetAnswers();
         GameModel GetGameModel(int ID);
         List<Answer> GetAnswerSelection();
+        Answer GetAnswer(int id);
+        void RemoveAnswer(Answer answer);
         void AddAnswer(Answer toAdd);
         void UpdateGM(GameModel UpdateGM);
     }

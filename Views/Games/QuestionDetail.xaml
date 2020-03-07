@@ -118,10 +118,42 @@
 
             <StackPanel Grid.Row="4" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="btnBack" Content="BACK" Click="btnBack_Click" Width="100" Style="{StaticResource ButtonStyle}" Margin="0,0,10,0"/>
+
+                <Button  Name="btnAddAnswer" Content="ADD ANSWER" Style="{StaticResource ButtonStyle}" Margin="10,0,0,0">
+                    <Button.Flyout>
+                        <Flyout LightDismissOverlayMode="On">
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter"></Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <StackPanel>
+                                <TextBlock Name="tbAddNewAnswer" Text="Enter A New Answer" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                <TextBox Name ="txtAddNewAnswer" Width="360"/>
+                                <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
+                                    <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource ButtonStyle}" Margin="0,0,10,0" Tapped="btnCreateConfirm_Tapped"/>
+                                    <Button Name="btnCreateCancel" Content="CANCEL"  Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="btnCreateCancel_Tapped"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+
                 <Button  Name="btnSave" Content="SAVE" Style="{StaticResource ButtonStyle}"  Width="100" Margin="10,0,10,0" Tapped="btnSave_Tapped" />
                 <!--<Button  Name="btnSelect" Content="Select" Style="{StaticResource ButtonStyle}"  Width="100" Margin="10,0,0,0"/>-->
                 <!--<Button Name="btnDeleteQuestion" Content="Delete Question" Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="btnDeleteQuestion_Tapped"/>-->
             </StackPanel>
+
+
+            <GridView Name="AnswerSelectionList" Grid.Row="5" HorizontalAlignment="Center" IsItemClickEnabled="True" ItemClick="AnswerSelectionList_ItemClick" Margin="50,0,50,0">
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
+                            <TextBlock Text="{Binding Text}"  TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+
+
         </Grid>
     </ScrollViewer>
 </Page>

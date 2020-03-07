@@ -55,14 +55,17 @@ namespace CAA_Event_Management.Views.Games
         private void BtnCreateConfirm_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Game newGame = new Game();
-            //newGame.Title = txtCreateNewGame.Text.ToUpper();
+            
+            newGame.Title = txtCreateNewGame.Text;
             gameRepo.AddGame(newGame);
             Frame.Navigate(typeof(GameDetails), (newGame));
         }
 
         private void GameList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Frame.Navigate(typeof(GameDetails),  (Game)e.ClickedItem, new DrillInNavigationTransitionInfo());
+            Game g = (Game)e.ClickedItem;
+
+            Frame.Navigate(typeof(GameDetails), (Game)e.ClickedItem);
         }
 
         private void BtnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)
@@ -72,8 +75,8 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Flyout FlyDelete = new Flyout();
-            FlyDelete.Hide();
+            //Flyout FlyDelete = new Flyout();
+            //FlyDelete.Hide();
         }
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
@@ -81,28 +84,15 @@ namespace CAA_Event_Management.Views.Games
             int selected = Convert.ToInt32(((Button)sender).DataContext);
             Game game = new Game();
             game = gameRepo.GetGame(selected);
-            //gameRepo.DeleteGame(game);
+            gameRepo.RemoveGame(game);
             Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
         }
 
         private void txtSearch_TextChanged(object sender, RoutedEventArgs e)
         {
             List<Game> g = new List<Game>();
-            
-            //gameList.ItemsSource = gameRepo.SearchGame(txtSearch.Text);
         }
 
-        private void btnRecentGames_Click(object sender, RoutedEventArgs e)
-        {
-            Canvas.SetZIndex(btnRecentGames, 1);
-            Canvas.SetZIndex(btnMostUsedGames, 0);
-        }
-
-        private void btnMostUsedGames_Click(object sender, RoutedEventArgs e)
-        {
-            Canvas.SetZIndex(btnMostUsedGames, 1);
-            Canvas.SetZIndex(btnRecentGames, 1);
-        }
         #endregion
 
         #region Helper Methods
@@ -112,7 +102,8 @@ namespace CAA_Event_Management.Views.Games
             {
                 List<Game> games = gameRepo.GetGames();
                 //Bind to the ComboBox
-                gameList.ItemsSource = games;
+                
+                menuList.ItemsSource = games;
             }
             catch (Exception)
             {
@@ -121,6 +112,22 @@ namespace CAA_Event_Management.Views.Games
         }
         #endregion
 
+
+        //Navigation
+        private void btnGames_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(GameMenu));
+        }
+
+        private void btnQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(QuestionMenu));
+        }
+
+        private void btnAnswer_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AnswerMenu));
+        }
     }
 }
 

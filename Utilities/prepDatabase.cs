@@ -96,65 +96,85 @@ namespace CAA_Event_Management.Utilities
                      });
                     context.SaveChanges();
                 }
+                if (!context.Questions.Any())
+                {
+                    context.Questions.AddRange(
+                    new Question
+                    {
+                        Text = "CAA Members save 10% on their bill at which restaurants?",
+                        TimesUsed = 1
+                    },
+                    new Question
+                    {
+                        Text = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park.",
+                        TimesUsed = 2
+                    }
+                    );
+                    context.SaveChanges();
+                }
+                if (!context.Answers.Any())
+                {
+                    context.Answers.AddRange(
+                       new Answer
+                       {
+                           Text = "Harvey's",
+                           TimesUsed = 1
+                       },
+                       new Answer
+                       {
+                           Text = "Kelsey's",
+                           TimesUsed = 1
+                       },
+                       new Answer
+                       {
+                           Text = "Montana's",
+                           TimesUsed = 1
+                       },
+                       new Answer
+                       {
+                           Text = "All of the Above",
+                           TimesUsed = 1
+                       },
+                       new Answer
+                       {
+                           Text = "True",
+                           TimesUsed = 2
+                       },
+                       new Answer
+                       {
+                           Text = "False",
+                           TimesUsed = 2
+                       }
+                       );
+                    context.SaveChanges();
+                }
 
-                //if (!context.Questions.Any())
-                //{
-                //    context.Questions.AddRange(
-                //    new Question
-                //    {
-                //        Phrase = "CAA Members save 10% on their bill at which restaurants?",
-                //        GameID = 1,
-                //    },
-                //    new Question
-                //    {
-                //        Phrase = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park. ",
-                //        GameID = 1,
-                //    }
-                //    );
-                //    context.SaveChanges();
-                //}
-                //if (!context.Answers.Any())
-                //{
-                //    context.Answers.AddRange(
-                //       new Answer
-                //       {
-                //           Phrase = "Harvey's",
-                //           IsCorrect = false,
-                //           QuestionID = 1
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "Kelsey's",
-                //           IsCorrect = false,
-                //           QuestionID = 1
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "Montana's",
-                //           IsCorrect = false,
-                //           QuestionID = 1
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "All of the Above",
-                //           IsCorrect = true,
-                //           QuestionID = 1
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "True",
-                //           IsCorrect = true,
-                //           QuestionID = 2
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "False",
-                //           IsCorrect = false,
-                //           QuestionID = 2
-                //       }
-                //       );
-                //    context.SaveChanges();
-                //}
+                if (!context.GameModels.Any())
+                {
+                    context.GameModels.AddRange(
+                        new GameModel
+                        {
+                            QuestionText = "CAA Members save 10% on their bill at which restaurants?",
+                            OptionsText = "Harvey's|Kelsey's|Montana's|All of the Above",
+                            AnswerText = "All of the Above",
+                            GameID = 1
+                        },
+                        new GameModel
+                        {
+                            QuestionText = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park.",
+                            OptionsText = "True|False",
+                            AnswerText = "True",
+                            GameID = 1
+                        },
+                        new GameModel
+                        {
+                            QuestionText = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park.",
+                            OptionsText = "True|False",
+                            AnswerText = "True",
+                            GameID = 2
+                        }
+                    );
+                }
 
                 #endregion
 

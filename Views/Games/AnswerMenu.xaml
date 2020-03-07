@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="CAA_Event_Management.Views.Games.GameMenu"
+    x:Class="CAA_Event_Management.Views.Games.AnswerMenu"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CAA_Event_Management.Views.Games"
@@ -18,7 +18,7 @@
     </Page.Resources>
 
     <Grid>
-        
+
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="vsPortrait">
@@ -42,31 +42,31 @@
         </VisualStateManager.VisualStateGroups>
 
         <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="95"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="95"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <RelativePanel Name="rpTitleBar"  Grid.Row="0" Background="#1b3e6e">
+                <RelativePanel Name="rpTitleBar"  Grid.Row="0" Background="#1b3e6e">
 
-                <TextBlock Name="txtGameMenu"
+                    <TextBlock Name="txtGameMenu"
                            Margin="130,0,0,0" 
                            Text="Game Menu"
                            Foreground="#eaeaea"
                            FontWeight="Bold"
                            FontSize="30"/>
-                <Button Name="btnCreateGame" 
+                    <Button Name="btnCreateGame" 
                     Background="Transparent"
                     Content="Create A Game"
                     FontSize="16"
                     FontWeight="Bold"
                     Foreground="#eaeaea"
                     Margin="140,60,10,0"/>
-                <Button Name="btnCreateQuestion"
+                    <Button Name="btnCreateQuestion"
                     Background="Transparent"
                     Content="Create Questions/Answers"
                     FontSize="16"
@@ -74,37 +74,38 @@
                     Foreground="#eaeaea"
                     RelativePanel.AlignBottomWith="btnCreateGame"
                     RelativePanel.RightOf="btnCreateGame">
-                </Button>
-                <TextBlock Name="tbkSearch" 
+                    </Button>
+                    <TextBlock Name="tbkSearch" 
                            FontSize="14"
                            Margin="0,10,0,0"
                            RelativePanel.AlignVerticalCenterWith="txtSearch"
                            RelativePanel.LeftOf="txtSearch"
-                           
+
                        Text="Search Games:" 
                        Foreground="#eaeaea"/>
-                <TextBox Name="txtSearch"
+                    <TextBox Name="txtSearch"
                          Background="White"
                          Height="26"
                          Margin="5,5,2,0"
                          RelativePanel.AlignRightWithPanel="True"
                          Width="150"/>
-            </RelativePanel>
+                </RelativePanel>
 
-            <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="50,50,0,0" HorizontalAlignment="Center">
-                <Button Name="btnGame" 
+                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="50,50,0,0" HorizontalAlignment="Center">
+                    <Button Name="btnGame" 
                     Background="#f8bf38" 
                     BorderBrush="white" 
                     BorderThickness="3,3,3,0"
                     CornerRadius="20,20,0,0"
-                        Content="Game"
+                    Content="Game"
                     Click="btnGames_Click"
                     FontSize="14"  
                     Height="50"
                     Margin="10,3,-10,0"
                     Style="{StaticResource ButtonStyle}"
                     Width="105"
-                    Canvas.ZIndex="3"/>
+                    Canvas.ZIndex="2"/>
+
 
                     <Button Name="btnQuestion" 
                     Background="#f8bf38 "
@@ -119,25 +120,25 @@
                     Height="50" 
                     Style="{StaticResource ButtonStyle}" 
                     Width="105"
-                    Canvas.ZIndex="0"/>
+                    Canvas.ZIndex="3"/>
 
                     <Button Name="btnAnswer" 
-                    Background="#f8bf38"
+                    Background="#f8bf38 "
                     BorderBrush="white"
                     BorderThickness="3,3,3,0"
                     Content="Answer"
                     CornerRadius="20,20,0,0"
+                            Click="btnAnswer_Click"
                     FontSize="14"
-                    Margin="-10,0,0,0"
-                    Click="btnAnswer_Click"
+                            Margin="-10,0,0,0"
                     RelativePanel.RightOf="btnQuestion" 
                     RelativePanel.AlignBottomWith="btnQuestion"
                     Height="50" 
                     Style="{StaticResource ButtonStyle}" 
                     Width="105"
-                    Canvas.ZIndex="1"/>
-                
-                    <GridView Name="menuList"
+                    Canvas.ZIndex="3"/>
+
+                    <GridView Name="AnswerList"
                       Background="#f8bf38"
                       CornerRadius="0,20,20,0"
                       BorderBrush="White"
@@ -149,17 +150,17 @@
                       MinHeight="400"
                       MinWidth="300"
                       Padding="15"
-                      ItemClick="GameList_ItemClick">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
+                      >
+                        <GridView.ItemTemplate>
+                            <DataTemplate >
                                 <RelativePanel Width="300" Background="#f79326" BorderBrush="White" BorderThickness="3" Height="100" Margin="10">
-                                    <TextBlock Name ="txtGameTitle" Text="{Binding Title}" 
+                                    <TextBlock Name ="txtGameTitle" Text="{Binding Text}" 
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                                            RelativePanel.AlignVerticalCenterWithPanel="True"
                                            FontSize="24"
                                            FontWeight="ExtraBold"
                                            Foreground="#1b3e6e"/>
-                                <Button Name="btnRemove" 
+                                    <Button Name="btnRemove" 
                                 Background="#f79326" 
                                 RelativePanel.AlignRightWithPanel="True"
                                 RelativePanel.AlignTopWithPanel="True"
@@ -189,22 +190,20 @@
                     </GridView>
                 </RelativePanel>
 
-
-                <Button Name="btnCreateNewGame" 
+                <Button Name="btnCreateNewQuestion" 
                     Style="{StaticResource ButtonStyle}"
-                    Content=" CREATE NEW GAME"               
+                    Content=" CREATE NEW ANSWER"               
                     Grid.Row="3"                    
-                    HorizontalAlignment="Center" 
-                    Margin="40,0,0,0"
-                    Width="210">
+                    HorizontalAlignment="Center"
+                    Width="250">
                     <Button.Flyout>
                         <Flyout LightDismissOverlayMode="On">
                             <Flyout.FlyoutPresenterStyle>
                                 <Style TargetType="FlyoutPresenter"></Style>
                             </Flyout.FlyoutPresenterStyle>
                             <StackPanel>
-                                <TextBlock Name="tbCreateNewGame" Text="Enter A Game Name" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                                <TextBox Name ="txtCreateNewGame" Width="360"/>
+                                <TextBlock Name="tbCreateNewGame" Text="Enter A New Question" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                <TextBox Name ="txtCreateNewAnswer"  Width="360"/>
                                 <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
                                     <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource ButtonStyle}" Margin="0,0,10,0" Tapped="BtnCreateConfirm_Tapped"/>
                                     <Button Name="btnCreateCancel" Content="CANCEL"  Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="BtnCreateCancel_Tapped"/>

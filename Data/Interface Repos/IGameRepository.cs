@@ -15,5 +15,6 @@ namespace CAA_Event_Management.Data
         void SaveGameModel(GameModel gmToSave);
         void AddGame(Game toAdd);
         Game GetGame(int ID);
+        void RemoveGame(Game game);
     }
 }

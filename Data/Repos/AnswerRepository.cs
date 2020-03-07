@@ -27,6 +27,15 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        public Answer GetAnswer(int id)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                var items = context.Answers.Where(a => a.ID == id).FirstOrDefault();
+                return items;
+            }
+        }
+
         /// <summary>
         /// Get Game Model by ID
         /// </summary>
@@ -79,6 +88,15 @@ namespace CAA_Event_Management.Data
             using (CAAContext context = new CAAContext())
             {
                 context.GameModels.Update(UpdateGM);
+                context.SaveChanges();
+            }
+        }
+
+        public void RemoveAnswer(Answer answer)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.Answers.Remove(answer);
                 context.SaveChanges();
             }
         }

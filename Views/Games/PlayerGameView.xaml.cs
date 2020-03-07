@@ -1,23 +1,14 @@
+using CAA_Event_Management.Data;
+using CAA_Event_Management.Models;
+using CAA_Event_Management.ViewModels;
+using CAA_Event_Management.Views.EventViews;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.Data;
-using CAA_Event_Management.Utilities;
-using CAA_Event_Management.Data.Interface_Repos;
-using CAA_Event_Management.Data.Repos;
-using CAA_Event_Management.Views.EventViews;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,138 +19,101 @@ namespace CAA_Event_Management.Views.Games
     /// </summary>
     public sealed partial class PlayerGameView : Page
     {
-        #region Startup - variables, repositories, methods
-
-        Models.Event thisEvent;
-        List<Question> thisQuizQuestions = new List<Question>();
-        List<Answer> answersForThisQuestion = new List<Answer>();
-        int questionTotalCount = 0;
-        int currentQuestionCount = 0;
-
-        IEventGameUserAnswerRepository eventGameUserAnswerRepository;
-        IEventRepository eventRepository;
-        IGameRepository gameRepository;
-        IQuestionRepository questionRepository;
-        IAnswerRepository answerRepository;
+        Event thisEvent = new Event();
+        List<GameModel> gameQuest = new List<GameModel>();
+        int index = 0; //used to go through the list of questions
+        int questionCount;
+        IQuestionRepository questRepo;
+        public List<QuestAnsViewModel> display = new List<QuestAnsViewModel>();
+        ResultsViewModel resultVM = new ResultsViewModel();
 
         public PlayerGameView()
         {
             this.InitializeComponent();
-            eventRepository = new EventRepository();
-            gameRepository = new GameRepository();
-            questionRepository = new QuestionRepository();
-            answerRepository = new AnswerRepository();
-            eventGameUserAnswerRepository = new EventGameUserAnswerRepository();
+            questRepo = new QuestionRepository();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            thisEvent = (Models.Event)e.Parameter;
-            BuildQuiz();
-            StartQuiz();
+            thisEvent = (Event)e.Parameter;
+            gameQuest = questRepo.GetModelQuestions(Convert.ToInt32(thisEvent.QuizID));
+            questionCount = gameQuest.Count;
+            resultVM.QuestionCount = gameQuest.Count;
+            resultVM.Event = thisEvent;
+            DisplayQuestion();
         }
 
-        #endregion
-
-        private void btnNextQuestion_Click(object sender, RoutedEventArgs e)
+        public void IncrementQuestion()
         {
-            var choosenAnswer = new Answer();
+            //increases index to move onto next question
+            index++;
+            DisplayQuestion();
+        }
 
-            if(gvDisplayAnswers.SelectedItem != null)
+        public void DisplayQuestion()
+        {
+            tbkQuestion.Text = gameQuest[index].QuestionText;
+            display.Clear();
+
+            var options = gameQuest[index].OptionsText.Split('|');
+            //var possibleAnswers = gameQuest[index].AnswerText.Split('|');
+
+            //Loop through possible answers
+            for (int i = 0; i < options.Length; i++)
             {
-                choosenAnswer = (Answer)gvDisplayAnswers.SelectedItem;
-
-                //if (choosenAnswer.IsCorrect == true)
-                //{
-                //    Jeeves.ShowMessage("Correct", "Your answer was correct!");
-                //}
-                //else Jeeves.ShowMessage("Incorrect", "Your answer was wrong");
-
-                //SaveQuestionAnswer((bool)choosenAnswer.IsCorrect);
-                NextQuestion();
+                //place them in holder and set variables 
+                QuestAnsViewModel t = new QuestAnsViewModel();
+                t.Text = options[i];
+                display.Add(t);
             }
 
+            gameplayView.ItemsSource = display;
         }
 
-        private async void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var result = await Jeeves.ConfirmDialog("Stop Game", "Do you wish to stop the game?");
-            if (result == ContentDialogResult.Secondary)
+            var select = ((Button)sender);
+            //Changes button color if selected was right or wrong
+            if (gameQuest[index].AnswerText.Contains(select.Content.ToString()))
             {
-                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)thisEvent);
+                select.Background = new SolidColorBrush(Windows.UI.Colors.Green);
+                txtDisplayResult.Text = "Correct!";
+                resultVM.CorrectAnswerCount++;
             }
-        }
 
-
-        #region Helper methods - Quiz Methods
-
-        private void BuildQuiz()
-        {
-            try
+            else
             {
-                //thisQuizQuestions = questionRepository.GetQuestionsByGame((int)thisEvent.QuizID);
-                questionTotalCount = thisQuizQuestions.Count;
+                select.Background = new SolidColorBrush(Windows.UI.Colors.Red);
+                txtDisplayResult.Text = "Incorrect";
             }
-            catch
-            {
-                Jeeves.ShowMessage("Error", "Questions failed to load correctly");
-            }
+
+            NextQuestion();
+
+            //btnResultNext.Visibility =  Visibility.Visible;
         }
 
-        private void StartQuiz()
+        public async void NextQuestion()
         {
-            //tbkcurrentQuestion.Text = thisQuizQuestions[currentQuestionCount].Phrase.ToString();
-            GetQuestionAnswers(thisQuizQuestions[currentQuestionCount].ID);
-
-            currentQuestionCount++;
-
-        }
-
-        private void NextQuestion()
-        {
-            if (currentQuestionCount < questionTotalCount)
+            //pauses for 3 seconds then moves on
+            await Task.Delay(3000);
+            if (index + 1 == questionCount)
             {
-                //tbkcurrentQuestion.Text = thisQuizQuestions[currentQuestionCount].Phrase.ToString();
-                GetQuestionAnswers(thisQuizQuestions[currentQuestionCount].ID);
-
-                currentQuestionCount++;
+                //If question answered was the last one, goes to the result page
+                Frame.Navigate(typeof(GameResult), resultVM);
             }
             else
             {
-                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)thisEvent);
+                //Clears view then moves on to next question.
+                gameplayView.ItemsSource = null;
+                txtDisplayResult.Text = "";
+                IncrementQuestion();
             }
         }
 
-        private void GetQuestionAnswers(int QuestionID)
+
+        private void btnCancelGame_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                //answersForThisQuestion = answerRepository.GetAnswersByQuestion(QuestionID);
-                gvDisplayAnswers.ItemsSource = answersForThisQuestion;
-            }
-            catch
-            {
-                Jeeves.ShowMessage("Error", "There was a problem retrieving the answers");
-            }
+            Frame.Navigate(typeof(EventAttendanceTracking), thisEvent);
         }
-
-        private void SaveQuestionAnswer(bool isCorrect)
-        {
-            try
-            {
-                EventGameUserAnswer answer = new EventGameUserAnswer();
-                answer.ID = Guid.NewGuid().ToString();
-                answer.EventID = thisEvent.EventID;
-                answer.QuestionID = thisQuizQuestions[currentQuestionCount-1].ID;
-                answer.answerWasCorrect = isCorrect;
-                eventGameUserAnswerRepository.AddEventGameUserAnswer(answer);
-            }
-            catch
-            {
-
-            }
-        }
-
-        #endregion
     }
 }

@@ -34,32 +34,43 @@ namespace CAA_Event_Management.Views.Games
     {
         #region Startup - variables, repositories, methods
 
-        Game view;
-        List<Question> questions;
+        IQuestionRepository questRepo;
         IGameRepository gameRepo;
-        IQuestionRepository questionRepo;
         IAnswerRepository answerRepo;
+        Game selected = new Game();
+        List<GameModel> view = new List<GameModel>();
 
         public GameDetails()
         {
             this.InitializeComponent();
-            answerRepo = new AnswerRepository();
+            questRepo = new QuestionRepository();
             gameRepo = new GameRepository();
-            questionRepo = new QuestionRepository();
+            answerRepo = new AnswerRepository();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            view = (Game)e.Parameter;
-            this.DataContext = view;
-            //questions = questionRepo.GetQuestionsByGame(view.ID); 
-            questionList.ItemsSource = questions; 
+            selected = (Game)e.Parameter;
+            txtGameTitle.Text = selected.Title;
+            PopulateModelQuestList();
         }
+
+        public void PopulateModelQuestList()
+        {
+            view = questRepo.GetModelQuestions(selected.ID);
+            questionList.ItemsSource = view;
+
+            var list = new List<Question>();
+            list = questRepo.GetQuestionSelection();
+            QuestionSelection.ItemsSource = list;
+        }
+
         #endregion
 
         #region Buttons - Add, Edit, Delete
         private void questionList_ItemClick(object sender, ItemClickEventArgs e)
         {
-            Frame.Navigate(typeof(QuestionDetail), (Question)e.ClickedItem, new DrillInNavigationTransitionInfo());
+            GameModel gm = (GameModel)e.ClickedItem;
+            this.Frame.Navigate(typeof(QuestionDetail), gm, new DrillInNavigationTransitionInfo());
         }
 
         private void btnBack_Tapped(object sender, RoutedEventArgs e)
@@ -69,10 +80,10 @@ namespace CAA_Event_Management.Views.Games
 
         private void btnAddQuestion_Tapped(object sender, RoutedEventArgs e)
         {
-            Question newQuestion = new Question();
-            //newQuestion.GameID = view.ID;
-            questionRepo.AddQuestion(newQuestion);
-            Frame.Navigate(typeof(QuestionDetail), (newQuestion));
+            //Question newQuestion = new Question();
+            ////newQuestion.GameID = view.ID;
+            //questRepo.AddQuestion(newQuestion);
+            //Frame.Navigate(typeof(QuestionDetail), (newQuestion));
         }
 
         private void btnSave_Tapped(object sender, TappedRoutedEventArgs e)
@@ -83,10 +94,12 @@ namespace CAA_Event_Management.Views.Games
 
         private void btnDelete_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Game game = new Game();
-            game = view;
-            //gameRepo.DeleteGame(game);
-            Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
+            //Removes question from game
+            GameModel remove = new GameModel();
+            var index = Convert.ToInt32(((Button)sender).DataContext);
+            remove = questRepo.GetModelQuestion(index);
+            questRepo.RemoveGameModel(remove);
+            PopulateModelQuestList();
         }
 
         private void btnRemove_Tapped(object sender, TappedRoutedEventArgs e)
@@ -109,11 +122,39 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            int selected = Convert.ToInt32(((Button)sender).DataContext);
-            Question question = new Question();
-            //question = questionRepo.GetQuestion(selected);
-            //questionRepo.DeleteQuestion(question);
-            Frame.Navigate(typeof(GameDetails), (view), new SuppressNavigationTransitionInfo());
+            //Removes question from game
+            GameModel remove = new GameModel();
+            var index = Convert.ToInt32(((Button)sender).DataContext);
+            remove = questRepo.GetModelQuestion(index);
+            questRepo.RemoveGameModel(remove);
+            PopulateModelQuestList();
+        }
+
+        private void QuestionSelection_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            GameModel gm = new GameModel();
+
+            gm.QuestionText = ((Question)e.ClickedItem).Text;
+            gm.GameID = selected.ID;
+            gameRepo.SaveGameModel(gm);
+            PopulateModelQuestList();
+        }
+
+        private void btnCreateConfirm_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            GameModel gm = new GameModel();
+
+            gm.QuestionText = txtAddNewQuestion.Text;
+            gm.GameID = selected.ID;
+            gameRepo.SaveGameModel(gm);
+            //btnAddQuestion.Flyout.Hide();
+            //PopulateModelQuestList();
+            this.Frame.Navigate(typeof(QuestionDetail), gm);
+        }
+
+        private void btnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            btnAddQuestion.Flyout.Hide();
         }
     }
 }

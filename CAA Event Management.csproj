@@ -170,6 +170,8 @@
     <Compile Include="Models\Auditable.cs" />
     <Compile Include="Models\IAuditable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\QuestAnsViewModel.cs" />
+    <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="ViewModels\SurveyQuestion.cs" />
     <Compile Include="ViewModels\UserParams.cs" />
     <Compile Include="Views\EventViews\CAAEvents.xaml.cs">
@@ -193,8 +195,17 @@
     <Compile Include="Views\EventViews\Surveys.xaml.cs">
       <DependentUpon>Surveys.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Games\AnswerMenu.xaml.cs">
+      <DependentUpon>AnswerMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Games\GameResult.xaml.cs">
+      <DependentUpon>GameResult.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Games\PlayerGameView.xaml.cs">
       <DependentUpon>PlayerGameView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Games\QuestionMenu.xaml.cs">
+      <DependentUpon>QuestionMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Login\UserDetails.xaml.cs">
       <DependentUpon>UserDetails.xaml</DependentUpon>
@@ -271,7 +282,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Games\AnswerMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Games\GameResult.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Games\PlayerGameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Games\QuestionMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

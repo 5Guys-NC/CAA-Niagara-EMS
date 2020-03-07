@@ -1,9 +1,13 @@
-﻿using CAA_Event_Management.Models;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CAA_Event_Management.Models;
+using Microsoft.EntityFrameworkCore;
 /******************************
-*  Created By: Max Cashmore
-*  Edited by: Brian Culp
+*  Repository Created By: Max Cashmore
+
 *******************************/
 namespace CAA_Event_Management.Data
 {
@@ -12,12 +16,6 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class AnswerRepository : IAnswerRepository
     {
-        #region Get Requests
-
-        /// <summary>
-        /// Get All Answers
-        /// </summary>
-        /// <returns>List of ANSWERS</returns>
         public List<Answer> GetAnswers()
         {
             using (CAAContext context = new CAAContext())
@@ -27,11 +25,15 @@ namespace CAA_Event_Management.Data
             }
         }
 
-        /// <summary>
-        /// Get Game Model by ID
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <returns>A single GameModel</returns>
+        public Answer GetAnswer(int id)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                var items = context.Answers.Where(a => a.ID == id).FirstOrDefault();
+                return items;
+            }
+        }
+
         public GameModel GetGameModel(int ID)
         {
             using (CAAContext context = new CAAContext())
@@ -45,7 +47,7 @@ namespace CAA_Event_Management.Data
         /// Displays Answers not already in the question
         /// Work in progress
         /// </summary>
-        /// <returns>List of ANSWERS</returns>
+        /// <returns></returns>
         public List<Answer> GetAnswerSelection()
         {
             using (CAAContext context = new CAAContext())
@@ -55,12 +57,6 @@ namespace CAA_Event_Management.Data
             }
         }
 
-        #endregion
-
-        /// <summary>
-        /// Add Answer
-        /// </summary>
-        /// <param name="toAdd"></param>
         public void AddAnswer(Answer toAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -70,15 +66,20 @@ namespace CAA_Event_Management.Data
             }
         }
 
-        /// <summary>
-        /// Update GameModel
-        /// </summary>
-        /// <param name="UpdateGM"></param>
         public void UpdateGM(GameModel UpdateGM)
         {
             using (CAAContext context = new CAAContext())
             {
                 context.GameModels.Update(UpdateGM);
+                context.SaveChanges();
+            }
+        }
+
+        public void RemoveAnswer(Answer answer)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.Answers.Remove(answer);
                 context.SaveChanges();
             }
         }

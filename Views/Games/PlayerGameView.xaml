@@ -11,13 +11,15 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <RelativePanel Grid.Row="0">
-            <Button x:Name="btnCancel"
+        <RelativePanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button Name="btnCancelGame" Content="Go Back" Click="btnCancelGame_Click"/>
+            <!--<Button x:Name="btnCancel"
                     RelativePanel.AlignLeftWithPanel="True"
                     Content="Cancel"
                     Click="btnCancel_Click"
@@ -29,32 +31,35 @@
                     RelativePanel.AlignRightWithPanel="True"
                     Content="Next"
                     Click="btnNextQuestion_Click"
-                    FontSize="40"/>
+                    FontSize="40"/>-->
         </RelativePanel>
-        <TextBlock x:Name="tbkcurrentQuestion"
+        <TextBlock Name="tbkQuestion"
                    Grid.Row="1"
                    FontWeight="ExtraBlack"
                    FontSize="25"
                    TextWrapping="Wrap"
                    HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
+                   VerticalAlignment="Center"
+                   />
 
-        <GridView x:Name="gvDisplayAnswers"
-                  Grid.Row="2"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Top">
+        <GridView Name="gameplayView" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
             <GridView.ItemTemplate>
-                <DataTemplate x:Name="oneAnswer"
-                              x:DataType="data:Answer">
-                    <TextBlock Name="txtEvents" Foreground="#1b3e6e">                                     
-                                   <!--<Run FontSize="24" 
-                                        FontWeight="ExtraBold"
-                                        Text="{x:Bind Phrase}"/>-->
-                    </TextBlock>
-                </DataTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Button Content="{Binding Text}" Click="Button_Click"/>
+                    </StackPanel>
+                    <!--<TextBlock Text="{Binding Text}" Width="200"/>-->
 
+                </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+
+        <RelativePanel Grid.Row="3" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Name="txtDisplayResult" Width="500"/>
+               
+            </StackPanel>
+        </RelativePanel>
 
     </Grid>
 </Page>

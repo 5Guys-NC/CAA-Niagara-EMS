@@ -47,6 +47,7 @@
                     <RowDefinition Height="95"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
                 <RelativePanel Grid.Row="0" Background="#1b3e6e">
@@ -88,7 +89,7 @@
                     MinWidth="105"
                     Style="{StaticResource ButtonStyle}"
                     Canvas.ZIndex="1">
-                        <TextBlock Text="{x:Bind view.Title}" TextWrapping="WrapWholeWords"/>
+                        <TextBlock Name="txtGameTitle" TextWrapping="WrapWholeWords"/>
                     </Button>
                     <GridView Name="questionList" 
                       Background="#f8bf38"
@@ -139,11 +140,42 @@
                 </RelativePanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,30,0">
             <Button Name="btnBack" Content="BACK" Click="btnBack_Tapped" Style="{StaticResource ButtonStyle}" Width="100" Margin="0,0,10,0"/>
-            <Button  Name="btnAddQuestion" Content="ADD QUESTION" Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Click="btnAddQuestion_Tapped"/>
-            <Button  Name="btnSave" Content="SAVE" Style="{StaticResource ButtonStyle}"  Width="100" Margin="10,0,10,0" Tapped="btnSave_Tapped"/>
+
+                    <Button  Name="btnAddQuestion" Content="ADD QUESTION" Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Click="btnAddQuestion_Tapped">
+                        <Button.Flyout>
+                            <Flyout LightDismissOverlayMode="On">
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter"></Style>
+                                </Flyout.FlyoutPresenterStyle>
+                                <StackPanel>
+                                    <TextBlock Name="tbAddNewQuestion" Text="Enter A New Question" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                    <TextBox Name ="txtAddNewQuestion" Width="360"/>
+                                    <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
+                                        <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource ButtonStyle}" Margin="0,0,10,0" Tapped="btnCreateConfirm_Tapped"/>
+                                        <Button Name="btnCreateCancel" Content="CANCEL"  Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="btnCreateCancel_Tapped"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+
+                    <Button  Name="btnSave" Content="SAVE" Style="{StaticResource ButtonStyle}"  Width="100" Margin="10,0,10,0" Tapped="btnSave_Tapped"/>
             <!--<Button  Name="btnDelete" Content="DELETE GAME" Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="btnDelete_Tapped"/>-->
         </StackPanel>
-    </Grid>
+
+                <GridView Name="QuestionSelection" Grid.Row="3" HorizontalAlignment="Center" IsItemClickEnabled="True" ItemClick="QuestionSelection_ItemClick"  Margin="50,0,50,0">
+                    <GridView.ItemTemplate>
+                        <DataTemplate  x:DataType="data:Question">
+                            <ScrollViewer>
+                                <StackPanel BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
+                                    <TextBlock Text="{x:Bind Text}" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+
+            </Grid>
     </ScrollViewer>
     </Grid>
 </Page>

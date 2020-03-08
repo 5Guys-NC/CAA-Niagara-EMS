@@ -274,16 +274,12 @@ namespace CAA_Event_Management.Utilities
 
                 string[] firstNames = new string[] { "Brian", "Jon", "Max", "Nathan", "Oli", "Geri", "Joe", "Kaila", "Richard", "Marsha", "Hunter", "Dave", "Nicholas" };
                 string[] lastNames = new string[] { "Culp", "Yade", "Smith", "Cashmore", "Crroj", "Johnson", "Brown", "Henderson", "Anderson", "Doe", "Stovell", "Baddeley", "Kendall" };
-                string[] member = new string[] { "true", "false" };
-                //string[] memberNum = new string[] { "1111111111111111", "2222222222222222", "3333333333333333", "4444444444444444", "44444444555555555", "3333333222222222", "0987659876590876", "0980809809808980", "8888889977766543", "0000009998889795" };
                 Random random = new Random();
 
                 if (context.AttendanceTrackings.Count() == 0)
                 {
                     List<AttendanceTracking> attendees = new List<AttendanceTracking>();
-                    //get eventId for the event we are using
-                    string eventid = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
-
+                    
                     //loop to create seed data of swipes into Heart & Stroke event(member only)
                     //all inserts are members with unique member number
                     #region loop for MemberOnly event w/ Unique membership numbers
@@ -307,7 +303,7 @@ namespace CAA_Event_Management.Utilities
                         AttendanceTracking newAttendee = new AttendanceTracking()
                         {
                             MemberAttendanceID = Guid.NewGuid().ToString(),
-                            EventID = eventid,
+                            EventID = context.Events.Where(e => e.EventName == "Heart & Stroke Fundraiser").Select(e => e.EventID).FirstOrDefault(),
                             FirstName = firstNames[random.Next(0, 12)].ToString(),
                             LastName = lastNames[random.Next(0, 12)].ToString(),
                             IsMember = "true",
@@ -328,8 +324,11 @@ namespace CAA_Event_Management.Utilities
                     //loop to create records for Beef Jerky Invitational(non member event)
                     #region loop for Non-Member exclusive Event w/members, non-members, and a few duplicates
                     
+                    //get eventId for the event we are using
+                    string eventid = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
+
                     //20 member records with unique membership numbers
-                    for (int i = 0; i <= 20; i++)
+                    for (int i = 0; i < 20; i++)
                     {
                         //create 2 sets of 8 digit random numbers and concat together in string
                         //(done in 2 sets to avoid long integer and keep int)
@@ -363,7 +362,7 @@ namespace CAA_Event_Management.Utilities
                     attendees.Clear();
 
                     //20 non member records with unique phone numbers
-                    for (int i = 0; i <= 20; i++)
+                    for (int i = 0; i < 20; i++)
                     {
                         //create phone number
                         string phone = "905" + random.Next(1111111, 9999999).ToString();
@@ -395,22 +394,26 @@ namespace CAA_Event_Management.Utilities
                     attendees.Clear();
 
                     //5 duplicate members (duplicate membership number especially)
-                    List<AttendanceTracking> duplicates = new List<AttendanceTracking>();
-
                     attendees = context.AttendanceTrackings.Where(e => e.EventID == eventid).Where(e => e.IsMember == "true").ToList();
 
-                    //for(int i = 0; i <= 5; i++)
-                    //{
-                    //    context.AttendanceTrackings.Add(attendees[])
-                    //}
-
-
-                    //5 duplicate non members (duplicate phone number especially)
-                    for (int i = 0; i <= 5; i++)
+                    for (int i = 0; i < 5; i++)
                     {
-
+                        attendees[i].MemberAttendanceID = Guid.NewGuid().ToString();
+                        context.AttendanceTrackings.Add(attendees[i]);
+                        context.SaveChanges();
                     }
 
+                    attendees.Clear();
+
+                    //5 duplicate non members (duplicate phone number especially)
+                    attendees = context.AttendanceTrackings.Where(e => e.EventID == eventid).Where(e => e.IsMember == "false").ToList();
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        attendees[i].MemberAttendanceID = Guid.NewGuid().ToString();
+                        context.AttendanceTrackings.Add(attendees[i]);
+                        context.SaveChanges();
+                    }
                 }
 
                 #endregion

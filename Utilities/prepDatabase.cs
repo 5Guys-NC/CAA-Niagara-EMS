@@ -2,6 +2,7 @@
 using CAA_Event_Management.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 /******************************
 *  Created By: Jon Yade
@@ -180,35 +181,92 @@ namespace CAA_Event_Management.Utilities
 
                 #region Events
 
+                string[] eventNames = new string[] {"Heart & Stroke Fundraiser", "CAA Charity BBQ" };
+                
+
                 if (!context.Events.Any())
                 {
                     context.Events.AddRange(
                      new Event
                      {
                          EventID = Guid.NewGuid().ToString(),
-                         EventName = "TestEvent1",
-                         EventStart = DateTime.Today,
-                         AbrevEventname = "TE1",
+                         EventName = "Ribfest",
+                         EventStart = DateTime.Today.AddDays(3),
+                         AbrevEventname = "RF1",
                          MembersOnly = true,
-                         DisplayName = "Test Event 1"
+                         DisplayName = "RibFest"
                      },
                      new Event
                      {
                          EventID = Guid.NewGuid().ToString(),
-                         EventName = "TestEvent2",
+                         EventName = "Heart & Stroke Fundraiser",
+                         EventStart = DateTime.Today.AddDays(-1),
+                         AbrevEventname = "HS1",
+                         MembersOnly = true,
+                         DisplayName = "Heart & Stroke Fundraiser"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "CAA Charity BBQ",
+                         EventStart = DateTime.Today.AddDays(7),
+                         AbrevEventname = "CCB1",
+                         MembersOnly = true,
+                         DisplayName = "CAA Charity BBQ"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Food Truck Wars",
                          EventStart = DateTime.Today,
-                         AbrevEventname = "TE2",
+                         AbrevEventname = "FT1",
+                         MembersOnly = true,
+                         DisplayName = "Food Truck Wars"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Wingfest",
+                         EventStart = DateTime.Today.AddDays(3),
+                         AbrevEventname = "WF1",
+                         MembersOnly = true,
+                         DisplayName = "WingFest"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Very Important Gala",
+                         EventStart = DateTime.Today.AddDays(1),
+                         AbrevEventname = "VIG1",
+                         MembersOnly = true,
+                         DisplayName = "Very Important Gala"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Arctic Marathon",
+                         EventStart = DateTime.Today.AddDays(30),
+                         AbrevEventname = "AM1",
+                         MembersOnly = true,
+                         DisplayName = "Arctic Marathon"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Beef Jerky Invitaional",
+                         EventStart = DateTime.Today.AddDays(-5),
+                         AbrevEventname = "BJ1",
                          MembersOnly = false,
-                         DisplayName = "Test Event 2"
+                         DisplayName = "Beef Jerky Invitational"
                      },
                      new Event
                      {
                          EventID = Guid.NewGuid().ToString(),
-                         EventName = "TestEvent3",
-                         EventStart = DateTime.Today,
-                         AbrevEventname = "TE3",
+                         EventName = "CAA Christmas Party",
+                         EventStart = DateTime.Today.AddDays(5),
+                         AbrevEventname = "CP1",
                          MembersOnly = true,
-                         DisplayName = "Test Event 3"
+                         DisplayName = "CAA Christmas Party"
                      });
                     context.SaveChanges();
                 }
@@ -217,6 +275,20 @@ namespace CAA_Event_Management.Utilities
 
                 #region AttendanceTracking - Commented out
 
+                string[] firstNames = new string[] {"Brian", "Jon", "Max", "Nathan", "Oli", "Geri", "Joe", "Kaila", "Richard", "Marsha", "Hunter", "Dave", "Nicholas"};
+                string[] lastNames = new string[] {"Culp", "Yade", "Smith", "Cashmore", "Crroj", "Johnson", "Brown", "Henderson", "Anderson", "Doe", "Stovell", "Baddeley", "Kendall"};
+                string[] member = new string[] { "true", "false" };
+                string[] memberNum = new string[] {"1111111111111111", "2222222222222222", "3333333333333333", "4444444444444444", "44444444555555555", "3333333222222222", "0987659876590876", "0980809809808980", "8888889977766543", "0000009998889795"};
+                
+                if(context.AttendanceTrackings.Count() == 0)
+                {
+                    List<AttendanceTracking> attendees = new List<AttendanceTracking>();
+                    for(int i = 0; i <= 30; i++)
+                    {
+                        
+                    }
+                }
+                
                 //if (!context.AttendanceTrackings.Any())
                 //{
                 //    context.AttendanceTrackings.AddRange(

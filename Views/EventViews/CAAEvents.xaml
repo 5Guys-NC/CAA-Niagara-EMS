@@ -73,14 +73,14 @@
                     RelativePanel.AlignBottomWith="btnDeleteMode"
                     RelativePanel.RightOf="btnDeleteMode"
                     Click="btnRegisterAttendance_Click"/>-->
-                    <Button x:Name="btnChooseWinner"
+                    <!--<Button x:Name="btnChooseWinner"
                             Content="Choose Event Winner"
                             FontSize="16"
                             FontWeight="Bold"
                             Foreground="#eaeaea"
                             RelativePanel.AlignBottomWith="btnBeginEvent"
                             RelativePanel.RightOf="btnBeginEvent"
-                            Click="btnChooseWinner_Click"/>
+                            Click="btnChooseWinner_Click"/>-->
             <!--THIS IS A CONFLICT-->
                     <!--<TextBlock Name="tbSearch" 
                        FontSize="14"

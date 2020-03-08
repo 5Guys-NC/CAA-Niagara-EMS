@@ -181,9 +181,6 @@ namespace CAA_Event_Management.Utilities
 
                 #region Events
 
-                string[] eventNames = new string[] {"Heart & Stroke Fundraiser", "CAA Charity BBQ" };
-                
-
                 if (!context.Events.Any())
                 {
                     context.Events.AddRange(
@@ -275,19 +272,19 @@ namespace CAA_Event_Management.Utilities
 
                 #region AttendanceTracking - Commented out
 
-                string[] firstNames = new string[] {"Brian", "Jon", "Max", "Nathan", "Oli", "Geri", "Joe", "Kaila", "Richard", "Marsha", "Hunter", "Dave", "Nicholas"};
-                string[] lastNames = new string[] {"Culp", "Yade", "Smith", "Cashmore", "Crroj", "Johnson", "Brown", "Henderson", "Anderson", "Doe", "Stovell", "Baddeley", "Kendall"};
-                string[] member = new string[] { "true", "false" };
-                string[] memberNum = new string[] {"1111111111111111", "2222222222222222", "3333333333333333", "4444444444444444", "44444444555555555", "3333333222222222", "0987659876590876", "0980809809808980", "8888889977766543", "0000009998889795"};
+                //string[] firstNames = new string[] {"Brian", "Jon", "Max", "Nathan", "Oli", "Geri", "Joe", "Kaila", "Richard", "Marsha", "Hunter", "Dave", "Nicholas"};
+                //string[] lastNames = new string[] {"Culp", "Yade", "Smith", "Cashmore", "Crroj", "Johnson", "Brown", "Henderson", "Anderson", "Doe", "Stovell", "Baddeley", "Kendall"};
+                //string[] member = new string[] { "true", "false" };
+                //string[] memberNum = new string[] {"1111111111111111", "2222222222222222", "3333333333333333", "4444444444444444", "44444444555555555", "3333333222222222", "0987659876590876", "0980809809808980", "8888889977766543", "0000009998889795"};
                 
-                if(context.AttendanceTrackings.Count() == 0)
-                {
-                    List<AttendanceTracking> attendees = new List<AttendanceTracking>();
-                    for(int i = 0; i <= 30; i++)
-                    {
+                //if(context.AttendanceTrackings.Count() == 0)
+                //{
+                //    List<AttendanceTracking> attendees = new List<AttendanceTracking>();
+                //    for(int i = 0; i <= 30; i++)
+                //    {
                         
-                    }
-                }
+                //    }
+                //}
                 
                 //if (!context.AttendanceTrackings.Any())
                 //{

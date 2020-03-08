@@ -217,7 +217,7 @@ namespace CAA_Event_Management.Utilities
                          EventName = "Food Truck Wars",
                          EventStart = DateTime.Today,
                          AbrevEventname = "FT1",
-                         MembersOnly = true,
+                         MembersOnly = false,
                          DisplayName = "Food Truck Wars"
                      },
                      new Event
@@ -250,7 +250,7 @@ namespace CAA_Event_Management.Utilities
                      new Event
                      {
                          EventID = Guid.NewGuid().ToString(),
-                         EventName = "Beef Jerky Invitaional",
+                         EventName = "Beef Jerky Invitational",
                          EventStart = DateTime.Today.AddDays(-5),
                          AbrevEventname = "BJ1",
                          MembersOnly = false,
@@ -272,20 +272,144 @@ namespace CAA_Event_Management.Utilities
 
                 #region AttendanceTracking - Commented out
 
-                //string[] firstNames = new string[] {"Brian", "Jon", "Max", "Nathan", "Oli", "Geri", "Joe", "Kaila", "Richard", "Marsha", "Hunter", "Dave", "Nicholas"};
-                //string[] lastNames = new string[] {"Culp", "Yade", "Smith", "Cashmore", "Crroj", "Johnson", "Brown", "Henderson", "Anderson", "Doe", "Stovell", "Baddeley", "Kendall"};
-                //string[] member = new string[] { "true", "false" };
-                //string[] memberNum = new string[] {"1111111111111111", "2222222222222222", "3333333333333333", "4444444444444444", "44444444555555555", "3333333222222222", "0987659876590876", "0980809809808980", "8888889977766543", "0000009998889795"};
-                
-                //if(context.AttendanceTrackings.Count() == 0)
-                //{
-                //    List<AttendanceTracking> attendees = new List<AttendanceTracking>();
-                //    for(int i = 0; i <= 30; i++)
-                //    {
+                string[] firstNames = new string[] { "Brian", "Jon", "Max", "Nathan", "Oli", "Geri", "Joe", "Kaila", "Richard", "Marsha", "Hunter", "Dave", "Nicholas" };
+                string[] lastNames = new string[] { "Culp", "Yade", "Smith", "Cashmore", "Crroj", "Johnson", "Brown", "Henderson", "Anderson", "Doe", "Stovell", "Baddeley", "Kendall" };
+                string[] member = new string[] { "true", "false" };
+                //string[] memberNum = new string[] { "1111111111111111", "2222222222222222", "3333333333333333", "4444444444444444", "44444444555555555", "3333333222222222", "0987659876590876", "0980809809808980", "8888889977766543", "0000009998889795" };
+                Random random = new Random();
+
+                if (context.AttendanceTrackings.Count() == 0)
+                {
+                    List<AttendanceTracking> attendees = new List<AttendanceTracking>();
+                    //get eventId for the event we are using
+                    string eventid = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
+
+                    //loop to create seed data of swipes into Heart & Stroke event(member only)
+                    //all inserts are members with unique member number
+                    #region loop for MemberOnly event w/ Unique membership numbers
+
+                    //30 records (members with unique membership numbers)
+                    for (int i = 0; i <= 30; i++)
+                    {
+                        //create 2 sets of 8 digit random numbers and concat together in string
+                        //(done in 2 sets to avoid long integer and keep int)
+                        string memberNum = random.Next(11111111, 99999999).ToString() + random.Next(11111111, 99999999).ToString();
                         
-                //    }
-                //}
-                
+                        //check if the member number has been used already
+                        //if it has, lower i by 1 and repeat the process
+                        if(context.AttendanceTrackings.Where(e=>e.MemberNo == memberNum).Count() > 0)
+                        {
+                            i--;
+                            return;
+                        }
+
+                        //create new Attendance Tracking
+                        AttendanceTracking newAttendee = new AttendanceTracking()
+                        {
+                            MemberAttendanceID = Guid.NewGuid().ToString(),
+                            EventID = eventid,
+                            FirstName = firstNames[random.Next(0, 12)].ToString(),
+                            LastName = lastNames[random.Next(0, 12)].ToString(),
+                            IsMember = "true",
+                            PhoneNo = "905" + random.Next(1111111, 9999999).ToString(),
+                            MemberNo = memberNum
+                        };
+                        attendees.Add(newAttendee);
+                    }
+                    //add records to database
+                    context.AttendanceTrackings.AddRange(attendees);
+                    context.SaveChanges();
+
+                    #endregion
+
+                    //clear list of attendees for next insert
+                    attendees.Clear();
+
+                    //loop to create records for Beef Jerky Invitational(non member event)
+                    #region loop for Non-Member exclusive Event w/members, non-members, and a few duplicates
+                    
+                    //20 member records with unique membership numbers
+                    for (int i = 0; i <= 20; i++)
+                    {
+                        //create 2 sets of 8 digit random numbers and concat together in string
+                        //(done in 2 sets to avoid long integer and keep int)
+                        string memberNum = random.Next(11111111, 99999999).ToString() + random.Next(11111111, 99999999).ToString();
+
+                        //check if the member number has been used already
+                        //if it has, lower i by 1 and repeat the process
+                        if (context.AttendanceTrackings.Where(e => e.MemberNo == memberNum).Count() > 0)
+                        {
+                            i--;
+                            return;
+                        }
+
+                        //create new Attendance Tracking
+                        AttendanceTracking newAttendee = new AttendanceTracking()
+                        {
+                            MemberAttendanceID = Guid.NewGuid().ToString(),
+                            EventID = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault(),
+                            FirstName = firstNames[random.Next(0, 12)].ToString(),
+                            LastName = lastNames[random.Next(0, 12)].ToString(),
+                            IsMember = "true",
+                            PhoneNo = "905" + random.Next(1111111, 9999999).ToString(),
+                            MemberNo = memberNum
+                        };
+                        attendees.Add(newAttendee);
+                    }
+                    //add records to database
+                    context.AttendanceTrackings.AddRange(attendees);
+                    context.SaveChanges();
+
+                    attendees.Clear();
+
+                    //20 non member records with unique phone numbers
+                    for (int i = 0; i <= 20; i++)
+                    {
+                        //create phone number
+                        string phone = "905" + random.Next(1111111, 9999999).ToString();
+                        
+                        //search the Attendance Tracking table by the EventID and find if the phone number created already exists
+                        //if it exists, decrease i by 1 and restart process
+                        if (context.AttendanceTrackings.Where(e=>e.EventID == eventid).Where(e=>e.PhoneNo == phone).Count() > 0)
+                        {
+                            i--;
+                            return;
+                        }
+
+                        //create new Attendance Tracking
+                        AttendanceTracking newAttendee = new AttendanceTracking()
+                        {
+                            MemberAttendanceID = Guid.NewGuid().ToString(),
+                            EventID = eventid,
+                            FirstName = firstNames[random.Next(0, 12)].ToString(),
+                            LastName = lastNames[random.Next(0, 12)].ToString(),
+                            IsMember = "false",
+                            PhoneNo = phone
+                        };
+                        attendees.Add(newAttendee);
+                    }
+                    //add records to database
+                    context.AttendanceTrackings.AddRange(attendees);
+                    context.SaveChanges();
+
+                    attendees.Clear();
+
+                    //5 duplicate members (duplicate membership number especially)
+                    for (int i = 0; i <= 5; i++)
+                    {
+                        //attendees = context.AttendanceTrackings.Select();
+                    }
+
+
+                    //5 duplicate non members (duplicate phone number especially)
+                    for (int i = 0; i <= 5; i++)
+                    {
+
+                    }
+
+                }
+
+                #endregion
                 //if (!context.AttendanceTrackings.Any())
                 //{
                 //    context.AttendanceTrackings.AddRange(

@@ -93,23 +93,22 @@
 
                 <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="50,50,0,0" HorizontalAlignment="Center">
                     <Button Name="btnGame" 
-                    Background="#f8bf38" 
-                    BorderBrush="white" 
+                    Background="#5291bf" 
+                    BorderBrush="#0d4e97" 
                     BorderThickness="3,3,3,0"
                     CornerRadius="20,20,0,0"
                     Content="Game"
                     Click="btnGames_Click"
                     FontSize="14"  
                     Height="50"
-                    Margin="10,3,-10,0"
-                    Style="{StaticResource ButtonStyle}"
+                    Margin="0,3,-10,0"
                     Width="105"
                     Canvas.ZIndex="2"/>
 
 
                     <Button Name="btnQuestion" 
-                    Background="#f8bf38 "
-                    BorderBrush="white"
+                    Background="#5291bf "
+                    BorderBrush="#0d4e97"
                     BorderThickness="3,3,3,0"
                     Content="Question"
                     CornerRadius="20,20,0,0"
@@ -118,13 +117,12 @@
                     RelativePanel.RightOf="btnGame" 
                     RelativePanel.AlignBottomWith="btnGame"
                     Height="50" 
-                    Style="{StaticResource ButtonStyle}" 
                     Width="105"
                     Canvas.ZIndex="2"/>
 
                     <Button Name="btnAnswer" 
-                    Background="#f8bf38 "
-                    BorderBrush="white"
+                    Background="#5291bf "
+                    BorderBrush="#0d4e97"
                     BorderThickness="3,3,3,0"
                     Content="Answer"
                     CornerRadius="20,20,0,0"
@@ -133,22 +131,21 @@
                             Margin="-10,0,0,0"
                     RelativePanel.RightOf="btnQuestion" 
                     RelativePanel.AlignBottomWith="btnQuestion"
-                    Height="50" 
-                    Style="{StaticResource ButtonStyle}" 
+                    Height="50"  
                     Width="105"
                     Canvas.ZIndex="1"/>
 
                     <GridView Name="GameList"
-                      Background="#f8bf38"
+                      Background="#5291bf"
                       CornerRadius="0,20,20,0"
-                      BorderBrush="White"
-                      BorderThickness="0,2,0,0"
+                      BorderBrush="#0d4e97"
+                      BorderThickness="3"
                       Grid.Row="1" 
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 
-                      Margin="10,50,30,0"
-                      MinHeight="400"
-                      MinWidth="300"
+                      Margin="0,50,30,0"
+                      MinHeight="450"
+                      MinWidth="400"
                       Padding="15"
                       >
                         <GridView.ItemTemplate>
@@ -191,7 +188,7 @@
                 </RelativePanel>
 
                 <Button Name="btnCreateNewQuest" 
-                    Style="{StaticResource ButtonStyle}"
+                    Style="{StaticResource actionButtonStyle}"
                     Content=" CREATE NEW QUESTION"               
                     Grid.Row="3"                    
                     HorizontalAlignment="Center" 
@@ -206,8 +203,8 @@
                                 <TextBlock Name="tbCreateNewQuest" Text="Enter A Game Name" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                                 <TextBox Name ="txtCreateNewQuest" Width="360"/>
                                 <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
-                                    <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource ButtonStyle}" Margin="0,0,10,0" Tapped="BtnCreateConfirm_Tapped"/>
-                                    <Button Name="btnCreateCancel" Content="CANCEL"  Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="BtnCreateCancel_Tapped"/>
+                                    <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource actionButtonStyle}" Margin="0,0,10,0" Tapped="BtnCreateConfirm_Tapped"/>
+                                    <Button Name="btnCreateCancel" Content="CANCEL"  Style="{StaticResource secondaryButtonStyle}" Margin="10,0,0,0" Tapped="BtnCreateCancel_Tapped"/>
                                 </StackPanel>
                             </StackPanel>
                         </Flyout>

@@ -106,7 +106,7 @@
                             Click="btnGames_Click"
                             FontSize="20"  
                             Foreground="#eaeaea"
-                            Height="49"
+                            Height="50"
                             Margin="0,3,-10,0"
                             Width="105"
                             Canvas.ZIndex="2"/>
@@ -122,7 +122,7 @@
                             Foreground="#eaeaea"
                             RelativePanel.RightOf="btnGame" 
                             RelativePanel.AlignBottomWith="btnGame"
-                            Height="49" 
+                            Height="50" 
                             Width="105"
                             Canvas.ZIndex="0"/>
 
@@ -138,7 +138,7 @@
                             Click="btnAnswer_Click"
                             RelativePanel.RightOf="btnQuestion" 
                             RelativePanel.AlignBottomWith="btnQuestion"
-                            Height="49" 
+                            Height="50" 
                             Width="105"
                             Canvas.ZIndex="-1"/>
 
@@ -146,7 +146,7 @@
                       Background="#5291bf"
                       CornerRadius="0,20,20,0"
                       BorderBrush="#0d4e97"
-                      BorderThickness="2"
+                      BorderThickness="3"
                       Grid.Row="1" 
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 

@@ -10,6 +10,8 @@
     <Application.Resources>
 
 
+
+        <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/Roboto-Regular.ttf#Roboto</FontFamily>
         <SolidColorBrush x:Key="BackgroundColor" Color="#eaeaea"/>
         <SolidColorBrush x:Key="FlyoutPresenterBackground" Color="#5291bf"/>
         <SolidColorBrush x:Key="FlyoutBorderThemeBrush" Color="#eaeaea"/>
@@ -18,14 +20,34 @@
 
         <SolidColorBrush x:Key="CheckboxForegroundUncheckedPointerOver" Color="Transparent"></SolidColorBrush>
 
-        <Style TargetType="Button" x:Key="ButtonStyle">
-            <Setter Property="Background" Value="#64b345"/>
-            <Setter Property="BorderBrush" Value="#64b345"/>
+        <Style TargetType="Button" x:Key="navButtonStyle">
+            <Setter Property="Background" Value="#9ab33b"/>
+            <Setter Property="BorderBrush" Value="#9ab33b"/>
             <Setter Property="BorderThickness" Value="3"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="FontWeight" Value="ExtraBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="#eaeaea"/>
-            <Setter Property="Width" Value="170"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="secondaryButtonStyle">
+            <Setter Property="Background" Value="#eaeaea"/>
+            <Setter Property="BorderBrush" Value="#1b3e6e"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1b3e6e"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="actionButtonStyle">
+            <Setter Property="Background" Value="#9ab33b"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Foreground" Value="#eaeaea"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="MinWidth" Value="200"/>
         </Style>
 
         <Style TargetType="Button" x:Key="AddRemoveStyle">
@@ -45,6 +67,5 @@
             <Setter Property="Background" Value="#eaeaea"/>
             <Setter Property="Width" Value="180"/>
         </Style>
-        
     </Application.Resources>
 </Application>

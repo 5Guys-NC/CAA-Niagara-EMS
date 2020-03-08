@@ -8,7 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
     mc:Ignorable="d"
-    Background="{ThemeResource BackgroundColor}">
+    Background="{ThemeResource BackgroundColor}"
+    FontFamily="{ThemeResource ContentControlThemeFontFamily}">
     <!-- Views.Events. was in the class name  -->
     <Page.Resources>
         <converters:FormatStringConverter x:Key="StringConverter"/>
@@ -24,8 +25,6 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="tbCAAEvents.Margin" Value="45,0,0,0" />
-                        <Setter Target="btnCreateEvent.Margin" Value="80,50,10,0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
@@ -33,37 +32,21 @@
                         <AdaptiveTrigger MinWindowWidth="961" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="tbCAAEvents.Margin" Value="130,0,0,0" />
-                        <Setter Target="rpEventsTabs.Margin" Value="170,50,50,0"/>
-                        <Setter Target="gdvEvents.MinWidth" Value="700"/>
+                        <Setter Target="gdvEditEvents.MinWidth" Value="700"/>
+                        <Setter Target="gdvDeleteEvents.MinWidth" Value="700"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="95"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
 
-
-            <RelativePanel Grid.Row="0" Background="#1b3e6e">
-                    <Image Name="imgCAALogo" 
-                       Source="/Assets/CAA Logo.png"  
-                       Grid.Column="0"
-                       Margin="10,0,0,0" 
-                       Height="80"
-                       RelativePanel.AlignVerticalCenterWithPanel="True"
-                       Width="80"/>
-                    <TextBlock Name="tbCAAEvents"
-                       Text="CAA Events"
-                       Foreground="#eaeaea"
+        <!--Search bar -->
+        <RelativePanel Background="#1b3e6e" Canvas.ZIndex="1" Height="50" VerticalAlignment="Top">
+            <TextBlock Name="tbSearch" 
+                       FontSize="16"
                        FontWeight="Bold"
                        FontSize="30"/>
-                <Button Name="btnCreateEvent" 
+                       
+                <!-- <Button Name="btnCreateEvent" 
                     Background="Transparent"
                     Content="Create An Event"
                     FontSize="16"
@@ -105,18 +88,35 @@
                        RelativePanel.LeftOf="txtSearch"
                        Text="Search Events:" 
                        Foreground="#eaeaea"/>
-                <TextBox Name="txtSearch"
+            <TextBox Name="txtSearch"
                      Background="White"
                      Height="30"
                      Margin="5,5,5,0"
                      RelativePanel.AlignRightWithPanel="True"
-                     Width="150"
-                     TextChanged="txtSearch_TextChanged"/>
-            </RelativePanel>
+                     Width="150"/> -->
+            <!--TextChanged="txtSearch_TextChanged"-->
+        </RelativePanel>
 
+        <ScrollViewer>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <RelativePanel Name="rpEventsTabs" Grid.Row="2" Margin="35,50,0,20" HorizontalAlignment="Center">
-                <Button Name="btnCurrentEvents" 
+                <Button Name="btnCreateEvent" 
+                        Content="CREATE EVENT"
+                        Grid.Row="1"
+                        Margin="0,70,0,0"
+                        HorizontalAlignment="Center"
+                        Style="{StaticResource secondaryButtonStyle}"
+                        Click="NewEvent_Click"/>
+
+                <!--Sorting Tabs -->
+                <RelativePanel Name="rpEventsTabs" Grid.Row="2" Margin="0,20,0,0" HorizontalAlignment="Center">
+                    <Button Name="btnCurrentEvents" 
                     Background="#5291bf" 
                     BorderBrush="#0d4e97" 
                     BorderThickness="3,3,3,0"
@@ -125,12 +125,11 @@
                     FontSize="20"  
                     Foreground="#eaeaea"
                     Height="49"
-                    Margin="10,3,-10,0"
-                    Style="{StaticResource ButtonStyle}"
+                    Margin="0,3,-10,0"
                     Width="105"
                     Canvas.ZIndex="1"
                     Click="btnCurrentEvents_Click"/>
-                <Button Name="btnPastEvents" 
+                    <Button Name="btnPastEvents" 
                     Background="#5291bf "
                     BorderBrush="#0d4e97"
                     BorderThickness="3,3,3,0"
@@ -141,44 +140,47 @@
                     RelativePanel.RightOf="btnCurrentEvents" 
                     RelativePanel.AlignBottomWith="btnCurrentEvents"
                     Height="49" 
-                    Style="{StaticResource ButtonStyle}" 
                     Width="105"
                     Canvas.ZIndex="0"
                     Click="btnPastEvents_Click"/>
 
-                <!--Edit events grid view--> 
-                <GridView Name="gdvEditEvents"
-                      Background="#f8bf38"
-                      BorderBrush="White"
-                      BorderThickness="0,2,0,0"
+                    <!--Edit events grid view-->
+                    <GridView Name="gdvEditEvents"
+                      Background="#5291bf"
+                      BorderBrush="#0d4e97"
+                      BorderThickness="2"
                       CornerRadius="0,20,20,0"
                       Grid.Row="2"
                       HorizontalAlignment="Center"
                       IsItemClickEnabled="True"
-                      Margin="10,50,50,0"
+                      Margin="0,50,0,0"
                       MinHeight="450"
-                      MinWidth="380"
+                      MinWidth="400"
                       Padding="15"
                       Visibility="Visible">
                         <GridView.ItemTemplate>
                             <DataTemplate x:Name="dtEditEvents" x:DataType="data:Event">
-                                <RelativePanel Name="rpEvents" Width="330" Background="#f79326" BorderBrush="White" BorderThickness="3" MinHeight="80" Margin="10">
-                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e">                                     
+                                <RelativePanel Name="rpEvents" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" MinHeight="120" Margin="10">
+                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,40,0">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind DisplayName}"/>
+                                    <LineBreak/>
                                     <LineBreak/>
                                     <LineBreak/>
                                     <Run FontSize="14"
                                          Text="{x:Bind SummaryDisplay}"/>
                                     </TextBlock>
                                     <Button Name="btnEditEvent" 
-                                            Background="#f79326"
+                                            Background="#eaeaea"
+                                            Content="&#xE70F;"
+                                            FontFamily="Segoe MDL2 Assets"
+                                            FontSize="20"
+                                            Foreground="#1b3e6e"
                                             RelativePanel.AlignRightWithPanel="True"
                                             RelativePanel.AlignTopWithPanel="True"
                                             VerticalAlignment="Top"  
                                             DataContext="{x:Bind EventID}" 
-                                            Content="ED"
                                             Style="{StaticResource AddRemoveStyle}"
                                             Click="btnEditEvent_Click">
                                     </Button>
@@ -187,67 +189,80 @@
                         </GridView.ItemTemplate>
                     </GridView>
 
-                <!--Delete events grid view-->
+                    <!--Delete events grid view-->
                     <GridView Name="gdvDeleteEvents"
-                      Background="#f8bf38"
-                      BorderBrush="White"
-                      BorderThickness="0,2,0,0"
+                      Background="#5291bf"
+                      BorderBrush="#0d4e97"
+                      BorderThickness="2"
                       CornerRadius="0,20,20,0"
                       Grid.Row="2"
                       HorizontalAlignment="Center"
                       IsItemClickEnabled="True"
-                      Margin="10,50,50,0"
+                      Margin="0,50,0,0"
                       MinHeight="450"
-                      MinWidth="380"
+                      MinWidth="400"
                       Padding="15"
                       Visibility="Collapsed">
-                    <GridView.ItemTemplate>
-                        <DataTemplate x:Name="dtDeleteEvents" x:DataType="data:Event">
-                            <RelativePanel Name="rpEvents" Width="330" Background="#f79326" BorderBrush="White" BorderThickness="3" MinHeight="80" Margin="10">
-                                <TextBlock Name="txtEvents" Foreground="#1b3e6e">                                     
+                        <GridView.ItemTemplate>
+                            <DataTemplate x:Name="dtDeleteEvents" x:DataType="data:Event">
+                                <RelativePanel Name="rpEvents" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" MinHeight="80" Margin="10">
+                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,40,0">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind DisplayName}"/>
                                     <LineBreak/>
                                     <LineBreak/>
+                                    <LineBreak/>
                                     <Run FontSize="14"
                                          Text="{x:Bind SummaryDisplay}"/>
-                                </TextBlock>
-                                <Button Name="btnRemove" 
-                                Background="#eaeaea"
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignTopWithPanel="True"
-                                VerticalAlignment="Top"  
-                                DataContext="{x:Bind EventID}" 
-                                FontFamily="Segoe MDL2 Assets" 
-                                Foreground="DarkRed" Content="&#xE74D;" 
-                                Style="{StaticResource AddRemoveStyle}">
-                                    <Button.Flyout>
-                                        <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">
-                                            <Flyout.FlyoutPresenterStyle>
-                                                <Style TargetType="FlyoutPresenter"/>
-                                            </Flyout.FlyoutPresenterStyle>
-                                            <StackPanel>
-                                                <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Button Name="btnConfirmRemove" Style="{StaticResource ButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
-                                                    <Button Name="btnCancel" Style="{StaticResource ButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                    </TextBlock>
+                                    <Button Name="btnRemove" 
+                                            Background="#eaeaea"
+                                            Content="&#xE74D;" 
+                                            FontSize="20"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.AlignTopWithPanel="True"
+                                            VerticalAlignment="Top"  
+                                            DataContext="{x:Bind EventID}" 
+                                            FontFamily="Segoe MDL2 Assets" 
+                                            Foreground="Red" 
+                                            Style="{StaticResource AddRemoveStyle}">
+                                        <Button.Flyout>
+                                            <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">
+                                                <Flyout.FlyoutPresenterStyle>
+                                                    <Style TargetType="FlyoutPresenter"/>
+                                                </Flyout.FlyoutPresenterStyle>
+                                                <StackPanel>
+                                                    <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button Name="btnConfirmRemove" Style="{StaticResource actionButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
+                                                        <Button Name="btnCancel" Style="{StaticResource secondaryButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                                    </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
-                                        </Flyout>
-                                    </Button.Flyout>
-                                </Button>
-                            </RelativePanel>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
 
-
-
-
-
-            </RelativePanel>
-        </Grid>
-    </ScrollViewer>
+                </RelativePanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <Button Name="btnDeleteMode" 
+                        Content="DELETE MODE (OFF)"
+                        Margin="0,0,10,20"
+                        Style="{StaticResource secondaryButtonStyle}"
+                        Click="btnDeleteMode_Click"/>
+                    <Button Name="btnBeginEvent"
+                    Content="BEGIN EVENT"
+                        Margin="10,0,0,20"
+                    RelativePanel.AlignBottomWith="btnDeleteMode"
+                    RelativePanel.RightOf="btnDeleteMode"
+                    Style="{StaticResource navButtonStyle}"
+                    Click="btnRegisterAttendance_Click"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

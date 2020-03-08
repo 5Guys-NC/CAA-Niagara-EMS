@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 /*********************************
 * Created By: Jon Yade
@@ -67,7 +68,7 @@ namespace CAA_Event_Management.Views.EventViews
             if (gvAvailableEvents.SelectedItem != null)
             {
                 Models.Event selectedEvent = (Models.Event)gvAvailableEvents.SelectedItem;
-                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)selectedEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Models.Event)selectedEvent, new SuppressNavigationTransitionInfo());
             }
             else
             {

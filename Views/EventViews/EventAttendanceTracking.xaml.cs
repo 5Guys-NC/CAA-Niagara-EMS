@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 /***********************************
  * Created By: Jon Yade
@@ -55,7 +56,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Buttons - Save, Cancel
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckFormForCompletion()) return;
             //if (!CheckAnswersForCompletion()) return;   //This and the attached function should be deleted
@@ -70,8 +71,8 @@ namespace CAA_Event_Management.Views.EventViews
         {
             App userCheck = (App)Application.Current;
 
-            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView));
-            else Frame.Navigate(typeof(CAAEvents));
+            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView),new SuppressNavigationTransitionInfo());
+            else Frame.Navigate(typeof(CAAEvents), new SuppressNavigationTransitionInfo());
         }
 
         #endregion

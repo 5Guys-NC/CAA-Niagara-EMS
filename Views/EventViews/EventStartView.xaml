@@ -27,7 +27,7 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="txtCAAEvents.Margin" Value="50,10,0,0" />
+                <!--        <Setter Target="txtCAAEvents.Margin" Value="50,10,0,0" /> -->
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
@@ -35,36 +35,29 @@
                         <AdaptiveTrigger MinWindowWidth="961" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="txtCAAEvents.Margin" Value="130,0,0,0" />
+                  <!--     <Setter Target="txtCAAEvents.Margin" Value="130,0,0,0" />-->
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="95"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!--General Buttons-->
         <RelativePanel Grid.Row="0" 
                        Background="#1b3e6e">
             <TextBlock Name="txtCAAEvents"
-                       Margin="130,0,0,0"
-                       Text=""
+                       RelativePanel.AlignHorizontalCenterWithPanel="True"
+                       RelativePanel.AlignBottomWithPanel="True"
+                       Text="Today's Events"
                        Foreground="#eaeaea"
                        FontWeight="Bold"
-                       FontSize="55"/>
-            <Button x:Name="btnStartEvent"
-                    Background="Transparent"
-                    Content="Start Event"
-                    FontSize="55"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    Margin="0,5,25,0"
-                    Click="btnStartEvent_Click"
-                    RelativePanel.AlignRightWithPanel="True"/>
+                       FontSize="30"/>
         </RelativePanel>
 
         <TextBlock x:Name="tbkEventInfo"
@@ -76,27 +69,26 @@
 
         <!--Code for the construction of Current Events in the grid-->
         <GridView Name="gvAvailableEvents"
-                    Grid.Row="2"
-                    HorizontalAlignment="Left"
-                    IsItemClickEnabled="True"
-                    Margin="80,50,50,0"
-                    MinHeight="450"
-                    MinWidth="300"
-                    Padding="15">
+                  Grid.Row="2"
+                  HorizontalAlignment="Center"
+                  IsItemClickEnabled="True"
+                  Margin="0,60,0,0"
+                  MinWidth="330">
             <GridView.ItemTemplate>
                 <DataTemplate x:Name="dtEvents" 
                               x:DataType="data:Event">
                     <RelativePanel Name="rpEvents" 
-                                   Width="500" 
-                                   Background="#f79326" 
-                                   BorderBrush="White" 
+                                   Width="300" 
+                                   Background="#eaeaea" 
+                                   BorderBrush="#0D4E97" 
                                    BorderThickness="3" 
-                                   Height="100" 
-                                   Margin="10">
+                                   CornerRadius="20"
+                                   Margin="10"
+                                   Padding="20">
                         <TextBlock Name="txtEvents" 
                                    Foreground="#1b3e6e" 
                                    TextWrapping="WrapWholeWords">                                     
-                            <Run FontSize="35" 
+                            <Run FontSize="25" 
                                  FontWeight="Bold"
                                  Text="{x:Bind DisplayName}"/>
                             <!--<LineBreak/>
@@ -108,6 +100,16 @@
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
+
+        <Button x:Name="btnStartEvent"
+                        Content="Start Event"
+                        FontSize="35"
+                        Grid.Row="3"
+                        HorizontalAlignment="Center"
+                    Margin="0,1,0,0"
+                    Style="{StaticResource actionButtonStyle}"
+                    Click="btnStartEvent_Click"/>
+
 
     </Grid>
 </Page>

@@ -42,8 +42,8 @@ namespace CAA_Event_Management.Models
         {
             get
             {
-                if (MembersOnly == false) return "Open Event";
-                else return "Members Only Event";
+                if (MembersOnly == false) return "Open to Public";
+                else return "Members Only";
             }
         }
 

@@ -7,6 +7,8 @@ using CAA_Event_Management.Views.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -22,6 +24,7 @@ namespace CAA_Event_Management.Views.EventViews
         #region Startup - variables, repositories, methods
 
         private int questionCount = 0;
+        private string cardInfo = "g";
         Models.Event currentEvent;
         AttendanceTracking tracker = new AttendanceTracking();
         AttendanceItem survey = new AttendanceItem(); //may be able to delete this after testing
@@ -39,6 +42,8 @@ namespace CAA_Event_Management.Views.EventViews
             attendanceTrackingRepository = new AttendanceTrackingRepository();
             eventItemRepository = new EventItemRepository();
             itemRepository = new ItemRepository();
+            Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
+            //Window.Current.Core.PreviewKeyDown += Global_PreviewKeyDown;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -49,6 +54,41 @@ namespace CAA_Event_Management.Views.EventViews
             tracker.EventID = currentEvent.EventID;
             tracker.ArrivalTime = DateTime.Now;
             BuildQuestions();
+
+            App disableLogin = (App)Application.Current;
+            if (disableLogin.userIsLogIn == false)
+            {
+                ((Window.Current.Content as Frame).Content as MainPage).ToggleNavigationEnable(false);
+                ((Window.Current.Content as Frame).Content as MainPage).SetUseEnter(false);
+            }
+        }
+
+        private void CoreWindow_CharacterReceived(CoreWindow sender, CharacterReceivedEventArgs args)
+        {
+
+            if (args.KeyCode == 37) cardInfo = "%";
+            else if (cardInfo.Substring(0,1) == "%" ) cardInfo += Convert.ToChar(args.KeyCode).ToString();
+
+            if (cardInfo.Length > 75 && cardInfo.EndsWith("?")) CardReadDisplay();
+
+            //else if (cardInfo == "%" && args.KeyCode == 66) cardInfo = "%B";
+            //else if (args.KeyCode == 63 && cardInfo != "") // && cardInfo.Substring(0,2) == "%B"
+            //{
+            //    //start card info reading
+            //    CardReadDisplay();
+            //}
+            ////else if (cardInfo.Length >= 19 & cardInfo.Substring(18, 1) != "^") cardInfo = "";
+            //else if(cardInfo != "" && cardInfo.Substring(0,2) == "%B") cardInfo += Convert.ToChar(args.KeyCode).ToString();
+
+            ////string info = "";
+            ////if (cardInfo.Length == 19) info = cardInfo.Substring(18, 1);
+            ////else
+            ////{
+            ////    Jeeves.ShowMessage("", Convert.ToChar(args.KeyCode).ToString());
+            ////Jeeves.ShowMessage("Key Entered", "You pressed Shift + 5 for %");
+            ////}
+
+
         }
 
         #endregion
@@ -190,6 +230,34 @@ namespace CAA_Event_Management.Views.EventViews
                 }
             }
         }
+
+        private void CardReadDisplay()
+        {
+            try
+            {
+                memberNumTextBox.Text = cardInfo.Substring(2, 16);
+
+                cardInfo = "g";
+                if (ListOfEID.Count == 0)
+                {
+                    SaveAttendenceItem();
+                    Frame.Navigate(this.GetType(), currentEvent);
+                }
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Please re-swip card");
+            }
+        }
+        private void Global_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+
+            if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
+            {
+                e.Handled = false;
+            }
+        }
+
 
         #endregion
 

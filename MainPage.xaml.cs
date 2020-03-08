@@ -3,6 +3,8 @@ using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Views.Games;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -26,6 +28,7 @@ namespace CAA_Event_Management
         UserAccount currentUser;
         IUserAccountRepository usersRepository;
         bool AuthStatus;
+        private bool useEnter = true;
 
         public object Keys { get; private set; }
 
@@ -38,6 +41,7 @@ namespace CAA_Event_Management
             //Beginning Frame on Startup
             MyFrame.Navigate(typeof(EventStartView));
             DataContext = this;
+            Window.Current.Content.PreviewKeyDown += Global_PreviewKeyDown;
         }
         #endregion
 
@@ -181,19 +185,43 @@ namespace CAA_Event_Management
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void txtPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+        //private void txtPassword_KeyDown(object sender, KeyRoutedEventArgs e)
+        //{
+        //    //if key pressed is enter key
+        //    if (e.Key == Windows.System.VirtualKey.Enter)
+        //    {
+        //        //set that key press was handled
+        //        e.Handled = true;
+        //        //call sign in button click method
+        //        BtnSignIn_Click(sender, e);
+        //    }
+        //}
+
+
+
+        #endregion
+
+
+
+        internal void ToggleNavigationEnable(bool enabled)
         {
-            //if key pressed is enter key
-            if (e.Key == Windows.System.VirtualKey.Enter)
+            NavigationView.IsEnabled = enabled;
+            btnSignInFlyout.IsEnabled = enabled;
+        }
+
+        private void Global_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+
+            if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
             {
-                //set that key press was handled
-                e.Handled = true;
-                //call sign in button click method
-                BtnSignIn_Click(sender, e);
+                e.Handled = useEnter;
             }
         }
 
-        #endregion
+        internal void SetUseEnter(bool useEnterKey)
+        {
+            useEnter = useEnterKey;
+        }
 
         #region Helper Methods
 

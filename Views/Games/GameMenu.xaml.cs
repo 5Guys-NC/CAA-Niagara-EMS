@@ -70,7 +70,7 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            btnCreateNewGame.Flyout.Hide();
+            btnCreateGame.Flyout.Hide();
         }
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)

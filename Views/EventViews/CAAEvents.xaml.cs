@@ -93,7 +93,7 @@ namespace CAA_Event_Management.Views.EventViews
         private void NewEvent_Click(object sender, RoutedEventArgs e)
         {
             Models.Event newEvent = new Models.Event();
-            Frame.Navigate(typeof(EventDetails), newEvent);
+            Frame.Navigate(typeof(EventDetails), newEvent, new SuppressNavigationTransitionInfo());
         }
 
         private void btnCurrentEvents_Click(object sender, RoutedEventArgs e)
@@ -124,18 +124,18 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnDeleteMode_Click(object sender, RoutedEventArgs e)
         {
-            if(btnDeleteMode.Content.ToString() == "Delete Mode (OFF)")
+            if(btnDeleteMode.Content.ToString() == "DELETE MODE (OFF)")
             {
                 gdvEditEvents.Visibility = Visibility.Collapsed;
                 gdvDeleteEvents.Visibility = Visibility.Visible;
-                btnDeleteMode.Content = "Delete Mode (ON)";
+                btnDeleteMode.Content = "DELETE MODE (ON)";
                 FillDropDown(CurrentOrPast);
             }
-            else if(btnDeleteMode.Content.ToString() == "Delete Mode (ON)")
+            else if(btnDeleteMode.Content.ToString() == "DELETE MODE (ON)")
             {
                 gdvEditEvents.Visibility = Visibility.Visible;
                 gdvDeleteEvents.Visibility = Visibility.Collapsed;
-                btnDeleteMode.Content = "Delete Mode (OFF)";
+                btnDeleteMode.Content = "DELETE MODE (OFF)";
                 FillDropDown(CurrentOrPast);
             }
         }
@@ -162,12 +162,12 @@ namespace CAA_Event_Management.Views.EventViews
             if (gdvEditEvents.SelectedItem != null)
             {
                 Event selectedEvent = (Event)gdvEditEvents.SelectedItem;
-                Frame.Navigate(typeof(EventAttendanceTracking), (Event)selectedEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Event)selectedEvent, new SuppressNavigationTransitionInfo());
             }
             else if (gdvDeleteEvents.SelectedItem != null)
             {
                 Event selectedEvent = (Event)gdvDeleteEvents.SelectedItem;
-                Frame.Navigate(typeof(EventAttendanceTracking), (Event)selectedEvent);
+                Frame.Navigate(typeof(EventAttendanceTracking), (Event)selectedEvent, new SuppressNavigationTransitionInfo());
             }
             else
             {
@@ -229,7 +229,7 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 Event selectedEvent = new Event();
                 selectedEvent = eventRepository.GetEvent(selected.ToString());
-                Frame.Navigate(typeof(EventDetails), (Models.Event)selectedEvent);
+                Frame.Navigate(typeof(EventDetails), (Models.Event)selectedEvent, new SuppressNavigationTransitionInfo());
             }
             catch
             {

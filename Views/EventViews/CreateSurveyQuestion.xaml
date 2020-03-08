@@ -109,7 +109,7 @@
                 Grid.Row="3"
                 HorizontalAlignment="Center"
                 Margin="0,20,0,20"
-                Style="{StaticResource ButtonStyle}"
+
                 Tapped="BtnAddSurveyQuestion_Tapped"
                 Width="120"/>
         <Button Name="btnDeleteQuestion"/>

@@ -6,52 +6,59 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" 
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-<!--*****************************
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    FontFamily="{ThemeResource ContentControlThemeFontFamily}">
+    <!--*****************************
     Created By: Nathan Smith
     Edited By: Brian Culp
 ******************************-->
     <Page.Resources>
-        <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="#64b345"/>
-        <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="#64b345"/>
+        <SolidColorBrush x:Key="NavigationViewTopPaneBackground" Color="#1b3e6e"/>
+        <SolidColorBrush x:Key="TopNavigationViewItemForeground"  Color="#eaeaea"/>
+        <SolidColorBrush x:Key="NavigationViewItemForegroundChecked" Color="#eaeaea"/>
+        <SolidColorBrush x:Key="TopNavigationViewItemForegroundPointerOver" Color="#74c4ea"/>
+        <SolidColorBrush x:Key="TopNavigationViewItemForegroundSelected"  Color="#eaeaea"/>
         <StaticResource x:Key="NavigationViewItemBackgroundPointerOver" ResourceKey="SystemControlHighlightListLowRevealBackgroundBrush"/>
-   
+
     </Page.Resources>
 
     <Grid Background="#eaeaea">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="75" />
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30">
-                </RowDefinition>
-            </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0" Background="White">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="170"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="170"/>
             </Grid.ColumnDefinitions>
             <!--Clock-->
-            <TextBlock Name="Time" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
+            <TextBlock Name="Time" Grid.Column="3" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Bottom"/>
             <!--Title-->
+            <Image Name="imgCAALogo" 
+                       Source="/Assets/CAA Logo.png"  
+                       Grid.Column="0"
+                       Margin="0,0,0,0" 
+                       Height="90"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"
+                       Width="150"/>
             <TextBlock Name ="txtTitle" 
                    Grid.Column="1"
                    Foreground="#1b3e6e" 
-                   Text="CAA CURRENT EVENTS" 
-                   FontSize="17"
+                   Text="CAA EVENT MANAGER" 
+                   FontSize="20"
                    FontWeight="Bold"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    TextWrapping="WrapWholeWords"/>
-<!--User Message-->
+            <!--User Message-->
             <TextBlock x:Name="txtUser" Text="Hello, (USER)" Grid.Column="2" VerticalAlignment="Center" Margin="0,0,10,0"
                        HorizontalAlignment="Right" FontSize="16" FontWeight="Bold" Visibility="Collapsed"/>
-            
-<!--Sign in Flyout-->
+
+            <!--Sign in Flyout-->
             <Button Name="btnSignInFlyout" Background="Transparent" Height="40" Margin="0,0,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
                     Grid.Row="2" Foreground="#1b3e6e" Grid.Column="2" FontSize="16">
                 <TextBlock Name="tbSignIn" FontSize="18" FontWeight="Bold" Text="Sign In" TextDecorations="Underline"/>
@@ -66,7 +73,7 @@
                             </Style>
                         </Flyout.FlyoutPresenterStyle>
 
-                        <Grid Background="LightBlue">
+                        <Grid Background="#eaeaea">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
@@ -83,11 +90,11 @@
                                Margin="0,0,0,30"/>
 
                             <StackPanel Orientation="Vertical" Grid.Row="1" Width="300">
-                                <TextBox Header="User Name:" x:Name="txtUserName"/>
+                                <TextBox Header="User Name:" x:Name="txtUserName" Margin="0,0,0,5"/>
                                 <PasswordBox Header="Password:" x:Name="txtPassword" KeyDown="txtPassword_KeyDown"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button x:Name="btnSignIn" Content="Sign In" Margin="20" Click="BtnSignIn_Click"/>
-                                    <Button x:Name="btnCancel" Content="Cancel" Margin="20" Click="btnCancel_Click"/>
+                                    <Button x:Name="btnSignIn" Content="Sign In" Height="30" Style="{StaticResource actionButtonStyle}" MinWidth="120" Click="BtnSignIn_Click"/>
+                                    <Button x:Name="btnCancel" Content="Cancel" Height="30" Margin="20" Style="{StaticResource secondaryButtonStyle}" MinWidth="120" Click="btnCancel_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -95,69 +102,84 @@
                 </Button.Flyout>
             </Button>
         </Grid>
-        
-        <Grid Grid.Row="1">
+
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-<!--Frame-->
-            <Frame Name="MyFrame" Grid.Column="1" Background="{StaticResource BackgroundColor}">
+            <!--Frame-->
+            <Frame Name="MyFrame" Grid.Column="2" Background="{StaticResource BackgroundColor}">
             </Frame>
         </Grid>
-<!--Navigation Menu-->
-        <NavigationView Name="NavigationView" 
-                        PaneDisplayMode="LeftCompact" 
-                        IsBackButtonVisible="Auto"
+
+        <RelativePanel Grid.Row="1" Background="#1b3e6e">
+            <!--<TextBlock Name="tbSearch" 
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Margin="0,10,0,0"
+                       RelativePanel.LeftOf="txtSearch"
+                       Text="Search Events:" 
+                       Foreground="#eaeaea"/>
+            <TextBox Name="txtSearch"
+                     Background="White"
+                     Height="30"
+                     Margin="5,5,5,0"
+                     RelativePanel.AlignRightWithPanel="True"
+                     Width="150"/>-->
+            <!--TextChanged="txtSearch_TextChanged"-->
+        </RelativePanel>
+        <!--Navigation Menu-->
+        <NavigationView Name="nvNav" 
+                        PaneDisplayMode="Top" 
+                        IsBackButtonVisible="Collapsed"
                         IsSettingsVisible="False" 
                         BackRequested="NavView_BackRequested"
                         IsBackEnabled="True"                         
                         OpenPaneLength="125"  
-                        Margin="0,95,0,0"
+                        Margin="0,40,0,0"
                         ItemInvoked="NavView_ItemInvoked"  
-                        Grid.Row="1" 
-                        CompactModeThresholdWidth="10" 
-                        ExpandedModeThresholdWidth="1200">
+                        Grid.Row="2">
             <NavigationView.MenuItems>
-                
-                <NavigationViewItem Name="HomeLink" Content="Home" Tag="Home">
-                    <NavigationViewItem.Icon>
+
+                <NavigationViewItem Name="HomeLink" Content="Home" FontSize="20" Tag="Home" Width="100" HorizontalContentAlignment="Center">
+                    <!--<NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE80F;"  />
-                    </NavigationViewItem.Icon>
+                    </NavigationViewItem.Icon>-->
                 </NavigationViewItem>
-                
-                <NavigationViewItem Name="EventsLink" Content="Events" Tag="Events">
-                    <NavigationViewItem.Icon>
+
+                <NavigationViewItem Name="EventsLink" Content="Events" FontSize="20" Tag="Events" Width="100" HorizontalContentAlignment="Center">
+                    <!--<NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE787;"/>
-                    </NavigationViewItem.Icon>
+                    </NavigationViewItem.Icon>-->
                 </NavigationViewItem>
-                
-                <NavigationViewItem Name="GamesLink" Content="Games" Tag="Games">
-                    <NavigationViewItem.Icon>
+
+                <NavigationViewItem Name="GamesLink" Content="Games" FontSize="20" Tag="Games" Width="100" HorizontalContentAlignment="Center">
+                    <!--<NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE7FC;"/>
-                    </NavigationViewItem.Icon>
+                    </NavigationViewItem.Icon>-->
                 </NavigationViewItem>
-                
-                <NavigationViewItem Name="SurveysLink" Content="Surveys" Tag="Surveys">
-                    <NavigationViewItem.Icon>
+
+                <NavigationViewItem Name="SurveysLink" Content="Surveys" FontSize="20" Tag="Surveys" Width="100" HorizontalContentAlignment="Center">
+                    <!--<NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEADF;"/>
-                    </NavigationViewItem.Icon>
+                    </NavigationViewItem.Icon>-->
                 </NavigationViewItem>
-                
-                <NavigationViewItem Name ="UsersLink" Content="Users" Tag="Users">
-                    <NavigationViewItem.Icon>
+
+                <NavigationViewItem Name ="UsersLink" Content="Users" FontSize="20" Tag="Users" Width="100" HorizontalContentAlignment="Center">
+                    <!--<NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE13D;" FontSize="70" />
-                    </NavigationViewItem.Icon>
+                    </NavigationViewItem.Icon>-->
                 </NavigationViewItem>
-                
-                <NavigationViewItem Name="SignOutLink" Content="Sign Out" Tag="SignOut">
-                    <NavigationViewItem.Icon>
+
+                <NavigationViewItem Name="SignOutLink" Content="Sign Out" FontSize="20" Tag="SignOut" Width="100" HorizontalContentAlignment="Center">
+                    <!--<NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8B5;" FontSize="70"/>
-                    </NavigationViewItem.Icon>
+                    </NavigationViewItem.Icon>-->
                 </NavigationViewItem>
-                
+
             </NavigationView.MenuItems>
         </NavigationView>
-        
+
     </Grid>
 </Page>

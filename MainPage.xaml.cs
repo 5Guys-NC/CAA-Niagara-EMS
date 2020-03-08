@@ -6,6 +6,7 @@ using CAA_Event_Management.Views.Games;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 /***********************************
 * Edited By: Nathan Smith
 * Edited By: Brian Culp
@@ -74,27 +75,27 @@ namespace CAA_Event_Management
                 {
                     //For Home Button
                     case "Home":
-                        MyFrame.Navigate(typeof(EventStartView));
+                        MyFrame.Navigate(typeof(EventStartView), null, new SuppressNavigationTransitionInfo());
                         break;
 
                     //For Events Button
                     case "Events":
-                        MyFrame.Navigate(typeof(CAAEvents));
+                        MyFrame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
                         break;
 
                     //For Games Button
                     case "Games":
-                        MyFrame.Navigate(typeof(GameMenu));
+                        MyFrame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
                         break;
 
                     //For Users Button
                     case "Users":
-                        MyFrame.Navigate(typeof(UsersSummary));
+                        MyFrame.Navigate(typeof(UsersSummary), null, new SuppressNavigationTransitionInfo());
                         break;
 
                     //For Surveys Button
                     case "Surveys":
-                        MyFrame.Navigate(typeof(Surveys));
+                        MyFrame.Navigate(typeof(Surveys), null, new SuppressNavigationTransitionInfo());
                         break;
 
                     //For Sign Out Button
@@ -144,6 +145,7 @@ namespace CAA_Event_Management
                     {
                         //incorrect password
                         Jeeves.ShowMessage("Error", "Password does not match the one on file");
+                        txtPassword.Password = "";
                     }
 
                 }
@@ -216,7 +218,7 @@ namespace CAA_Event_Management
                 UsersLink.Visibility = Visibility.Collapsed;
 
                 //navigate to home page
-                MyFrame.Navigate(typeof(EventStartView));
+                MyFrame.Navigate(typeof(EventStartView), new SuppressNavigationTransitionInfo());
             }
             else
             {
@@ -227,6 +229,9 @@ namespace CAA_Event_Management
                 GamesLink.Visibility = Visibility.Visible;
                 SurveysLink.Visibility = Visibility.Visible;
                 SignOutLink.Visibility = Visibility.Visible;
+
+                //navigate to Events page
+                MyFrame.Navigate(typeof(CAAEvents), new SuppressNavigationTransitionInfo());
 
                 //if user has admin rights, show those restricted views
                 if (currentUser.isAdmin == true)

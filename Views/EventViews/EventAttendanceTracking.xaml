@@ -8,7 +8,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource BackgroundColor}">
+    Background="{ThemeResource BackgroundColor}"
+    FontFamily="{ThemeResource ContentControlThemeFontFamily}">
+    
     <!--**************************
     Created By: Jon Yade
     Edited By: Nathan Smith
@@ -55,26 +57,15 @@
                        Foreground="#eaeaea"
                        FontWeight="Bold"
                        FontSize="30"/>-->
-            <Button x:Name="btnSave" 
-                    Background="Transparent"
-                    Content="Submit"
-                    FontSize="25"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    RelativePanel.AlignRightWithPanel="True"
-                    Margin="0,7,15,0"
-                
-                    Click="btnSave_Click"/>
             <Button Name="btnCancel" 
                     Background="Transparent"
-                    Content="Stop"
+                    Content="Back To Events"
                     FontSize="25"
                     FontWeight="Bold"
                     Foreground="#eaeaea"                    
                     Margin="140,60,10,0"
                     Click="btnCancel_Click"/>
         </RelativePanel>
-
 
         <Grid x:Name="LayoutRoot" 
               Margin="60,0,0,0"
@@ -89,8 +80,8 @@
             </Grid.ColumnDefinitions>
 
             <!--ContentPanel - place additional content here-->
-            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="10,0,10,0">
-                <Grid Name="patientDisplayGrid">
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,30,10,0">
+                <Grid Name="attendanceDisplayGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -289,6 +280,14 @@
                               Content="Check if Yes" 
                               VerticalAlignment="Center"
                               Margin="5,2,0,0"/>
+                    <Button x:Name="btnSubmit" 
+                            Content="Submit"
+                            Grid.Column="1"
+                            HorizontalAlignment="Center"
+                            Margin="0,25,0,0"
+                            Style="{StaticResource actionButtonStyle}"
+                            Visibility="Collapsed"
+                            Click="btnSubmit_Click"/>
 
                     <!--<Button Name="btnSaveSurvey" Content="Save Response(s)" Grid.Row="6" Click="btnSaveSurvey_Click" />-->
                 </Grid>

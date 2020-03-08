@@ -7,7 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource BackgroundColor}">
+    Background="{ThemeResource BackgroundColor}"
+    FontFamily="{ThemeResource ContentControlThemeFontFamily}">
 
     <Page.Resources>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
@@ -22,8 +23,6 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="tbCAASurveys.Margin" Value="45,0,0,0" />
-                        <Setter Target="btnAddSurveyQuestion.Margin" Value="80,60,10,0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
@@ -31,73 +30,39 @@
                         <AdaptiveTrigger MinWindowWidth="961" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="tbCAASurveys.Margin" Value="130,0,0,0" />
-                        <Setter Target="rpSurvey.Margin" Value="100,50,0,0"/>
-                        <Setter Target="rpSurveyDeleteMode.Margin" Value="100,50,0,0"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
+        <RelativePanel Grid.Row="0" Background="#1b3e6e" Height="50" Canvas.ZIndex="5" VerticalAlignment="Top">
+            <TextBlock Name="textboxText" 
+                               FontSize="16"
+                               FontWeight="Bold"
+                              Margin="0,10,0,0"
+                              RelativePanel.LeftOf="txtSearchBox"
+                              Text="Search Survey Questions:" 
+                              Foreground="#eaeaea"/>
+            <TextBox x:Name="txtSearchBox"
+                             Background="White"
+                             Height="26"
+                             Margin="5,5,2,0"
+                             RelativePanel.AlignRightWithPanel="True"
+                             Width="150"
+                             TextChanged="txtSearchBox_TextChanged"/>
+        </RelativePanel>
+
         <ScrollViewer>
 
             <Grid>
 
                 <Grid.RowDefinitions>
-                <RowDefinition Height="95"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-
-            <RelativePanel Grid.Row="0" Background="#1b3e6e">
-                <TextBlock Name="tbCAASurveys"
-                       Text="Surveys"
-                       Foreground="#eaeaea"  
-                       FontWeight="Bold"
-                       FontSize="30"/>
-                <Button x:Name="btnAddSurveyQuestion" 
-                    Background="Transparent"
-                    Content="Create Survey Question" 
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    Margin="140,60,10,0"
-                    Click="btnAddSurveyQuestion_Click" />
-                <Button x:Name="btnEditQuestion"  
-                    Background="Transparent"
-                    Content="Edit Question"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    RelativePanel.AlignBottomWith="btnAddSurveyQuestion"
-                    RelativePanel.RightOf="btnAddSurveyQuestion"
-                    Click="btnEditMultipurpose_Click"/>
-            <Button x:Name="btnDelete"
-                    Background="Transparent"
-                    Content="Delete Mode (OFF)"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    RelativePanel.AlignBottomWith="btnEditQuestion"
-                    RelativePanel.RightOf="btnEditQuestion"
-                    Click="btnDelete_Click"/>
-                <TextBlock Name="textboxText" 
-                       FontSize="14"
-                       Margin="0,10,0,0"
-                       RelativePanel.LeftOf="txtSearchBox"
-                       Text="Search Survey Questions:" 
-                       Foreground="#eaeaea"/>
-                <TextBox x:Name="txtSearchBox"
-                     Background="White"
-                     Height="26"
-                     Margin="5,5,2,0"
-                     RelativePanel.AlignRightWithPanel="True"
-                     Width="150"
-                     TextChanged="txtSearchBox_TextChanged"/>
-            </RelativePanel>
+                    <RowDefinition Height="95"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
                 <Grid Name="gdCreateandEdit"
                       Grid.Row="1">
@@ -154,65 +119,88 @@
                     <Button x:Name="btnSaveQuestion"
                             Content="Save"
                             Click="btnSaveQuestion_Click"
-                            Style="{StaticResource ButtonStyle}"/>
+                            Style="{StaticResource actionButtonStyle}"/>
                     <Button x:Name="btnCancelSave"
                                 Content="Cancel"
                                 Grid.Column="1"
                                 Grid.Row="2"
                                 Margin="10,0,0,0"
                                 RelativePanel.RightOf="btnSaveQuestion"
-                                Style="{StaticResource ButtonStyle}"
+                                Style="{StaticResource secondaryButtonStyle}"
                                 Click="btnCancelSave_Click"/>
+                </RelativePanel>
+                <RelativePanel Name="rpButtons" Grid.Row="1" HorizontalAlignment="Center" Margin="0,30,0,0">
+                    <Button x:Name="btnAddSurveyQuestion" 
+                            Content="Create Question"
+                            Margin="0,0,10,0"
+                            Style="{StaticResource actionButtonStyle}"
+                    Click="btnAddSurveyQuestion_Click" />
+                    <Button x:Name="btnEditQuestion"  
+                    Background="Transparent"
+                    Content="Edit Question"
+                            Margin="0,0,10,0"
+                    RelativePanel.AlignBottomWith="btnAddSurveyQuestion"
+                    RelativePanel.RightOf="btnAddSurveyQuestion"
+                            Style="{StaticResource secondaryButtonStyle}"
+                    Click="btnEditMultipurpose_Click"/>
+                    <Button x:Name="btnDelete"
+                    Background="Transparent"
+                    Content="Delete Mode (OFF)"
+                    RelativePanel.AlignBottomWith="btnEditQuestion"
+                    RelativePanel.RightOf="btnEditQuestion"
+                            Style="{StaticResource secondaryButtonStyle}"
+                    Click="btnDelete_Click"/>
                 </RelativePanel>
 
                 <RelativePanel Name="rpSurvey" Grid.Row="3" Margin="50,50,0,0" HorizontalAlignment="Center">
                 <Button Name="btnMostUsedQuestions" 
-                        Background="#f8bf38 "
-                        BorderBrush="white"
+                        Background="#5291bf "
+                        BorderBrush="#0d4e97"
                         BorderThickness="3,3,3,0"
                         Canvas.ZIndex="1"
                         Content="Most Used"
                         CornerRadius="20,20,0,0"
-                        FontSize="14"
+                        FontSize="20"
+                        Foreground="#eaeaea"
                         Grid.Row="2"
                         Height="50" 
-                        Margin="30,3,-10,0"
-                        Style="{StaticResource ButtonStyle}" 
-                        Width="115"
+                        Margin="0,3,-10,0"
+                        Width="125"
                         Click="btnMostUsedQuestions_Click"/>
                     <Button Name="btnAlphabeticalQuestions"
-                            Background="#f8bf38"
-                            BorderBrush="White"
+                            Background="#5291bf"
+                            BorderBrush="#0d4e97"
                             BorderThickness="3,3,3,0"
                             Canvas.ZIndex="0"
                             Content="Alphabetical"
                             CornerRadius="20,20,0,0"
-                            FontSize="14"
+                            FontSize="20"
+                            Foreground="#eaeaea"
                             Height="50"
                             Margin="0,3,0,0"
                             RelativePanel.RightOf="btnMostUsedQuestions"
-                            Style="{StaticResource ButtonStyle}"
-                            Width="115"
+                            Width="135"
                             Click="btnAlphabeticalQuestions_Click"/>
                     <GridView Name="gvAvailableQuestions"
-                  Background="#f8bf38"
-                  BorderBrush="White"
-                  BorderThickness="0,2,0,0"
+                  Background="#5291bf"
+                  BorderBrush="#0d4e97"
+                  BorderThickness="2"
                   CornerRadius="0,20,20,0"
                   Grid.Row="2"
                   HorizontalAlignment="Left"
                   IsItemClickEnabled="True"
-                  Margin="30,50,30,0"
-                  MinHeight="400"
-                  MinWidth="300"
+                  Margin="0,50,0,0"
+                  MinHeight="450"
+                  MinWidth="400"
                   Padding="15">
                     <GridView.ItemTemplate>
                         <DataTemplate x:Name="dtEventsDeleteMode" x:DataType="data:Item">
-                            <RelativePanel Name="rpEvents" Width="320" Background="#f79326" BorderBrush="White" BorderThickness="3" Height="120" Margin="10">
+                            <RelativePanel Name="rpEvents" Width="320" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
                                     <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="Wrap" Width="290">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind ItemName}"/>
+                                    <LineBreak/>
                                     <LineBreak/>
                                     <LineBreak/>
                                     <Run FontSize="14"
@@ -223,10 +211,12 @@
                     </GridView.ItemTemplate>
                 </GridView>
             </RelativePanel>
+                
+                
                 <RelativePanel Name="rpSurveyDeleteMode" Grid.Row="3" Margin="50,20,0,0" HorizontalAlignment="Center" Visibility="Collapsed">
                     <Button Name="btnSurveyQuestionsDeleteMode" 
-                    Background="#f8bf38 "
-                    BorderBrush="white"
+                    Background="#5291bf "
+                    BorderBrush="#0d4e97"
                     BorderThickness="3,3,3,0"
                     Canvas.ZIndex="1"
                     Content="Questions"
@@ -235,7 +225,7 @@
                     Grid.Row="2"
                     Height="50" 
                     Margin="30,3,-10,0"
-                    Style="{StaticResource ButtonStyle}" 
+                    Style="{StaticResource secondaryButtonStyle}" 
                     Width="105"/>
                     <GridView Name="gvAvailableQuestionsDeleteMode"
                   Background="#f8bf38"
@@ -280,8 +270,8 @@
                                                 <StackPanel>
                                                     <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <Button Name="btnConfirmRemove" Style="{StaticResource ButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
-                                                        <Button Name="btnCancel" Style="{StaticResource ButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                                        <Button Name="btnConfirmRemove" Style="{StaticResource actionButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
+                                                        <Button Name="btnCancel" Style="{StaticResource secondaryButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Flyout>

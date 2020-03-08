@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Data;
+using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Models;
 using Windows.UI.Xaml.Media.Animation;
 /********************************
@@ -59,6 +60,8 @@ namespace CAA_Event_Management.Views.EventViews
             txtNewSurveyQuestion.Visibility = Visibility.Visible;
             tbkDataType.Visibility = Visibility.Visible;
             cboDataType.Visibility = Visibility.Visible;
+            spQuestion.Visibility = Visibility.Visible;
+            spDataType.Visibility = Visibility.Visible;
             
             addOrEdit = 1;
         }
@@ -79,7 +82,7 @@ namespace CAA_Event_Management.Views.EventViews
                 cboDataType.Visibility = Visibility.Visible;
                 var result = await Jeeves.ConfirmDialog("Warning", warning);
 
-                if (result == ContentDialogResult.Secondary && btnEditQuestion.Content.ToString() == "Edit Question")
+                if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
                 {
                     tbkEnterQuestion.Visibility = Visibility.Visible;
                     txtNewSurveyQuestion.Visibility = Visibility.Visible;
@@ -342,18 +345,18 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void ScreenLockDown()
         {
-            btnEditQuestion.IsEnabled = false;
-            btnAddSurveyQuestion.IsEnabled = false;
-            btnDelete.IsEnabled = false;
+            //btnEditSurvey.IsEnabled = false;
+            btnAddSurveyQuestion.Visibility = Visibility.Collapsed;
+            btnDelete.Visibility = Visibility.Collapsed;
             gvAvailableQuestions.IsEnabled = false;
             rpSaveAndCancel.Visibility = Visibility.Visible;
         }
 
         private void ScreenUnlock()
         {
-            btnAddSurveyQuestion.IsEnabled = true;
-            btnDelete.IsEnabled = true;
-            btnEditQuestion.IsEnabled = true;
+            btnAddSurveyQuestion.Visibility=Visibility.Visible;
+            btnDelete.Visibility = Visibility.Visible;
+         //   btnEditSurvey.IsEnabled = true;
             gvAvailableQuestions.IsEnabled = true;
             rpSaveAndCancel.Visibility = Visibility.Collapsed;
         }

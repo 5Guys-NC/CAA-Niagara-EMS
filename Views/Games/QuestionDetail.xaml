@@ -85,15 +85,18 @@
                               MinHeight="450"
                               MinWidth="400"
                               Padding="15">
-                        <!--<GridView.ItemTemplate>
-                            <DataTemplate  x:DataType="data:Answer" >
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
                                 <StackPanel Name="spAnswers" Orientation="Horizontal">
-                                    <CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
-                                    <TextBox Text="{x:Bind Phrase, Mode=TwoWay}" Width="260" 
+                                    <CheckBox IsChecked="{Binding IsTrue, Mode=TwoWay}" MinWidth="30"/>
+                                    <TextBox Text="{Binding Text, Mode=TwoWay}" Width="260"
                                      FontSize="18"/>
+                                    <!--<CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
+                                    <TextBox Text="{x:Bind Phrase, Mode=TwoWay}" Width="260" 
+                                     FontSize="18"/>-->
                                     <Button Name="btnRemove" 
                                             Background="#f8bf38"
-                                            DataContext="{x:Bind ID}" 
+                                            DataContext="{Binding ID}" 
                                             FontFamily="Segoe MDL2 Assets" 
                                             FontSize="26"
                                             Content="&#xE738;" 
@@ -103,9 +106,9 @@
                                             Tapped="btnRemove_Tapped"/>
                                 </StackPanel>
                             </DataTemplate>
-                        </GridView.ItemTemplate>-->
+                        </GridView.ItemTemplate>
                     </GridView>
-                    <Button Name="btnAdd" 
+                    <!--<Button Name="btnAdd" 
                             Background="#5291bf" 
                             FontFamily="Segoe MDL2 Assets" 
                             FontSize="20"
@@ -116,7 +119,7 @@
                             RelativePanel.AlignBottomWithPanel="True"
                             RelativePanel.AlignHorizontalCenterWithPanel="True"
                             Style="{StaticResource AddRemoveStyle}" 
-                            Click="btnAdd_Tapped"/>
+                            Click="btnAdd_Tapped"/>-->
                 </RelativePanel>
             </Grid>
 

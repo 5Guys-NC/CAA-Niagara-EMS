@@ -187,7 +187,7 @@
                     <GridView.ItemTemplate>
                         <DataTemplate x:Name="dtSurveys" x:DataType="data:Item">
                             <RelativePanel Name="rpSurveys" Width="320" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
-                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="Wrap" Width="290">                                     
+                                    <TextBlock Name="txtSurveyQuestions" Foreground="#1b3e6e" Margin="5,0,40,0" TextWrapping="WrapWholeWords">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind ItemName}"/>
@@ -262,9 +262,9 @@
                   MinWidth="400"
                   Padding="15">
                         <GridView.ItemTemplate>
-                            <DataTemplate x:Name="dtEvents" x:DataType="data:Item">
-                                <RelativePanel Name="rpEvents" Width="320" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
-                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="Wrap" Width="290">                                     
+                            <DataTemplate x:Name="dtSurveysDeleteMode" x:DataType="data:Item">
+                                <RelativePanel Name="rpSurveysDeleteMode" Width="320" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
+                                    <TextBlock Name="txtSurveyQuestionsDeleteMode" Foreground="#1b3e6e" Margin="5,0,40,0" TextWrapping="WrapWholeWords">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind ItemName}"/>

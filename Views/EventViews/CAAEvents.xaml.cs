@@ -278,5 +278,19 @@ namespace CAA_Event_Management.Views.EventViews
         }
         #endregion
 
+        private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
+        {
+            if (gdvEditEvents.SelectedItem != null)
+            {
+                var selectedEvent = gdvEditEvents.SelectedItem;
+                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent);
+            }
+            else if (gdvDeleteEvents.SelectedItem != null)
+            {
+                var selectedEvent = gdvEditEvents.SelectedItem;
+                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent);
+            }
+            else Jeeves.ShowMessage("Error", "Please select an event first");
+        }
     }
 }

@@ -71,12 +71,51 @@ namespace CAA_Event_Management.Views.EventViews
             //Initial EventItem List Preparation Methods
             FillListOfEventItemDetails();
             InitialDeterminationOfEventItemAssignment();
+            SetTimes();
 
             //General Fill Methods
             FillGameField();
             FillSurveySelectionLists();
         }
+
+        private void SetTimes()
+        {
+            var start = view.EventStart.ToString().Substring(view.EventStart.ToString().IndexOf(" ")+1);
+            var end = view.EventEnd.ToString().Substring(view.EventStart.ToString().IndexOf(" ")+1);
+
+            var start2 = start.Substring(4, 1);
+
+            if (start.Substring(start.IndexOf(" ") + 1) == "PM")
+            {
+                int newTime = Convert.ToInt32(start.Substring(0, 2)) + 12;
+                if (newTime == 24) start = "00" + start.Substring(2, 3);
+                else start = newTime.ToString() + start.Substring(2, 3);
+            }
+            else if (start.Substring(0, 2) == "12") start = "00" + start.Substring(2, 3);
+            else
+            {
+                if (start.Substring(4,1) == ":") start = start.Substring(0, 4);
+                else start = start.Substring(0, 5);
+            }
+
+            if (end.Substring(start.IndexOf(" ")+1) == "PM")
+            {
+                int newTime = Convert.ToInt32(end.Substring(0, 2)) + 12;
+                if (newTime == 24) end = "00" + end.Substring(2, 3);
+                else end = newTime.ToString() + end.Substring(2, 3);
+            }
+            else if (end.Substring(0, 2) == "12") end = "00" + end.Substring(2, 3);
+            else
+            {
+                if (end.Substring(4,1) == ":") end = end.Substring(0, 4);
+                else end = end.Substring(0, 5);
+            }
+
+            tpEventStart.Time = TimeSpan.Parse(start);
+            tpEventEnd.Time = TimeSpan.Parse(end);
+        }
         #endregion
+
 
         #region Buttons - Event - Save, Delete, Cancel, and MemberCheckBox Methods
 
@@ -86,42 +125,16 @@ namespace CAA_Event_Management.Views.EventViews
 
             try
             {
-                string[] eventNameArray = eventNameTextBox.Text.Trim().Split(' ');
+                if(!AddEventDatesAndTimes()) return;  //this must be before BuildNamesForTheEvent()
+                if(!BuildNamesForTheEvent()) return;
 
-                string tempEventNameString = "";
-                for (int x = 0; x < eventNameArray.Length; x++)
-                {
-                    if (eventNameArray[x] != "")
-                    {
-                        tempEventNameString += eventNameArray[x].Substring(0, 1).ToUpper() + eventNameArray[x].Substring(1).ToLower() + " ";
-                    }
-                }
-                tempEventNameString = tempEventNameString.Trim();
-                view.DisplayName = tempEventNameString;
-
-                string[] eventDisplayNameArray = tempEventNameString.Split(' ');
-                view.EventName = string.Join("", eventDisplayNameArray);
-                //view.EventName = view.EventName + DateTime.Today.Year.ToString();
-
-                string eventAbbreviateName = "";
-                foreach (string x in eventDisplayNameArray) eventAbbreviateName += x.Substring(0, 1).ToUpper();
-                //eventAbbreviateName += view.EventStart.ToString().Substring(0, 10);
-                view.AbrevEventname = eventAbbreviateName;
-
-                //CheckForDatesOnNames();
-
-                if (membersOnlyCheck.IsChecked == true)
-                {
-                    view.MembersOnly = true;
-                }
+                if (membersOnlyCheck.IsChecked == true) view.MembersOnly = true;
                 else view.MembersOnly = false;
 
                 if (view.EventID == "0")
                 {
-                    App userInfo = (App)Application.Current;
-                    //view.CreatedDate = DateTime.Now;  //may want to use DateTime.Now   Delete both of these later
-                    //view.LastModifiedDate = DateTime.Now;
                     view.EventID = Guid.NewGuid().ToString();
+                    App userInfo = (App)Application.Current;
                     view.CreatedBy = userInfo.userAccountName;
                     view.LastModifiedBy = userInfo.userAccountName;
                     eventRepository.AddEvent(view);
@@ -130,7 +143,6 @@ namespace CAA_Event_Management.Views.EventViews
                 else
                 {
                     App userInfo = (App)Application.Current;
-                    //view.LastModifiedDate = DateTime.Now;   Delete later
                     view.LastModifiedBy = userInfo.userAccountName;
                     view.LastModifiedDate = DateTime.Now;
                     eventRepository.UpdateEvent(view);
@@ -157,11 +169,18 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)   //This should be removed later as it will serve no prupose
         {
-            App userInfo = (App)Application.Current;
-            view.LastModifiedBy = userInfo.userAccountName;
-            view.LastModifiedDate = DateTime.Now;
-            eventRepository.DeleteEvent(view);
-            Frame.GoBack();
+            try
+            {
+                App userInfo = (App)Application.Current;
+                view.LastModifiedBy = userInfo.userAccountName;
+                view.LastModifiedDate = DateTime.Now;
+                eventRepository.DeleteEvent(view);
+                Frame.GoBack();
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Failure to delete record; please try again");
+            }
         }
 
         private void membersOnlyCheck_Checked(object sender, RoutedEventArgs e)
@@ -445,6 +464,64 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+
+
+        private bool CheckForProperDateUsage()
+        {
+            var eventStart = Convert.ToDateTime(eventStartDate.Date.ToString());
+            var eventEnd = Convert.ToDateTime(cdpEventEnd.Date.ToString());
+            if (eventStart > eventEnd)
+            {
+                Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");
+                return false;
+            }
+            else if (eventStart < (DateTime.Now.AddDays(-2)))
+            {
+                Jeeves.ShowMessage("Error", "Please choose a start date in the future");
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+        private bool BuildNamesForTheEvent()
+        {
+            string[] eventNameArray = eventNameTextBox.Text.Trim().Split(' ');
+
+            string tempEventNameString = "";
+            for (int x = 0; x < eventNameArray.Length; x++)
+            {
+                if (eventNameArray[x] != "")
+                {
+                    tempEventNameString += eventNameArray[x].Substring(0, 1).ToUpper() + eventNameArray[x].Substring(1).ToLower() + " ";
+                }
+            }
+            tempEventNameString = tempEventNameString.Trim();
+
+            if (tempEventNameString.Substring(tempEventNameString.Length - 4) != view.EventStart.ToString().Substring(0, 4))
+            {
+                tempEventNameString += " " + view.EventStart.ToString().Substring(0, 4);
+            }
+            view.DisplayName = tempEventNameString;
+
+            string[] eventDisplayNameArray = tempEventNameString.Split(' ');
+            view.EventName = string.Join("", eventDisplayNameArray);
+
+            string eventAbbreviateName = "";
+            foreach (string x in eventDisplayNameArray) eventAbbreviateName += x.Substring(0, 1).ToUpper();
+            eventAbbreviateName = eventAbbreviateName.Remove(eventAbbreviateName.Length - 1, 1);
+            eventAbbreviateName += view.EventStart.ToString().Substring(5, 2) + view.EventStart.ToString().Substring(0, 4);
+            if (eventAbbreviateName.Length > 20)
+            {
+                Jeeves.ShowMessage("Error", "Please shorten the number of words and characters (like '-') in your event name");
+                return false;
+            }
+            view.AbrevEventname = eventAbbreviateName;
+            return true;
+        }
+
+
         private void CheckForDatesOnNames()
         {
             string eventDate = view.EventStart.HasValue ? view.EventStart.Value.Year.ToString() : "0000";
@@ -457,43 +534,36 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
-        private bool CheckForProperDateUsage()
+
+        private bool AddEventDatesAndTimes()
         {
-            var eventStart = Convert.ToDateTime(eventStartDate.Date.ToString());
-            var eventEnd = Convert.ToDateTime(cdpEventEnd.Date.ToString());
-            if (eventStart > eventEnd)
+            var startDate = eventStartDate.Date.ToString().Substring(0,10);
+            var startTime = tpEventStart.Time.ToString();
+
+            var endDate = cdpEventEnd.Date.ToString().Substring(0, 10);
+            var endTime = tpEventEnd.Time.ToString();
+
+            DateTime start = Convert.ToDateTime(startDate + " " + startTime);
+            DateTime end = Convert.ToDateTime(endDate + " " + endTime);
+
+            if (start > end)
             {
-                Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");
+                Jeeves.ShowMessage("Error", "Please set a start date/time that is before the end date/time");
                 return false;
             }
-            else if (eventStart < (DateTime.Now.AddDays(-1)))
-            {
-                Jeeves.ShowMessage("Error", "Please choose a start date in the future");
-                return false;
-            }
+
+            view.EventStart = start;
+            view.EventEnd = end;
+
             return true;
         }
 
-
-
-        #endregion
 
         private void lstAvailableQuizzes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var choosenGame = (Game)lstAvailableQuizzes.SelectedItem;
             view.QuizID = choosenGame.ID;
             CheckForSelectedQuiz();
-        }
-
-        private void eventStartDate_DateChanged(CalendarDatePicker sender, CalendarDatePickerDateChangedEventArgs args)
-        {
-           // DateTime start = Convert.ToDateTime(eventStartDate.Date.ToString());
-            //eventEndDate.Date =  
-
-            //eventEndDate = eventStartDate;
-
-
-
         }
     }
 }

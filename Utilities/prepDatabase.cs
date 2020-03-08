@@ -270,7 +270,7 @@ namespace CAA_Event_Management.Utilities
 
                 #endregion
 
-                #region AttendanceTracking - Commented out
+                #region AttendanceTracking
 
                 string[] firstNames = new string[] { "Brian", "Jon", "Max", "Nathan", "Oli", "Geri", "Joe", "Kaila", "Richard", "Marsha", "Hunter", "Dave", "Nicholas" };
                 string[] lastNames = new string[] { "Culp", "Yade", "Smith", "Cashmore", "Crroj", "Johnson", "Brown", "Henderson", "Anderson", "Doe", "Stovell", "Baddeley", "Kendall" };
@@ -278,14 +278,16 @@ namespace CAA_Event_Management.Utilities
 
                 if (context.AttendanceTrackings.Count() == 0)
                 {
+                    //list to hold attendees we are working with
                     List<AttendanceTracking> attendees = new List<AttendanceTracking>();
                     
                     //loop to create seed data of swipes into Heart & Stroke event(member only)
                     //all inserts are members with unique member number
+                    //30 records
                     #region loop for MemberOnly event w/ Unique membership numbers
 
                     //30 records (members with unique membership numbers)
-                    for (int i = 0; i <= 30; i++)
+                    for (int i = 0; i < 30; i++)
                     {
                         //create 2 sets of 8 digit random numbers and concat together in string
                         //(done in 2 sets to avoid long integer and keep int)
@@ -322,12 +324,15 @@ namespace CAA_Event_Management.Utilities
                     attendees.Clear();
 
                     //loop to create records for Beef Jerky Invitational(non member event)
+                    //50 total records (20 unique members, 20 unique non members, 5 duplicate members, 5 duplicate non members)
                     #region loop for Non-Member exclusive Event w/members, non-members, and a few duplicates
                     
                     //get eventId for the event we are using
                     string eventid = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
 
+                    //******
                     //20 member records with unique membership numbers
+                    //******
                     for (int i = 0; i < 20; i++)
                     {
                         //create 2 sets of 8 digit random numbers and concat together in string
@@ -361,7 +366,9 @@ namespace CAA_Event_Management.Utilities
 
                     attendees.Clear();
 
+                    //******
                     //20 non member records with unique phone numbers
+                    //******
                     for (int i = 0; i < 20; i++)
                     {
                         //create phone number
@@ -393,88 +400,71 @@ namespace CAA_Event_Management.Utilities
 
                     attendees.Clear();
 
+                    //******
                     //5 duplicate members (duplicate membership number especially)
+                    //******    
+                    //get all attendees from the event we are using and that are members
                     attendees = context.AttendanceTrackings.Where(e => e.EventID == eventid).Where(e => e.IsMember == "true").ToList();
 
+                    //loop through list to add 5 records as duplicates
                     for (int i = 0; i < 5; i++)
                     {
+                        //give the attendee record a new memberAttendanceID
                         attendees[i].MemberAttendanceID = Guid.NewGuid().ToString();
+                        //add record to database and save
                         context.AttendanceTrackings.Add(attendees[i]);
                         context.SaveChanges();
                     }
 
                     attendees.Clear();
 
+                    //******
                     //5 duplicate non members (duplicate phone number especially)
+                    //******
+                    //get all attendees from event we are using that are non members
                     attendees = context.AttendanceTrackings.Where(e => e.EventID == eventid).Where(e => e.IsMember == "false").ToList();
-
+                    
+                    //loop through list to add 5 records as duplicates
                     for (int i = 0; i < 5; i++)
                     {
+                        //give the attendee record a new membershipAttendanceID
                         attendees[i].MemberAttendanceID = Guid.NewGuid().ToString();
+                        //add record to database and save
                         context.AttendanceTrackings.Add(attendees[i]);
                         context.SaveChanges();
                     }
                 }
 
                 #endregion
-                //if (!context.AttendanceTrackings.Any())
-                //{
-                //    context.AttendanceTrackings.AddRange(
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 1,
-                //         FirstName = "Brian",
-                //         LastName = "Culp",
-                //         IsMember = "true",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "1234567898765432",
-                //         PhoneNo = "9055554444"
-
-                //     },
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 1,
-                //         FirstName = "Jon",
-                //         LastName = "Yade",
-                //         IsMember = "false",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "1222267898765432",
-                //         PhoneNo = "9055224444"
-                //     },
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 1,
-                //         FirstName = "Nate",
-                //         LastName = "Smith",
-                //         IsMember = "true",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "1222267555555432",
-                //         PhoneNo = "9055222222"
-                //     },
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 2,
-                //         FirstName = "Oli",
-                //         LastName = "Crroj",
-                //         IsMember = "false",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "1222267898760032",
-                //         PhoneNo = "9055224400"
-                //     },
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 3,
-                //         FirstName = "Max",
-                //         LastName = "Cashmore",
-                //         IsMember = "true",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "0099567898765432",
-                //         PhoneNo = "9999954444"
-                //     });
-                //    context.SaveChanges();
-                //}
-
+                
                 #endregion
+
+                if (context.EventGameUserAnswers.Count() == 0)
+                {
+                    string beefjerky = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
+                    List<AttendanceTracking> beefjerkyAttendees = context.AttendanceTrackings.Where(e => e.EventID == beefjerky).ToList();
+                    bool correct = true;
+                    for(int i=0; i < 10; i++)
+                    {
+
+                        EventGameUserAnswer egua = new EventGameUserAnswer()
+                        {
+                            ID = Guid.NewGuid().ToString(),
+                            EventID = beefjerky,
+                            AttendantID = beefjerkyAttendees[i + 2].MemberAttendanceID,
+                            answerID = 3,
+                            answerWasCorrect = correct,
+                            QuestionID = 1
+                        };
+
+                        context.EventGameUserAnswers.Add(egua);
+                        context.SaveChanges();
+
+                        correct = !correct;
+                    }
+                        
+
+                }
 
                 #region Items
 
@@ -484,19 +474,19 @@ namespace CAA_Event_Management.Utilities
                      new Item
                      {
                          ItemID = Guid.NewGuid().ToString(),
-                         ItemName = "How many people in family?",
+                         ItemName = "How Many People in Family?",
                          ValueType = "Numbers"
                      },
                      new Item
                      {
                          ItemID = Guid.NewGuid().ToString(),
-                         ItemName = "Are you a member?",
+                         ItemName = "Are You a Member?",
                          ValueType = "Yes-No"
                      },
                      new Item
                      {
                          ItemID = Guid.NewGuid().ToString(),
-                         ItemName = "What is your primary car's colour?",
+                         ItemName = "What is your Primary Car's Colour?",
                          ValueType = "Words"
                      }); ;
                     context.SaveChanges();

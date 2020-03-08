@@ -395,10 +395,14 @@ namespace CAA_Event_Management.Utilities
                     attendees.Clear();
 
                     //5 duplicate members (duplicate membership number especially)
-                    for (int i = 0; i <= 5; i++)
-                    {
-                        //attendees = context.AttendanceTrackings.Select();
-                    }
+                    List<AttendanceTracking> duplicates = new List<AttendanceTracking>();
+
+                    attendees = context.AttendanceTrackings.Where(e => e.EventID == eventid).Where(e => e.IsMember == "true").ToList();
+
+                    //for(int i = 0; i <= 5; i++)
+                    //{
+                    //    context.AttendanceTrackings.Add(attendees[])
+                    //}
 
 
                     //5 duplicate non members (duplicate phone number especially)

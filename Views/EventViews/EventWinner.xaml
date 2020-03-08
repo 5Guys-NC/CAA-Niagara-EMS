@@ -1,0 +1,69 @@
+﻿<Page
+    x:Class="CAA_Event_Management.Views.EventViews.EventWinner"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CAA_Event_Management.Views.EventViews"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Pick an Event Winner"
+                   Grid.Row="1"
+                   FontSize="40"
+                   Margin="80,20,20,20"/>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+
+            </Grid.RowDefinitions>
+
+            <RelativePanel Grid.Row="0"
+                        Margin="80,0,0,0">
+                <TextBlock Text="Choose selection options:"
+                           Name="txtSelectionTitle"/>
+                <StackPanel RelativePanel.Below="txtSelectionTitle">
+                    <RadioButton x:Name="rdoAllMembers"
+                             Content="Include all members"
+                             GroupName="AttendantChoice"
+                             IsChecked="True"
+                             Checked="rdoAllMembers_Checked"/>
+                    <RadioButton x:Name="rdoNonMembers"
+                             Content="Only non-members"
+                             GroupName="AttendantChoice"
+                                 Checked="rdoNonMembers_Checked"/>
+                    <RadioButton x:Name="rdoMemberOnly"
+                             Content="CAA Members Only"
+                             GroupName="AttendantChoice"
+                               />
+                            
+                    <CheckBox x:Name="ckbOnlyQuizPlayers"
+                          Content="Only Include Quiz Players"/>
+                </StackPanel>
+            </RelativePanel>
+
+            <RelativePanel Grid.Row="1">
+                <Button x:Name="btnChooseWinner"
+                    Content="Chose a Winner"
+                    Grid.Row="1"
+                    Margin="80,0,0,0"
+                        Click="btnChooseWinner_Click"/>
+                <TextBlock x:Name="txtWinnerInfo"
+                       Text="Winner Details:"
+                       FontSize="25"
+                       Margin="20,0,0,0"
+                       RelativePanel.RightOf="btnChooseWinner"/>
+            </RelativePanel>
+        </Grid>
+    </Grid>
+</Page>

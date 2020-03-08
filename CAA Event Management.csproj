@@ -190,6 +190,9 @@
     <Compile Include="Views\EventViews\EventStartView.xaml.cs">
       <DependentUpon>EventStartView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EventViews\EventWinner.xaml.cs">
+      <DependentUpon>EventWinner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EventViews\Surveys.xaml.cs">
       <DependentUpon>Surveys.xaml</DependentUpon>
     </Compile>
@@ -266,6 +269,10 @@
     <Page Include="Views\EventViews\EventStartView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EventViews\EventWinner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EventViews\Surveys.xaml">
       <Generator>MSBuild:Compile</Generator>

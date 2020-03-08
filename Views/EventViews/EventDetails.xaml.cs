@@ -71,13 +71,11 @@ namespace CAA_Event_Management.Views.EventViews
             //Initial EventItem List Preparation Methods
             FillListOfEventItemDetails();
             InitialDeterminationOfEventItemAssignment();
+            SetTimes();
 
             //General Fill Methods
             FillGameField();
             FillSurveySelectionLists();
-
-            SetTimes();
-
         }
 
         private void SetTimes()

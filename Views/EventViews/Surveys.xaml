@@ -184,7 +184,7 @@
                     <GridView Name="gvAvailableQuestions"
                   Background="#5291bf"
                   BorderBrush="#0d4e97"
-                  BorderThickness="2"
+                  BorderThickness="3"
                   CornerRadius="0,20,20,0"
                   Grid.Row="2"
                   HorizontalAlignment="Left"

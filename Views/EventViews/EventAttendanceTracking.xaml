@@ -286,7 +286,7 @@
                             HorizontalAlignment="Center"
                             Margin="0,25,0,0"
                             Style="{StaticResource actionButtonStyle}"
-                            Visibility="Collapsed"
+                            Visibility="Visible"
                             Click="btnSubmit_Click"/>
 
                     <!--<Button Name="btnSaveSurvey" Content="Save Response(s)" Grid.Row="6" Click="btnSaveSurvey_Click" />-->

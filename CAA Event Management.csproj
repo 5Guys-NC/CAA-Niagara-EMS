@@ -177,17 +177,11 @@
     <Compile Include="Views\EventViews\CAAEvents.xaml.cs">
       <DependentUpon>CAAEvents.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EventViews\CreateSurveyQuestion.xaml.cs">
-      <DependentUpon>CreateSurveyQuestion.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\EventViews\EventAttendanceTracking.xaml.cs">
       <DependentUpon>EventAttendanceTracking.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EventViews\EventDetails.xaml.cs">
       <DependentUpon>EventDetails.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EventViews\EventItemView.xaml.cs">
-      <DependentUpon>EventItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EventViews\EventStartView.xaml.cs">
       <DependentUpon>EventStartView.xaml</DependentUpon>
@@ -261,19 +255,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\EventViews\CreateSurveyQuestion.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\EventViews\EventAttendanceTracking.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\EventViews\EventDetails.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\EventViews\EventItemView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

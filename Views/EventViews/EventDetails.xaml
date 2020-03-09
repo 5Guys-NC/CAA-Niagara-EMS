@@ -260,17 +260,28 @@
                              DisplayMemberPath="Title"
                              SelectionChanged="lstAvailableQuizzes_SelectionChanged"/>
 
-                    <TextBlock x:Name="tbChosenQuiz"
+                    <RelativePanel Grid.ColumnSpan="2"
+                                   Grid.Row="8"
+                                   HorizontalAlignment="Center">
+                        <TextBlock x:Name="tbChosenQuiz"
                                FontSize="16"
                                FontWeight="Bold"
                                Foreground="#000"
-                               Grid.ColumnSpan="2"
-                               Grid.Row="8"
-                               HorizontalAlignment="Center"
+                               
                                Text="Selected Quiz: None" 
                                TextWrapping="Wrap"
                                Grid.Column="0"/>
-
+                        <Button x:Name="btnClearQuiz"
+                                FontFamily="Segoe MDL2 Assets" 
+                                   FontSize="12" 
+                                   Content="&#xEF2C;"
+                                   RelativePanel.RightOf="tbChosenQuiz"
+                                   
+                                   Margin="10,0,0,0"
+                                   Visibility="Collapsed"
+                                Click="btnClearQuiz_Click"/>
+                    </RelativePanel>
+                
                     <RelativePanel Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,30,0,0">
                         <!--<Button x:Name="btnDelete" Content="Delete" RelativePanel.LeftOf="btnSave"
                         Click="btnDelete_Click" Margin="6,6,0,6" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource ButtonStyle}" />-->

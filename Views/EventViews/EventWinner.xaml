@@ -36,12 +36,11 @@
                     <RadioButton x:Name="rdoAllMembers"
                              Content="All Attendants"
                              GroupName="AttendantChoice"
-                             IsChecked="True"
-                             Checked="rdoAllMembers_Checked"/>
+                             />
                     <RadioButton x:Name="rdoNonMembers"
                              Content="Non-Members Only"
                              GroupName="AttendantChoice"
-                                 Checked="rdoNonMembers_Checked"/>
+                                />
                     <RadioButton x:Name="rdoMemberOnly"
                              Content="CAA Members Only"
                              GroupName="AttendantChoice"

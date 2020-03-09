@@ -72,17 +72,14 @@ namespace CAA_Event_Management.Views.EventViews
             FillListOfEventItemDetails();
             InitialDeterminationOfEventItemAssignment();
             SetTimes();
+            CheckForSelectedQuiz();
 
             //General Fill Methods
             FillGameField();
             FillSurveySelectionLists();
-            SetEventStartDateFormat();
         }
 
-        private void SetEventStartDateFormat()
-        {
 
-        }
 
         private void SetTimes()
         {
@@ -104,7 +101,7 @@ namespace CAA_Event_Management.Views.EventViews
                 else start = start.Substring(0, 5);
             }
 
-            if (end.Substring(start.IndexOf(" ")+1) == "PM")
+            if (end.Substring(end.IndexOf(" ")+1) == "PM")
             {
                 int newTime = Convert.ToInt32(end.Substring(0, end.IndexOf(":"))) + 12;
                 if (newTime == 24) end = "00" + end.Substring(end.IndexOf(":") , 3);
@@ -280,13 +277,18 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void CheckForSelectedQuiz()
         {
-            if (view.QuizID == null) tbChosenQuiz.Text = "Selected Quiz: None";
+            if (view.QuizID == null)
+            {
+                tbChosenQuiz.Text = "Selected Quiz: None";
+                btnClearQuiz.Visibility = Visibility.Collapsed;
+            }
             else
             {
                 try
                 {
-                    //var quiz = gameRepository.GetAGame((int)view.QuizID);
-                    //tbChosenQuiz.Text = "Selected Quiz: " + quiz.Title;
+                    var quiz = gameRepository.GetGame((int)view.QuizID);
+                    tbChosenQuiz.Text = "Selected Quiz: " + quiz.Title;
+                    btnClearQuiz.Visibility = Visibility.Visible;
                 }
                 catch
                 {
@@ -571,6 +573,12 @@ namespace CAA_Event_Management.Views.EventViews
         {
             var choosenGame = (Game)lstAvailableQuizzes.SelectedItem;
             view.QuizID = choosenGame.ID;
+            CheckForSelectedQuiz();
+        }
+
+        private void btnClearQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            view.QuizID = null;
             CheckForSelectedQuiz();
         }
     }

@@ -45,7 +45,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void FillDropDown(int check)
         {
-            DateTime now = DateTime.Today.AddDays(1);
+            DateTime now = DateTime.Today.AddDays(-1);
 
             try
             {

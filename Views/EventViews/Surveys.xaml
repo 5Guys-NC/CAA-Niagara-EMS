@@ -172,19 +172,21 @@
                             RelativePanel.RightOf="btnMostUsedQuestions"
                             Width="135"
                             Click="btnAlphabeticalQuestions_Click"/>
+                    
+            <!--Edit mode grid view-->
                     <GridView Name="gvAvailableQuestions"
-                  Background="#5291bf"
-                  BorderBrush="#0d4e97"
-                  BorderThickness="3"
-                  CornerRadius="0,20,20,0"
-                  Grid.Row="2"
-                  HorizontalAlignment="Left"
-                  IsItemClickEnabled="True"
-                  Margin="0,50,0,0"
-                  MinHeight="450"
-                  MinWidth="400"
-                  Padding="15">
-                    <GridView.ItemTemplate>
+                              Background="#5291bf"
+                              BorderBrush="#0d4e97"
+                              BorderThickness="3"
+                              CornerRadius="0,20,20,0"
+                              Grid.Row="2"
+                              HorizontalAlignment="Left"
+                              IsItemClickEnabled="True"
+                              Margin="0,50,0,0"
+                              MinHeight="450"
+                              MinWidth="400"
+                              Padding="15"> 
+                        <GridView.ItemTemplate>
                         <DataTemplate x:Name="dtSurveys" x:DataType="data:Item">
                             <RelativePanel Name="rpSurveys" Width="320" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
                                     <TextBlock Name="txtSurveyQuestions" Foreground="#1b3e6e" Margin="5,0,40,0" TextWrapping="WrapWholeWords">                                     

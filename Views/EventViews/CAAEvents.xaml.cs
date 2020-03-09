@@ -129,6 +129,9 @@ namespace CAA_Event_Management.Views.EventViews
                 gdvEditEvents.Visibility = Visibility.Collapsed;
                 gdvDeleteEvents.Visibility = Visibility.Visible;
                 btnDeleteMode.Content = "DELETE MODE (ON)";
+                SolidColorBrush toRed = new SolidColorBrush(Windows.UI.Colors.Red);
+                btnDeleteMode.Foreground = toRed;
+                btnDeleteMode.BorderBrush = toRed;
                 FillDropDown(CurrentOrPast);
             }
             else if(btnDeleteMode.Content.ToString() == "DELETE MODE (ON)")
@@ -136,6 +139,9 @@ namespace CAA_Event_Management.Views.EventViews
                 gdvEditEvents.Visibility = Visibility.Visible;
                 gdvDeleteEvents.Visibility = Visibility.Collapsed;
                 btnDeleteMode.Content = "DELETE MODE (OFF)";
+                SolidColorBrush toBlue = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 27, 62, 110));
+                btnDeleteMode.Foreground = toBlue;
+                btnDeleteMode.BorderBrush = toBlue;
                 FillDropDown(CurrentOrPast);
             }
         }

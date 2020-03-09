@@ -310,6 +310,12 @@ namespace CAA_Event_Management
             txtTitle.Text = newTitle;
         }
 
+        internal void HideTheNavBar(bool isVisible)
+        {
+            if (isVisible == false) nvNav.Visibility = Visibility.Collapsed;
+            else nvNav.Visibility = Visibility.Visible;
+        }
+
         #endregion
     }
 }

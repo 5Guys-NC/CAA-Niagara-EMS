@@ -76,6 +76,12 @@ namespace CAA_Event_Management.Views.EventViews
             //General Fill Methods
             FillGameField();
             FillSurveySelectionLists();
+            SetEventStartDateFormat();
+        }
+
+        private void SetEventStartDateFormat()
+        {
+
         }
 
         private void SetTimes()
@@ -87,11 +93,11 @@ namespace CAA_Event_Management.Views.EventViews
 
             if (start.Substring(start.IndexOf(" ") + 1) == "PM")
             {
-                int newTime = Convert.ToInt32(start.Substring(0, 2)) + 12;
-                if (newTime == 24) start = "00" + start.Substring(2, 3);
-                else start = newTime.ToString() + start.Substring(2, 3);
+                int newTime = Convert.ToInt32(start.Substring(0, start.IndexOf(":"))) + 12;
+                if (newTime == 24) start = "00" + start.Substring(start.IndexOf(":"), 3);
+                else start = newTime.ToString() + start.Substring(start.IndexOf(":"), 3);
             }
-            else if (start.Substring(0, 2) == "12") start = "00" + start.Substring(2, 3);
+            else if (start.Substring(0, 2) == "12") start = "00" + start.Substring(start.IndexOf(":"), 3);
             else
             {
                 if (start.Substring(4,1) == ":") start = start.Substring(0, 4);
@@ -100,11 +106,11 @@ namespace CAA_Event_Management.Views.EventViews
 
             if (end.Substring(start.IndexOf(" ")+1) == "PM")
             {
-                int newTime = Convert.ToInt32(end.Substring(0, 2)) + 12;
-                if (newTime == 24) end = "00" + end.Substring(2, 3);
-                else end = newTime.ToString() + end.Substring(2, 3);
+                int newTime = Convert.ToInt32(end.Substring(0, end.IndexOf(":"))) + 12;
+                if (newTime == 24) end = "00" + end.Substring(end.IndexOf(":") , 3);
+                else end = newTime.ToString() + end.Substring(end.IndexOf(":"), 3);
             }
-            else if (end.Substring(0, 2) == "12") end = "00" + end.Substring(2, 3);
+            else if (end.Substring(0, 2) == "12") end = "00" + end.Substring(end.IndexOf(":"), 3);
             else
             {
                 if (end.Substring(4,1) == ":") end = end.Substring(0, 4);
@@ -499,9 +505,11 @@ namespace CAA_Event_Management.Views.EventViews
             }
             tempEventNameString = tempEventNameString.Trim();
 
-            if (tempEventNameString.Substring(tempEventNameString.Length - 4) != view.EventStart.ToString().Substring(0, 4))
+            var startString = string.Format("{0:yyyy-MM-dd}", view.EventStart);
+
+            if (tempEventNameString.Substring(tempEventNameString.Length - 4) != startString.Substring(0, 4))
             {
-                tempEventNameString += " " + view.EventStart.ToString().Substring(0, 4);
+                tempEventNameString += " " + startString.Substring(0, 4);
             }
             view.DisplayName = tempEventNameString;
 
@@ -511,10 +519,10 @@ namespace CAA_Event_Management.Views.EventViews
             string eventAbbreviateName = "";
             foreach (string x in eventDisplayNameArray) eventAbbreviateName += x.Substring(0, 1).ToUpper();
             eventAbbreviateName = eventAbbreviateName.Remove(eventAbbreviateName.Length - 1, 1);
-            eventAbbreviateName += view.EventStart.ToString().Substring(5, 2) + view.EventStart.ToString().Substring(0, 4);
+            eventAbbreviateName += startString.Substring(5, 2) + startString.Substring(0, 4);
             if (eventAbbreviateName.Length > 20)
             {
-                Jeeves.ShowMessage("Error", "Please shorten the number of words and characters (like '-') in your event name");
+                Jeeves.ShowMessage("Error", "Please reduce the number of words or hyphens in your event name");
                 return false;
             }
             view.AbrevEventname = eventAbbreviateName;
@@ -537,10 +545,10 @@ namespace CAA_Event_Management.Views.EventViews
 
         private bool AddEventDatesAndTimes()
         {
-            var startDate = eventStartDate.Date.ToString().Substring(0,10);
+            var startDate = eventStartDate.Date.ToString().Substring(0, eventStartDate.Date.ToString().IndexOf(" "));
             var startTime = tpEventStart.Time.ToString();
 
-            var endDate = cdpEventEnd.Date.ToString().Substring(0, 10);
+            var endDate = cdpEventEnd.Date.ToString().Substring(0, cdpEventEnd.Date.ToString().IndexOf(" "));
             var endTime = tpEventEnd.Time.ToString();
 
             DateTime start = Convert.ToDateTime(startDate + " " + startTime);

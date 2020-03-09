@@ -63,7 +63,7 @@
                     FontSize="25"
                     FontWeight="Bold"
                     Foreground="#eaeaea"                    
-                    Margin="140,60,10,0"
+                    Margin="20,60,10,0"
                     Click="btnCancel_Click"/>
         </RelativePanel>
 
@@ -84,31 +84,40 @@
                 <Grid Name="attendanceDisplayGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
-                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="3,0,0,0"
-                                 VerticalAlignment="Center" Name="memberNumTextBlock" Text="Member Number:" />
-                    <RelativePanel Grid.Row="0"
-                                       Grid.Column="1"
-                                       VerticalAlignment="Center">
+                    <RelativePanel Grid.Row="0"                                 
+                                   BorderBrush="#1b36e6"
+                                   BorderThickness="3"
+                                   Margin="2"
+                                   Padding="30,20">
+                        <TextBlock Name="memberNumTextBlock"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Left" 
+                                   Margin="3,0,5,0"
+                                   RelativePanel.AlignVerticalCenterWithPanel="True"
+                                   VerticalAlignment="Center"  
+                                   Text="Member Number:"/>
                         <TextBox Name="memberNumTextBox" 
                                  Height="30"
                                  MinWidth="200"
                                  MaxLength="200" InputScope="Text" 
                                  Text="{x:Bind tracker.MemberNo, Mode=TwoWay}" 
                                  AcceptsReturn="False"
-                                 RelativePanel.AlignLeftWithPanel="true"
+                                 RelativePanel.RightOf="memberNumTextBlock"
+                                 RelativePanel.AlignBottomWith="memberNumTextBlock"
                                  TextChanged="cardEntryTextBox_TextChanged"/>
                         <TextBlock x:Name="numberError"
                                    FontFamily="Segoe MDL2 Assets" 
@@ -120,11 +129,22 @@
                                    Visibility="Collapsed"/>
                     </RelativePanel>
                     <!--TextCompositionEnded="memberNumTextBox_TextCompositionEnded"-->
-
-                    <TextBlock Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Left"  Margin="3,0,6,0"
-                                 VerticalAlignment="Center"  Name="firstNameTextBlock" Text="First Name:" />
-                    <TextBox Grid.Row="1" Grid.Column="1" Height="30" Name="firstNameTextBox" 
-                                  MaxLength="50" Text="{x:Bind tracker.FirstName, Mode=TwoWay}" AcceptsReturn="True"  InputScope="Text" />
+                    <RelativePanel Grid.Row="1" Margin="0,20,0,0">
+                    <TextBlock Grid.Row="1" 
+                               Grid.Column="0"  
+                               HorizontalAlignment="Left"  
+                               Margin="3,0,6,0"
+                               Name="firstNameTextBlock"
+                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                               Text="First Name:" />
+                    <TextBox Height="30" 
+                             Name="firstNameTextBox" 
+                             MaxLength="50" 
+                             RelativePanel.RightOf="firstNameTextBlock"
+                             RelativePanel.AlignBottomWithPanel="True"
+                             Text="{x:Bind tracker.FirstName, Mode=TwoWay}" 
+                             AcceptsReturn="True"  
+                             InputScope="Text" />
 
                     <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" Margin="3,0,6,0"
                              VerticalAlignment="Center" Name="lastNameBlock" Text="Last Name:" />
@@ -139,12 +159,12 @@
                     <TextBlock Text="Is a Member" Grid.Row="4" Grid.Column="0"  HorizontalAlignment="Left"  Margin="3,0,0,0"
                                  VerticalAlignment="Center" Name="isMembersBlock" />
                     <CheckBox x:Name="isMembersCheck" 
-                                  Content="Yes" 
+                                  Content="Yes (Card Not Available)" 
                                   Grid.Row="4" 
                                   Grid.Column="1" 
                                   Margin="10,0,0,0"/>
 
-
+                     </RelativePanel>
 
                 </Grid>
             </Grid>

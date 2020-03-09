@@ -43,58 +43,18 @@
         <RelativePanel Background="#1b3e6e" Canvas.ZIndex="1" Height="50" VerticalAlignment="Top">
             <TextBlock Name="tbSearch" 
                        FontSize="16"
-                       FontWeight="Bold"/>
-            <!--THIS IS A CONFLICT-->
-                <!--<Button Name="btnCreateEvent" 
-                    Background="Transparent"
-                    Content="Create An Event"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    Margin="140,60,10,0"
-                    Click="NewEvent_Click"/>
-                <Button Name="btnDeleteMode" 
-                    Background="Transparent"
-                    Content="Delete Mode (OFF)"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    RelativePanel.AlignBottomWith="btnCreateEvent"
-                    RelativePanel.RightOf="btnCreateEvent"
-                    Click="btnDeleteMode_Click"/>
-                <Button Name="btnBeginEvent"
-                    Background="#eaeaea"
-                    BorderBrush="#9ab33b"
-                    BorderThickness="3"
-                    Content="BEGIN EVENT"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    RelativePanel.AlignBottomWith="btnDeleteMode"
-                    RelativePanel.RightOf="btnDeleteMode"
-                    Click="btnRegisterAttendance_Click"/>-->
-                    <!--<Button x:Name="btnChooseWinner"
-                            Content="Choose Event Winner"
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="#eaeaea"
-                            RelativePanel.AlignBottomWith="btnBeginEvent"
-                            RelativePanel.RightOf="btnBeginEvent"
-                            Click="btnChooseWinner_Click"/>-->
-            <!--THIS IS A CONFLICT-->
-                    <!--<TextBlock Name="tbSearch" 
-                       FontSize="14"
+                       FontWeight="Bold"
                        Margin="0,10,0,0"
                        RelativePanel.LeftOf="txtSearch"
                        Text="Search Events:" 
-                       Foreground="#eaeaea"/>-->
+                       Foreground="#eaeaea"/>
             <TextBox Name="txtSearch"
                      Background="White"
                      Height="30"
                      Margin="5,5,5,0"
                      RelativePanel.AlignRightWithPanel="True"
-                     Width="150"/> 
-            <!--TextChanged="txtSearch_TextChanged"-->
+                     Width="150"
+                     TextChanged="txtSearch_TextChanged" />
         </RelativePanel>
 
         <ScrollViewer>
@@ -117,32 +77,32 @@
                 <!--Sorting Tabs -->
                 <RelativePanel Name="rpEventsTabs" Grid.Row="2" Margin="0,20,0,0" HorizontalAlignment="Center">
                     <Button Name="btnCurrentEvents" 
-                    Background="#5291bf" 
-                    BorderBrush="#0d4e97" 
-                    BorderThickness="3,3,3,0"
-                    Content="Current"
-                    CornerRadius="20,20,0,0" 
-                    FontSize="20"  
-                    Foreground="#eaeaea"
-                    Height="50"
-                    Margin="0,3,-10,0"
-                    Width="105"
-                    Canvas.ZIndex="1"
-                    Click="btnCurrentEvents_Click"/>
+                        Background="#5291bf" 
+                        BorderBrush="#0d4e97" 
+                        BorderThickness="3,3,3,0"
+                        Content="Current"
+                        CornerRadius="20,20,0,0" 
+                        FontSize="20"  
+                        Foreground="#eaeaea"
+                        Height="50"
+                        Margin="0,3,-10,0"
+                        Width="105"
+                        Canvas.ZIndex="1"
+                        Click="btnCurrentEvents_Click"/>
                     <Button Name="btnPastEvents" 
-                    Background="#5291bf "
-                    BorderBrush="#0d4e97"
-                    BorderThickness="3,3,3,0"
-                    Content="Past"
-                    CornerRadius="20,20,0,0"
-                    FontSize="20"
-                    Foreground="#eaeaea"
-                    RelativePanel.RightOf="btnCurrentEvents" 
-                    RelativePanel.AlignBottomWith="btnCurrentEvents"
-                    Height="50" 
-                    Width="105"
-                    Canvas.ZIndex="0"
-                    Click="btnPastEvents_Click"/>
+                        Background="#5291bf "
+                        BorderBrush="#0d4e97"
+                        BorderThickness="3,3,3,0"
+                        Content="Past"
+                        CornerRadius="20,20,0,0"
+                        FontSize="20"
+                        Foreground="#eaeaea"
+                        RelativePanel.RightOf="btnCurrentEvents" 
+                        RelativePanel.AlignBottomWith="btnCurrentEvents"
+                        Height="50" 
+                        Width="105"
+                        Canvas.ZIndex="0"
+                        Click="btnPastEvents_Click"/>
 
                     <!--Edit events grid view-->
                     <GridView Name="gdvEditEvents"
@@ -205,7 +165,7 @@
                       Visibility="Collapsed">
                         <GridView.ItemTemplate>
                             <DataTemplate x:Name="dtDeleteEvents" x:DataType="data:Event">
-                                <RelativePanel Name="rpEvents" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" MinHeight="80" Margin="10">
+                                <RelativePanel Name="rpEvents" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" MinHeight="120" Margin="10">
                                     <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,40,0">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"

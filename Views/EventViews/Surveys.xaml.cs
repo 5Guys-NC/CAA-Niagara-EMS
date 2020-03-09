@@ -56,22 +56,31 @@ namespace CAA_Event_Management.Views.EventViews
         private void btnAddSurveyQuestion_Click(object sender, RoutedEventArgs e)
         {
             ScreenLockDown();
-            tbkEnterQuestion.Visibility = Visibility.Visible;
-            txtNewSurveyQuestion.Visibility = Visibility.Visible;
-            tbkDataType.Visibility = Visibility.Visible;
-            cboDataType.Visibility = Visibility.Visible;
+            //tbkEnterQuestion.Visibility = Visibility.Visible;
+            //txtNewSurveyQuestion.Visibility = Visibility.Visible;
+            //tbkDataType.Visibility = Visibility.Visible;
+            //cboDataType.Visibility = Visibility.Visible;
             spQuestion.Visibility = Visibility.Visible;
             spDataType.Visibility = Visibility.Visible;
             
             addOrEdit = 1;
         }
 
+
+
+        //App userInfo = (App)Application.Current;
+        //    thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
+        //    thisSelectedItem.LastModifiedDate = DateTime.Now;
+
+
         private async void btnEditMultipurpose_Click(object sender, RoutedEventArgs e)
         {
             addOrEdit = 2;
 
-            //Item selectedItem = (Item)lstPreMadeQuestions.SelectedItem;
-            selectedItem = (Item)gvAvailableQuestions.SelectedItem;
+            string selected = Convert.ToString(((Button)sender).DataContext);
+            selectedItem = itemRespository.GetItem(selected.ToString());
+
+            //selectedItem = (Item)gvAvailableQuestions.SelectedItem;
             string warning = "Please exercise caution when editing this question. Do you wish to continue?";
 
             if (selectedItem != null)
@@ -80,6 +89,9 @@ namespace CAA_Event_Management.Views.EventViews
                 txtNewSurveyQuestion.Visibility = Visibility.Visible;
                 tbkDataType.Visibility = Visibility.Visible;
                 cboDataType.Visibility = Visibility.Visible;
+
+
+
                 var result = await Jeeves.ConfirmDialog("Warning", warning);
 
                 if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
@@ -89,6 +101,10 @@ namespace CAA_Event_Management.Views.EventViews
                     tbkDataType.Visibility = Visibility.Visible;
                     cboDataType.Visibility = Visibility.Visible;
                     rpSaveAndCancel.Visibility = Visibility.Visible;
+
+                    spQuestion.Visibility = Visibility.Visible;
+                    spDataType.Visibility = Visibility.Visible;
+
                     BeginUpdate(selectedItem);
                 }
                 else if (result == ContentDialogResult.Secondary)
@@ -173,6 +189,9 @@ namespace CAA_Event_Management.Views.EventViews
                 btnDelete.Content = "Delete Mode (ON)";
                 rpSurvey.Visibility = Visibility.Collapsed;
                 rpSurveyDeleteMode.Visibility = Visibility.Visible;
+                SolidColorBrush toRed = new SolidColorBrush(Windows.UI.Colors.Red);
+                btnDelete.Foreground = toRed;
+                btnDelete.BorderBrush = toRed;
                 FillFields(displayChoice);
             }
             else
@@ -180,6 +199,9 @@ namespace CAA_Event_Management.Views.EventViews
                 btnDelete.Content = "Delete Mode (OFF)";
                 rpSurvey.Visibility = Visibility.Visible;
                 rpSurveyDeleteMode.Visibility = Visibility.Collapsed;
+                SolidColorBrush toBlue = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 27, 62, 110));
+                btnDelete.Foreground = toBlue;
+                btnDelete.BorderBrush = toBlue;
                 FillFields(displayChoice);
             }
         }
@@ -187,16 +209,23 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            string selected = Convert.ToString(((Button)sender).DataContext);
-            //Item thisSelectedEvent = new Item();
-            Item thisSelectedItem = itemRespository.GetItem(selected.ToString());
+            try
+            {
+                string selected = Convert.ToString(((Button)sender).DataContext);
+                //Item thisSelectedEvent = new Item();
+                Item thisSelectedItem = itemRespository.GetItem(selected.ToString());
 
-            App userInfo = (App)Application.Current;
-            thisSelectedItem.IsDeleted = true;
-            thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
-            thisSelectedItem.LastModifiedDate = DateTime.Now;
-            itemRespository.DeleteUpdateItem(thisSelectedItem);
-            Frame.Navigate(typeof(Surveys), null, new SuppressNavigationTransitionInfo());
+                App userInfo = (App)Application.Current;
+                thisSelectedItem.IsDeleted = true;
+                thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
+                thisSelectedItem.LastModifiedDate = DateTime.Now;
+                itemRespository.DeleteUpdateItem(thisSelectedItem);
+                Frame.Navigate(typeof(Surveys), null, new SuppressNavigationTransitionInfo());
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Problem with deleting the survey question");
+            }
         }
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)

@@ -46,10 +46,12 @@ namespace CAA_Event_Management.Views.EventViews
         {
             currentEvent = (Event)e.Parameter;
             ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName(currentEvent.DisplayName.ToUpper());
+            ((Window.Current.Content as Frame).Content as MainPage).HideTheNavBar(false);
             this.DataContext = tracker;
             tracker.EventID = currentEvent.EventID;
             tracker.ArrivalTime = DateTime.Now;
             BuildQuestions();
+
         }
 
         #endregion
@@ -69,6 +71,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
+            ((Window.Current.Content as Frame).Content as MainPage).HideTheNavBar(true);
             App userCheck = (App)Application.Current;
 
             if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView),new SuppressNavigationTransitionInfo());

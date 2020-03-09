@@ -93,8 +93,8 @@
                                 <TextBox Header="User Name:" x:Name="txtUserName" Margin="0,0,0,5"/>
                                 <PasswordBox Header="Password:" x:Name="txtPassword" KeyDown="txtPassword_KeyDown"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <Button x:Name="btnSignIn" Content="Sign In" Height="30" Style="{StaticResource actionButtonStyle}" MinWidth="120" Click="BtnSignIn_Click"/>
-                                    <Button x:Name="btnCancel" Content="Cancel" Height="30" Margin="20" Style="{StaticResource secondaryButtonStyle}" MinWidth="120" Click="btnCancel_Click"/>
+                                    <Button x:Name="btnSignIn" Content="SIGN IN" Height="30" Style="{StaticResource actionButtonStyle}" MinWidth="120" Click="BtnSignIn_Click"/>
+                                    <Button x:Name="btnCancel" Content="CANCEL" Height="30" Margin="20" Style="{StaticResource secondaryButtonStyle}" MinWidth="120" Click="btnCancel_Click"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

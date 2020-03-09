@@ -69,7 +69,7 @@ namespace CAA_Event_Management.Views.EventViews
             else if (refreshScreen) Frame.Navigate(typeof(PlayerGameView), (Event)currentEvent);
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             ((Window.Current.Content as Frame).Content as MainPage).HideTheNavBar(true);
             App userCheck = (App)Application.Current;
@@ -240,38 +240,58 @@ namespace CAA_Event_Management.Views.EventViews
         {
             if (count == 1)
             {
-                tbkQuestionOne.Visibility = Visibility;
+                rpQuestionOne.Visibility = Visibility;
 
                 tbkQuestionOne.Text = question.questPhrase;
-                if (question.questDataType.Contains("Yes")) ckbAnswerOne.Visibility = Visibility;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerThree.Visibility = Visibility;
+                    txtAnswerThree.Visibility = Visibility.Collapsed;
+                }
                 else txtAnswerOne.Visibility = Visibility;
             }
             else if (count == 2)
             {
-                tbkQuestionTwo.Visibility = Visibility;
+                rpQuestionTwo.Visibility = Visibility;
                 tbkQuestionTwo.Text = question.questPhrase;
-                if (question.questDataType.Contains("Yes")) ckbAnswerTwo.Visibility = Visibility;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerTwo.Visibility = Visibility;
+                    txtAnswerTwo.Visibility = Visibility.Collapsed;
+                }
                 else txtAnswerTwo.Visibility = Visibility;
             }
             else if (count == 3)
             {
-                tbkQuestionThree.Visibility = Visibility;
+                rpQuestionThree.Visibility = Visibility;
                 tbkQuestionThree.Text = question.questPhrase;
-                if (question.questDataType.Contains("Yes")) ckbAnswerThree.Visibility = Visibility;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerThree.Visibility = Visibility;
+                    txtAnswerThree .Visibility = Visibility.Collapsed;
+                }
                 else txtAnswerThree.Visibility = Visibility;
             }
             else if (count == 4)
             {
-                tbkQuestionFour.Visibility = Visibility;
+                rpQuestionFour.Visibility = Visibility;
                 tbkQuestionFour.Text = question.questPhrase;
-                if (question.questDataType.Contains("Yes")) ckbAnswerFour.Visibility = Visibility;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerThree.Visibility = Visibility;
+                    txtAnswerThree.Visibility = Visibility.Collapsed;
+                }
                 else txtAnswerFour.Visibility = Visibility;
             }
             else if (count == 5)
             {
-                tbkQuestionFive.Visibility = Visibility;
+                rpQuestionFive.Visibility = Visibility;
                 tbkQuestionFive.Text = question.questPhrase;
-                if (question.questDataType.Contains("Yes")) ckbAnswerFive.Visibility = Visibility;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerThree.Visibility = Visibility;
+                    txtAnswerThree.Visibility = Visibility.Collapsed;
+                }
                 else txtAnswerFive.Visibility = Visibility;
             }
         }

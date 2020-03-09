@@ -36,7 +36,7 @@
                     <RadioButton x:Name="rdoAllMembers"
                              Content="All Attendants"
                              GroupName="AttendantChoice"
-                             />
+                             IsChecked="True"/>
                     <RadioButton x:Name="rdoNonMembers"
                              Content="Non-Members Only"
                              GroupName="AttendantChoice"

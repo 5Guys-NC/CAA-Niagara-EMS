@@ -249,14 +249,14 @@ namespace CAA_Event_Management.Views.EventViews
                 Jeeves.ShowMessage("Error", "Please re-swip card");
             }
         }
-        private void Global_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
-        {
+        //private void Global_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
+        //{
 
-            if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
-            {
-                e.Handled = false;
-            }
-        }
+        //    if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
+        //    {
+        //        e.Handled = false;
+        //    }
+        //}
 
 
         #endregion

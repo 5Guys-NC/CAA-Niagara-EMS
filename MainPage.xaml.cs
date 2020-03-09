@@ -214,7 +214,7 @@ namespace CAA_Event_Management
 
             if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
             {
-                e.Handled = useEnter;
+                e.Handled = true;
             }
         }
 

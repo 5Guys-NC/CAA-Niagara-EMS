@@ -45,6 +45,7 @@
                               Foreground="#eaeaea"/>
             <TextBox x:Name="txtSearchBox"
                              Background="White"
+                             FontSize="12"
                              Height="26"
                              Margin="5,5,2,0"
                              RelativePanel.AlignRightWithPanel="True"

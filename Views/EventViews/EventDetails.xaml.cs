@@ -90,7 +90,9 @@ namespace CAA_Event_Management.Views.EventViews
 
             if (start.Substring(start.IndexOf(" ") + 1) == "PM")
             {
-                int newTime = Convert.ToInt32(start.Substring(0, start.IndexOf(":"))) + 12;
+                int newTime = Convert.ToInt32(start.Substring(0, start.IndexOf(":")));
+                if (newTime > 12) newTime += 12;
+
                 if (newTime == 24) start = "00" + start.Substring(start.IndexOf(":"), 3);
                 else start = newTime.ToString() + start.Substring(start.IndexOf(":"), 3);
             }
@@ -103,7 +105,9 @@ namespace CAA_Event_Management.Views.EventViews
 
             if (end.Substring(end.IndexOf(" ")+1) == "PM")
             {
-                int newTime = Convert.ToInt32(end.Substring(0, end.IndexOf(":"))) + 12;
+                int newTime = Convert.ToInt32(end.Substring(0, end.IndexOf(":")));
+                if (newTime > 12) newTime += 12;
+                
                 if (newTime == 24) end = "00" + end.Substring(end.IndexOf(":") , 3);
                 else end = newTime.ToString() + end.Substring(end.IndexOf(":"), 3);
             }

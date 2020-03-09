@@ -55,13 +55,13 @@ namespace CAA_Event_Management.Views.Games
             Answer add = new Answer();
             add.Text = txtCreateNewAnswer.Text;
             answerRepo.AddAnswer(add);
-            btnCreateNewQuestion.Flyout.Hide();
+            btnCreateNewAnswer.Flyout.Hide();
             PopulateAnswerList();
         }
 
         private void BtnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            btnCreateNewQuestion.Flyout.Hide();
+            btnCreateNewAnswer.Flyout.Hide();
         }
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)

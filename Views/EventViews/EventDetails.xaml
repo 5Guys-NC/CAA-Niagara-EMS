@@ -272,7 +272,9 @@
                                TextWrapping="Wrap"
                                Grid.Column="0"/>
                         <Button x:Name="btnClearQuiz"
-                                FontFamily="Segoe MDL2 Assets" 
+                                Background="#eaeaea"
+                                FontFamily="Segoe MDL2 Assets"
+                                Foreground="Red"
                                    FontSize="12" 
                                    Content="&#xEF2C;"
                                    RelativePanel.RightOf="tbChosenQuiz"

@@ -6,7 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{StaticResource BackgroundColor}">
+    Background="{StaticResource BackgroundColor}"
+    FontFamily="{ThemeResource ContentControlThemeFontFamily}">
 <!--****************************
     Created By: Max Cashmore
     Edited By: Brian Culp
@@ -79,6 +80,7 @@
                     BorderThickness="3,3,3,0"
                     CornerRadius="20,20,0,0" 
                     FontSize="20"
+                            FontWeight="Bold"
                     Foreground="#eaeaea"
                     Height="50"
                     Margin="0,3,0,0"
@@ -102,16 +104,22 @@
                       Padding="15">
                             <GridView.ItemTemplate>
                                 <DataTemplate  x:DataType="data:GameModel">
-                                    <StackPanel HorizontalAlignment="Center" Background="#f79326" Margin="10" MinHeight="180" MaxWidth="300" BorderBrush="White" BorderThickness="3">
-                                        <Button Name="btnRemove" 
-                                Background="#f79326" 
+                                    <RelativePanel HorizontalAlignment="Center" Background="#eaeaea" Margin="10" MinHeight="180" MaxWidth="300" BorderBrush="White" BorderThickness="3">
+                                    <TextBlock Text="{x:Bind QuestionText}" FontSize="18" TextWrapping="WrapWholeWords" Margin="5,0,45,0"/>
+                                    <Button Name="btnRemove" 
+                                Background="#eaeaea" 
+                                            FontSize="20"
+                                            FontWeight="Bold"
                                 HorizontalAlignment="Right" 
                                 VerticalAlignment="Top"  
                                 DataContext="{x:Bind ID}" 
                                 FontFamily="Segoe MDL2 Assets" 
-                                Foreground="DarkRed" Content="&#xE74D;" 
+                                Foreground="Red" 
+                                            RelativePanel.AlignTopWithPanel="True"
+                                            RelativePanel.AlignRightWithPanel="True"
+                                Content="&#xE74D;" 
                                 Style="{StaticResource AddRemoveStyle}">
-                                            <Button.Flyout>
+                                            <!--<Button.Flyout>
                                                 <Flyout LightDismissOverlayMode="On">
                                                     <Flyout.FlyoutPresenterStyle>
                                                         <Style TargetType="FlyoutPresenter"/>
@@ -119,16 +127,16 @@
                                                     <StackPanel>
                                                         <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" Margin="0,0,0,10" HorizontalAlignment="Center" Text="Are you sure you want to delete the game?"/>
                                                         <StackPanel Orientation="Horizontal">
-                                                            <Button Name="btnConfirmRemove" Style="{StaticResource ButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
-                                                            <Button Name="btnCancel" Style="{StaticResource ButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                                            <Button Name="btnConfirmRemove" Style="{StaticResource actionButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
+                                                            <Button Name="btnCancel" Style="{StaticResource secondaryButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
                                                         </StackPanel>
                                                     </StackPanel>
                                                 </Flyout>
-                                            </Button.Flyout>
+                                            </Button.Flyout>-->
                                         </Button>
                                         <!--<TextBlock Text="{x:Bind Phrase}" 
                                       FontSize="16" TextWrapping="WrapWholeWords" Foreground="#1b3e6e" FontWeight="Bold" Margin="10,0,10,20" VerticalAlignment="Bottom"/>-->
-                                    </StackPanel>
+                                    </RelativePanel>
                                 </DataTemplate>
                             </GridView.ItemTemplate>
                         </GridView>

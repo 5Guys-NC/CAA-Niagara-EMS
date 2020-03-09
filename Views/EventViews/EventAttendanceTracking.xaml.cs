@@ -176,16 +176,16 @@ namespace CAA_Event_Management.Views.EventViews
             if (entry.Length > 76 && entry.EndsWith("?") && entry.IndexOf("%") == 0)
             {
                 memberNumTextBox.Text = entry.Substring(2, 16);
-                //int firstName = entry.IndexOf("/");
-                //int lastName = entry.IndexOf("^");
+                int firstName = entry.IndexOf("/");
+                int lastName = entry.IndexOf("^");
 
-                //string firstNamePlusRemainingString = entry.Substring(firstName + 1);
-                ////inspired by: https://stackoverflow.com/questions/24028945/find-first-character-in-string-that-is-a-letter
-                //string firstNameLetters = new string(firstNamePlusRemainingString.TakeWhile(Char.IsLetter).ToArray());
+                string firstNamePlusRemainingString = entry.Substring(firstName + 1);
+                //inspired by: https://stackoverflow.com/questions/24028945/find-first-character-in-string-that-is-a-letter
+                string firstNameLetters = new string(firstNamePlusRemainingString.TakeWhile(Char.IsLetter).ToArray());
 
-                //firstNameTextBox.Text = firstNameLetters.Substring(0, 1).ToUpper() + firstNameLetters.Substring(1).ToLower(); ;
-                //lastNameTextBox.Text = entry.Substring(lastName + 1, 1) + entry.Substring(lastName + 2, firstName - lastName - 2).ToLower();
-                //isMembersCheck.IsChecked = true;
+                firstNameTextBox.Text = firstNameLetters.Substring(0, 1).ToUpper() + firstNameLetters.Substring(1).ToLower(); ;
+                lastNameTextBox.Text = entry.Substring(lastName + 1, 1) + entry.Substring(lastName + 2, firstName - lastName - 2).ToLower();
+                isMembersCheck.IsChecked = true;
 
                 if (ListOfEID.Count == 0)
                 {
@@ -245,8 +245,8 @@ namespace CAA_Event_Management.Views.EventViews
                 tbkQuestionOne.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
-                    ckbAnswerThree.Visibility = Visibility;
-                    txtAnswerThree.Visibility = Visibility.Collapsed;
+                    ckbAnswerOne.Visibility = Visibility;
+                    txtAnswerOne.Visibility = Visibility.Collapsed;
                 }
                 else txtAnswerOne.Visibility = Visibility;
             }
@@ -278,8 +278,8 @@ namespace CAA_Event_Management.Views.EventViews
                 tbkQuestionFour.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
-                    ckbAnswerThree.Visibility = Visibility;
-                    txtAnswerThree.Visibility = Visibility.Collapsed;
+                    ckbAnswerFour.Visibility = Visibility;
+                    txtAnswerFour.Visibility = Visibility.Collapsed;
                 }
                 else txtAnswerFour.Visibility = Visibility;
             }
@@ -289,8 +289,8 @@ namespace CAA_Event_Management.Views.EventViews
                 tbkQuestionFive.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
-                    ckbAnswerThree.Visibility = Visibility;
-                    txtAnswerThree.Visibility = Visibility.Collapsed;
+                    ckbAnswerFive.Visibility = Visibility;
+                    txtAnswerFive.Visibility = Visibility.Collapsed;
                 }
                 else txtAnswerFive.Visibility = Visibility;
             }

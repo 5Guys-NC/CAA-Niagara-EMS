@@ -150,21 +150,21 @@
                       >
                         <GridView.ItemTemplate>
                             <DataTemplate >
-                                <RelativePanel Width="300" Background="#f79326" BorderBrush="White" BorderThickness="3" Height="100" Margin="10">
-                                    <TextBlock Name ="txtGameTitle" Text="{Binding Text}" 
+                                <RelativePanel Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="100" Margin="10">
+                                    <TextBlock Name ="txtGameTitle" Text="{Binding Text}"  TextWrapping="WrapWholeWords" Margin="5,0,40,0"
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                                            RelativePanel.AlignVerticalCenterWithPanel="True"
-                                           FontSize="24"
+                                           FontSize="16"
                                            FontWeight="ExtraBold"
                                            Foreground="#1b3e6e"/>
                                     <Button Name="btnRemove" 
-                                Background="#f79326" 
+                                Background="#eaeaea" 
                                 RelativePanel.AlignRightWithPanel="True"
                                 RelativePanel.AlignTopWithPanel="True"
                                 VerticalAlignment="Top"  
                                 DataContext="{Binding ID}" 
                                 FontFamily="Segoe MDL2 Assets" 
-                                Foreground="Red" Content="&#xE738;" 
+                                Foreground="Red" Content="&#xE74D;" 
                                 Style="{StaticResource AddRemoveStyle}">
                                         <Button.Flyout>
                                             <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">
@@ -174,8 +174,8 @@
                                                 <StackPanel>
                                                     <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
                                                     <StackPanel Name="spAddRemove" Orientation="Horizontal">
-                                                        <Button Name="btnConfirmRemove" Style="{StaticResource ButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
-                                                        <Button Name="btnCancel" Style="{StaticResource ButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                                        <Button Name="btnConfirmRemove" Style="{StaticResource actionButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
+                                                        <Button Name="btnCancel" Style="{StaticResource secondaryButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Flyout>

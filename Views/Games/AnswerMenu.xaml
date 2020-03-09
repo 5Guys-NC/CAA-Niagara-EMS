@@ -102,7 +102,6 @@
                     FontSize="14"  
                     Height="50"
                     Margin="10,3,-10,0"
-                    Style="{StaticResource ButtonStyle}"
                     Width="105"
                     Canvas.ZIndex="2"/>
 
@@ -117,8 +116,7 @@
                     FontSize="14"
                     RelativePanel.RightOf="btnGame" 
                     RelativePanel.AlignBottomWith="btnGame"
-                    Height="50" 
-                    Style="{StaticResource ButtonStyle}" 
+                    Height="50"
                     Width="105"
                     Canvas.ZIndex="3"/>
 
@@ -134,7 +132,6 @@
                     RelativePanel.RightOf="btnQuestion" 
                     RelativePanel.AlignBottomWith="btnQuestion"
                     Height="50" 
-                    Style="{StaticResource ButtonStyle}" 
                     Width="105"
                     Canvas.ZIndex="3"/>
 
@@ -177,8 +174,8 @@
                                                 <StackPanel>
                                                     <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
                                                     <StackPanel Name="spAddRemove" Orientation="Horizontal">
-                                                        <Button Name="btnConfirmRemove" Style="{StaticResource ButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
-                                                        <Button Name="btnCancel" Style="{StaticResource ButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                                        <Button Name="btnConfirmRemove" Style="{StaticResource actionButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
+                                                        <Button Name="btnCancel" Style="{StaticResource secondaryButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Flyout>
@@ -190,8 +187,8 @@
                     </GridView>
                 </RelativePanel>
 
-                <Button Name="btnCreateNewQuestion" 
-                    Style="{StaticResource ButtonStyle}"
+                <Button Name="btnCreateNewAnswer" 
+                    Style="{StaticResource actionButtonStyle}"
                     Content=" CREATE NEW ANSWER"               
                     Grid.Row="3"                    
                     HorizontalAlignment="Center"

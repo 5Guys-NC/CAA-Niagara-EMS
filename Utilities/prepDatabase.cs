@@ -189,6 +189,7 @@ namespace CAA_Event_Management.Utilities
                          EventID = Guid.NewGuid().ToString(),
                          EventName = "Ribfest",
                          EventStart = DateTime.Today.AddDays(3),
+                         EventEnd = DateTime.Today.AddDays(3),
                          AbrevEventname = "RF1",
                          MembersOnly = true,
                          DisplayName = "RibFest"
@@ -198,6 +199,7 @@ namespace CAA_Event_Management.Utilities
                          EventID = Guid.NewGuid().ToString(),
                          EventName = "Heart & Stroke Fundraiser",
                          EventStart = DateTime.Today.AddDays(-1),
+                         EventEnd = DateTime.Today.AddDays(-1),
                          AbrevEventname = "HS1",
                          MembersOnly = true,
                          DisplayName = "Heart & Stroke Fundraiser"
@@ -207,6 +209,7 @@ namespace CAA_Event_Management.Utilities
                          EventID = Guid.NewGuid().ToString(),
                          EventName = "CAA Charity BBQ",
                          EventStart = DateTime.Today.AddDays(7),
+                         EventEnd = DateTime.Today.AddDays(7),
                          AbrevEventname = "CCB1",
                          MembersOnly = true,
                          DisplayName = "CAA Charity BBQ"
@@ -225,6 +228,7 @@ namespace CAA_Event_Management.Utilities
                          EventID = Guid.NewGuid().ToString(),
                          EventName = "Wingfest",
                          EventStart = DateTime.Today.AddDays(3),
+                         EventEnd = DateTime.Today.AddDays(3),
                          AbrevEventname = "WF1",
                          MembersOnly = true,
                          DisplayName = "WingFest"
@@ -234,6 +238,7 @@ namespace CAA_Event_Management.Utilities
                          EventID = Guid.NewGuid().ToString(),
                          EventName = "Very Important Gala",
                          EventStart = DateTime.Today.AddDays(1),
+                         EventEnd = DateTime.Today.AddDays(1),
                          AbrevEventname = "VIG1",
                          MembersOnly = true,
                          DisplayName = "Very Important Gala"
@@ -242,7 +247,8 @@ namespace CAA_Event_Management.Utilities
                      {
                          EventID = Guid.NewGuid().ToString(),
                          EventName = "Arctic Marathon",
-                         EventStart = DateTime.Today.AddDays(30),
+                         EventStart = DateTime.Today.AddDays(-30),
+                         EventEnd = DateTime.Today.AddDays(-32),
                          AbrevEventname = "AM1",
                          MembersOnly = true,
                          DisplayName = "Arctic Marathon"
@@ -252,6 +258,7 @@ namespace CAA_Event_Management.Utilities
                          EventID = Guid.NewGuid().ToString(),
                          EventName = "Beef Jerky Invitational",
                          EventStart = DateTime.Today.AddDays(-5),
+                         EventEnd = DateTime.Today.AddDays(-3),
                          AbrevEventname = "BJ1",
                          MembersOnly = false,
                          DisplayName = "Beef Jerky Invitational"
@@ -261,6 +268,7 @@ namespace CAA_Event_Management.Utilities
                          EventID = Guid.NewGuid().ToString(),
                          EventName = "CAA Christmas Party",
                          EventStart = DateTime.Today.AddDays(5),
+                         EventEnd = DateTime.Today.AddDays(5),
                          AbrevEventname = "CP1",
                          MembersOnly = true,
                          DisplayName = "CAA Christmas Party"

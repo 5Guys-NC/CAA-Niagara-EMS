@@ -126,7 +126,7 @@
                             Width="105"
                             Canvas.ZIndex="0"/>
 
-                    <Button Name="btnAnswer" 
+                    <!--<Button Name="btnAnswer" 
                             Background="#5291bf"
                             BorderBrush="#0d4e97"
                             BorderThickness="3,3,3,0"
@@ -140,7 +140,7 @@
                             RelativePanel.AlignBottomWith="btnQuestion"
                             Height="50" 
                             Width="105"
-                            Canvas.ZIndex="-1"/>
+                            Canvas.ZIndex="-1"/>-->
 
                     <GridView Name="menuList"
                       Background="#5291bf"

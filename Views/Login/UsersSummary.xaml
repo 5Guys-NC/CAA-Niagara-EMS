@@ -21,20 +21,6 @@
         <RelativePanel Grid.Row="0" 
                        Background="#1b3e6e"
                        Height="50">
-            <!--<TextBlock Name="txtCAAEventDetails"
-                       Margin="130,0,0,0"
-                       Text="CAA Events"
-                       Foreground="#eaeaea"
-                       FontWeight="Bold"
-                       FontSize="30"/>-->
-            <!--<Button Name="btnCancel" 
-                    Background="Transparent"
-                    Content="Back To Events"
-                    FontSize="25"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"                    
-                    Margin="20,60,10,0"
-                    Click="btnCancel_Click"/>-->
         </RelativePanel>
 
         <ListView x:Name="lvUsers" 

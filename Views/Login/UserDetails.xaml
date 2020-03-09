@@ -15,12 +15,18 @@
         <Grid>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
+                <RelativePanel Grid.Row="0" 
+                               Background="#1b3e6e"
+                               Margin="0,0,0,50"
+                               Height="50">
+                </RelativePanel>
+
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
                     <TextBox x:Name="txtFirstName" Header="First Name" Width="300"/>

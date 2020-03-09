@@ -217,10 +217,13 @@
                     <Button Name="btnBeginEvent"
                     Content="BEGIN EVENT"
                         Margin="10,0,0,20"
-                    RelativePanel.AlignBottomWith="btnDeleteMode"
-                    RelativePanel.RightOf="btnDeleteMode"
                     Style="{StaticResource navButtonStyle}"
                     Click="btnRegisterAttendance_Click"/>
+                    <Button Name="btnChooseWinner" 
+                        Content="CHOOSE EVENT WINNER"
+                        Margin="20,0,0,20"
+                        Style="{StaticResource secondaryButtonStyle}"
+                        Click="btnChooseWinner_Click"/>
                 </StackPanel>
             </Grid>
         </ScrollViewer>

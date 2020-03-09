@@ -16,7 +16,7 @@
 
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Pick an Event Winner"
+        <TextBlock x:Name="txtEventName"
                    Grid.Row="1"
                    FontSize="40"
                    Margin="80,20,20,20"/>
@@ -34,12 +34,12 @@
                            Name="txtSelectionTitle"/>
                 <StackPanel RelativePanel.Below="txtSelectionTitle">
                     <RadioButton x:Name="rdoAllMembers"
-                             Content="Include all members"
+                             Content="All Attendants"
                              GroupName="AttendantChoice"
-                             
+                             IsChecked="True"
                              Checked="rdoAllMembers_Checked"/>
                     <RadioButton x:Name="rdoNonMembers"
-                             Content="Only non-members"
+                             Content="Non-Members Only"
                              GroupName="AttendantChoice"
                                  Checked="rdoNonMembers_Checked"/>
                     <RadioButton x:Name="rdoMemberOnly"
@@ -48,7 +48,7 @@
                                />
                             
                     <CheckBox x:Name="ckbOnlyQuizPlayers"
-                          Content="Only Include Quiz Players"/>
+                          Content="Select From Quiz Players Only"/>
                 </StackPanel>
             </RelativePanel>
 

@@ -41,10 +41,14 @@ namespace CAA_Event_Management.Views.EventViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             view = (Event)e.Parameter;
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("SELECT EVENT WINNER");
+            txtEventName.Text = view.DisplayName;
         }
 
         private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
         {
+            
+
             List<AttendanceTracking> currentListOfPeople = new List<AttendanceTracking>();
             AttendanceTracking person = new AttendanceTracking();
 
@@ -55,7 +59,7 @@ namespace CAA_Event_Management.Views.EventViews
 
                 if (attendanceTrackings.Count == 0)
                 {
-                    Jeeves.ShowMessage("Error", "Please chose a different event; things event has no entered data");
+                    Jeeves.ShowMessage("Error", "Please chose a different event; this event has no entered data");
                     return;
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == true && eventGameUserAnswers.Count == 0)
@@ -136,8 +140,8 @@ namespace CAA_Event_Management.Views.EventViews
                 }
 
                 txtWinnerInfo.Text = "Member Number: " + person.MemberNo +
-                                   "/nPerson Name: " + person.FirstName + " " + person.LastName +
-                                   "/nPerson Phone: " + person.PhoneNo;
+                                   "\nPerson Name: " + person.FirstName + " " + person.LastName +
+                                   "\nPerson Phone: " + person.PhoneNo;
 
             }
             catch
@@ -152,16 +156,5 @@ namespace CAA_Event_Management.Views.EventViews
             int number = random.Next(0, count);
             return number;
         }
-
-        private void rdoAllMembers_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void rdoNonMembers_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 }

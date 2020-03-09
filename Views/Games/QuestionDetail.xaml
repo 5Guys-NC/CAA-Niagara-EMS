@@ -94,7 +94,7 @@
                                     <!--<CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
                                     <TextBox Text="{x:Bind Phrase, Mode=TwoWay}" Width="260" 
                                      FontSize="18"/>-->
-                                    <Button Name="btnRemove" 
+                                    <!--<Button Name="btnRemove" 
                                             Background="#f8bf38"
                                             DataContext="{Binding ID}" 
                                             FontFamily="Segoe MDL2 Assets" 
@@ -103,7 +103,7 @@
                                             Foreground="Red" 
                                             Margin="0,0,30,0" 
                                             Style="{StaticResource AddRemoveStyle}" 
-                                            Tapped="btnRemove_Tapped"/>
+                                            Tapped="btnRemove_Tapped"/>-->
                                 </StackPanel>
                             </DataTemplate>
                         </GridView.ItemTemplate>

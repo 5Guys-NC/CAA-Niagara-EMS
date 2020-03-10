@@ -81,46 +81,32 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void SetTimes()
         {
-            var start = view.EventStart.ToString().Substring(view.EventStart.ToString().IndexOf(" ")+1);
-            var end = view.EventEnd.ToString().Substring(view.EventStart.ToString().IndexOf(" ")+1);
+            string[] start = view.EventStart.ToString().Split(" ");
+            string[] end = view.EventEnd.ToString().Split(" ");
 
-            var start2 = start.Substring(4, 1);
+            string startTime = PrepOpeningTimes(start);
+            string endTime = PrepOpeningTimes(end);
 
-            if (start.Substring(start.IndexOf(" ") + 1) == "PM")
-            {
-                int newTime = Convert.ToInt32(start.Substring(0, start.IndexOf(":")));
-                if (newTime > 12) newTime += 12;
-
-                if (newTime == 24) start = "00" + start.Substring(start.IndexOf(":"), 3);
-                else start = newTime.ToString() + start.Substring(start.IndexOf(":"), 3);
-            }
-            else if (start.Substring(0, 2) == "12") start = "00" + start.Substring(start.IndexOf(":"), 3);
-            else
-            {
-                if (start.Substring(4,1) == ":") start = start.Substring(0, 4);
-                else start = start.Substring(0, 5);
-            }
-
-            if (end.Substring(end.IndexOf(" ")+1) == "PM")
-            {
-                int newTime = Convert.ToInt32(end.Substring(0, end.IndexOf(":")));
-                if (newTime > 12) newTime += 12;
-                
-                if (newTime == 24) end = "00" + end.Substring(end.IndexOf(":") , 3);
-                else end = newTime.ToString() + end.Substring(end.IndexOf(":"), 3);
-            }
-            else if (end.Substring(0, 2) == "12") end = "00" + end.Substring(end.IndexOf(":"), 3);
-            else
-            {
-                if (end.Substring(4,1) == ":") end = end.Substring(0, 4);
-                else end = end.Substring(0, 5);
-            }
-
-            tpEventStart.Time = TimeSpan.Parse(start);
-            tpEventEnd.Time = TimeSpan.Parse(end);
+            tpEventStart.Time = TimeSpan.Parse(startTime);
+            tpEventEnd.Time = TimeSpan.Parse(endTime);
         }
-        #endregion
 
+        private string PrepOpeningTimes(string[] timeArray)
+        {
+            string[] time = timeArray[1].Split(":");
+            
+            if (timeArray[2] == "PM" && time[0] != "12")
+            {
+                time[0] = (Convert.ToInt32(time[0]) + 12).ToString();
+            }
+            else if (timeArray[2] == "AM" && time[0] == "AM")
+            {
+                time[0] = "00";
+            }
+            return String.Join(":", time[0], time[1]);
+        }
+
+        #endregion
 
         #region Buttons - Event - Save, Delete, Cancel, and MemberCheckBox Methods
 
@@ -163,12 +149,6 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //if (newEvent == true)
-            //{
-            //    List<EventItem> itemsToDelete = eventItemRepository.GetEventItems(view.EventID);
-            //    foreach (var x in itemsToDelete) eventItemRepository.DeleteEventItem(x);
-            //    eventRepository.DeleteEventPermanent(view);
-            //}
             Frame.GoBack();
         }
 
@@ -200,7 +180,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Buttons - Survey Questions - Add, Remove
+        #region Buttons - Survey Questions/Quiz - Add, Remove, ClearQuiz, Quiz_SelectionChanged
 
         private void btnAddQuestion_Click(object sender, RoutedEventArgs e)
         {
@@ -241,15 +221,25 @@ namespace CAA_Event_Management.Views.EventViews
                     questionCount--;
                     FillSurveySelectionLists();
                 }
-                //else
-                //{
-                //    Jeeves.ShowMessage("Error", "You are only allowed 5 questions per event");
-                //}
+
             }
             catch
             {
                 Jeeves.ShowMessage("Error", "You need to select a survey question to remove.");
             }
+        }
+
+        private void btnClearQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            view.QuizID = null;
+            CheckForSelectedQuiz();
+        }
+
+        private void lstAvailableQuizzes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var choosenGame = (Game)lstAvailableQuizzes.SelectedItem;
+            view.QuizID = choosenGame.ID;
+            CheckForSelectedQuiz();
         }
 
         #endregion
@@ -495,6 +485,8 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
+        #region Helper Methods - BuildNamesForTheEvent, AddDatesAndTimes
+
         private bool BuildNamesForTheEvent()
         {
             string[] eventNameArray = eventNameTextBox.Text.Trim().Split(' ');
@@ -533,30 +525,15 @@ namespace CAA_Event_Management.Views.EventViews
             return true;
         }
 
-
-        private void CheckForDatesOnNames()
-        {
-            string eventDate = view.EventStart.HasValue ? view.EventStart.Value.Year.ToString() : "0000";
-            string viewEnd = view.DisplayName.Substring(view.DisplayName.Length - 4, 4);
-
-            if (eventDate != viewEnd)
-            {
-                view.EventName = view.EventName + eventDate;
-                view.AbrevEventname = view.AbrevEventname + eventDate;
-            }
-        }
-
-
         private bool AddEventDatesAndTimes()
         {
-            var startDate = eventStartDate.Date.ToString().Substring(0, eventStartDate.Date.ToString().IndexOf(" "));
+            string[] startDate = eventStartDate.Date.ToString().Split(" ");
             var startTime = tpEventStart.Time.ToString();
+            DateTime start = Convert.ToDateTime(startDate[0] + " " + startTime);
 
-            var endDate = cdpEventEnd.Date.ToString().Substring(0, cdpEventEnd.Date.ToString().IndexOf(" "));
+            string[] endDate = cdpEventEnd.Date.ToString().Split(" ");
             var endTime = tpEventEnd.Time.ToString();
-
-            DateTime start = Convert.ToDateTime(startDate + " " + startTime);
-            DateTime end = Convert.ToDateTime(endDate + " " + endTime);
+            DateTime end = Convert.ToDateTime(endDate[0] + " " + endTime);
 
             if (start > end)
             {
@@ -566,22 +543,9 @@ namespace CAA_Event_Management.Views.EventViews
 
             view.EventStart = start;
             view.EventEnd = end;
-
             return true;
         }
 
-
-        private void lstAvailableQuizzes_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var choosenGame = (Game)lstAvailableQuizzes.SelectedItem;
-            view.QuizID = choosenGame.ID;
-            CheckForSelectedQuiz();
-        }
-
-        private void btnClearQuiz_Click(object sender, RoutedEventArgs e)
-        {
-            view.QuizID = null;
-            CheckForSelectedQuiz();
-        }
+        #endregion
     }
 }

@@ -79,8 +79,6 @@ namespace CAA_Event_Management.Views.EventViews
             FillSurveySelectionLists();
         }
 
-
-
         private void SetTimes()
         {
             var start = view.EventStart.ToString().Substring(view.EventStart.ToString().IndexOf(" ")+1);
@@ -262,7 +260,7 @@ namespace CAA_Event_Management.Views.EventViews
         {
             try
             {
-                List<Item> items = itemRepository.GetItems();
+                List<Item> items = itemRepository.GetUndeletedItems();
                 foreach (var x in items)
                 {
                     EventItemDetails newEventItem = new EventItemDetails();

@@ -33,6 +33,8 @@ namespace CAA_Event_Management.Views.EventViews
         #region Startup - variables. repositories, methods
 
         int CurrentOrPast = 1;
+        int deleteMode = 0;
+
         IEventRepository eventRepository;
         public CAAEvents()
         {
@@ -43,52 +45,22 @@ namespace CAA_Event_Management.Views.EventViews
             ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("GENERAL EVENT MANAGEMENT");
         }
 
-        private void FillDropDown(int check)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DateTime now = DateTime.Today.AddDays(-1);
-
-            try
+            if (e.Parameter != null)
             {
-                bool deleted = false;
-                List<Models.Event> noDeletedEvents = eventRepository.GetEvents(deleted);
-                //List<Event> upcomingEvents = noDeletedEvents
-                //    .Where(c => c.EventEnd >= now)
-                //    .OrderBy(c => c.EventStart)
-                //    .ToList();
-                //List<Event> pastEvents = noDeletedEvents
-                //    .Where(c => c.EventEnd < now)
-                //    .OrderByDescending(c => c.EventStart)
-                //    .ToList();
-                if (check == 1)
+                try
                 {
-                    List<Models.Event> upcomingEvents = noDeletedEvents
-                    .Where(c => c.EventEnd >= now)
-                    .OrderBy(c => c.EventStart)
-                    .ToList();
-                    gdvEditEvents.ItemsSource = upcomingEvents;
-                    gdvDeleteEvents.ItemsSource = upcomingEvents;
+                    deleteMode = (int)e.Parameter;
                 }
-                else
-                {
-                    List<Models.Event> pastEvents = noDeletedEvents
-                    .Where(c => c.EventEnd < now)
-                    .OrderByDescending(c => c.EventStart)
-                    .ToList();
-                    gdvEditEvents.ItemsSource = pastEvents;
-                    gdvDeleteEvents.ItemsSource = pastEvents;
-                }
-                //UpcomingEventList.ItemsSource = pastEvents;
-                //UpcomingEventList.ItemsSource = noDeletedEvents;
+                catch { }
             }
-            catch (Exception e)
-            {
-                Jeeves.ShowMessage("Error", e.Message.ToString());
-            }
+            if (deleteMode == 1) DeleteModeToggle();
         }
 
         #endregion
 
-        #region Buttons - CRUD - NewEvent, DeleteEvent, SelectedEvent(edit)
+        #region Buttons - CRUD - NewEvent, Event Display Toggle, SelectedEvent(edit)
 
         private void NewEvent_Click(object sender, RoutedEventArgs e)
         {
@@ -112,56 +84,14 @@ namespace CAA_Event_Management.Views.EventViews
             FillDropDown(2);
         }
 
-        //private void btnSelectedEvent_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (gdvEditEvents.SelectedItem != null)
-        //    {
-        //        var selectedEvent = gdvEditEvents.SelectedItem;
-        //        Frame.Navigate(typeof(EventDetails), (Models.Event)selectedEvent);
-        //    }
-
-        //}
-
         private void btnDeleteMode_Click(object sender, RoutedEventArgs e)
         {
-            if(btnDeleteMode.Content.ToString() == "DELETE MODE (OFF)")
-            {
-                gdvEditEvents.Visibility = Visibility.Collapsed;
-                gdvDeleteEvents.Visibility = Visibility.Visible;
-                btnDeleteMode.Content = "DELETE MODE (ON)";
-                SolidColorBrush toRed = new SolidColorBrush(Windows.UI.Colors.Red);
-                btnDeleteMode.Foreground = toRed;
-                btnDeleteMode.BorderBrush = toRed;
-                FillDropDown(CurrentOrPast);
-            }
-            else if(btnDeleteMode.Content.ToString() == "DELETE MODE (ON)")
-            {
-                gdvEditEvents.Visibility = Visibility.Visible;
-                gdvDeleteEvents.Visibility = Visibility.Collapsed;
-                btnDeleteMode.Content = "DELETE MODE (OFF)";
-                SolidColorBrush toBlue = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 27, 62, 110));
-                btnDeleteMode.Foreground = toBlue;
-                btnDeleteMode.BorderBrush = toBlue;
-                FillDropDown(CurrentOrPast);
-            }
+            DeleteModeToggle();
         }
-
-
-        //private void btnEventDelete_Click(object sender, RoutedEventArgs e)
-        //{
-        //    //if (ListViewBox.SelectedItem != null)
-        //    //{
-        //    //    Event selectedEvent = (Event)ListViewBox.SelectedItem;
-        //    //    selectedEvent.IsDeleted = true;
-        //    //    eventRepository.DeleteEvent(selectedEvent);
-        //    //    FillDropDown();
-        //    //}
-
-        //}
 
         #endregion
 
-        #region Buttons - Adding: Attendees, Items, EventItems, 
+        #region Buttons - Adding: Attendees, Items, EventItems; btnChooseWinner
 
         private void btnRegisterAttendance_Click(object sender, RoutedEventArgs e)
         {
@@ -186,28 +116,6 @@ namespace CAA_Event_Management.Views.EventViews
             return;
         }
 
-        //private void btnCreateEvent_Tapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    Event newEvent = new Event();
-        //    Frame.Navigate(typeof(EventDetails), newEvent);
-        //}
-
-        //private void btnCreateSurvey_Tapped(object sender, TappedRoutedEventArgs e)
-        //{
-
-        //    //Frame.Navigate(typeof(ItemsView));
-        //}
-
-        //private void btnBeginEvent_Tapped(object sender, TappedRoutedEventArgs e)
-        //{
-        //    return;
-        //}
-
-        //private void btnItems_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Frame.Navigate(typeof(Surveys));
-        //}
-
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
             string selected = (((Button)sender).DataContext).ToString();
@@ -220,7 +128,7 @@ namespace CAA_Event_Management.Views.EventViews
                 selectedEvent.LastModifiedDate = DateTime.Now;
                 selectedEvent.IsDeleted = true;
                 eventRepository.UpdateEvent(selectedEvent);
-                Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
+                Frame.Navigate(typeof(CAAEvents), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
             {
@@ -243,16 +151,58 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
+        {
+            if (gdvEditEvents.SelectedItem != null)
+            {
+                var selectedEvent = gdvEditEvents.SelectedItem;
+                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent);
+            }
+            else if (gdvDeleteEvents.SelectedItem != null)
+            {
+                var selectedEvent = gdvEditEvents.SelectedItem;
+                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent);
+            }
+            else Jeeves.ShowMessage("Error", "Please select an event first");
+        }
 
         #endregion
 
-        #region Helper Methods - SearchBox_TextChanged
+        #region Helper Methods - FillDropDown, SearchBox_TextChanged, DeleteModeToggle
 
-        //private void cboCurrentEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    ////var selectedEvent = cboCurrentEvents.SelectedItem;
-        //    //var selectedEvent = ListViewBox.SelectedItem;
-        //}
+        private void FillDropDown(int check)
+        {
+            DateTime now = DateTime.Today.AddHours(-5);
+
+            try
+            {
+                bool deleted = false;
+                List<Models.Event> noDeletedEvents = eventRepository.GetEvents(deleted);
+
+                if (check == 1)
+                {
+                    List<Models.Event> upcomingEvents = noDeletedEvents
+                    .Where(c => c.EventEnd >= now)
+                    .OrderBy(c => c.EventStart)
+                    .ToList();
+                    gdvEditEvents.ItemsSource = upcomingEvents;
+                    gdvDeleteEvents.ItemsSource = upcomingEvents;
+                }
+                else
+                {
+                    List<Models.Event> pastEvents = noDeletedEvents
+                    .Where(c => c.EventEnd < now)
+                    .OrderByDescending(c => c.EventStart)
+                    .ToList();
+                    gdvEditEvents.ItemsSource = pastEvents;
+                    gdvDeleteEvents.ItemsSource = pastEvents;
+                }
+            }
+            catch (Exception e)
+            {
+                Jeeves.ShowMessage("Error", e.Message.ToString());
+            }
+        }
 
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -282,21 +232,32 @@ namespace CAA_Event_Management.Views.EventViews
                 }
             }
         }
-        #endregion
-
-        private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
+        private void DeleteModeToggle()
         {
-            if (gdvEditEvents.SelectedItem != null)
+            if (btnDeleteMode.Content.ToString() == "DELETE MODE (OFF)")
             {
-                var selectedEvent = gdvEditEvents.SelectedItem;
-                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent);
+                gdvEditEvents.Visibility = Visibility.Collapsed;
+                gdvDeleteEvents.Visibility = Visibility.Visible;
+                btnDeleteMode.Content = "DELETE MODE (ON)";
+                SolidColorBrush toRed = new SolidColorBrush(Windows.UI.Colors.Red);
+                btnDeleteMode.Foreground = toRed;
+                btnDeleteMode.BorderBrush = toRed;
+                deleteMode = 1;
+                FillDropDown(CurrentOrPast);
             }
-            else if (gdvDeleteEvents.SelectedItem != null)
+            else if (btnDeleteMode.Content.ToString() == "DELETE MODE (ON)")
             {
-                var selectedEvent = gdvEditEvents.SelectedItem;
-                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent);
+                gdvEditEvents.Visibility = Visibility.Visible;
+                gdvDeleteEvents.Visibility = Visibility.Collapsed;
+                btnDeleteMode.Content = "DELETE MODE (OFF)";
+                SolidColorBrush toBlue = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 27, 62, 110));
+                btnDeleteMode.Foreground = toBlue;
+                btnDeleteMode.BorderBrush = toBlue;
+                deleteMode = 0;
+                FillDropDown(CurrentOrPast);
             }
-            else Jeeves.ShowMessage("Error", "Please select an event first");
         }
+
+        #endregion
     }
 }

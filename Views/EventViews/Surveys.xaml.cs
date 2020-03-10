@@ -34,6 +34,7 @@ namespace CAA_Event_Management.Views.EventViews
         Item item;
         Item selectedItem;
         int displayChoice = 1;
+        int deleteMode = 0;
         int addOrEdit;
         readonly List<DataType> dataList = new List<DataType>();
 
@@ -48,7 +49,14 @@ namespace CAA_Event_Management.Views.EventViews
             FillDataTypeComboBox();
             FillFields(displayChoice);
         }
-          
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter != null) deleteMode = (int)e.Parameter;
+            if (deleteMode == 1) DeleteModeToggle();
+        }
+
+
         #endregion
 
         #region Buttons - Add, Edit, Delete Questions
@@ -56,22 +64,8 @@ namespace CAA_Event_Management.Views.EventViews
         private void btnAddSurveyQuestion_Click(object sender, RoutedEventArgs e)
         {
             ScreenLockDown();
-            //tbkEnterQuestion.Visibility = Visibility.Visible;
-            //txtNewSurveyQuestion.Visibility = Visibility.Visible;
-            //tbkDataType.Visibility = Visibility.Visible;
-            //cboDataType.Visibility = Visibility.Visible;
-            spQuestion.Visibility = Visibility.Visible;
-            spDataType.Visibility = Visibility.Visible;
-            
             addOrEdit = 1;
         }
-
-
-
-        //App userInfo = (App)Application.Current;
-        //    thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
-        //    thisSelectedItem.LastModifiedDate = DateTime.Now;
-
 
         private async void btnEditMultipurpose_Click(object sender, RoutedEventArgs e)
         {
@@ -79,32 +73,15 @@ namespace CAA_Event_Management.Views.EventViews
 
             string selected = Convert.ToString(((Button)sender).DataContext);
             selectedItem = itemRespository.GetItem(selected.ToString());
-
-            //selectedItem = (Item)gvAvailableQuestions.SelectedItem;
             string warning = "Please exercise caution when editing this question. Do you wish to continue?";
 
             if (selectedItem != null)
             {
-                tbkEnterQuestion.Visibility = Visibility.Visible;
-                txtNewSurveyQuestion.Visibility = Visibility.Visible;
-                tbkDataType.Visibility = Visibility.Visible;
-                cboDataType.Visibility = Visibility.Visible;
-
-
-
                 var result = await Jeeves.ConfirmDialog("Warning", warning);
 
                 if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
                 {
-                    tbkEnterQuestion.Visibility = Visibility.Visible;
-                    txtNewSurveyQuestion.Visibility = Visibility.Visible;
-                    tbkDataType.Visibility = Visibility.Visible;
-                    cboDataType.Visibility = Visibility.Visible;
-                    rpSaveAndCancel.Visibility = Visibility.Visible;
-
-                    spQuestion.Visibility = Visibility.Visible;
-                    spDataType.Visibility = Visibility.Visible;
-
+                    ScreenLockDown();
                     BeginUpdate(selectedItem);
                 }
                 else if (result == ContentDialogResult.Secondary)
@@ -146,21 +123,12 @@ namespace CAA_Event_Management.Views.EventViews
                     Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
                 }
                 addOrEdit = 0;
-                tbkEnterQuestion.Visibility = Visibility.Collapsed;
-                txtNewSurveyQuestion.Visibility = Visibility.Collapsed;
-                tbkDataType.Visibility = Visibility.Collapsed;
-                cboDataType.Visibility = Visibility.Collapsed;
                 ScreenUnlock();
                 ClearFields();
                 FillFields(displayChoice);
             }
             else
             {
-                tbkEnterQuestion.Visibility = Visibility.Collapsed;
-                txtNewSurveyQuestion.Visibility = Visibility.Collapsed ;
-                tbkDataType.Visibility = Visibility.Collapsed;
-                cboDataType.Visibility = Visibility.Collapsed;
-
                 App userInfo = (App)Application.Current;
                 selectedItem.LastModifiedBy = userInfo.userAccountName;
                 selectedItem.LastModifiedDate = DateTime.Now;
@@ -172,11 +140,6 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnCancelSave_Click(object sender, RoutedEventArgs e)
         {
-            tbkEnterQuestion.Visibility = Visibility.Collapsed;
-            txtNewSurveyQuestion.Visibility = Visibility.Collapsed;
-            tbkDataType.Visibility = Visibility.Collapsed;
-            cboDataType.Visibility = Visibility.Collapsed;
-            //rpSaveAndCancel.Visibility = Visibility.Collapsed;
             selectedItem = null;
             ScreenUnlock();
             ClearFields();
@@ -184,26 +147,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (btnDelete.Content.ToString() == "Delete Mode (OFF)")
-            {
-                btnDelete.Content = "Delete Mode (ON)";
-                rpSurvey.Visibility = Visibility.Collapsed;
-                rpSurveyDeleteMode.Visibility = Visibility.Visible;
-                SolidColorBrush toRed = new SolidColorBrush(Windows.UI.Colors.Red);
-                btnDelete.Foreground = toRed;
-                btnDelete.BorderBrush = toRed;
-                FillFields(displayChoice);
-            }
-            else
-            {
-                btnDelete.Content = "Delete Mode (OFF)";
-                rpSurvey.Visibility = Visibility.Visible;
-                rpSurveyDeleteMode.Visibility = Visibility.Collapsed;
-                SolidColorBrush toBlue = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 27, 62, 110));
-                btnDelete.Foreground = toBlue;
-                btnDelete.BorderBrush = toBlue;
-                FillFields(displayChoice);
-            }
+            DeleteModeToggle();
         }
     
 
@@ -212,7 +156,6 @@ namespace CAA_Event_Management.Views.EventViews
             try
             {
                 string selected = Convert.ToString(((Button)sender).DataContext);
-                //Item thisSelectedEvent = new Item();
                 Item thisSelectedItem = itemRespository.GetItem(selected.ToString());
 
                 App userInfo = (App)Application.Current;
@@ -220,7 +163,7 @@ namespace CAA_Event_Management.Views.EventViews
                 thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
                 thisSelectedItem.LastModifiedDate = DateTime.Now;
                 itemRespository.DeleteUpdateItem(thisSelectedItem);
-                Frame.Navigate(typeof(Surveys), null, new SuppressNavigationTransitionInfo());
+                Frame.Navigate(typeof(Surveys), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
             {
@@ -267,9 +210,6 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     items = itemRespository.GetUndeletedItems();
                 }
-
-                //List<Item> items = itemRespository.GetUndeletedItems();
-                //lstPreMadeQuestions.ItemsSource = items;
                 gvAvailableQuestions.ItemsSource = items;
                 gvAvailableQuestionsDeleteMode.ItemsSource = items;
             }
@@ -325,7 +265,7 @@ namespace CAA_Event_Management.Views.EventViews
                             searchItems.Add(x);
                         }
                     }
-                    //lstPreMadeQuestions.ItemsSource = searchItems;
+                    gvAvailableQuestionsDeleteMode.ItemsSource = searchItems;
                     gvAvailableQuestions.ItemsSource = searchItems;
                 }
                 catch (Exception)
@@ -374,24 +314,52 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void ScreenLockDown()
         {
-            //btnEditSurvey.IsEnabled = false;
-            btnAddSurveyQuestion.Visibility = Visibility.Collapsed;
-            btnDelete.Visibility = Visibility.Collapsed;
-            gvAvailableQuestions.IsEnabled = false;
+            spQuestion.Visibility = Visibility.Visible;
+            spDataType.Visibility = Visibility.Visible;
+            rpButtons.Visibility = Visibility.Collapsed;
             rpSaveAndCancel.Visibility = Visibility.Visible;
+            gvAvailableQuestions.IsEnabled = false;
+            gvAvailableQuestionsDeleteMode.IsEnabled = true;
         }
 
         private void ScreenUnlock()
         {
-            btnAddSurveyQuestion.Visibility=Visibility.Visible;
-            btnDelete.Visibility = Visibility.Visible;
-         //   btnEditSurvey.IsEnabled = true;
-            gvAvailableQuestions.IsEnabled = true;
+            spQuestion.Visibility = Visibility.Collapsed;
+            spDataType.Visibility = Visibility.Collapsed;
+            rpButtons.Visibility = Visibility.Visible;
             rpSaveAndCancel.Visibility = Visibility.Collapsed;
+            gvAvailableQuestions.IsEnabled = true;
+            gvAvailableQuestionsDeleteMode.IsEnabled = true;
         }
 
-        #endregion
+        private void DeleteModeToggle()
+        {
+            if (btnDelete.Content.ToString() == "Delete Mode (OFF)" || deleteMode == 0)
+            {
+                btnDelete.Content = "Delete Mode (ON)";
+                rpSurvey.Visibility = Visibility.Collapsed;
+                rpSurveyDeleteMode.Visibility = Visibility.Visible;
+                SolidColorBrush toRed = new SolidColorBrush(Windows.UI.Colors.Red);
+                btnDelete.Foreground = toRed;
+                btnDelete.BorderBrush = toRed;
+                deleteMode = 1;
+                FillFields(displayChoice);
+            }
+            else
+            {
+                btnDelete.Content = "Delete Mode (OFF)";
+                rpSurvey.Visibility = Visibility.Visible;
+                rpSurveyDeleteMode.Visibility = Visibility.Collapsed;
+                SolidColorBrush toBlue = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 27, 62, 110));
+                btnDelete.Foreground = toBlue;
+                btnDelete.BorderBrush = toBlue;
+                deleteMode = 0;
+                FillFields(displayChoice);
+            }
+        }
 
+
+        #endregion
     }
 
     internal class DataType

@@ -17,6 +17,7 @@ using CAA_Event_Management.Models;
 using CAA_Event_Management.Views;
 using Windows.UI.Xaml.Media.Animation;
 using CAA_Event_Management.Views.EventViews;
+using CAA_Event_Management.Utilities;
 /******************************
 *  Model Created By: Jon Yade
 *  Edited by: Nathan Smith
@@ -118,6 +119,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            string test = "";
             string selected = (((Button)sender).DataContext).ToString();
             try
             {
@@ -128,11 +130,15 @@ namespace CAA_Event_Management.Views.EventViews
                 selectedEvent.LastModifiedDate = DateTime.Now;
                 selectedEvent.IsDeleted = true;
                 eventRepository.UpdateEvent(selectedEvent);
+                AuditLog line = new AuditLog();
+                string newLine = "Modified by:" + userInfo.userAccountName + ", psudo-Deleted Event:" + selectedEvent.EventID + " " + selectedEvent.AbrevEventname + ", On Date: " + selectedEvent.LastModifiedDate.ToString();
+                line.WriteToAuditLog(newLine);
                 Frame.Navigate(typeof(CAAEvents), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
             {
-                Jeeves.ShowMessage("Error", "There was a problem deleting the selected record");
+                //Jeeves.ShowMessage("Error", "There was a problem deleting the selected record");
+                Jeeves.ShowMessage("Error", test);
             }
         }
 

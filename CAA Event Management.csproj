@@ -147,6 +147,7 @@
     <Compile Include="Models\QuestionTag.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\UserAccount.cs" />
+    <Compile Include="Utilities\AuditLog.cs" />
     <Compile Include="ViewModels\DataType.cs" />
     <Compile Include="ViewModels\EventItemDetails.cs" />
     <Compile Include="Data\Repos\EventGameUserAnswerRepository.cs" />

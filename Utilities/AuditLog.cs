@@ -15,6 +15,8 @@ namespace CAA_Event_Management.Utilities
         {
             string fileName = "CAAAuditLog" + DateTime.Now.Year + ".txt";
 
+            //Heavily used: https://docs.microsoft.com/en-us/windows/uwp/files/quickstart-reading-and-writing-files
+
             try
             {
                 Windows.Storage.StorageFolder storageFolder =

@@ -131,7 +131,7 @@ namespace CAA_Event_Management.Views.EventViews
                 selectedEvent.IsDeleted = true;
                 eventRepository.UpdateEvent(selectedEvent);
                 AuditLog line = new AuditLog();
-                string newLine = "Modified by:" + userInfo.userAccountName + ", psudo-Deleted Event:" + selectedEvent.EventID + " " + selectedEvent.AbrevEventname + ", On Date: " + selectedEvent.LastModifiedDate.ToString();
+                string newLine = "Modified(Delete) by:" + userInfo.userAccountName + ", Event:" + selectedEvent.EventID + " " + selectedEvent.AbrevEventname + ", On Date: " + selectedEvent.LastModifiedDate.ToString();
                 line.WriteToAuditLog(newLine);
                 Frame.Navigate(typeof(CAAEvents), deleteMode, new SuppressNavigationTransitionInfo());
             }

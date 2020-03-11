@@ -129,6 +129,8 @@ namespace CAA_Event_Management.Views.EventViews
                     view.CreatedBy = userInfo.userAccountName;
                     view.LastModifiedBy = userInfo.userAccountName;
                     eventRepository.AddEvent(view);
+                    NewAuditLine("Created by:" + userInfo.userAccountName + ", Event:" + view.EventID + " " + view.AbrevEventname + ", On Date: " + view.LastModifiedDate.ToString()
+                                   + "To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " QuizID:" + view.QuizID);
                     SaveEventItemsToThisEvent();
                 }
                 else
@@ -137,6 +139,8 @@ namespace CAA_Event_Management.Views.EventViews
                     view.LastModifiedBy = userInfo.userAccountName;
                     view.LastModifiedDate = DateTime.Now;
                     eventRepository.UpdateEvent(view);
+                    NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + ", Event:" + view.EventID + " " + view.AbrevEventname + ", On Date: " + view.LastModifiedDate.ToString()
+                                    + "To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " QuizID:" + view.QuizID);
                     SaveEventItemsToThisEvent();
                 }
                 Frame.GoBack();
@@ -485,7 +489,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - BuildNamesForTheEvent, AddDatesAndTimes
+        #region Helper Methods - BuildNamesForTheEvent, AddDatesAndTimes, NewAuditLine
 
         private bool BuildNamesForTheEvent()
         {
@@ -544,6 +548,12 @@ namespace CAA_Event_Management.Views.EventViews
             view.EventStart = start;
             view.EventEnd = end;
             return true;
+        }
+
+        private void NewAuditLine(string newLine)
+        {
+            AuditLog line = new AuditLog();
+            line.WriteToAuditLog(newLine);
         }
 
         #endregion

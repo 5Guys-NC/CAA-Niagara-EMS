@@ -16,6 +16,7 @@ using CAA_Event_Management.Data;
 using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Models;
 using Windows.UI.Xaml.Media.Animation;
+using CAA_Event_Management.Utilities;
 /********************************
 * Created By: Jon Yade
 * Edited By:
@@ -115,6 +116,7 @@ namespace CAA_Event_Management.Views.EventViews
                         item.CreatedBy = userInfo.userAccountName;
                         item.LastModifiedBy = userInfo.userAccountName;
                         itemRespository.AddItem(item);
+                        NewAuditLine("Created by:" + userInfo.userAccountName + ", SurveyItem:" + selectedItem.ItemID + " To: " + selectedItem.ItemName + " " + selectedItem.ValueType + ", On Date: " + selectedItem.LastModifiedDate.ToString());
                         ClearFields();
                     }
                 }
@@ -133,6 +135,7 @@ namespace CAA_Event_Management.Views.EventViews
                 selectedItem.LastModifiedBy = userInfo.userAccountName;
                 selectedItem.LastModifiedDate = DateTime.Now;
                 SaveQuestion(selectedItem);
+                NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + ", SurveyItem:" + selectedItem.ItemID + " To: " + selectedItem.ItemName + " " + selectedItem.ValueType + ", On Date: " + selectedItem.LastModifiedDate.ToString());
                 selectedItem = null;
                 addOrEdit = 0;
             }
@@ -163,6 +166,7 @@ namespace CAA_Event_Management.Views.EventViews
                 thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
                 thisSelectedItem.LastModifiedDate = DateTime.Now;
                 itemRespository.DeleteUpdateItem(thisSelectedItem);
+                NewAuditLine("Modified(Delete) by:" + userInfo.userAccountName + ", SurveyItem:" + thisSelectedItem.ItemID + " " + thisSelectedItem.ItemName + ", On Date: " + thisSelectedItem.LastModifiedDate.ToString());
                 Frame.Navigate(typeof(Surveys), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
@@ -194,7 +198,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - FillFields, FillDataTypeComboBox, SearchField, BeginUpdate, SaveQuestion, ClearFields
+        #region Helper Methods - FillFields, FillDataTypeComboBox, SearchField, BeginUpdate, SaveQuestion, ClearFields, NewAuditLine
 
         private void FillFields(int itemDisplayOption)
         {
@@ -358,6 +362,11 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        private void NewAuditLine(string newLine)
+        {
+            AuditLog line = new AuditLog();
+            line.WriteToAuditLog(newLine);
+        }
 
         #endregion
     }

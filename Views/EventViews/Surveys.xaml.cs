@@ -116,7 +116,7 @@ namespace CAA_Event_Management.Views.EventViews
                         item.CreatedBy = userInfo.userAccountName;
                         item.LastModifiedBy = userInfo.userAccountName;
                         itemRespository.AddItem(item);
-                        NewAuditLine("Created by:" + userInfo.userAccountName + ", SurveyItem:" + selectedItem.ItemID + " To: " + selectedItem.ItemName + " " + selectedItem.ValueType + ", On Date: " + selectedItem.LastModifiedDate.ToString());
+                        NewAuditLine("Created by:" + userInfo.userAccountName + ", SurveyItem:" + item.ItemID + " " + item.ItemName + " " + item.ValueType + ", On Date: " + item.LastModifiedDate.ToString());
                         ClearFields();
                     }
                 }

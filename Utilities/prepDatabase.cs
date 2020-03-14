@@ -444,7 +444,7 @@ namespace CAA_Event_Management.Utilities
                 }
 
                 #endregion
-                
+
                 #endregion
 
                 if (context.EventGameUserAnswers.Count() == 0)
@@ -452,7 +452,7 @@ namespace CAA_Event_Management.Utilities
                     string beefjerky = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
                     List<AttendanceTracking> beefjerkyAttendees = context.AttendanceTrackings.Where(e => e.EventID == beefjerky).ToList();
                     bool correct = true;
-                    for(int i=0; i < 10; i++)
+                    for (int i = 0; i < 10; i++)
                     {
 
                         EventGameUserAnswer egua = new EventGameUserAnswer()
@@ -470,7 +470,7 @@ namespace CAA_Event_Management.Utilities
 
                         correct = !correct;
                     }
-                        
+
 
                 }
 

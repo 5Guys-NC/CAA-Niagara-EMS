@@ -122,6 +122,8 @@ namespace CAA_Event_Management.Views.Games
         private void btnQuestion_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(QuestionMenu));
+            Canvas.SetZIndex(btnGame, -1);
+            Canvas.SetZIndex(btnAnswer, -1);
         }
 
         private void btnAnswer_Click(object sender, RoutedEventArgs e)

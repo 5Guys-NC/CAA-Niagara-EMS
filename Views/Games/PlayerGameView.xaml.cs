@@ -88,14 +88,14 @@ namespace CAA_Event_Management.Views.Games
             if (gameQuest[index].AnswerText.Contains(select.Content.ToString()))
             {
                 select.Background = new SolidColorBrush(Windows.UI.Colors.Green);
-                txtDisplayResult.Text = "Correct!";
+                txtDisplayResult.Text = "You got it!!";
                 resultVM.CorrectAnswerCount++;
             }
 
             else
             {
                 select.Background = new SolidColorBrush(Windows.UI.Colors.Red);
-                txtDisplayResult.Text = "Incorrect";
+                txtDisplayResult.Text = "Try again!";
             }
 
             NextQuestion();

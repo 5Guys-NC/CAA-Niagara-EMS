@@ -7,17 +7,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource BackgroundColor}"
+    FontFamily="{ThemeResource ContentControlThemeFontFamily}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <RelativePanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-            <Button Name="btnCancelGame" Content="Go Back" Click="btnCancelGame_Click"/>
+        <RelativePanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Name="btnCancelGame"
+                    Background="#eaeaea"
+                    BorderBrush="#0d4e97"
+                    BorderThickness="3"
+                    Content="Back to Event"
+                    CornerRadius="20"
+                    FontWeight="Bold"
+                    Foreground="#0d4e97"
+                    Margin="10"
+                    Padding="10"
+                    Click="btnCancelGame_Click"/>
             <!--<Button x:Name="btnCancel"
                     RelativePanel.AlignLeftWithPanel="True"
                     Content="Cancel"
@@ -32,33 +43,61 @@
                     Click="btnNextQuestion_Click"
                     FontSize="40"/>-->
         </RelativePanel>
-        <TextBlock Name="tbkQuestion"
-                   Grid.Row="1"
-                   FontWeight="ExtraBlack"
-                   FontSize="25"
-                   TextWrapping="Wrap"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   />
 
+        <RelativePanel BorderBrush="#0d4e97" 
+                       BorderThickness="3" 
+                       CornerRadius="20" 
+                       Grid.Row="1" 
+                       HorizontalAlignment="Center" 
+                       Margin="50"
+                       Padding="30" 
+                       VerticalAlignment="Top">
+            <TextBlock Name="tbkQuestion"
+                       FontWeight="ExtraBlack"
+                       FontSize="25"
+                       Foreground="#0d4e97"
+                       TextWrapping="WrapWholeWords"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"/>
+            
+        </RelativePanel>
         <GridView Name="gameplayView" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <Button Content="{Binding Text}" Click="Button_Click"/>
+                    <StackPanel HorizontalAlignment="Center">
+                        <Button Background="#eaeaea" 
+                                BorderBrush="#81489c"  
+                                BorderThickness="3" 
+                                CornerRadius="20" 
+                                FontSize="26"
+                                FontWeight="Bold"
+                                Foreground="#0d4e97"
+                                HorizontalAlignment="Center" 
+                                Padding="20" 
+                                Width="250" 
+                                Click="Button_Click">
+                            <TextBlock Text="{Binding Text}" TextWrapping="WrapWholeWords" >
+
+                            </TextBlock>
+                        </Button>
                     </StackPanel>
                     <!--<TextBlock Text="{Binding Text}" Width="200"/>-->
-
                 </DataTemplate>
             </GridView.ItemTemplate>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
         </GridView>
 
-        <RelativePanel Grid.Row="3" HorizontalAlignment="Center">
-            <StackPanel Orientation="Vertical">
-                <TextBlock Name="txtDisplayResult" Width="500"/>
 
-            </StackPanel>
-        </RelativePanel>
-
+        <TextBlock Name="txtDisplayResult"
+                   FontSize="36"
+                   FontWeight="Bold"
+                   Foreground="#0d4e97"
+                   Grid.Row="3"
+                   Margin="0,30,0,0"
+                   HorizontalAlignment="Center"/>
     </Grid>
 </Page>

@@ -66,10 +66,28 @@ namespace CAA_Event_Management.Views.EventViews
         private void CoreWindow_CharacterReceived(CoreWindow sender, CharacterReceivedEventArgs args)
         {
 
-            if (args.KeyCode == 37) cardInfo = "%";
-            else if (cardInfo.Substring(0,1) == "%" ) cardInfo += Convert.ToChar(args.KeyCode).ToString();
+            if (args.KeyCode == 37)
+            {
+                cardInfo = "%";
+            }
+            else if (cardInfo.Substring(0, 1) == "%")
+            {
+                cardInfo += Convert.ToChar(args.KeyCode).ToString();
+            }
 
-            if (cardInfo.Length > 75 && cardInfo.EndsWith("?")) CardReadDisplay();
+            if (cardInfo.Length > 75 && cardInfo.EndsWith((char)Windows.System.VirtualKey.Enter))
+            {
+                CardReadDisplay();
+            }
+
+            if (cardInfo.Length == 14)
+            {
+                ((Window.Current.Content as Frame).Content as MainPage).DisableLoginButtons("off");
+                btnSave.IsEnabled = false;
+                btnCancel.IsEnabled = false;
+            }
+
+
 
             //else if (cardInfo == "%" && args.KeyCode == 66) cardInfo = "%B";
             //else if (args.KeyCode == 63 && cardInfo != "") // && cardInfo.Substring(0,2) == "%B"
@@ -223,11 +241,11 @@ namespace CAA_Event_Management.Views.EventViews
                 //lastNameTextBox.Text = entry.Substring(lastName + 1, 1) + entry.Substring(lastName + 2, firstName - lastName - 2).ToLower();
                 //isMembersCheck.IsChecked = true;
 
-                if (ListOfEID.Count == 0)
-                {
-                    SaveAttendenceItem();
-                    Frame.Navigate(this.GetType(), currentEvent);
-                }
+                //if (ListOfEID.Count == 0)
+                //{
+                //    SaveAttendenceItem();
+                //    Frame.Navigate(this.GetType(), currentEvent);
+                //}
             }
         }
 
@@ -238,11 +256,14 @@ namespace CAA_Event_Management.Views.EventViews
                 memberNumTextBox.Text = cardInfo.Substring(2, 16);
 
                 cardInfo = "g";
-                if (ListOfEID.Count == 0)
-                {
-                    SaveAttendenceItem();
-                    Frame.Navigate(this.GetType(), currentEvent);
-                }
+                //((Window.Current.Content as Frame).Content as MainPage).DisableLoginButtons("on");
+                //btnSave.IsEnabled = true;
+                //btnCancel.IsEnabled = true;
+                //if (ListOfEID.Count == 0)
+                //{
+                //    SaveAttendenceItem();
+                //    Frame.Navigate(this.GetType(), currentEvent);
+                //}
             }
             catch
             {

@@ -211,12 +211,17 @@ namespace CAA_Event_Management
 
         private void Global_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
         {
-
+            System.Diagnostics.Debug.WriteLine(e.Key);
             if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
             {
                 e.Handled = true;
             }
+            if (e.Key == Windows.System.VirtualKey.Tab)
+            {
+                e.Handled = true;
+            }
         }
+
 
         internal void SetUseEnter(bool useEnterKey)
         {
@@ -331,6 +336,19 @@ namespace CAA_Event_Management
         internal void ChangeMainPageTitleName(string newTitle)
         {
             txtTitle.Text = newTitle;
+        }
+
+        internal void DisableLoginButtons(string onOrOff)
+        {
+            if (onOrOff == "off")
+            {
+                //btnSignIn.IsEnabled = false;
+                //NavigationView.IsEnabled = false;
+            }
+            else
+            {
+                btnSignIn.IsEnabled = true;
+            }
         }
 
         #endregion

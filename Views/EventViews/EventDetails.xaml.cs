@@ -348,7 +348,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - SaveEventItems, TextSearchBox, CheckForDatesOnNames
+        #region Helper Methods - SaveEventItems, TextSearchBox, CheckForDatesOnNames, CheckForProperDateUsage
 
         private void SaveEventItemsToThisEvent()
         {

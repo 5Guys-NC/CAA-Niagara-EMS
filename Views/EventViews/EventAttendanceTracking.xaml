@@ -64,7 +64,8 @@
                     FontWeight="Bold"
                     Foreground="#eaeaea"                    
                     Margin="30,20,10,0"
-                    Click="btnBack_Click"/>
+                    Click="btnBack_Click"
+                    UseSystemFocusVisuals="False"/>
         </RelativePanel>
 
         <Grid x:Name="LayoutRoot" 
@@ -364,7 +365,8 @@
                             Margin="0,25,0,0"
                             Style="{StaticResource actionButtonStyle}"
                             Visibility="Visible"
-                            Click="btnSubmit_Click"/>
+                            Click="btnSubmit_Click"
+                            UseSystemFocusVisuals="False"/>
 
                     <!--<Button Name="btnSaveSurvey" Content="Save Response(s)" Grid.Row="6" Click="btnSaveSurvey_Click" />-->
                 </Grid>

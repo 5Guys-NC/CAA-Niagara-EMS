@@ -39,6 +39,7 @@ namespace CAA_Event_Management
             //Beginning Frame on Startup
             MyFrame.Navigate(typeof(EventStartView));
             DataContext = this;
+            //Window.Current.Content.PreviewKeyDown += Global_PreviewKeyDown;
         }
         #endregion
 
@@ -315,6 +316,34 @@ namespace CAA_Event_Management
             if (isVisible == false) nvNav.Visibility = Visibility.Collapsed;
             else nvNav.Visibility = Visibility.Visible;
         }
+
+
+
+        //private void Global_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
+        //{
+        //    System.Diagnostics.Debug.WriteLine(e.Key);
+        //    if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
+
+        internal void DisableLoginButtons(string onOrOff)
+        {
+            if (onOrOff == "off")
+            {
+                btnSignInFlyout.IsEnabled = false;
+                //NavigationView.IsEnabled = false;
+            }
+            else
+            {
+                btnSignIn.IsEnabled = true;
+            }
+        }
+
+
+
+
 
         #endregion
     }

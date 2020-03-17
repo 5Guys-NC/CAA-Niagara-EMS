@@ -7,8 +7,10 @@ using CAA_Event_Management.Views.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 /***********************************
@@ -23,6 +25,8 @@ namespace CAA_Event_Management.Views.EventViews
         #region Startup - variables, repositories, methods
 
         private int questionCount = 0;
+        private string cardInfo = "g";
+        private bool cardEnd = false;
         Models.Event currentEvent;
         AttendanceTracking tracker = new AttendanceTracking();
         AttendanceItem survey = new AttendanceItem(); //may be able to delete this after testing
@@ -51,7 +55,57 @@ namespace CAA_Event_Management.Views.EventViews
             tracker.EventID = currentEvent.EventID;
             tracker.ArrivalTime = DateTime.Now;
             BuildQuestions();
+            //Page.PreviewKeyDownEvent += Page_PreviewKeyDown;
+            Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
+            //Window.Current.Content.PreviewKeyDown += Global_PreviewKeyDown;
+        }
 
+        //private void Global_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
+        //{
+        //    System.Diagnostics.Debug.WriteLine(e.Key);
+        //    if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
+
+        private void CoreWindow_CharacterReceived(CoreWindow sender, CharacterReceivedEventArgs args)
+        {
+            System.Diagnostics.Debug.WriteLine((char)args.KeyCode);
+            if (args.KeyCode == 37)
+            {
+                cardInfo = "%";
+            }
+            else if (cardInfo.Substring(0, 1) == "%")
+            {
+                cardInfo += Convert.ToChar(args.KeyCode).ToString();
+            }
+
+            if (cardInfo.Length > 75 && cardInfo.EndsWith("%"))
+            //if (cardInfo.Length > 75 && cardInfo.EndsWith((char)Windows.System.VirtualKey.Enter))
+            {
+                CardReadDisplay();
+            }
+
+            if (cardInfo.Length == 14)
+            {
+                ((Window.Current.Content as Frame).Content as MainPage).DisableLoginButtons("off");
+                btnSubmit.IsEnabled = false;
+                btnBack.IsEnabled = false;
+            }
+
+        }
+
+
+
+
+        private void Page_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(e.Key);
+            if (e.Key == Windows.System.VirtualKey.Enter)   //Window.Current.CoreWindow.GetKeyState(VirtualKey.Control).HasFlag(CoreVirtualKeyStates.Down) &&
+            {
+                e.Handled = true;
+            }
         }
 
         #endregion
@@ -192,6 +246,28 @@ namespace CAA_Event_Management.Views.EventViews
                     SaveAttendenceItem();
                     Frame.Navigate(this.GetType(), currentEvent);
                 }
+            }
+        }
+
+        private void CardReadDisplay()
+        {
+            try
+            {
+                memberNumTextBox.Text = cardInfo.Substring(2, 16);
+
+                cardInfo = "g";
+                //((Window.Current.Content as Frame).Content as MainPage).DisableLoginButtons("on");
+                //btnSave.IsEnabled = true;
+                //btnCancel.IsEnabled = true;
+                //if (ListOfEID.Count == 0)
+                //{
+                //    SaveAttendenceItem();
+                //    Frame.Navigate(this.GetType(), currentEvent);
+                //}
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Please re-swip card");
             }
         }
 

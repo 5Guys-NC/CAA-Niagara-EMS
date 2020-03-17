@@ -13,7 +13,7 @@ namespace CAA_Event_Management.Utilities
     {
         internal async void WriteToAuditLog(string auditLine)
         {
-            string fileName = "CAAAuditLog" + DateTime.Now.Year + ".txt";
+            string fileName = "CAAAuditLog" + DateTime.Now.Month + DateTime.Now.Year + ".txt";
 
             //Heavily used: https://docs.microsoft.com/en-us/windows/uwp/files/quickstart-reading-and-writing-files
 

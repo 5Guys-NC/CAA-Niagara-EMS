@@ -11,7 +11,7 @@ namespace CAA_Event_Management.Utilities
 {
     internal class AuditLog
     {
-        internal async void WriteToAuditLog(string auditLine)
+        internal async Task<bool> WriteToAuditLog(string auditLine)
         {
             string fileName = "CAAAuditLog" + DateTime.Now.Year + ".txt";
 
@@ -31,7 +31,9 @@ namespace CAA_Event_Management.Utilities
             catch (Exception)
             {
                 Jeeves.ShowMessage("Error", "Failure to update audit log; please contact adminstrator");
+                return false;
             }
+            return true;
         }
     }
 }

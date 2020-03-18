@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.ViewModels;
+using System.Threading.Tasks;
 /******************************
 *  Model Created By: Jon Yade
 *  Edited By:  
@@ -350,8 +351,9 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - SaveEventItems, TextSearchBox, CheckForDatesOnNames, CheckForProperDateUsage
 
-        private void SaveEventItemsToThisEvent()
+        private async Task<bool> SaveEventItemsToThisEvent()
         {
+            bool response = false;
             if (insertMode == false)
             {
                 try
@@ -367,6 +369,7 @@ namespace CAA_Event_Management.Views.EventViews
                         eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
                         itemRepository.UpdateItemCount(x.EIDItemID, 1);
                         eventItemRepository.AddEventItem(eventItemToAdd);
+                        response = await NewAuditLine("First create - a big long line fo text that needs to get written before moving on ther is not much more to say there that this");
                     }
                 }
                 catch
@@ -383,6 +386,7 @@ namespace CAA_Event_Management.Views.EventViews
                     {
                         itemRepository.UpdateItemCount(x.ItemID, -1);
                         eventItemRepository.DeleteEventItem(x);
+                        response = await NewAuditLine("First delete - a big long line fo text that needs to get written before moving on ther is not much more to say there that this");
                     }
                 }
                 catch
@@ -413,11 +417,13 @@ namespace CAA_Event_Management.Views.EventViews
                             eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
                             itemRepository.UpdateItemCount(x.EIDItemID, 1);
                             eventItemRepository.AddEventItem(eventItemToAdd);
+                            response = await NewAuditLine("second create - a big long line fo text that needs to get written before moving on ther is not much more to say there that this");
                         }
                         else if (checkForItem != null && !selectedItems.Contains(x))
                         {
                             itemRepository.UpdateItemCount(x.EIDItemID, -1);
                             eventItemRepository.DeleteEventItem(checkForItem);
+                            response = await NewAuditLine("second delete - a big long line fo text that needs to get written before moving on ther is not much more to say there that this");
                         }
                     }
                 }
@@ -426,6 +432,7 @@ namespace CAA_Event_Management.Views.EventViews
                     Jeeves.ShowMessage("Error", "There was a problem...");
                 }
             }
+            return response;
         }
         private void txtSearchIcon_Click(object sender, RoutedEventArgs e)
         {
@@ -467,8 +474,6 @@ namespace CAA_Event_Management.Views.EventViews
                 }
             }
         }
-
-
 
         private bool CheckForProperDateUsage()
         {
@@ -550,10 +555,10 @@ namespace CAA_Event_Management.Views.EventViews
             return true;
         }
 
-        private void NewAuditLine(string newLine)
+        private async Task<bool> NewAuditLine(string newLine)
         {
             AuditLog line = new AuditLog();
-            line.WriteToAuditLog(newLine);
+            return await line.WriteToAuditLog(newLine);
         }
 
         #endregion

@@ -120,9 +120,9 @@
     </Compile>
     <Compile Include="Converters\DateTimeToOffsetConverter.cs" />
     <Compile Include="Data\CAAContext.cs" />
-    <Compile Include="Data\CAAMigrations\20200305022909_CAAMigrationMar04.cs" />
-    <Compile Include="Data\CAAMigrations\20200305022909_CAAMigrationMar04.Designer.cs">
-      <DependentUpon>20200305022909_CAAMigrationMar04.cs</DependentUpon>
+    <Compile Include="Data\CAAMigrations\20200318154958_CAAMigration.cs" />
+    <Compile Include="Data\CAAMigrations\20200318154958_CAAMigration.Designer.cs">
+      <DependentUpon>20200318154958_CAAMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\CAAMigrations\CAAContextModelSnapshot.cs" />
     <Compile Include="Data\Interface Repos\IEventGameUserAnswerRepository.cs" />

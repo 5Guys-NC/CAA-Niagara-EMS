@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using CAA_Event_Management.Data;
 
-namespace CAA_Event_Management.Migrations
+namespace CAA_Event_Management.Data.Migrations
 {
     [DbContext(typeof(CAAContext))]
     partial class CAAContextModelSnapshot : ModelSnapshot
@@ -424,7 +424,8 @@ namespace CAA_Event_Management.Migrations
                         .HasMaxLength(25);
 
                     b.Property<string>("Password")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("UserName")
                         .IsRequired();
@@ -442,12 +443,12 @@ namespace CAA_Event_Management.Migrations
             modelBuilder.Entity("CAA_Event_Management.Models.AnswerPicture", b =>
                 {
                     b.HasOne("CAA_Event_Management.Models.Answer", "Answer")
-                        .WithMany()
+                        .WithMany("AnswerPictures")
                         .HasForeignKey("AnswerID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("CAA_Event_Management.Models.Picture", "Picture")
-                        .WithMany("answerPictures")
+                        .WithMany("AnswerPictures")
                         .HasForeignKey("PictureID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

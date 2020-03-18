@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 /******************************
 *  Model Created By: Max Cashmore
@@ -11,6 +12,11 @@ namespace CAA_Event_Management.Models
     /// </summary>
     public class Answer
     {
+        public Answer()
+        {
+            this.AnswerPictures = new HashSet<AnswerPicture>();
+        }
+
         public int ID { get; set; }
 
         [Display(Name = "Answer")]
@@ -32,6 +38,8 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Last Modified Date")]
         public DateTime? LastModifiedDate { get; set; }
+
+        public virtual ICollection<AnswerPicture> AnswerPictures { get; set; }
 
         #endregion
     }

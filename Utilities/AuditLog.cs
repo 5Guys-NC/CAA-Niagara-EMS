@@ -11,7 +11,7 @@ namespace CAA_Event_Management.Utilities
 {
     internal class AuditLog
     {
-        internal async void WriteToAuditLog(string auditLine)
+        internal async Task WriteToAuditLog(string auditLine)
         {
             string fileName = "CAAAuditLog" + DateTime.Now.Month + DateTime.Now.Year + ".txt";
 

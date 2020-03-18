@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.ViewModels;
+using System.Threading.Tasks;
 /******************************
 *  Model Created By: Jon Yade
 *  Edited By:  
@@ -350,7 +351,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - SaveEventItems, TextSearchBox, CheckForDatesOnNames
 
-        private void SaveEventItemsToThisEvent()
+        private async void SaveEventItemsToThisEvent()
         {
             string auditLine = "";
             if (insertMode == false)
@@ -367,14 +368,16 @@ namespace CAA_Event_Management.Views.EventViews
                         eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
                         itemRepository.UpdateItemCount(x.EIDItemID, 1);
                         eventItemRepository.AddEventItem(eventItemToAdd);
-                        if (auditLine == "")
-                        {
+
+                        //if (auditLine == "")
+                        //{
                             auditLine = "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        }
-                        else
-                        {
-                            auditLine += "\nCreated by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        }
+                        await NewAuditLine(auditLine);
+                        //}
+                        //else
+                        //{
+                        //    auditLine += "\nCreated by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                        //}
                     }
                 }
                 catch
@@ -391,14 +394,15 @@ namespace CAA_Event_Management.Views.EventViews
                     {
                         itemRepository.UpdateItemCount(x.ItemID, -1);
                         eventItemRepository.DeleteEventItem(x);
-                        if (auditLine == "")
-                        {
+                        //if (auditLine == "")
+                        //{
                             auditLine = "Deleted by:" + userInfo.userAccountName + " EventItem:" + x.EventItemID + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        }
-                        else
-                        {
-                            auditLine += "\nDeleted by:" + userInfo.userAccountName + " EventItem:" + x.EventItemID + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        }
+                        await NewAuditLine(auditLine);
+                        //}
+                        //else
+                        //{
+                        //    auditLine += "\nDeleted by:" + userInfo.userAccountName + " EventItem:" + x.EventItemID + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                        //}
                     }
                 }
                 catch
@@ -428,27 +432,29 @@ namespace CAA_Event_Management.Views.EventViews
                             eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
                             itemRepository.UpdateItemCount(x.EIDItemID, 1);
                             eventItemRepository.AddEventItem(eventItemToAdd);
-                            if (auditLine == "")
-                            {
+                            //if (auditLine == "")
+                            //{
                                 auditLine = "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                                await NewAuditLine(auditLine);
+                                //}
+                                //else
+                                //{
+                                //    auditLine += "\nCreated by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                                //}
                             }
-                            else
-                            {
-                                auditLine += "\nCreated by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            }
-                        }
                         else if (checkForItem != null && !selectedItems.Contains(x))
                         {
                             itemRepository.UpdateItemCount(x.EIDItemID, -1);
                             eventItemRepository.DeleteEventItem(checkForItem);
-                            if (auditLine == "")
-                            {
+                            //if (auditLine == "")
+                            //{
                                 auditLine = "Deleted by:" + userInfo.userAccountName + " EventItem:" + checkForItem.EventItemID + " " + x.EIDItemPhrase + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            }
-                            else
-                            {
-                                auditLine += "\nDeleted by:" + userInfo.userAccountName + " EventItem:" + checkForItem.EventItemID + " " + x.EIDItemPhrase + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            }
+                            await NewAuditLine(auditLine);
+                            //}
+                            //else
+                            //{
+                            //    auditLine += "\nDeleted by:" + userInfo.userAccountName + " EventItem:" + checkForItem.EventItemID + " " + x.EIDItemPhrase + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                            //}
                         }
                     }
                 }
@@ -457,7 +463,7 @@ namespace CAA_Event_Management.Views.EventViews
                     Jeeves.ShowMessage("Error", "There was a problem...");
                 }
             }
-            NewAuditLine(auditLine);
+            //await NewAuditLine(auditLine);
         }
         private void txtSearchIcon_Click(object sender, RoutedEventArgs e)
         {
@@ -587,10 +593,10 @@ namespace CAA_Event_Management.Views.EventViews
             userInfo = (App)Application.Current;
         }
 
-        private void NewAuditLine(string newLine)
+        private async Task NewAuditLine(string newLine)
         {
             AuditLog line = new AuditLog();
-            line.WriteToAuditLog(newLine);
+            await line.WriteToAuditLog(newLine);
         }
 
         #endregion

@@ -11,6 +11,11 @@ namespace CAA_Event_Management.Models
     /// </summary>
     public class Picture
     {
+        public Picture()
+        {
+            this.AnswerPictures = new HashSet<AnswerPicture>();
+        }
+
         public int ID { get; set; }
         public byte[] Image { get; set; }
         public string ImageFileName { get; set; }
@@ -27,6 +32,6 @@ namespace CAA_Event_Management.Models
         [Display(Name = "Last Modified Date")]
         public DateTime? LastModifiedDate { get; set; }
 
-        public ICollection<AnswerPicture> answerPictures { get; set; }
+        public ICollection<AnswerPicture> AnswerPictures { get; set; }
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CAA_Event_Management.Migrations
+namespace CAA_Event_Management.Data.Migrations
 {
-    public partial class CAAMigrationMar04 : Migration
+    public partial class CAAMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -126,7 +126,7 @@ namespace CAA_Event_Management.Migrations
                     LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
                     LastModifiedDate = table.Column<DateTime>(nullable: true),
                     LastName = table.Column<string>(maxLength: 25, nullable: true),
-                    Password = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(maxLength: 50, nullable: false),
                     UserName = table.Column<string>(nullable: false),
                     isAdmin = table.Column<bool>(nullable: false)
                 },

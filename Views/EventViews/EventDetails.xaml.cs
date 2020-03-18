@@ -114,7 +114,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Buttons - Event - Save, Delete, Cancel, and MemberCheckBox Methods
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckForProperDateUsage()) return;
 
@@ -132,18 +132,18 @@ namespace CAA_Event_Management.Views.EventViews
                     view.CreatedBy = userInfo.userAccountName;
                     view.LastModifiedBy = userInfo.userAccountName;
                     eventRepository.AddEvent(view);
-                    NewAuditLine("Created by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date: " + view.LastModifiedDate.ToString()
+                    await NewAuditLine("Created by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date: " + view.LastModifiedDate.ToString()
                                    + "To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
-                    SaveEventItemsToThisEvent();
+                    await SaveEventItemsToThisEvent();
                 }
                 else
                 {
                     view.LastModifiedBy = userInfo.userAccountName;
                     view.LastModifiedDate = DateTime.Now;
                     eventRepository.UpdateEvent(view);
-                    NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date:" + view.LastModifiedDate.ToString()
+                    await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date:" + view.LastModifiedDate.ToString()
                                     + " To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
-                    SaveEventItemsToThisEvent();
+                    await SaveEventItemsToThisEvent();
                 }
                 Frame.GoBack();
             }
@@ -351,7 +351,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - SaveEventItems, TextSearchBox, CheckForDatesOnNames
 
-        private async void SaveEventItemsToThisEvent()
+        private async Task SaveEventItemsToThisEvent()
         {
             string auditLine = "";
             if (insertMode == false)
@@ -369,15 +369,15 @@ namespace CAA_Event_Management.Views.EventViews
                         itemRepository.UpdateItemCount(x.EIDItemID, 1);
                         eventItemRepository.AddEventItem(eventItemToAdd);
 
-                        //if (auditLine == "")
-                        //{
+                        if (auditLine == "")
+                        {
                             auditLine = "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        await NewAuditLine(auditLine);
-                        //}
-                        //else
-                        //{
-                        //    auditLine += "\nCreated by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        //}
+                        //await NewAuditLine(auditLine);
+                        }
+                        else
+                        {
+                            auditLine += System.Environment.NewLine + "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                        }
                     }
                 }
                 catch
@@ -394,15 +394,15 @@ namespace CAA_Event_Management.Views.EventViews
                     {
                         itemRepository.UpdateItemCount(x.ItemID, -1);
                         eventItemRepository.DeleteEventItem(x);
-                        //if (auditLine == "")
-                        //{
+                        if (auditLine == "")
+                        {
                             auditLine = "Deleted by:" + userInfo.userAccountName + " EventItem:" + x.EventItemID + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        await NewAuditLine(auditLine);
-                        //}
-                        //else
-                        //{
-                        //    auditLine += "\nDeleted by:" + userInfo.userAccountName + " EventItem:" + x.EventItemID + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        //}
+                        //await NewAuditLine(auditLine);
+                        }
+                        else
+                        {
+                            auditLine += System.Environment.NewLine + "Deleted by:" + userInfo.userAccountName + " EventItem:" + x.EventItemID + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                        }
                     }
                 }
                 catch
@@ -432,29 +432,29 @@ namespace CAA_Event_Management.Views.EventViews
                             eventItemToAdd.LastModifiedBy = userInfo.userAccountName;
                             itemRepository.UpdateItemCount(x.EIDItemID, 1);
                             eventItemRepository.AddEventItem(eventItemToAdd);
-                            //if (auditLine == "")
-                            //{
+                            if (auditLine == "")
+                            {
                                 auditLine = "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                                await NewAuditLine(auditLine);
-                                //}
-                                //else
-                                //{
-                                //    auditLine += "\nCreated by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                                //}
+                                //await NewAuditLine(auditLine);
                             }
+                            else
+                            {
+                                auditLine += System.Environment.NewLine + "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                            }
+                        }
                         else if (checkForItem != null && !selectedItems.Contains(x))
                         {
                             itemRepository.UpdateItemCount(x.EIDItemID, -1);
                             eventItemRepository.DeleteEventItem(checkForItem);
-                            //if (auditLine == "")
-                            //{
+                            if (auditLine == "")
+                            {
                                 auditLine = "Deleted by:" + userInfo.userAccountName + " EventItem:" + checkForItem.EventItemID + " " + x.EIDItemPhrase + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            await NewAuditLine(auditLine);
-                            //}
-                            //else
-                            //{
-                            //    auditLine += "\nDeleted by:" + userInfo.userAccountName + " EventItem:" + checkForItem.EventItemID + " " + x.EIDItemPhrase + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            //}
+                            //await NewAuditLine(auditLine);
+                            }
+                            else
+                            {
+                                auditLine += System.Environment.NewLine + "Deleted by:" + userInfo.userAccountName + " EventItem:" + checkForItem.EventItemID + " " + x.EIDItemPhrase + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
+                            }
                         }
                     }
                 }
@@ -463,7 +463,7 @@ namespace CAA_Event_Management.Views.EventViews
                     Jeeves.ShowMessage("Error", "There was a problem...");
                 }
             }
-            //await NewAuditLine(auditLine);
+            await NewAuditLine(auditLine);
         }
         private void txtSearchIcon_Click(object sender, RoutedEventArgs e)
         {

@@ -25,7 +25,7 @@ namespace CAA_Event_Management.Utilities
                 Windows.Storage.StorageFile sampleFile =
                       await storageFolder.CreateFileAsync(fileName, Windows.Storage.CreationCollisionOption.OpenIfExists);
 
-                auditLine = "\n" + auditLine;
+                auditLine = System.Environment.NewLine + auditLine;
                 await Windows.Storage.FileIO.AppendTextAsync(sampleFile, auditLine);
             }
             catch (Exception)

@@ -31,6 +31,8 @@ namespace CAA_Event_Management.Views.EventViews
     {
         #region Startup - variables, respositories, methods
 
+        //General variables
+        Models.Event startView;
         Models.Event view;
         private int questionCount = 0;
         private bool insertMode = true;
@@ -54,12 +56,14 @@ namespace CAA_Event_Management.Views.EventViews
             eventItemRepository = new EventItemRepository();
             itemRepository = new ItemRepository();
             gameRepository = new GameRepository();
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //Event object preparation
             view = (Event)e.Parameter;
+            startView = view;
             this.DataContext = view;
             GetUserInfo();
 
@@ -138,11 +142,18 @@ namespace CAA_Event_Management.Views.EventViews
                 }
                 else
                 {
-                    view.LastModifiedBy = userInfo.userAccountName;
-                    view.LastModifiedDate = DateTime.Now;
                     eventRepository.UpdateEvent(view);
-                    await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date:" + view.LastModifiedDate.ToString()
-                                    + " To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
+                    Event newView = eventRepository.GetEvent(view.EventID);
+
+                    if(startView != newView)
+                    {
+                        view.LastModifiedBy = userInfo.userAccountName;
+                        view.LastModifiedDate = DateTime.Now;
+                        eventRepository.UpdateEvent(view);
+
+                        await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date:" + view.LastModifiedDate.ToString()
+                                       + " To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
+                    }
                     await SaveEventItemsToThisEvent();
                 }
                 Frame.GoBack();

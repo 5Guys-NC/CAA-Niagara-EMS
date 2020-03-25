@@ -260,6 +260,8 @@ namespace CAA_Event_Management.Data.Migrations
 
                     b.Property<int>("GameID");
 
+                    b.Property<string>("ImageIDs");
+
                     b.Property<string>("OptionsText");
 
                     b.Property<string>("QuestionText");

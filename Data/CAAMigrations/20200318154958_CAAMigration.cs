@@ -173,6 +173,7 @@ namespace CAA_Event_Management.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     AnswerText = table.Column<string>(nullable: true),
                     GameID = table.Column<int>(nullable: false),
+                    ImageIDs = table.Column<string>(nullable: true),
                     OptionsText = table.Column<string>(nullable: true),
                     QuestionText = table.Column<string>(nullable: true)
                 },

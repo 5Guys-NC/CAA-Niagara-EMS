@@ -19,6 +19,7 @@ namespace CAA_Event_Management.Models
         
         public string AnswerText { get; set; }
 
+        public string ImageIDs { get; set; }
         public int GameID { get; set; }
         public Game Game { get; set; }
     }

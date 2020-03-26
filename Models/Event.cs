@@ -94,6 +94,20 @@ namespace CAA_Event_Management.Models
         public ICollection<EventItem> EventItems { get; set; }
         public ICollection<AttendanceTracking> AttendanceTrackings { get; set; }
 
+
+        //https://docs.microsoft.com/en-us/dotnet/api/system.object.equals?view=netframework-4.8 provided this code
+        public override bool Equals(object obj)
+        { 
+              if ((obj == null) || ! this.GetType().Equals(obj.GetType())) 
+              {
+                 return false;
+              }
+              else { 
+                 Event e = (Event) obj; 
+                 return (QuizID == e.QuizID) && (MembersOnly == e.MembersOnly) && (DisplayName == e.DisplayName) && (EventStart == e.EventStart) && (EventEnd == e.EventEnd);
+              }   
+        }
+
         #endregion
     }
 }

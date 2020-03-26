@@ -63,7 +63,7 @@ namespace CAA_Event_Management.Views.EventViews
         {
             //Event object preparation
             view = (Event)e.Parameter;
-            startView = view;
+            startView = eventRepository.GetEvent(view.EventID);
             this.DataContext = view;
             GetUserInfo();
 
@@ -142,10 +142,7 @@ namespace CAA_Event_Management.Views.EventViews
                 }
                 else
                 {
-                    eventRepository.UpdateEvent(view);
-                    Event newView = eventRepository.GetEvent(view.EventID);
-
-                    if(startView != newView)
+                    if(!startView.Equals(view))
                     {
                         view.LastModifiedBy = userInfo.userAccountName;
                         view.LastModifiedDate = DateTime.Now;

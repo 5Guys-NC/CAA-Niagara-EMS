@@ -1,4 +1,5 @@
 ﻿using CAA_Event_Management.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 /******************************
@@ -22,7 +23,18 @@ namespace CAA_Event_Management.Data
         {
             using (CAAContext context = new CAAContext())
             {
-                var items = context.Answers.OrderByDescending(o => o.TimesUsed).ToList();
+                var items = context.Answers.Include(a => a.AnswerPictures)
+                    .OrderByDescending(o => o.TimesUsed)
+                    .ToList();
+                return items;
+            }
+        }
+
+        public Answer GetAnswer(int id)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                var items = context.Answers.Include(a => a.AnswerPictures).Where(a => a.ID == id).FirstOrDefault();
                 return items;
             }
         }
@@ -50,7 +62,7 @@ namespace CAA_Event_Management.Data
         {
             using (CAAContext context = new CAAContext())
             {
-                var items = context.Answers.OrderBy(o => o.TimesUsed).ToList();
+                var items = context.Answers.Include(a => a.AnswerPictures).OrderByDescending(o => o.TimesUsed).ToList();
                 return items;
             }
         }
@@ -79,6 +91,33 @@ namespace CAA_Event_Management.Data
             using (CAAContext context = new CAAContext())
             {
                 context.GameModels.Update(UpdateGM);
+                context.SaveChanges();
+            }
+        }
+
+        public void RemoveAnswer(Answer answer)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.Answers.Remove(answer);
+                context.SaveChanges();
+            }
+        }
+
+        public void AddAnswerPicture(AnswerPicture ansPicToAdd)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.AnswerPictures.Add(ansPicToAdd);
+                context.SaveChanges();
+            }
+        }
+
+        public void UpdateAnswer(Answer toUpdate)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.Answers.Update(toUpdate);
                 context.SaveChanges();
             }
         }

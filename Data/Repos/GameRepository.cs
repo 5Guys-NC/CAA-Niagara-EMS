@@ -46,5 +46,13 @@ namespace CAA_Event_Management.Data
                 return items;
             }
         }
+        public void RemoveGame(Game game)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.Remove(game);
+                context.SaveChanges();
+            }
+        }
     }
 }

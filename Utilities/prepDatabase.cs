@@ -2,6 +2,7 @@
 using CAA_Event_Management.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 /******************************
 *  Created By: Jon Yade
@@ -96,65 +97,88 @@ namespace CAA_Event_Management.Utilities
                      });
                     context.SaveChanges();
                 }
+                if (!context.Questions.Any())
+                {
+                    context.Questions.AddRange(
+                    new Question
+                    {
+                        Text = "CAA Members save 10% on their bill at which restaurants?",
+                        TimesUsed = 1
+                    },
+                    new Question
+                    {
+                        Text = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park.",
+                        TimesUsed = 2
+                    }
+                    );
+                    context.SaveChanges();
+                }
+                if (!context.Answers.Any())
+                {
+                    context.Answers.AddRange(
+                       new Answer
+                       {
+                           Text = "Harvey's",
+                           TimesUsed = 1
+                       },
+                       new Answer
+                       {
+                           Text = "Kelsey's",
+                           TimesUsed = 1
+                       },
+                       new Answer
+                       {
+                           Text = "Montana's",
+                           TimesUsed = 1
+                       },
+                       new Answer
+                       {
+                           Text = "All of the Above",
+                           TimesUsed = 1
+                       },
+                       new Answer
+                       {
+                           Text = "True",
+                           TimesUsed = 2
+                       },
+                       new Answer
+                       {
+                           Text = "False",
+                           TimesUsed = 2
+                       }
+                       );
+                    context.SaveChanges();
+                }
 
-                //if (!context.Questions.Any())
-                //{
-                //    context.Questions.AddRange(
-                //    new Question
-                //    {
-                //        Phrase = "CAA Members save 10% on their bill at which restaurants?",
-                //        GameID = 1,
-                //    },
-                //    new Question
-                //    {
-                //        Phrase = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park. ",
-                //        GameID = 1,
-                //    }
-                //    );
-                //    context.SaveChanges();
-                //}
-                //if (!context.Answers.Any())
-                //{
-                //    context.Answers.AddRange(
-                //       new Answer
-                //       {
-                //           Phrase = "Harvey's",
-                //           IsCorrect = false,
-                //           QuestionID = 1
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "Kelsey's",
-                //           IsCorrect = false,
-                //           QuestionID = 1
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "Montana's",
-                //           IsCorrect = false,
-                //           QuestionID = 1
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "All of the Above",
-                //           IsCorrect = true,
-                //           QuestionID = 1
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "True",
-                //           IsCorrect = true,
-                //           QuestionID = 2
-                //       },
-                //       new Answer
-                //       {
-                //           Phrase = "False",
-                //           IsCorrect = false,
-                //           QuestionID = 2
-                //       }
-                //       );
-                //    context.SaveChanges();
-                //}
+                if (!context.GameModels.Any())
+                {
+                    context.GameModels.AddRange(
+                        new GameModel
+                        {
+                            QuestionText = "CAA Members save 10% on their bill at which restaurants?",
+                            OptionsText = "Harvey's|Kelsey's|Montana's|All of the Above",
+                            AnswerText = "All of the Above",
+                            ImageIDs ="",
+                            GameID = 1
+                        },
+                        new GameModel
+                        {
+                            QuestionText = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park.",
+                            OptionsText = "True|False",
+                            AnswerText = "True",
+                            ImageIDs = "",
+                            GameID = 1
+                        },
+                        new GameModel
+                        {
+                            QuestionText = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park.",
+                            OptionsText = "True|False",
+                            AnswerText = "True",
+                            ImageIDs = "",
+                            GameID = 2
+                        }
+                    );
+                }
 
                 #endregion
 
@@ -166,95 +190,292 @@ namespace CAA_Event_Management.Utilities
                      new Event
                      {
                          EventID = Guid.NewGuid().ToString(),
-                         EventName = "TestEvent1",
-                         EventStart = DateTime.Today,
-                         AbrevEventname = "TE1",
+                         EventName = "Ribfest",
+                         EventStart = DateTime.Today.AddDays(3),
+                         EventEnd = DateTime.Today.AddDays(3),
+                         AbrevEventname = "RF1",
                          MembersOnly = true,
-                         DisplayName = "Test Event 1"
+                         DisplayName = "RibFest"
                      },
                      new Event
                      {
                          EventID = Guid.NewGuid().ToString(),
-                         EventName = "TestEvent2",
+                         EventName = "Heart & Stroke Fundraiser",
+                         EventStart = DateTime.Today.AddDays(-1),
+                         EventEnd = DateTime.Today.AddDays(-1),
+                         AbrevEventname = "HS1",
+                         MembersOnly = true,
+                         DisplayName = "Heart & Stroke Fundraiser"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "CAA Charity BBQ",
+                         EventStart = DateTime.Today.AddDays(7),
+                         EventEnd = DateTime.Today.AddDays(7),
+                         AbrevEventname = "CCB1",
+                         MembersOnly = true,
+                         DisplayName = "CAA Charity BBQ"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Food Truck Wars",
                          EventStart = DateTime.Today,
-                         AbrevEventname = "TE2",
+                         AbrevEventname = "FT1",
                          MembersOnly = false,
-                         DisplayName = "Test Event 2"
+                         DisplayName = "Food Truck Wars"
                      },
                      new Event
                      {
                          EventID = Guid.NewGuid().ToString(),
-                         EventName = "TestEvent3",
-                         EventStart = DateTime.Today,
-                         AbrevEventname = "TE3",
+                         EventName = "Wingfest",
+                         EventStart = DateTime.Today.AddDays(3),
+                         EventEnd = DateTime.Today.AddDays(3),
+                         AbrevEventname = "WF1",
                          MembersOnly = true,
-                         DisplayName = "Test Event 3"
+                         DisplayName = "WingFest"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Very Important Gala",
+                         EventStart = DateTime.Today.AddDays(1),
+                         EventEnd = DateTime.Today.AddDays(1),
+                         AbrevEventname = "VIG1",
+                         MembersOnly = true,
+                         DisplayName = "Very Important Gala"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Arctic Marathon",
+                         EventStart = DateTime.Today.AddDays(-30),
+                         EventEnd = DateTime.Today.AddDays(-32),
+                         AbrevEventname = "AM1",
+                         MembersOnly = true,
+                         DisplayName = "Arctic Marathon"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "Beef Jerky Invitational",
+                         EventStart = DateTime.Today.AddDays(-5),
+                         EventEnd = DateTime.Today.AddDays(-3),
+                         AbrevEventname = "BJ1",
+                         MembersOnly = false,
+                         DisplayName = "Beef Jerky Invitational"
+                     },
+                     new Event
+                     {
+                         EventID = Guid.NewGuid().ToString(),
+                         EventName = "CAA Christmas Party",
+                         EventStart = DateTime.Today.AddDays(5),
+                         EventEnd = DateTime.Today.AddDays(5),
+                         AbrevEventname = "CP1",
+                         MembersOnly = true,
+                         DisplayName = "CAA Christmas Party"
                      });
                     context.SaveChanges();
                 }
 
                 #endregion
 
-                #region AttendanceTracking - Commented out
+                #region AttendanceTracking
 
-                //if (!context.AttendanceTrackings.Any())
-                //{
-                //    context.AttendanceTrackings.AddRange(
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 1,
-                //         FirstName = "Brian",
-                //         LastName = "Culp",
-                //         IsMember = "true",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "1234567898765432",
-                //         PhoneNo = "9055554444"
+                string[] firstNames = new string[] { "Brian", "Jon", "Max", "Nathan", "Oli", "Geri", "Joe", "Kaila", "Richard", "Marsha", "Hunter", "Dave", "Nicholas" };
+                string[] lastNames = new string[] { "Culp", "Yade", "Smith", "Cashmore", "Crroj", "Johnson", "Brown", "Henderson", "Anderson", "Doe", "Stovell", "Baddeley", "Kendall" };
+                Random random = new Random();
 
-                //     },
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 1,
-                //         FirstName = "Jon",
-                //         LastName = "Yade",
-                //         IsMember = "false",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "1222267898765432",
-                //         PhoneNo = "9055224444"
-                //     },
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 1,
-                //         FirstName = "Nate",
-                //         LastName = "Smith",
-                //         IsMember = "true",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "1222267555555432",
-                //         PhoneNo = "9055222222"
-                //     },
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 2,
-                //         FirstName = "Oli",
-                //         LastName = "Crroj",
-                //         IsMember = "false",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "1222267898760032",
-                //         PhoneNo = "9055224400"
-                //     },
-                //     new AttendanceTracking
-                //     {
-                //         EventID = 3,
-                //         FirstName = "Max",
-                //         LastName = "Cashmore",
-                //         IsMember = "true",
-                //         ArrivalTime = DateTime.Now,
-                //         MemberNo = "0099567898765432",
-                //         PhoneNo = "9999954444"
-                //     });
-                //    context.SaveChanges();
-                //}
+                if (context.AttendanceTrackings.Count() == 0)
+                {
+                    //list to hold attendees we are working with
+                    List<AttendanceTracking> attendees = new List<AttendanceTracking>();
+                    
+                    //loop to create seed data of swipes into Heart & Stroke event(member only)
+                    //all inserts are members with unique member number
+                    //30 records
+                    #region loop for MemberOnly event w/ Unique membership numbers
+
+                    //30 records (members with unique membership numbers)
+                    for (int i = 0; i < 30; i++)
+                    {
+                        //create 2 sets of 8 digit random numbers and concat together in string
+                        //(done in 2 sets to avoid long integer and keep int)
+                        string memberNum = random.Next(11111111, 99999999).ToString() + random.Next(11111111, 99999999).ToString();
+                        
+                        //check if the member number has been used already
+                        //if it has, lower i by 1 and repeat the process
+                        if(context.AttendanceTrackings.Where(e=>e.MemberNo == memberNum).Count() > 0)
+                        {
+                            i--;
+                            return;
+                        }
+
+                        //create new Attendance Tracking
+                        AttendanceTracking newAttendee = new AttendanceTracking()
+                        {
+                            MemberAttendanceID = Guid.NewGuid().ToString(),
+                            EventID = context.Events.Where(e => e.EventName == "Heart & Stroke Fundraiser").Select(e => e.EventID).FirstOrDefault(),
+                            FirstName = firstNames[random.Next(0, 12)].ToString(),
+                            LastName = lastNames[random.Next(0, 12)].ToString(),
+                            IsMember = "true",
+                            PhoneNo = "905" + random.Next(1111111, 9999999).ToString(),
+                            MemberNo = memberNum
+                        };
+                        attendees.Add(newAttendee);
+                    }
+                    //add records to database
+                    context.AttendanceTrackings.AddRange(attendees);
+                    context.SaveChanges();
+
+                    #endregion
+
+                    //clear list of attendees for next insert
+                    attendees.Clear();
+
+                    //loop to create records for Beef Jerky Invitational(non member event)
+                    //50 total records (20 unique members, 20 unique non members, 5 duplicate members, 5 duplicate non members)
+                    #region loop for Non-Member exclusive Event w/members, non-members, and a few duplicates
+                    
+                    //get eventId for the event we are using
+                    string eventid = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
+
+                    //******
+                    //20 member records with unique membership numbers
+                    //******
+                    for (int i = 0; i < 20; i++)
+                    {
+                        //create 2 sets of 8 digit random numbers and concat together in string
+                        //(done in 2 sets to avoid long integer and keep int)
+                        string memberNum = random.Next(11111111, 99999999).ToString() + random.Next(11111111, 99999999).ToString();
+
+                        //check if the member number has been used already
+                        //if it has, lower i by 1 and repeat the process
+                        if (context.AttendanceTrackings.Where(e => e.MemberNo == memberNum).Count() > 0)
+                        {
+                            i--;
+                            return;
+                        }
+
+                        //create new Attendance Tracking
+                        AttendanceTracking newAttendee = new AttendanceTracking()
+                        {
+                            MemberAttendanceID = Guid.NewGuid().ToString(),
+                            EventID = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault(),
+                            FirstName = firstNames[random.Next(0, 12)].ToString(),
+                            LastName = lastNames[random.Next(0, 12)].ToString(),
+                            IsMember = "true",
+                            PhoneNo = "905" + random.Next(1111111, 9999999).ToString(),
+                            MemberNo = memberNum
+                        };
+                        attendees.Add(newAttendee);
+                    }
+                    //add records to database
+                    context.AttendanceTrackings.AddRange(attendees);
+                    context.SaveChanges();
+
+                    attendees.Clear();
+
+                    //******
+                    //20 non member records with unique phone numbers
+                    //******
+                    for (int i = 0; i < 20; i++)
+                    {
+                        //create phone number
+                        string phone = "905" + random.Next(1111111, 9999999).ToString();
+                        
+                        //search the Attendance Tracking table by the EventID and find if the phone number created already exists
+                        //if it exists, decrease i by 1 and restart process
+                        if (context.AttendanceTrackings.Where(e=>e.EventID == eventid).Where(e=>e.PhoneNo == phone).Count() > 0)
+                        {
+                            i--;
+                            return;
+                        }
+
+                        //create new Attendance Tracking
+                        AttendanceTracking newAttendee = new AttendanceTracking()
+                        {
+                            MemberAttendanceID = Guid.NewGuid().ToString(),
+                            EventID = eventid,
+                            FirstName = firstNames[random.Next(0, 12)].ToString(),
+                            LastName = lastNames[random.Next(0, 12)].ToString(),
+                            IsMember = "false",
+                            PhoneNo = phone
+                        };
+                        attendees.Add(newAttendee);
+                    }
+                    //add records to database
+                    context.AttendanceTrackings.AddRange(attendees);
+                    context.SaveChanges();
+
+                    attendees.Clear();
+
+                    //******
+                    //5 duplicate members (duplicate membership number especially)
+                    //******    
+                    //get all attendees from the event we are using and that are members
+                    attendees = context.AttendanceTrackings.Where(e => e.EventID == eventid).Where(e => e.IsMember == "true").ToList();
+
+                    //loop through list to add 5 records as duplicates
+                    for (int i = 0; i < 5; i++)
+                    {
+                        //give the attendee record a new memberAttendanceID
+                        attendees[i].MemberAttendanceID = Guid.NewGuid().ToString();
+                        //add record to database and save
+                        context.AttendanceTrackings.Add(attendees[i]);
+                        context.SaveChanges();
+                    }
+
+                    attendees.Clear();
+
+                    //******
+                    //5 duplicate non members (duplicate phone number especially)
+                    //******
+                    //get all attendees from event we are using that are non members
+                    attendees = context.AttendanceTrackings.Where(e => e.EventID == eventid).Where(e => e.IsMember == "false").ToList();
+                    
+                    //loop through list to add 5 records as duplicates
+                    for (int i = 0; i < 5; i++)
+                    {
+                        //give the attendee record a new membershipAttendanceID
+                        attendees[i].MemberAttendanceID = Guid.NewGuid().ToString();
+                        //add record to database and save
+                        context.AttendanceTrackings.Add(attendees[i]);
+                        context.SaveChanges();
+                    }
+                }
 
                 #endregion
+                
+                #endregion
+
+                if (context.EventGameUserAnswers.Count() == 0)
+                {
+                    string beefjerky = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
+                    List<AttendanceTracking> beefjerkyAttendees = context.AttendanceTrackings.Where(e => e.EventID == beefjerky).ToList();
+                    bool correct = true;
+                    for(int i=0; i < 10; i++)
+                    {
+
+                        EventGameUserAnswer egua = new EventGameUserAnswer()
+                        {
+                            ID = Guid.NewGuid().ToString(),
+                            EventID = beefjerky,
+                            AttendantID = beefjerkyAttendees[i + 2].MemberAttendanceID,
+                            answerID = 3,
+                            answerWasCorrect = correct,
+                            QuestionID = 1
+                        };
+
+                        context.EventGameUserAnswers.Add(egua);
+                        context.SaveChanges();
+
+                        correct = !correct;
+                    }
+                        
+
+                }
 
                 #region Items
 
@@ -264,19 +485,19 @@ namespace CAA_Event_Management.Utilities
                      new Item
                      {
                          ItemID = Guid.NewGuid().ToString(),
-                         ItemName = "How many people in family?",
+                         ItemName = "How Many People in Family?",
                          ValueType = "Numbers"
                      },
                      new Item
                      {
                          ItemID = Guid.NewGuid().ToString(),
-                         ItemName = "Are you a member?",
+                         ItemName = "Are You a Member?",
                          ValueType = "Yes-No"
                      },
                      new Item
                      {
                          ItemID = Guid.NewGuid().ToString(),
-                         ItemName = "What is your primary car's colour?",
+                         ItemName = "What is your Primary Car's Colour?",
                          ValueType = "Words"
                      }); ;
                     context.SaveChanges();

@@ -13,7 +13,7 @@ namespace CAA_Event_Management.Utilities
 {
     internal class AuditLog
     {
-        internal void WriteAuditLineToDatabase(string userName, string typeOfObject, string typeID, string newTypeInfo, string changeDate)
+        internal void WriteAuditLineToDatabase(string userName, string objectTable, string typeID, string newTypeInfo, string changeDate, string changeType, string changeInfo)
         {
             IModelAuditLineRepository modelAuditLineRepository;
             modelAuditLineRepository = new ModelAuditLineRepository();
@@ -23,10 +23,12 @@ namespace CAA_Event_Management.Utilities
             {
                 newLine.ID = Guid.NewGuid().ToString();
                 newLine.AuditorName = userName;
-                newLine.ObjectType = typeOfObject;
+                newLine.ObjectTable = objectTable;
                 newLine.ObjectID = typeID;
                 newLine.NewObjectInfo = newTypeInfo;
                 newLine.DateTimeOfChange = changeDate;
+                newLine.TypeOfChange = changeType;
+                newLine.ChangedFieldValues = changeInfo;
                 modelAuditLineRepository.AddModelAuditLine(newLine);
             }
             catch

@@ -331,6 +331,10 @@ namespace CAA_Event_Management.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<string>("ChangedFieldValues")
+                        .IsRequired()
+                        .HasMaxLength(5000);
+
                     b.Property<string>("DateTimeOfChange")
                         .IsRequired()
                         .HasMaxLength(30);
@@ -343,9 +347,13 @@ namespace CAA_Event_Management.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(36);
 
-                    b.Property<string>("ObjectType")
+                    b.Property<string>("ObjectTable")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<string>("TypeOfChange")
+                        .IsRequired()
+                        .HasMaxLength(30);
 
                     b.HasKey("ID");
 

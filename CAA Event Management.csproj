@@ -120,8 +120,8 @@
     </Compile>
     <Compile Include="Converters\DateTimeToOffsetConverter.cs" />
     <Compile Include="Data\CAAContext.cs" />
-    <Compile Include="Data\CAAMigrations\20200331011342_CAAMigration.cs" />
-    <Compile Include="Data\CAAMigrations\20200331011342_CAAMigration.Designer.cs" />
+    <Compile Include="Data\CAAMigrations\20200331155338_CAAMigration.cs" />
+    <Compile Include="Data\CAAMigrations\20200331155338_CAAMigration.Designer.cs" />
     <Compile Include="Data\CAAMigrations\CAAContextModelSnapshot.cs" />
     <Compile Include="Data\Interface Repos\IEventGameUserAnswerRepository.cs" />
     <Compile Include="Data\Interface Repos\IModelAuditLineRepository.cs" />
@@ -337,6 +337,7 @@
   <ItemGroup>
     <Content Include="Assets\Fonts\Roboto-Regular.ttf" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

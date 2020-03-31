@@ -68,10 +68,12 @@ namespace CAA_Event_Management.Data.Migrations
                 {
                     ID = table.Column<string>(maxLength: 36, nullable: false),
                     AuditorName = table.Column<string>(maxLength: 50, nullable: false),
+                    ChangedFieldValues = table.Column<string>(maxLength: 5000, nullable: false),
                     DateTimeOfChange = table.Column<string>(maxLength: 30, nullable: false),
                     NewObjectInfo = table.Column<string>(maxLength: 5000, nullable: false),
                     ObjectID = table.Column<string>(maxLength: 36, nullable: false),
-                    ObjectType = table.Column<string>(maxLength: 50, nullable: false)
+                    ObjectTable = table.Column<string>(maxLength: 50, nullable: false),
+                    TypeOfChange = table.Column<string>(maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {

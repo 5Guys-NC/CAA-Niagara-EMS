@@ -21,7 +21,7 @@ namespace CAA_Event_Management.Models
 
         [Required]
         [StringLength(50)]
-        public string ObjectType { get; set; }
+        public string ObjectTable { get; set; }
 
         [Required]
         [StringLength(36)]
@@ -33,7 +33,15 @@ namespace CAA_Event_Management.Models
 
         [Required]
         [StringLength(30)]
+        public string TypeOfChange { get; set; }
+
+        [Required]
+        [StringLength(30)]
         public string DateTimeOfChange { get; set; }
+
+        [Required]
+        [StringLength(5000)]
+        public string ChangedFieldValues { get; set; }
 
     }
 }

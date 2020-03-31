@@ -114,12 +114,12 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            return;
+            Frame.Navigate(typeof(CAAEvents), deleteMode, new SuppressNavigationTransitionInfo());
         }
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            string test = "";
+            //string test = "";
             string selected = (((Button)sender).DataContext).ToString();
             try
             {
@@ -130,15 +130,18 @@ namespace CAA_Event_Management.Views.EventViews
                 selectedEvent.LastModifiedDate = DateTime.Now;
                 selectedEvent.IsDeleted = true;
                 eventRepository.UpdateEvent(selectedEvent);
-                AuditLog line = new AuditLog();
-                string newLine = "Modified(Delete) by:" + userInfo.userAccountName + ", Event:" + selectedEvent.EventID + " " + selectedEvent.AbrevEventname + ", On Date: " + selectedEvent.LastModifiedDate.ToString();
-                line.WriteToAuditLog(newLine);
+                string thisEventDetails = selectedEvent.DisplayName + " (" + selectedEvent.AbrevEventname + ") " + selectedEvent.EventStart + " " + selectedEvent.EventEnd + " Members Only:" + selectedEvent.MembersOnly + " QuizID:" + selectedEvent.QuizID;
+                WriteNewAuditLineToDatabase(selectedEvent.LastModifiedBy, "Event Table", selectedEvent.EventID, thisEventDetails, selectedEvent.LastModifiedDate.ToString(), "Delete", "Event - Manual Delete - 'IsDeleted' to 'true'");
+                
+                //AuditLog line = new AuditLog();
+                //string newLine = "Modified(Delete) by:" + userInfo.userAccountName + ", Event:" + selectedEvent.EventID + " " + selectedEvent.AbrevEventname + ", On Date: " + selectedEvent.LastModifiedDate.ToString();
+                //line.WriteToAuditLog(newLine);
                 Frame.Navigate(typeof(CAAEvents), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
             {
-                //Jeeves.ShowMessage("Error", "There was a problem deleting the selected record");
-                Jeeves.ShowMessage("Error", test);
+                Jeeves.ShowMessage("Error", "There was a problem deleting the selected record");
+                //Jeeves.ShowMessage("Error", test);
             }
         }
 
@@ -262,6 +265,12 @@ namespace CAA_Event_Management.Views.EventViews
                 deleteMode = 0;
                 FillDropDown(CurrentOrPast);
             }
+        }
+
+        private void WriteNewAuditLineToDatabase(string userName, string objectTable, string typeID, string newTypeInfo, string changeDate, string changeType, string changeInfo)
+        {
+            AuditLog line = new AuditLog();
+            line.WriteAuditLineToDatabase(userName, objectTable, typeID, newTypeInfo, changeDate, changeType, changeInfo);
         }
 
         #endregion

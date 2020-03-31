@@ -117,10 +117,8 @@ namespace CAA_Event_Management.Views.EventViews
                         item.LastModifiedBy = userInfo.userAccountName;
                         itemRespository.AddItem(item);
                         string thisEventDetails = "Item Question: " + item.ItemName + " Value: " + item.ValueType;
-                        WriteNewAuditLineToDatabase(item.LastModifiedBy, "Item", item.ItemID, thisEventDetails, item.LastModifiedDate.ToString());
-
+                        WriteNewAuditLineToDatabase(item.LastModifiedBy, "Item Table", item.ItemID, thisEventDetails, item.LastModifiedDate.ToString(),"Create","Item - Creation - No changes");
                         //await NewAuditLine("Created by:" + userInfo.userAccountName + ", SurveyItem:" + item.ItemID + " ItemName: " + item.ItemName + " Value: " + item.ValueType + ", On Date: " + item.LastModifiedDate.ToString());
-
                     }
                 }
                 catch (Exception ex)
@@ -141,9 +139,9 @@ namespace CAA_Event_Management.Views.EventViews
                         selectedItem.LastModifiedBy = userInfo.userAccountName;
                         selectedItem.LastModifiedDate = DateTime.Now;
                         itemRespository.UpdateItem(selectedItem);
+                        string recordChanges = ShowObjectDifferences();
                         string thisEventDetails = "Item Question: " + selectedItem.ItemName + " Value: " + selectedItem.ValueType;
-                        WriteNewAuditLineToDatabase(selectedItem.LastModifiedBy, "Item", selectedItem.ItemID, thisEventDetails, selectedItem.LastModifiedDate.ToString());
-
+                        WriteNewAuditLineToDatabase(selectedItem.LastModifiedBy, "Item Table", selectedItem.ItemID, thisEventDetails, selectedItem.LastModifiedDate.ToString(),"Edit",recordChanges);
                         //await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + ", SurveyItem:" + selectedItem.ItemID + " ItemName: " + selectedItem.ItemName + " Value: " + selectedItem.ValueType + ", On Date: " + selectedItem.LastModifiedDate.ToString());
                     }
                     catch { }
@@ -171,7 +169,7 @@ namespace CAA_Event_Management.Views.EventViews
         }
     
 
-        private async void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
+        private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
             try
             {
@@ -183,7 +181,10 @@ namespace CAA_Event_Management.Views.EventViews
                 thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
                 thisSelectedItem.LastModifiedDate = DateTime.Now;
                 itemRespository.DeleteUpdateItem(thisSelectedItem);
-                await NewAuditLine("Modified(Delete) by:" + userInfo.userAccountName + ", SurveyItem:" + thisSelectedItem.ItemID + " " + thisSelectedItem.ItemName + ", On Date: " + thisSelectedItem.LastModifiedDate.ToString());
+
+                string thisEventDetails = "Item Question: " + thisSelectedItem.ItemName + " Value: " + thisSelectedItem.ValueType;
+                WriteNewAuditLineToDatabase(thisSelectedItem.LastModifiedBy, "Item Table", thisSelectedItem.ItemID, thisEventDetails, thisSelectedItem.LastModifiedDate.ToString(), "Delete", "Item - Manual Deletion - 'IsDeleted' to 'true'");
+                //await NewAuditLine("Modified(Delete) by:" + userInfo.userAccountName + ", SurveyItem:" + thisSelectedItem.ItemID + " " + thisSelectedItem.ItemName + ", On Date: " + thisSelectedItem.LastModifiedDate.ToString());
                 Frame.Navigate(typeof(Surveys), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
@@ -194,7 +195,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            return;
+            Frame.Navigate(typeof(Surveys), deleteMode, new SuppressNavigationTransitionInfo());
         }
 
         private void btnMostUsedQuestions_Click(object sender, RoutedEventArgs e)
@@ -359,16 +360,32 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        private string ShowObjectDifferences()
+        {
+            string differences = "";
+            if (startItemEditState.ItemName != selectedItem.ItemName)
+            {
+                differences += "ItemName change: " + startItemEditState.ItemName + " TO: " + selectedItem.ItemName;
+            }
+            if (startItemEditState.ValueType != selectedItem.ValueType)
+            {
+                if (differences != "") differences += " | ";
+                differences += "ValueType change: " + startItemEditState.ValueType + " TO: " + selectedItem.ValueType;
+            }
+            return differences;
+        }
+
+
         private async Task NewAuditLine(string newLine)
         {
             AuditLog line = new AuditLog();
             await line.WriteToAuditLog(newLine);
         }
 
-        private void WriteNewAuditLineToDatabase(string userName, string typeOfObject, string typeID, string newTypeInfo, string changeDate)
+        private void WriteNewAuditLineToDatabase(string userName, string objectTable, string typeID, string newTypeInfo, string changeDate, string changeType, string changeInfo)
         {
             AuditLog line = new AuditLog();
-            line.WriteAuditLineToDatabase(userName, typeOfObject, typeID, newTypeInfo, changeDate);
+            line.WriteAuditLineToDatabase(userName, objectTable, typeID, newTypeInfo, changeDate, changeType, changeInfo);
         }
 
         #endregion

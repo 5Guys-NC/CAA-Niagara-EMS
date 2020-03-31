@@ -53,6 +53,20 @@ namespace CAA_Event_Management.Models
 
         public ICollection<EventItem> EventItems { get; set; }
 
+        //https://docs.microsoft.com/en-us/dotnet/api/system.object.equals?view=netframework-4.8 provided this code
+        public override bool Equals(object obj)
+        {
+            if ((obj == null) || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+            else
+            {
+                Item e = (Item)obj;
+                return (ItemName == e.ItemName) && (ValueType == e.ValueType);
+            }
+        }
+
         #endregion
     }
 }

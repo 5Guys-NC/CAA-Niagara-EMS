@@ -17,6 +17,7 @@ using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Models;
 using Windows.UI.Xaml.Media.Animation;
 using CAA_Event_Management.Utilities;
+using System.Threading.Tasks;
 /********************************
 * Created By: Jon Yade
 * Edited By:
@@ -34,6 +35,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         Item item;
         Item selectedItem;
+        Item startItemEditState;
         int displayChoice = 1;
         int deleteMode = 0;
         int addOrEdit;
@@ -57,7 +59,6 @@ namespace CAA_Event_Management.Views.EventViews
             if (deleteMode == 1) DeleteModeToggle();
         }
 
-
         #endregion
 
         #region Buttons - Add, Edit, Delete Questions
@@ -74,6 +75,7 @@ namespace CAA_Event_Management.Views.EventViews
 
             string selected = Convert.ToString(((Button)sender).DataContext);
             selectedItem = itemRespository.GetItem(selected.ToString());
+            startItemEditState = itemRespository.GetItem(selected.ToString());
             string warning = "Please exercise caution when editing this question. Do you wish to continue?";
 
             if (selectedItem != null)
@@ -85,15 +87,13 @@ namespace CAA_Event_Management.Views.EventViews
                     ScreenLockDown();
                     BeginUpdate(selectedItem);
                 }
-                else if (result == ContentDialogResult.Secondary)
-                {
-                    SaveQuestion(selectedItem);
-                }
             }
         }
 
         private void btnSaveQuestion_Click(object sender, RoutedEventArgs e)
         {
+            DataType selectedDataType = (DataType)cboDataType.SelectedItem;
+
             if (addOrEdit == 1)
             {
                 item = new Item();
@@ -108,7 +108,7 @@ namespace CAA_Event_Management.Views.EventViews
                     }
                     else if (txtNewSurveyQuestion.Text != "")
                     {
-                        DataType selectedDataType = (DataType)cboDataType.SelectedItem;
+
                         App userInfo = (App)Application.Current;
                         item.ItemID = Guid.NewGuid().ToString();
                         item.ItemName = (string)txtNewSurveyQuestion.Text;
@@ -116,33 +116,50 @@ namespace CAA_Event_Management.Views.EventViews
                         item.CreatedBy = userInfo.userAccountName;
                         item.LastModifiedBy = userInfo.userAccountName;
                         itemRespository.AddItem(item);
-                        NewAuditLine("Created by:" + userInfo.userAccountName + ", SurveyItem:" + item.ItemID + " " + item.ItemName + " " + item.ValueType + ", On Date: " + item.LastModifiedDate.ToString());
-                        ClearFields();
+                        string thisEventDetails = "Item Question: " + item.ItemName + " Value: " + item.ValueType;
+                        WriteNewAuditLineToDatabase(item.LastModifiedBy, "Item", item.ItemID, thisEventDetails, item.LastModifiedDate.ToString());
+
+                        //await NewAuditLine("Created by:" + userInfo.userAccountName + ", SurveyItem:" + item.ItemID + " ItemName: " + item.ItemName + " Value: " + item.ValueType + ", On Date: " + item.LastModifiedDate.ToString());
+
                     }
                 }
                 catch (Exception ex)
                 {
                     Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
                 }
-                addOrEdit = 0;
-                ScreenUnlock();
-                ClearFields();
-                FillFields(displayChoice);
             }
             else
             {
-                App userInfo = (App)Application.Current;
-                selectedItem.LastModifiedBy = userInfo.userAccountName;
-                selectedItem.LastModifiedDate = DateTime.Now;
-                SaveQuestion(selectedItem);
-                NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + ", SurveyItem:" + selectedItem.ItemID + " To: " + selectedItem.ItemName + " " + selectedItem.ValueType + ", On Date: " + selectedItem.LastModifiedDate.ToString());
+                selectedItem.ItemName = (string)txtNewSurveyQuestion.Text;
+                selectedItem.ValueType = selectedDataType.DisplayText;
+
+                if (!startItemEditState.Equals(selectedItem))
+                {
+                    try
+                    {
+                        App userInfo = (App)Application.Current;
+                        selectedItem.LastModifiedBy = userInfo.userAccountName;
+                        selectedItem.LastModifiedDate = DateTime.Now;
+                        itemRespository.UpdateItem(selectedItem);
+                        string thisEventDetails = "Item Question: " + selectedItem.ItemName + " Value: " + selectedItem.ValueType;
+                        WriteNewAuditLineToDatabase(selectedItem.LastModifiedBy, "Item", selectedItem.ItemID, thisEventDetails, selectedItem.LastModifiedDate.ToString());
+
+                        //await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + ", SurveyItem:" + selectedItem.ItemID + " ItemName: " + selectedItem.ItemName + " Value: " + selectedItem.ValueType + ", On Date: " + selectedItem.LastModifiedDate.ToString());
+                    }
+                    catch { }
+                }
                 selectedItem = null;
-                addOrEdit = 0;
+                startItemEditState = null;
             }
+            ScreenUnlock();
+            ClearFields();
+            FillFields(displayChoice);
+            addOrEdit = 0;
         }
 
         private void btnCancelSave_Click(object sender, RoutedEventArgs e)
         {
+            startItemEditState = null;
             selectedItem = null;
             ScreenUnlock();
             ClearFields();
@@ -154,7 +171,7 @@ namespace CAA_Event_Management.Views.EventViews
         }
     
 
-        private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
             try
             {
@@ -166,7 +183,7 @@ namespace CAA_Event_Management.Views.EventViews
                 thisSelectedItem.LastModifiedBy = userInfo.userAccountName;
                 thisSelectedItem.LastModifiedDate = DateTime.Now;
                 itemRespository.DeleteUpdateItem(thisSelectedItem);
-                NewAuditLine("Modified(Delete) by:" + userInfo.userAccountName + ", SurveyItem:" + thisSelectedItem.ItemID + " " + thisSelectedItem.ItemName + ", On Date: " + thisSelectedItem.LastModifiedDate.ToString());
+                await NewAuditLine("Modified(Delete) by:" + userInfo.userAccountName + ", SurveyItem:" + thisSelectedItem.ItemID + " " + thisSelectedItem.ItemName + ", On Date: " + thisSelectedItem.LastModifiedDate.ToString());
                 Frame.Navigate(typeof(Surveys), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
@@ -198,7 +215,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - FillFields, FillDataTypeComboBox, SearchField, BeginUpdate, SaveQuestion, ClearFields, NewAuditLine
+        #region Helper Methods - FillFields, FillDataTypeComboBox, SearchField, BeginUpdate, ClearFields, NewAuditLine
 
         private void FillFields(int itemDisplayOption)
         {
@@ -289,26 +306,6 @@ namespace CAA_Event_Management.Views.EventViews
             ScreenLockDown();
         }
 
-        private void SaveQuestion(Item selectedItem)
-        {
-            try
-            {
-                selectedItem.ItemName = txtNewSurveyQuestion.Text;
-                DataType selectedDataType = (DataType)cboDataType.SelectedItem;
-
-                selectedItem.ValueType = selectedDataType.DisplayText;
-                itemRespository.UpdateItem(selectedItem);
-
-                ScreenUnlock();
-                ClearFields();
-            }
-            catch
-            {
-                Jeeves.ShowMessage("Error", "Unable to save the question");
-            }
-            FillFields(displayChoice);
-        }
-
         private void ClearFields()
         {
             txtNewSurveyQuestion.Text = "";
@@ -362,10 +359,16 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
-        private void NewAuditLine(string newLine)
+        private async Task NewAuditLine(string newLine)
         {
             AuditLog line = new AuditLog();
-            line.WriteToAuditLog(newLine);
+            await line.WriteToAuditLog(newLine);
+        }
+
+        private void WriteNewAuditLineToDatabase(string userName, string typeOfObject, string typeID, string newTypeInfo, string changeDate)
+        {
+            AuditLog line = new AuditLog();
+            line.WriteAuditLineToDatabase(userName, typeOfObject, typeID, newTypeInfo, changeDate);
         }
 
         #endregion

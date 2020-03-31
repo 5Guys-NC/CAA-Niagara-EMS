@@ -56,7 +56,6 @@ namespace CAA_Event_Management.Views.EventViews
             eventItemRepository = new EventItemRepository();
             itemRepository = new ItemRepository();
             gameRepository = new GameRepository();
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -136,8 +135,10 @@ namespace CAA_Event_Management.Views.EventViews
                     view.CreatedBy = userInfo.userAccountName;
                     view.LastModifiedBy = userInfo.userAccountName;
                     eventRepository.AddEvent(view);
-                    await NewAuditLine("Created by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date: " + view.LastModifiedDate.ToString()
-                                   + "To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
+                    string thisEventDetails =  view.DisplayName + " (" + view.AbrevEventname + ") " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID;
+                    WriteNewAuditLineToDatabase(view.LastModifiedBy, "Event", view.EventID, thisEventDetails, view.LastModifiedDate.ToString());
+                    //await NewAuditLine("Created by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date: " + view.LastModifiedDate.ToString()
+                    //               + "To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
                     await SaveEventItemsToThisEvent();
                 }
                 else
@@ -148,8 +149,11 @@ namespace CAA_Event_Management.Views.EventViews
                         view.LastModifiedDate = DateTime.Now;
                         eventRepository.UpdateEvent(view);
 
-                        await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date:" + view.LastModifiedDate.ToString()
-                                       + " To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
+                        string thisEventDetails = view.DisplayName + " (" + view.AbrevEventname + ") " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID;
+                        WriteNewAuditLineToDatabase(view.LastModifiedBy, "Event", view.EventID, thisEventDetails, view.LastModifiedDate.ToString());
+
+                        //await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date:" + view.LastModifiedDate.ToString()
+                        //               + " To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
                     }
                     await SaveEventItemsToThisEvent();
                 }
@@ -199,7 +203,7 @@ namespace CAA_Event_Management.Views.EventViews
         {
             try
             {
-                if (lstAvailableSurveyQuestions != null && questionCount < 5)
+                if (lstAvailableSurveyQuestions != null && questionCount < 10)
                 {
                     EventItemDetails selectedItem = (EventItemDetails)lstAvailableSurveyQuestions.SelectedItem;
                     EventItemDetails changeItem = listOfEventItemsDetails
@@ -234,7 +238,6 @@ namespace CAA_Event_Management.Views.EventViews
                     questionCount--;
                     FillSurveySelectionLists();
                 }
-
             }
             catch
             {
@@ -535,7 +538,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - BuildNamesForTheEvent, AddDatesAndTimes, NewAuditLine
+        #region Helper Methods - BuildNamesForTheEvent, AddDatesAndTimes, NewAuditLine, WriteNewAuditLineToDatabase
 
         private bool BuildNamesForTheEvent()
         {
@@ -605,6 +608,12 @@ namespace CAA_Event_Management.Views.EventViews
         {
             AuditLog line = new AuditLog();
             await line.WriteToAuditLog(newLine);
+        }
+
+        private void WriteNewAuditLineToDatabase(string userName, string typeOfObject, string typeID, string newTypeInfo, string changeDate)
+        {
+            AuditLog line = new AuditLog();
+            line.WriteAuditLineToDatabase(userName, typeOfObject, typeID, newTypeInfo, changeDate);
         }
 
         #endregion

@@ -8,7 +8,7 @@ using CAA_Event_Management.Data;
 namespace CAA_Event_Management.Data.Migrations
 {
     [DbContext(typeof(CAAContext))]
-    [Migration("20200318154958_CAAMigration")]
+    [Migration("20200331011342_CAAMigration")]
     partial class CAAMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -321,6 +321,36 @@ namespace CAA_Event_Management.Data.Migrations
                     b.HasKey("ItemID");
 
                     b.ToTable("Items");
+                });
+
+            modelBuilder.Entity("CAA_Event_Management.Models.ModelAuditLine", b =>
+                {
+                    b.Property<string>("ID")
+                        .HasMaxLength(36);
+
+                    b.Property<string>("AuditorName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("DateTimeOfChange")
+                        .IsRequired()
+                        .HasMaxLength(30);
+
+                    b.Property<string>("NewObjectInfo")
+                        .IsRequired()
+                        .HasMaxLength(5000);
+
+                    b.Property<string>("ObjectID")
+                        .IsRequired()
+                        .HasMaxLength(36);
+
+                    b.Property<string>("ObjectType")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ModelAuditLines");
                 });
 
             modelBuilder.Entity("CAA_Event_Management.Models.Picture", b =>

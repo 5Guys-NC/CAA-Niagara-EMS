@@ -63,6 +63,22 @@ namespace CAA_Event_Management.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ModelAuditLines",
+                columns: table => new
+                {
+                    ID = table.Column<string>(maxLength: 36, nullable: false),
+                    AuditorName = table.Column<string>(maxLength: 50, nullable: false),
+                    DateTimeOfChange = table.Column<string>(maxLength: 30, nullable: false),
+                    NewObjectInfo = table.Column<string>(maxLength: 5000, nullable: false),
+                    ObjectID = table.Column<string>(maxLength: 36, nullable: false),
+                    ObjectType = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ModelAuditLines", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pictures",
                 columns: table => new
                 {
@@ -505,6 +521,9 @@ namespace CAA_Event_Management.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "GameTags");
+
+            migrationBuilder.DropTable(
+                name: "ModelAuditLines");
 
             migrationBuilder.DropTable(
                 name: "QuestionTags");

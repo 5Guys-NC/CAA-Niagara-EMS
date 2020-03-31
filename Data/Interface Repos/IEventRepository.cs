@@ -13,7 +13,7 @@ namespace CAA_Event_Management.Data
     {
         List<Event> GetEvents();
         List<Event> GetEvents(bool deleted);
-        Event GetEvent(string EventID);
+        Event GetEvent(string eventID);
         Event GetEventByName(string eventName);
         Event GetLastEvent();
         void AddEvent(Event eventToAdd);

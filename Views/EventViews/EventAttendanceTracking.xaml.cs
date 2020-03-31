@@ -156,6 +156,36 @@ namespace CAA_Event_Management.Views.EventViews
                     else if (ckbAnswerFive.Visibility == Visibility.Visible && ckbAnswerFive.IsChecked == false) surveyEntry.Answer = "false";
                     else surveyEntry.Answer = txtAnswerFive.Text;
                 }
+                else if (tbkQuestionSix.Text == x.EIDItemPhrase)
+                {
+                    if (ckbAnswerSix.Visibility == Visibility.Visible && ckbAnswerSix.IsChecked == true) surveyEntry.Answer = "true";
+                    else if (ckbAnswerSix.Visibility == Visibility.Visible && ckbAnswerSix.IsChecked == false) surveyEntry.Answer = "false";
+                    else surveyEntry.Answer = txtAnswerSix.Text;
+                }
+                else if (tbkQuestionSeven.Text == x.EIDItemPhrase)
+                {
+                    if (ckbAnswerSeven.Visibility == Visibility.Visible && ckbAnswerSeven.IsChecked == true) surveyEntry.Answer = "true";
+                    else if (ckbAnswerSeven.Visibility == Visibility.Visible && ckbAnswerSeven.IsChecked == false) surveyEntry.Answer = "false";
+                    else surveyEntry.Answer = txtAnswerSeven.Text;
+                }
+                else if (tbkQuestionEight.Text == x.EIDItemPhrase)
+                {
+                    if (ckbAnswerEight.Visibility == Visibility.Visible && ckbAnswerEight.IsChecked == true) surveyEntry.Answer = "true";
+                    else if (ckbAnswerEight.Visibility == Visibility.Visible && ckbAnswerEight.IsChecked == false) surveyEntry.Answer = "false";
+                    else surveyEntry.Answer = txtAnswerEight.Text;
+                }
+                else if (tbkQuestionNine.Text == x.EIDItemPhrase)
+                {
+                    if (ckbAnswerNine.Visibility == Visibility.Visible && ckbAnswerNine.IsChecked == true) surveyEntry.Answer = "true";
+                    else if (ckbAnswerNine.Visibility == Visibility.Visible && ckbAnswerNine.IsChecked == false) surveyEntry.Answer = "false";
+                    else surveyEntry.Answer = txtAnswerNine.Text;
+                }
+                else if (tbkQuestionTen.Text == x.EIDItemPhrase)
+                {
+                    if (ckbAnswerTen.Visibility == Visibility.Visible && ckbAnswerTen.IsChecked == true) surveyEntry.Answer = "true";
+                    else if (ckbAnswerTen.Visibility == Visibility.Visible && ckbAnswerTen.IsChecked == false) surveyEntry.Answer = "false";
+                    else surveyEntry.Answer = txtAnswerTen.Text;
+                }
 
                 try
                 {
@@ -293,6 +323,61 @@ namespace CAA_Event_Management.Views.EventViews
                     txtAnswerFive.Visibility = Visibility.Collapsed;
                 }
                 else txtAnswerFive.Visibility = Visibility;
+            }
+            else if (count == 6)
+            {
+                rpQuestionSix.Visibility = Visibility;
+                tbkQuestionSix.Text = question.questPhrase;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerSix.Visibility = Visibility;
+                    txtAnswerSix.Visibility = Visibility.Collapsed;
+                }
+                else txtAnswerSix.Visibility = Visibility;
+            }
+            else if (count == 7)
+            {
+                rpQuestionSeven.Visibility = Visibility;
+                tbkQuestionSeven.Text = question.questPhrase;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerSeven.Visibility = Visibility;
+                    txtAnswerSeven.Visibility = Visibility.Collapsed;
+                }
+                else txtAnswerSeven.Visibility = Visibility;
+            }
+            else if (count == 8)
+            {
+                rpQuestionEight.Visibility = Visibility;
+                tbkQuestionEight.Text = question.questPhrase;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerEight.Visibility = Visibility;
+                    txtAnswerEight.Visibility = Visibility.Collapsed;
+                }
+                else txtAnswerEight.Visibility = Visibility;
+            }
+            else if (count == 9)
+            {
+                rpQuestionNine.Visibility = Visibility;
+                tbkQuestionNine.Text = question.questPhrase;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerNine.Visibility = Visibility;
+                    txtAnswerNine.Visibility = Visibility.Collapsed;
+                }
+                else txtAnswerNine.Visibility = Visibility;
+            }
+            else if (count == 10)
+            {
+                rpQuestionTen.Visibility = Visibility;
+                tbkQuestionTen.Text = question.questPhrase;
+                if (question.questDataType.Contains("Yes"))
+                {
+                    ckbAnswerTen.Visibility = Visibility;
+                    txtAnswerTen.Visibility = Visibility.Collapsed;
+                }
+                else txtAnswerTen.Visibility = Visibility;
             }
         }
 

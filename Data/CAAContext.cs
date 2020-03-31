@@ -27,6 +27,7 @@ namespace CAA_Event_Management.Data
         public DbSet<GameModel> GameModels { get; set; }
         public DbSet<GameTag> GameTags { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<ModelAuditLine> ModelAuditLines { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<QuestionTag> QuestionTags { get; set; }

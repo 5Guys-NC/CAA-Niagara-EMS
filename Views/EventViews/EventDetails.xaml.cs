@@ -92,6 +92,9 @@ namespace CAA_Event_Management.Views.EventViews
             FillSurveySelectionLists();
         }
 
+        /// <summary>
+        /// This method builds the initial start and end times of the selected event and sets them in the XAML display for this view (EventDetails.xaml)
+        /// </summary>
         private void SetTimes()
         {
             string[] start = view.EventStart.ToString().Split(" ");
@@ -104,6 +107,11 @@ namespace CAA_Event_Management.Views.EventViews
             tpEventEnd.Time = TimeSpan.Parse(endTime);
         }
 
+        /// <summary>
+        /// This method receives an array of strings from the "SetTimes" method (broken apart by spaces). It then takes the time portions of the array and converts them to XAML time which is returned as a string
+        /// </summary>
+        /// <param name="timeArray">This parameter contains an array of the dateTime object broken down by spaces (" ") from "SetTimes" method</param>
+        /// <returns></returns>
         private string PrepOpeningTimes(string[] timeArray)
         {
             string[] time = timeArray[1].Split(":");
@@ -123,6 +131,9 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Buttons - Event - Save, Delete, Cancel, and MemberCheckBox Methods
 
+        /// <summary>
+        /// This method builds/edits the event and passes all the changes to the database
+        /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckForProperDateUsage()) return;
@@ -349,6 +360,9 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - SaveEventItems, TextSearchBox, CheckForDatesOnNames
 
+        /// <summary>
+        /// This method creates and deletes the EventItem survey questions on the current event.
+        /// </summary>
         private void SaveEventItemsToThisEvent()
         {
             if (insertMode == false)
@@ -477,6 +491,12 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method ensures that the user has properly set the start and end dates/times of the event.
+        /// It checks to make sure that the start date is before the end date and that the start date is not more than 2 days in the past.
+        /// It returns a false bool if the dates/times are not properly set, and a true if they are correctly set
+        /// </summary>
+        /// <returns>If the dates are correctly set by the user, this function returns "true", else it returns "false"</returns>
         private bool CheckForProperDateUsage()
         {
             var eventStart = Convert.ToDateTime(eventStartDate.Date.ToString());
@@ -498,6 +518,13 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - BuildNamesForTheEvent, AddDatesAndTimes, NewAuditLine, WriteNewAuditLineToDatabase
 
+        /// <summary>
+        /// This method takes the event name provided by the user (the DisplayName) and make sure that the name provided 
+        /// has all of the words in capital case, with the year attached to the end (if not initially added by the user)
+        /// It also builds the EventName and the AbreviatedName for the database. It also ensures that the AbreviatedName
+        /// is less than 20 characters per database requirements
+        /// </summary>
+        /// <returns>Returns a "true" if all the names are valid and of an exceptable length; "false" if they are not valid</returns>
         private bool BuildNamesForTheEvent()
         {
             string[] eventNameArray = eventNameTextBox.Text.Trim().Split(' ');
@@ -507,7 +534,14 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 if (eventNameArray[x] != "")
                 {
-                    tempEventNameString += eventNameArray[x].Substring(0, 1).ToUpper() + eventNameArray[x].Substring(1).ToLower() + " ";
+                    if (eventNameArray[x].ToUpper() == "CAA" || eventNameArray[x].ToUpper() == "BBQ")
+                    {
+                        tempEventNameString += eventNameArray[x].ToUpper() + " ";
+                    }
+                    else
+                    {
+                        tempEventNameString += eventNameArray[x].Substring(0, 1).ToUpper() + eventNameArray[x].Substring(1).ToLower() + " ";
+                    }
                 }
             }
             tempEventNameString = tempEventNameString.Trim();
@@ -536,6 +570,11 @@ namespace CAA_Event_Management.Views.EventViews
             return true;
         }
 
+        /// <summary>
+        /// This function actually sets the EventStart and EventEnd dates/times to a particular event it returns a false 
+        /// if there is a problem setting them
+        /// </summary>
+        /// <returns></returns>
         private bool AddEventDatesAndTimes()
         {
             string[] startDate = eventStartDate.Date.ToString().Split(" ");
@@ -557,11 +596,20 @@ namespace CAA_Event_Management.Views.EventViews
             return true;
         }
 
+        /// <summary>
+        /// This method runs on start-up and gives an instance of the Application object (App.xaml) to the userInfo object which is then available to all the methods throughout the class
+        /// </summary>
         private void GetUserInfo()
         {
             userInfo = (App)Application.Current;
         }
 
+        /// <summary>
+        /// This method is part of the record auditing and determines what changes have been made to the record by the user.
+        /// It then assembles a string of both the initial value and the new, updated value which is returned back to the 
+        /// calling method.
+        /// </summary>
+        /// <returns>A string of all the changes to a record</returns>
         private string ShowObjectDifferences()
         {
             string differences = "";

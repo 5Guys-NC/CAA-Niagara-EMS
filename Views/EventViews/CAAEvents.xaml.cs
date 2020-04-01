@@ -66,9 +66,9 @@ namespace CAA_Event_Management.Views.EventViews
 
             bool deleted = false;
             List<Models.Event> newList = eventRepository.GetEvents(deleted)
-                .Where(p => p.IsDeleted == false && p.EventEnd > DateTime.Now.AddDays(daysUntilEventAutoDelete))
+                .Where(p => p.IsDeleted == false && p.EventEnd < DateTime.Now.AddDays(-daysUntilEventAutoDelete))
                 .ToList();
-            RemoveOldEvents(newList);
+            if(newList.Count > 0) RemoveOldEvents(newList);
         }
 
         #endregion

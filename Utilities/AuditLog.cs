@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using CAA_Event_Management.Utilities;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.Data.Interface_Repos;
+﻿using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using CAA_Event_Management.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace CAA_Event_Management.Utilities
 {
@@ -17,18 +12,21 @@ namespace CAA_Event_Management.Utilities
         {
             IModelAuditLineRepository modelAuditLineRepository;
             modelAuditLineRepository = new ModelAuditLineRepository();
-            ModelAuditLine newLine = new ModelAuditLine();
 
             try
             {
-                newLine.ID = Guid.NewGuid().ToString();
-                newLine.AuditorName = userName;
-                newLine.ObjectTable = objectTable;
-                newLine.ObjectID = typeID;
-                newLine.NewObjectInfo = newTypeInfo;
-                newLine.DateTimeOfChange = changeDate;
-                newLine.TypeOfChange = changeType;
-                newLine.ChangedFieldValues = changeInfo;
+                var newLine = new ModelAuditLine()
+                {
+                    ID = Guid.NewGuid().ToString(),
+                    AuditorName = userName,
+                    ObjectTable = objectTable,
+                    ObjectID = typeID,
+                    NewObjectInfo = newTypeInfo,
+                    DateTimeOfChange = changeDate,
+                    TypeOfChange = changeType,
+                    ChangedFieldValues = changeInfo
+                };
+
                 modelAuditLineRepository.AddModelAuditLine(newLine);
             }
             catch

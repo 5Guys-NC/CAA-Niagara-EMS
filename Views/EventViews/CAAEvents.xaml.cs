@@ -18,6 +18,8 @@ using CAA_Event_Management.Views;
 using Windows.UI.Xaml.Media.Animation;
 using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Utilities;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
 /******************************
 *  Model Created By: Jon Yade
 *  Edited by: Nathan Smith
@@ -35,12 +37,16 @@ namespace CAA_Event_Management.Views.EventViews
 
         int CurrentOrPast = 1;
         int deleteMode = 0;
+        int daysUntilEventAutoDelete = 7;
 
         IEventRepository eventRepository;
+        IModelAuditLineRepository auditLineRepository;
+
         public CAAEvents()
         {
             this.InitializeComponent();
             eventRepository = new EventRepository();
+            auditLineRepository = new ModelAuditLineRepository();
             FillDropDown(1);
 
             ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("GENERAL EVENT MANAGEMENT");
@@ -57,6 +63,12 @@ namespace CAA_Event_Management.Views.EventViews
                 catch { }
             }
             if (deleteMode == 1) DeleteModeToggle();
+
+            bool deleted = false;
+            List<Models.Event> newList = eventRepository.GetEvents(deleted)
+                .Where(p => p.IsDeleted == false && p.EventEnd > DateTime.Now.AddDays(daysUntilEventAutoDelete))
+                .ToList();
+            RemoveOldEvents(newList);
         }
 
         #endregion
@@ -191,18 +203,18 @@ namespace CAA_Event_Management.Views.EventViews
                 if (check == 1)
                 {
                     List<Models.Event> upcomingEvents = noDeletedEvents
-                    .Where(c => c.EventEnd >= now)
-                    .OrderBy(c => c.EventStart)
-                    .ToList();
+                        .Where(c => c.EventEnd >= now)
+                        .OrderBy(c => c.EventStart)
+                        .ToList();
                     gdvEditEvents.ItemsSource = upcomingEvents;
                     gdvDeleteEvents.ItemsSource = upcomingEvents;
                 }
                 else
                 {
                     List<Models.Event> pastEvents = noDeletedEvents
-                    .Where(c => c.EventEnd < now)
-                    .OrderByDescending(c => c.EventStart)
-                    .ToList();
+                        .Where(c => c.EventEnd < now)
+                        .OrderByDescending(c => c.EventStart)
+                        .ToList();
                     gdvEditEvents.ItemsSource = pastEvents;
                     gdvDeleteEvents.ItemsSource = pastEvents;
                 }
@@ -210,6 +222,23 @@ namespace CAA_Event_Management.Views.EventViews
             catch (Exception e)
             {
                 Jeeves.ShowMessage("Error", e.Message.ToString());
+            }
+        }
+
+        private void RemoveOldEvents(List<Models.Event> list)
+        {
+            foreach (var x in list)
+            {
+                try
+                {
+                    x.LastModifiedBy = "System Automatic Delete";
+                    x.LastModifiedDate = DateTime.Now;
+                    x.IsDeleted = true;
+                    eventRepository.UpdateEvent(x);
+                    string thisEventDetails = x.DisplayName + " (" + x.AbrevEventname + ") " + x.EventStart + " " + x.EventEnd + " Members Only:" + x.MembersOnly + " QuizID:" + x.QuizID;
+                    WriteNewAuditLineToDatabase(x.LastModifiedBy, "Event Table", x.EventID, thisEventDetails, x.LastModifiedDate.ToString(), "Delete", "Event - System Automatic Delete - 'IsDeleted' to 'true'");
+                }
+                catch { }
             }
         }
 
@@ -267,10 +296,37 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method builds a ModelAuditLine Object and passes it on, via the respository, to be written in the ModelAuditLine database table
+        /// </summary>
+        /// <param name="userName">This parameter is the name of the logged-in user who made the changes to the record</param>
+        /// <param name="objectTable">This parameter is the table in which the change was made</param>
+        /// <param name="typeID">This parameter is the unique ID of the object. It is a global unique GUID and the ModelAuditLine table can be searched for it in order to find all of the occurances of this object</param>
+        /// <param name="newTypeInfo">This parameter carries a complete record of the new (current) state of the oject that got changed</param>
+        /// <param name="changeDate">This parameter carries the date and time of the changes to the object</param>
+        /// <param name="changeType">This parameter describes the nature of the change itself, whether it is a Create, an Edit, or a Delete</param>
+        /// <param name="changeInfo">This paramter records each of the specific changes to the object (where applicable), and shows both the original property information as well as the new changed property information of the object</param>
         private void WriteNewAuditLineToDatabase(string userName, string objectTable, string typeID, string newTypeInfo, string changeDate, string changeType, string changeInfo)
         {
-            AuditLog line = new AuditLog();
-            line.WriteAuditLineToDatabase(userName, objectTable, typeID, newTypeInfo, changeDate, changeType, changeInfo);
+            try
+            {
+                var newLine = new ModelAuditLine()
+                {
+                    ID = Guid.NewGuid().ToString(),
+                    AuditorName = userName,
+                    ObjectTable = objectTable,
+                    ObjectID = typeID,
+                    NewObjectInfo = newTypeInfo,
+                    DateTimeOfChange = changeDate,
+                    TypeOfChange = changeType,
+                    ChangedFieldValues = changeInfo
+                };
+                auditLineRepository.AddModelAuditLine(newLine);
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Failure to update audit log; please contact adminstrator");
+            }
         }
 
         #endregion

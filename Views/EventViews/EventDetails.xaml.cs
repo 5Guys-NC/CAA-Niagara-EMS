@@ -20,6 +20,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.ViewModels;
 using System.Threading.Tasks;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
+
 /******************************
 *  Model Created By: Jon Yade
 *  Edited By:  
@@ -48,6 +51,7 @@ namespace CAA_Event_Management.Views.EventViews
         IItemRepository itemRepository;
         IEventItemRepository eventItemRepository;
         IGameRepository gameRepository;
+        IModelAuditLineRepository auditLineRepository;
 
         public EventDetails()
         {
@@ -56,6 +60,7 @@ namespace CAA_Event_Management.Views.EventViews
             eventItemRepository = new EventItemRepository();
             itemRepository = new ItemRepository();
             gameRepository = new GameRepository();
+            auditLineRepository = new ModelAuditLineRepository();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -75,6 +80,7 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 membersOnlyCheck.IsChecked = true;
             }
+
             //Initial EventItem List Preparation Methods
             FillListOfEventItemDetails();
             InitialDeterminationOfEventItemAssignment();
@@ -137,8 +143,6 @@ namespace CAA_Event_Management.Views.EventViews
                     eventRepository.AddEvent(view);
                     string thisEventDetails =  view.DisplayName + " (" + view.AbrevEventname + ") " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID;
                     WriteNewAuditLineToDatabase(view.LastModifiedBy, "Event Table", view.EventID, thisEventDetails, view.LastModifiedDate.ToString(),"Create", "Event Creation - No Changes");
-                    //await NewAuditLine("Created by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date: " + view.LastModifiedDate.ToString()
-                    //               + "To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
                     SaveEventItemsToThisEvent();
                 }
                 else
@@ -151,9 +155,6 @@ namespace CAA_Event_Management.Views.EventViews
                         string recordChanges = ShowObjectDifferences();
                         string thisEventDetails = view.DisplayName + " (" + view.AbrevEventname + ") " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID;
                         WriteNewAuditLineToDatabase(view.LastModifiedBy, "Event Table", view.EventID, thisEventDetails, view.LastModifiedDate.ToString(),"Edit",recordChanges);
-
-                        //await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + " Event:" + view.EventID + " " + view.AbrevEventname + " On Date:" + view.LastModifiedDate.ToString()
-                        //               + " To:" + view.DisplayName + " " + view.EventStart + " " + view.EventEnd + " Members Only:" + view.MembersOnly + " QuizID:" + view.QuizID);
                     }
                     SaveEventItemsToThisEvent();
                 }
@@ -170,22 +171,6 @@ namespace CAA_Event_Management.Views.EventViews
             Frame.Navigate(typeof(CAAEvents));
             //Frame.GoBack();
         }
-
-        //This should be removed later as it will serve no purpose
-        //private void btnDelete_Click(object sender, RoutedEventArgs e)   
-        //{
-        //    try
-        //    {
-        //        view.LastModifiedBy = userInfo.userAccountName;
-        //        view.LastModifiedDate = DateTime.Now;
-        //        eventRepository.DeleteEvent(view);
-        //        Frame.GoBack();
-        //    }
-        //    catch
-        //    {
-        //        Jeeves.ShowMessage("Error", "Failure to delete record; please try again");
-        //    }
-        //}
 
         private void membersOnlyCheck_Checked(object sender, RoutedEventArgs e)
         {
@@ -366,7 +351,6 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void SaveEventItemsToThisEvent()
         {
-            //string auditLine = "";
             if (insertMode == false)
             {
                 try
@@ -383,16 +367,6 @@ namespace CAA_Event_Management.Views.EventViews
                         itemRepository.UpdateItemCount(x.EIDItemID, 1);
                         eventItemRepository.AddEventItem(eventItemToAdd);
                         WriteNewAuditLineToDatabase(eventItemToAdd.CreatedBy, "EventItem Table", "Survey Question: " + eventItemToAdd.EventItemID, x.EIDItemPhrase, eventItemToAdd.LastModifiedDate.ToString(), "Create", "EventItem - Creation - No Changes");
-
-                        //if (auditLine == "")
-                        //{
-                        //    auditLine = "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        ////await NewAuditLine(auditLine);
-                        //}
-                        //else
-                        //{
-                        //    auditLine += System.Environment.NewLine + "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        //}
                     }
                 }
                 catch
@@ -413,15 +387,6 @@ namespace CAA_Event_Management.Views.EventViews
                         x.LastModifiedDate = DateTime.Now;
                         eventItemRepository.DeleteEventItem(x);
                         WriteNewAuditLineToDatabase(x.LastModifiedBy,"EventItem Table", "Survey Question: " + x.EventItemID, "Survey Question: " + itemPhrase, x.LastModifiedDate.ToString(),"Delete", "EventItem - Manual Deletion - No Change");
-                        //if (auditLine == "")
-                        //{
-                        //    auditLine = "Deleted by:" + userInfo.userAccountName + " EventItem:" + x.EventItemID + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        ////await NewAuditLine(auditLine);
-                        //}
-                        //else
-                        //{
-                        //    auditLine += System.Environment.NewLine + "Deleted by:" + userInfo.userAccountName + " EventItem:" + x.EventItemID + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                        //}
                     }
                 }
                 catch
@@ -453,15 +418,6 @@ namespace CAA_Event_Management.Views.EventViews
                             itemRepository.UpdateItemCount(x.EIDItemID, 1);
                             eventItemRepository.AddEventItem(eventItemToAdd);
                             WriteNewAuditLineToDatabase(eventItemToAdd.CreatedBy, "EventItem Table", eventItemToAdd.EventItemID, "Survey Question: " + x.EIDItemPhrase, eventItemToAdd.LastModifiedDate.ToString(), "Create", "EventItem - Creation - No Changes");
-                            //if (auditLine == "")
-                            //{
-                            //    auditLine = "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            //    //await NewAuditLine(auditLine);
-                            //}
-                            //else
-                            //{
-                            //    auditLine += System.Environment.NewLine + "Created by:" + userInfo.userAccountName + " EventItem:" + eventItemToAdd.EventItemID + ", " + x.EIDItemPhrase + " To:" + eventItemToAdd.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            //}
                         }
                         else if (checkForItem != null && !selectedItems.Contains(x))
                         {
@@ -470,15 +426,6 @@ namespace CAA_Event_Management.Views.EventViews
                             checkForItem.LastModifiedDate = DateTime.Now;
                             eventItemRepository.DeleteEventItem(checkForItem);
                             WriteNewAuditLineToDatabase(checkForItem.LastModifiedBy, "EventItem Table", checkForItem.EventItemID, "Survey Question: " + x.EIDItemPhrase, checkForItem.LastModifiedDate.ToString(), "Delete", "EventItem - Manual Deletion - No Change");
-                            //if (auditLine == "")
-                            //{
-                            //    auditLine = "Deleted by:" + userInfo.userAccountName + " EventItem:" + checkForItem.EventItemID + " " + x.EIDItemPhrase + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            ////await NewAuditLine(auditLine);
-                            //}
-                            //else
-                            //{
-                            //    auditLine += System.Environment.NewLine + "Deleted by:" + userInfo.userAccountName + " EventItem:" + checkForItem.EventItemID + " " + x.EIDItemPhrase + " From:" + view.EventID + " " + view.DisplayName + " On Date:" + view.LastModifiedDate;
-                            //}
                         }
                     }
                 }
@@ -487,8 +434,8 @@ namespace CAA_Event_Management.Views.EventViews
                     Jeeves.ShowMessage("Error", "There was a problem...");
                 }
             }
-            //await NewAuditLine(auditLine);
         }
+
         private void txtSearchIcon_Click(object sender, RoutedEventArgs e)
         {
             if (tbSearch.Visibility == Visibility.Collapsed && txtSearchBox.Visibility == Visibility.Collapsed)
@@ -652,10 +599,37 @@ namespace CAA_Event_Management.Views.EventViews
             await line.WriteToAuditLog(newLine);
         }
 
+        /// <summary>
+        /// This method builds a ModelAuditLine Object and passes it on, via the respository, to be written in the ModelAuditLine database table
+        /// </summary>
+        /// <param name="userName">This parameter is the name of the logged-in user who made the changes to the record</param>
+        /// <param name="objectTable">This parameter is the table in which the change was made</param>
+        /// <param name="typeID">This parameter is the unique ID of the object. It is a global unique GUID and the ModelAuditLine table can be searched for it in order to find all of the occurances of this object</param>
+        /// <param name="newTypeInfo">This parameter carries a complete record of the new (current) state of the oject that got changed</param>
+        /// <param name="changeDate">This parameter carries the date and time of the changes to the object</param>
+        /// <param name="changeType">This parameter describes the nature of the change itself, whether it is a Create, an Edit, or a Delete</param>
+        /// <param name="changeInfo">This paramter records each of the specific changes to the object (where applicable), and shows both the original property information as well as the new changed property information of the object</param>
         private void WriteNewAuditLineToDatabase(string userName, string objectTable, string typeID, string newTypeInfo, string changeDate, string changeType, string changeInfo)
         {
-            AuditLog line = new AuditLog();
-            line.WriteAuditLineToDatabase(userName, objectTable, typeID, newTypeInfo, changeDate, changeType, changeInfo);
+            try
+            {
+                var newLine = new ModelAuditLine()
+                {
+                    ID = Guid.NewGuid().ToString(),
+                    AuditorName = userName,
+                    ObjectTable = objectTable,
+                    ObjectID = typeID,
+                    NewObjectInfo = newTypeInfo,
+                    DateTimeOfChange = changeDate,
+                    TypeOfChange = changeType,
+                    ChangedFieldValues = changeInfo
+                };
+                auditLineRepository.AddModelAuditLine(newLine);
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Failure to update audit log; please contact adminstrator");
+            }
         }
 
         #endregion

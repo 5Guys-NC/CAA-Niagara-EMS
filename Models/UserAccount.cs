@@ -26,6 +26,7 @@ namespace CAA_Event_Management.Models
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "UserName Required")]
+        [StringLength(50, ErrorMessage = "User Name cannot be more than 50 characters")]
         public string UserName { get; set; }
 
         private string password;

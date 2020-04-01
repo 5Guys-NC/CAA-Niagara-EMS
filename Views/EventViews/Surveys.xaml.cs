@@ -18,6 +18,8 @@ using CAA_Event_Management.Models;
 using Windows.UI.Xaml.Media.Animation;
 using CAA_Event_Management.Utilities;
 using System.Threading.Tasks;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
 /********************************
 * Created By: Jon Yade
 * Edited By:
@@ -42,11 +44,13 @@ namespace CAA_Event_Management.Views.EventViews
         readonly List<DataType> dataList = new List<DataType>();
 
         IItemRepository itemRespository;
+        IModelAuditLineRepository auditLineRepository;
 
         public Surveys()
         {
             this.InitializeComponent();
             itemRespository = new ItemRepository();
+            auditLineRepository = new ModelAuditLineRepository();
             ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("SURVEY QUESTION MANAGEMENT");
 
             FillDataTypeComboBox();
@@ -118,7 +122,6 @@ namespace CAA_Event_Management.Views.EventViews
                         itemRespository.AddItem(item);
                         string thisEventDetails = "Item Question: " + item.ItemName + " Value: " + item.ValueType;
                         WriteNewAuditLineToDatabase(item.LastModifiedBy, "Item Table", item.ItemID, thisEventDetails, item.LastModifiedDate.ToString(),"Create","Item - Creation - No changes");
-                        //await NewAuditLine("Created by:" + userInfo.userAccountName + ", SurveyItem:" + item.ItemID + " ItemName: " + item.ItemName + " Value: " + item.ValueType + ", On Date: " + item.LastModifiedDate.ToString());
                     }
                 }
                 catch (Exception ex)
@@ -142,7 +145,6 @@ namespace CAA_Event_Management.Views.EventViews
                         string recordChanges = ShowObjectDifferences();
                         string thisEventDetails = "Item Question: " + selectedItem.ItemName + " Value: " + selectedItem.ValueType;
                         WriteNewAuditLineToDatabase(selectedItem.LastModifiedBy, "Item Table", selectedItem.ItemID, thisEventDetails, selectedItem.LastModifiedDate.ToString(),"Edit",recordChanges);
-                        //await NewAuditLine("Modified(Edit) by:" + userInfo.userAccountName + ", SurveyItem:" + selectedItem.ItemID + " ItemName: " + selectedItem.ItemName + " Value: " + selectedItem.ValueType + ", On Date: " + selectedItem.LastModifiedDate.ToString());
                     }
                     catch { }
                 }
@@ -184,7 +186,6 @@ namespace CAA_Event_Management.Views.EventViews
 
                 string thisEventDetails = "Item Question: " + thisSelectedItem.ItemName + " Value: " + thisSelectedItem.ValueType;
                 WriteNewAuditLineToDatabase(thisSelectedItem.LastModifiedBy, "Item Table", thisSelectedItem.ItemID, thisEventDetails, thisSelectedItem.LastModifiedDate.ToString(), "Delete", "Item - Manual Deletion - 'IsDeleted' to 'true'");
-                //await NewAuditLine("Modified(Delete) by:" + userInfo.userAccountName + ", SurveyItem:" + thisSelectedItem.ItemID + " " + thisSelectedItem.ItemName + ", On Date: " + thisSelectedItem.LastModifiedDate.ToString());
                 Frame.Navigate(typeof(Surveys), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
@@ -375,17 +376,37 @@ namespace CAA_Event_Management.Views.EventViews
             return differences;
         }
 
-
-        private async Task NewAuditLine(string newLine)
-        {
-            AuditLog line = new AuditLog();
-            await line.WriteToAuditLog(newLine);
-        }
-
+        /// <summary>
+        /// This method builds a ModelAuditLine Object and passes it on, via the respository, to be written in the ModelAuditLine database table
+        /// </summary>
+        /// <param name="userName">This parameter is the name of the logged-in user who made the changes to the record</param>
+        /// <param name="objectTable">This parameter is the table in which the change was made</param>
+        /// <param name="typeID">This parameter is the unique ID of the object. It is a global unique GUID and the ModelAuditLine table can be searched for it in order to find all of the occurances of this object</param>
+        /// <param name="newTypeInfo">This parameter carries a complete record of the new (current) state of the oject that got changed</param>
+        /// <param name="changeDate">This parameter carries the date and time of the changes to the object</param>
+        /// <param name="changeType">This parameter describes the nature of the change itself, whether it is a Create, an Edit, or a Delete</param>
+        /// <param name="changeInfo">This paramter records each of the specific changes to the object (where applicable), and shows both the original property information as well as the new changed property information of the object</param>
         private void WriteNewAuditLineToDatabase(string userName, string objectTable, string typeID, string newTypeInfo, string changeDate, string changeType, string changeInfo)
         {
-            AuditLog line = new AuditLog();
-            line.WriteAuditLineToDatabase(userName, objectTable, typeID, newTypeInfo, changeDate, changeType, changeInfo);
+            try
+            {
+                var newLine = new ModelAuditLine()
+                {
+                    ID = Guid.NewGuid().ToString(),
+                    AuditorName = userName,
+                    ObjectTable = objectTable,
+                    ObjectID = typeID,
+                    NewObjectInfo = newTypeInfo,
+                    DateTimeOfChange = changeDate,
+                    TypeOfChange = changeType,
+                    ChangedFieldValues = changeInfo
+                };
+                auditLineRepository.AddModelAuditLine(newLine);
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Failure to update audit log; please contact adminstrator");
+            }
         }
 
         #endregion

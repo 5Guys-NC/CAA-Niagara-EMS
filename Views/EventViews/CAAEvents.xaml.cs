@@ -130,13 +130,18 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method handles the Cancel button click by the user on the "Delete Event" fly-out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(CAAEvents), deleteMode, new SuppressNavigationTransitionInfo());
         }
 
         /// <summary>
-        /// This method handles the click event for event deletion and updates the audit table when that is done by the user
+        /// This method handles the click event for an Event deletion and updates the audit table when that is done by the user
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

@@ -169,8 +169,12 @@ namespace CAA_Event_Management.Views.EventViews
         {
             DeleteModeToggle();
         }
-    
 
+        /// <summary>
+        /// This method handles the click event for survey item deletion and updates the audit table when this is done by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
             try
@@ -194,6 +198,11 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method handles the Cancel button click by the user on the "Delete Survey Item" fly-out
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Frame.Navigate(typeof(Surveys), deleteMode, new SuppressNavigationTransitionInfo());
@@ -219,6 +228,11 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - FillFields, FillDataTypeComboBox, SearchField, BeginUpdate, ClearFields, NewAuditLine
 
+        /// <summary>
+        /// This method fills the available survey questions in the survey view and displays 
+        /// them either by 'Most Used' or 'Alphabetically', based on user preference
+        /// </summary>
+        /// <param name="itemDisplayOption"></param>
         private void FillFields(int itemDisplayOption)
         {
             try
@@ -242,6 +256,9 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method fills the survey item dropdown list for creating/editing purposes
+        /// </summary>
         private void FillDataTypeComboBox()
         {
             DataType dt1 = new DataType();
@@ -268,6 +285,11 @@ namespace CAA_Event_Management.Views.EventViews
             cboDataType.ItemsSource = dataList;
         }
 
+        /// <summary>
+        /// This method handles the search box text changed event as the user searchs for events, and gives the view the newly selected events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txtSearchBox.Text == "") FillFields(displayChoice);
@@ -298,6 +320,10 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method starts the editing process for a selected Survey item
+        /// </summary>
+        /// <param name="selectedItem"></param>
         private void BeginUpdate(Item selectedItem)
         {
             DataType selectedDataType = dataList
@@ -308,6 +334,9 @@ namespace CAA_Event_Management.Views.EventViews
             ScreenLockDown();
         }
 
+        /// <summary>
+        /// This method resets the survey question create/edit box and dropdown
+        /// </summary>
         private void ClearFields()
         {
             txtNewSurveyQuestion.Text = "";
@@ -315,6 +344,10 @@ namespace CAA_Event_Management.Views.EventViews
             cboDataType.SelectedItem = null;
         }
 
+        /// <summary>
+        /// This method locks down all the survey view features that are not directly related to the 
+        /// survey item create/edit portion as well as displaying those features that are needed for creating/editing a survey item
+        /// </summary>
         private void ScreenLockDown()
         {
             spQuestion.Visibility = Visibility.Visible;
@@ -325,6 +358,9 @@ namespace CAA_Event_Management.Views.EventViews
             gvAvailableQuestionsDeleteMode.IsEnabled = true;
         }
 
+        /// <summary>
+        /// This method unlocks the Survey view features and hides those features that are used for creating/editing
+        /// </summary>
         private void ScreenUnlock()
         {
             spQuestion.Visibility = Visibility.Collapsed;
@@ -335,6 +371,9 @@ namespace CAA_Event_Management.Views.EventViews
             gvAvailableQuestionsDeleteMode.IsEnabled = true;
         }
 
+        /// <summary>
+        /// This method is responsible for changing the Survey view for the Delete Mode toggle feature
+        /// </summary>
         private void DeleteModeToggle()
         {
             if (btnDelete.Content.ToString() == "Delete Mode (OFF)" || deleteMode == 0)
@@ -361,6 +400,12 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method is part of the record auditing and determines what changes have been made to the record by the user.
+        /// It then assembles a string of both the initial value and the new, updated value which is returned back to the 
+        /// calling method.
+        /// </summary>
+        /// <returns>A string of all the changes to a record</returns>
         private string ShowObjectDifferences()
         {
             string differences = "";

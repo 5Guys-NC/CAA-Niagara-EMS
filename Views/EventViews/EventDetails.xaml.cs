@@ -132,7 +132,7 @@ namespace CAA_Event_Management.Views.EventViews
         #region Buttons - Event - Save, Delete, Cancel, and MemberCheckBox Methods
 
         /// <summary>
-        /// This method builds/edits the event and passes all the changes to the database
+        /// This method saves creates/edits of an event and passes all the changes to the database
         /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
@@ -177,17 +177,32 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method handles the user Cancel button click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(CAAEvents));
             //Frame.GoBack();
         }
 
+        /// <summary>
+        /// This method handles the clicking of the "Members Only" checkbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void membersOnlyCheck_Checked(object sender, RoutedEventArgs e)
         {
             view.MembersOnly = true;
         }
 
+        /// <summary>
+        /// This method handles the unclicking of the "Members Only" checkbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void membersOnlyCheck_Unchecked(object sender, RoutedEventArgs e)
         {
             view.MembersOnly = false;
@@ -260,6 +275,10 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - Startup List Building methods and General Fill methods (Fill SurveyList, fill Games)
 
+        /// <summary>
+        /// This method creates the EventItemDetails viewModel which ties each EventItem to the Survey item information
+        /// related to it (eg. ItemName, ItemID)
+        /// </summary>
         private void FillListOfEventItemDetails()
         {
             try
@@ -281,6 +300,9 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method determines if there is a selected quiz. If there is, it updates the EventDetails view
+        /// </summary>
         private void CheckForSelectedQuiz()
         {
             if (view.QuizID == null)
@@ -303,6 +325,10 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// When the page is navigated to, this method determines what the survey questions (EventItems) are tied to the event
+        /// and what survey questions (EventItems) are not, it also sets the current number of selected survey items in the event
+        /// </summary>
         private void InitialDeterminationOfEventItemAssignment()
         {
             try
@@ -329,6 +355,9 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method fills both of the Survey question list boxes by placing selected questions in one list and available quesitons in the other
+        /// </summary>
         private void FillSurveySelectionLists()
         {
             selectedItems = listOfEventItemsDetails
@@ -343,6 +372,9 @@ namespace CAA_Event_Management.Views.EventViews
             lstAvailableSurveyQuestions.ItemsSource = availableItems;
         }
 
+        /// <summary>
+        /// This method fills the appropriate list box with all of the available quizzes
+        /// </summary>
         private void FillGameField()
         {
             try
@@ -465,6 +497,11 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method handles the search box text changed event as the user searchs for survey questions, and the list with the newly selected survey questions
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtSearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txtSearchBox.Text == "") FillSurveySelectionLists();

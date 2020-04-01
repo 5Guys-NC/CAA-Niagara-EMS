@@ -106,6 +106,12 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Buttons - Adding: Attendees, Items, EventItems; btnChooseWinner
 
+        /// <summary>
+        /// This method handles the button click event for the actual starting of an event and changes 
+        /// the view to AttendanceTracking for the selected event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRegisterAttendance_Click(object sender, RoutedEventArgs e)
         {
             if (gdvEditEvents.SelectedItem != null)
@@ -129,9 +135,13 @@ namespace CAA_Event_Management.Views.EventViews
             Frame.Navigate(typeof(CAAEvents), deleteMode, new SuppressNavigationTransitionInfo());
         }
 
+        /// <summary>
+        /// This method handles the click event for event deletion and updates the audit table when that is done by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            //string test = "";
             string selected = (((Button)sender).DataContext).ToString();
             try
             {
@@ -144,10 +154,6 @@ namespace CAA_Event_Management.Views.EventViews
                 eventRepository.UpdateEvent(selectedEvent);
                 string thisEventDetails = selectedEvent.DisplayName + " (" + selectedEvent.AbrevEventname + ") " + selectedEvent.EventStart + " " + selectedEvent.EventEnd + " Members Only:" + selectedEvent.MembersOnly + " QuizID:" + selectedEvent.QuizID;
                 WriteNewAuditLineToDatabase(selectedEvent.LastModifiedBy, "Event Table", selectedEvent.EventID, thisEventDetails, selectedEvent.LastModifiedDate.ToString(), "Delete", "Event - Manual Delete - 'IsDeleted' to 'true'");
-                
-                //AuditLog line = new AuditLog();
-                //string newLine = "Modified(Delete) by:" + userInfo.userAccountName + ", Event:" + selectedEvent.EventID + " " + selectedEvent.AbrevEventname + ", On Date: " + selectedEvent.LastModifiedDate.ToString();
-                //line.WriteToAuditLog(newLine);
                 Frame.Navigate(typeof(CAAEvents), deleteMode, new SuppressNavigationTransitionInfo());
             }
             catch
@@ -191,6 +197,10 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - FillDropDown, SearchBox_TextChanged, DeleteModeToggle
 
+        /// <summary>
+        /// This methods fills the CAAEvent view with events based on whether or not the events are in the past or the future
+        /// </summary>
+        /// <param name="check"></param>
         private void FillDropDown(int check)
         {
             DateTime now = DateTime.Today.AddHours(-5);
@@ -225,6 +235,10 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method automatically removes old events and auto updates the audit table in the process
+        /// </summary>
+        /// <param name="list">This parameter is a list of all old events</param>
         private void RemoveOldEvents(List<Models.Event> list)
         {
             foreach (var x in list)
@@ -242,6 +256,11 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method handles the search box text changed event as the user searchs for events, and gives the view the newly selected events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (txtSearch.Text == "") FillDropDown(CurrentOrPast);
@@ -270,6 +289,10 @@ namespace CAA_Event_Management.Views.EventViews
                 }
             }
         }
+
+        /// <summary>
+        /// This method is responsible for changing the CAAEvents view for the Delete Mode toggle feature
+        /// </summary>
         private void DeleteModeToggle()
         {
             if (btnDeleteMode.Content.ToString() == "DELETE MODE (OFF)")

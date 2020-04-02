@@ -73,6 +73,7 @@
               Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -594,5 +595,11 @@
                 </Grid>
             </ScrollViewer>
         </Grid>
+        <TextBlock x:Name="tbkLastSwipe"
+                   Margin="65,20,10,10"
+                   FontSize="15"
+                   FontWeight="Bold"
+                   Text="Last Entry:"
+                   Grid.Row="2"/>
     </Grid>
 </Page>

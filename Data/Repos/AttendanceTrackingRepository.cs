@@ -61,6 +61,18 @@ namespace CAA_Event_Management.Data
                 return attendanceTracking;
             }
         }
+
+        public AttendanceTracking GetLastAttendanceTrackingByEvent(string eventID)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                var lastAttendee = context.AttendanceTrackings
+                    .Where(p => p.EventID == eventID)
+                    .LastOrDefault();
+                return lastAttendee;
+            }
+        }
+
         #endregion
 
         /// <summary>

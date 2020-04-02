@@ -14,6 +14,7 @@ namespace CAA_Event_Management.Data
         List<AttendanceTracking> GetAttendanceTrackings();
         AttendanceTracking GetAttendanceTracking(string attendanceTrackingID);
         List<AttendanceTracking> GetAttendanceTrackingByEvent(string eventID);   //may need to add this for other respositories
+        AttendanceTracking GetLastAttendanceTrackingByEvent(string eventID);
         void AddAttendanceTracking(AttendanceTracking attendanceTrackingToAdd);
         void UpdateAttendanceTracking(AttendanceTracking attendanceTrackingToUpdate);
         void DeleteAttendanceTracking(AttendanceTracking attendanceTrackingToDelete);

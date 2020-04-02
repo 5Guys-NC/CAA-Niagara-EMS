@@ -1,4 +1,6 @@
 ﻿using CAA_Event_Management.Data;
+using CAA_Event_Management.Data.Interface_Repos;
+using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Utilities;
 using CAA_Event_Management.ViewModels;
@@ -51,7 +53,7 @@ namespace CAA_Event_Management.Views.EventViews
             tracker.EventID = currentEvent.EventID;
             tracker.ArrivalTime = DateTime.Now;
             BuildQuestions();
-
+            ShowLastSwipeInfo();
         }
 
         #endregion
@@ -264,7 +266,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - BuildQuestions, ShowQuestions, CheckAnswers
+        #region Helper Methods - BuildQuestions, ShowQuestions, CheckAnswers, ShowLastSwipeInfo
 
         /// <summary>
         /// This method builds the various questions for the event and ties the Item object details to the EventItem objects
@@ -496,6 +498,35 @@ namespace CAA_Event_Management.Views.EventViews
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// This method displays the last user-attendee swipe interaction that was made at a particular event in the view
+        /// </summary>
+        private void ShowLastSwipeInfo()
+        {
+            var lastSwipe = attendanceTrackingRepository.GetLastAttendanceTrackingByEvent(currentEvent.EventID);
+            string personInfo = "";
+
+            if(lastSwipe == null)
+            {
+                tbkLastSwipe.Text = "Last Entry: no available data";
+            }
+            else
+            {
+                if (lastSwipe.FirstName != "") personInfo += lastSwipe.FirstName;
+                if (lastSwipe.LastName != "")
+                {
+                    if (personInfo == "") personInfo += lastSwipe.LastName;
+                    else personInfo += " " + lastSwipe.LastName;
+                }
+                if (lastSwipe.MemberNo != "")
+                {
+                    if (personInfo == "") personInfo += "CAA Number: " + lastSwipe.MemberNo;
+                    else personInfo += "  CAA Number: " + lastSwipe.MemberNo;
+                }
+                tbkLastSwipe.Text = "Last Entry:  " + personInfo;
+            }
         }
 
         #endregion

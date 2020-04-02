@@ -53,6 +53,9 @@ namespace CAA_Event_Management.Models
         [Display(Name = "External Data")]
         public bool ExternalData { get; set; }
 
+        [Display(Name = "Person is an event winner")]
+        public bool IsAnEventWinner { get; set; } = false;
+
         #endregion
 
         #region Table Connections

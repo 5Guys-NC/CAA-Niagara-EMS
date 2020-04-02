@@ -27,6 +27,10 @@
                 <RowDefinition Height="1*"/>
 
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
 
             <RelativePanel Grid.Row="0"
                         Margin="80,0,0,0">
@@ -61,7 +65,20 @@
                 </StackPanel>
             </RelativePanel>
 
-            <RelativePanel Grid.Row="1">
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="15,0,0,0">
+                <TextBlock x:Name="tbkNumberOfWinners"
+                           Text="Selected Event Winners:"
+                           FontSize="18"
+                           FontWeight="Bold"/>
+                <ListView x:Name="lstWinnersList"
+                          MaxHeight="200"
+                          SelectionMode="None"/>
+            </StackPanel>
+
+            <RelativePanel Grid.Row="1"
+                           Grid.ColumnSpan="2">
                 <Button x:Name="btnChooseWinner"
                     Content="Chose a Winner"
                     Grid.Row="1"

@@ -29,14 +29,15 @@ namespace CAA_Event_Management.Views.EventViews
         #region Startup - variables, repositories, methods
 
         Event view;
+
         List<AttendanceTracking> allAttendants = new List<AttendanceTracking>();
         List<AttendanceTracking> nonMembersOnly = new List<AttendanceTracking>();
         List<AttendanceTracking> membersOnly = new List<AttendanceTracking>();
-
         List<AttendanceTracking> allAttendantsWithGames = new List<AttendanceTracking>();
         List<AttendanceTracking> nonMembersOnlyWithGames = new List<AttendanceTracking>();
         List<AttendanceTracking> membersOnlyWithGames = new List<AttendanceTracking>();
-
+        List<AttendanceTracking> winners = new List<AttendanceTracking>();
+        
         IAttendanceTrackingRepository attendanceTrackingRepository;
         IEventGameUserAnswerRepository eventGameUserAnswerRepository;
 
@@ -54,6 +55,7 @@ namespace CAA_Event_Management.Views.EventViews
             txtEventName.Text = view.DisplayName;
             FillListsWithEntries();
             FillListsWithGamePlayers();
+            FillListOfEventWinners();
         }
 
         #endregion
@@ -62,62 +64,72 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
         {
-            List<AttendanceTracking> currentListOfPeople = new List<AttendanceTracking>();
             AttendanceTracking person = new AttendanceTracking();
-
+            
             try
             {
                 List<AttendanceTracking> userSelectedList = new List<AttendanceTracking>();
-                List<EventGameUserAnswer> eventGameUserAnswers = eventGameUserAnswerRepository.GetEventGameUserAnswers(view.EventID);
-
-                if (userSelectedList.Count == 0)
-                {
-                    Jeeves.ShowMessage("Error", "Please chose a different event or option as there are no available entries");
-                    return;
-                }
-                else if (ckbOnlyQuizPlayers.IsChecked == true && eventGameUserAnswers.Count == 0)
-                {
-                    Jeeves.ShowMessage("Error", "Please unselect 'Only Include Quiz Players as this event has no quiz data");
-                    return;
-                }
-
-                if (rdoNonMembers.IsChecked == true)
-                {
-                    userSelectedList = nonMembersOnly;
-                }
-                else if (rdoMemberOnly.IsChecked == true)
-                {
-                    userSelectedList = membersOnly;
-                }
-                else
-                {
-                    userSelectedList = allAttendants;
-                }
 
                 if (ckbOnlyQuizPlayers.IsChecked == true)
                 {
-                    bool check = false;
-
-                    while (check == false)
+                    if (rdoNonMembers.IsChecked == true)
                     {
-                        int randomNumber = GetRandomNumber(currentListOfPeople.Count);
-
-                        person = currentListOfPeople[randomNumber];
-                        List<EventGameUserAnswer> playedGame = eventGameUserAnswers
-                                                    .Where(c => c.AttendantID == person.MemberAttendanceID)
-                                                    .ToList();
-                        if (playedGame.Count > 0) check = true;
+                        userSelectedList = nonMembersOnlyWithGames;
+                    }
+                    else if (rdoMemberOnly.IsChecked == true)
+                    {
+                        userSelectedList = membersOnlyWithGames;
+                    }
+                    else
+                    {
+                        userSelectedList = allAttendantsWithGames;
                     }
                 }
                 else
                 {
-                    int randomNumber = GetRandomNumber(currentListOfPeople.Count);
-                    person = currentListOfPeople[randomNumber];
+                    if (rdoNonMembers.IsChecked == true)
+                    {
+                        userSelectedList = nonMembersOnly;
+                    }
+                    else if (rdoMemberOnly.IsChecked == true)
+                    {
+                        userSelectedList = membersOnly;
+                    }
+                    else
+                    {
+                        userSelectedList = allAttendants;
+                    }
                 }
+
+                if (userSelectedList.Count == 0)
+                {
+                    Jeeves.ShowMessage("Error", "Please chose different selection options as there are no available entries");
+                    return;
+                }
+                if (userSelectedList.Count <= winners.Count)
+                {
+                    Jeeves.ShowMessage("Error", "No extra winners can be selected for this event, as all entries have been selected");
+                }
+
+                bool check = false;
+                while (check == false)
+                {
+                    int randomNumber = GetRandomNumber(userSelectedList.Count);
+                    person = userSelectedList[randomNumber];
+
+                    List<AttendanceTracking> winnerListCheck = winners
+                                    .Where(p => p.MemberAttendanceID == person.MemberAttendanceID)
+                                    .ToList();
+                    if (winnerListCheck.Count == 0) check = true;
+                }
+
+                person.IsAnEventWinner = true;
+                attendanceTrackingRepository.UpdateAttendanceTracking(person);
 
                 txtWinnerInfo.Text = "Member Number: " + person.MemberNo +
                                    "\nPerson Name: " + person.FirstName + " " + person.LastName +
                                    "\nPerson Phone: " + person.PhoneNo;
+                FillListOfEventWinners();
             }
             catch
             {
@@ -137,7 +149,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - FillListsWithEntries, FillListsWithGamePlayers, ShowNumberOfEntriesText, GetRandomNumber
+        #region Helper Methods - FillListsWithEntries, FillListsWithGamePlayers, ShowNumberOfEntriesText, FillListOfEventWinners, GetRandomNumber
 
         private void FillListsWithEntries()
         {
@@ -273,6 +285,32 @@ namespace CAA_Event_Management.Views.EventViews
                     tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
                 }
             }
+        }
+
+        private void FillListOfEventWinners()
+        {
+            List<string> winnerInfoList = new List<string>();
+            winners = attendanceTrackingRepository.GetAttendanceTrackingByEvent(view.EventID)
+                            .Where(p => p.IsAnEventWinner == true)
+                            .ToList();
+            if(winners.Count == 0)
+            {
+                winnerInfoList.Add("No Event Winners Selected");
+            }
+            else
+            {
+                foreach(var x in winners)
+                {
+                    string winnerInfo = "";
+                    if (x.MemberNo != "") winnerInfo += "CAA Number: " + x.MemberNo + " ";
+                    if (x.FirstName != "") winnerInfo += x.FirstName + " ";
+                    if (x.LastName != "") winnerInfo += x.LastName + " ";
+                    if (x.PhoneNo != "") winnerInfo += "Ph: " + x.PhoneNo;
+                    winnerInfoList.Add(winnerInfo);
+                }
+            }
+            lstWinnersList.ItemsSource = winnerInfoList;
+            tbkNumberOfWinners.Text = "Selected Event Winners: " + winnerInfoList.Count;
         }
 
         private int GetRandomNumber(int count)

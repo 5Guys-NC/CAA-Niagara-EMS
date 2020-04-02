@@ -222,6 +222,11 @@ namespace CAA_Event_Management.Views.EventViews
                     {
                         attendanceItemRepository.AddAttendanceItem(surveyEntry);
                     }
+                    else
+                    {
+                        surveyEntry = null;
+                        attendanceItemRepository.AddAttendanceItem(surveyEntry);
+                    }
                 }
                 catch
                 {

@@ -17,7 +17,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="95"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="4*"/>
 
         </Grid.RowDefinitions>
@@ -45,7 +45,7 @@
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
@@ -84,7 +84,7 @@
 
             <StackPanel Grid.Row="0"
                         Grid.Column="1"
-                        Margin="15,0,0,0">
+                        Margin="25,0,0,0">
                 <TextBlock x:Name="tbkNumberOfWinners"
                            Text="Selected Event Winners:"
                            FontSize="18"
@@ -97,14 +97,15 @@
             <RelativePanel Grid.Row="1"
                            Grid.ColumnSpan="2">
                 <Button x:Name="btnChooseWinner"
-                    Content="Chose a Winner"
-                    Grid.Row="1"
-                    Margin="80,0,0,0"
+                        Style="{StaticResource actionButtonStyle}"
+                        Content="Chose a Winner"
+                        Grid.Row="1"
+                        Margin="80,10,10,10"
                         Click="btnChooseWinner_Click"/>
                 <TextBlock x:Name="txtWinnerInfo"
                        Text="Winner Details:"
                        FontSize="25"
-                       Margin="20,0,0,0"
+                       Margin="20,10,0,0"
                        RelativePanel.RightOf="btnChooseWinner"/>
             </RelativePanel>
         </Grid>

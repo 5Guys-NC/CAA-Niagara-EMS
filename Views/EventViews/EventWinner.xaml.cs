@@ -147,6 +147,11 @@ namespace CAA_Event_Management.Views.EventViews
             ShowNumberOfEntriesText();
         }
 
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(CAAEvents));
+        }
+
         #endregion
 
         #region Helper Methods - FillListsWithEntries, FillListsWithGamePlayers, ShowNumberOfEntriesText, FillListOfEventWinners, GetRandomNumber

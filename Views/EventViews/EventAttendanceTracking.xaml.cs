@@ -58,17 +58,27 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Buttons - Save, Cancel
 
+        /// <summary>
+        /// The method handles the "Submit" Button click event by a user in the AttendanceTracking view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckFormForCompletion()) return;
             //if (!CheckAnswersForCompletion()) return;   //This and the attached function should be deleted
-            bool refreshScreen = SaveAttendenceItem();
+            bool refreshScreen = SaveAttendanceTrackingObject();
 
             //maybe add a bool return for saveSurveyResponses
             if (refreshScreen && currentEvent.QuizID == null) Frame.Navigate(this.GetType(), currentEvent);
             else if (refreshScreen) Frame.Navigate(typeof(PlayerGameView), (Event)currentEvent);
         }
 
+        /// <summary>
+        /// The method handles the "Back" Button click event by a user in the AttendanceTracking view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             ((Window.Current.Content as Frame).Content as MainPage).HideTheNavBar(true);
@@ -82,7 +92,12 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - SaveSurveyResponses, Card Reading
 
-        private bool SaveAttendenceItem()
+        /// <summary>
+        /// This method saves the AttendanceTracking object to the database. If it is a successful save, the method 
+        /// returns a bool of "true", otherwise it returns a "false"
+        /// </summary>
+        /// <returns>A bool response of "true" if the method successfully saved the response</returns>
+        private bool SaveAttendanceTrackingObject()
         {
             bool loadSurveyQuestionsView = true;
 
@@ -118,6 +133,9 @@ namespace CAA_Event_Management.Views.EventViews
             return true;
         }
 
+        /// <summary>
+        /// This method saves all the survey question responses to the AttendanceItem table
+        /// </summary>
         private void SaveSurveyResponses()
         {
             foreach (var x in ListOfEID)
@@ -125,75 +143,89 @@ namespace CAA_Event_Management.Views.EventViews
                 var surveyEntry = new AttendanceItem();
                 surveyEntry.EventItemID = x.EIDEventItemID;
                 surveyEntry.MemberAttendanceID = tracker.MemberAttendanceID;
+                surveyEntry.Answer = "";
 
                 if (tbkQuestionOne.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerOne.Visibility == Visibility.Visible && ckbAnswerOne.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerOne.Visibility == Visibility.Visible && ckbAnswerOne.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerOne.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerOne.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerOne.Text;
                 }
                 else if (tbkQuestionTwo.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerTwo.Visibility == Visibility.Visible && ckbAnswerTwo.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerTwo.Visibility == Visibility.Visible && ckbAnswerTwo.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerTwo.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerTwo.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerTwo.Text;
                 }
                 else if (tbkQuestionThree.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerThree.Visibility == Visibility.Visible && ckbAnswerThree.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerThree.Visibility == Visibility.Visible && ckbAnswerThree.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerThree.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerThree.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerThree.Text;
                 }
                 else if (tbkQuestionFour.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerFour.Visibility == Visibility.Visible && ckbAnswerFour.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerFour.Visibility == Visibility.Visible && ckbAnswerFour.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerFour.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerFour.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerFour.Text;
                 }
                 else if (tbkQuestionFive.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerFive.Visibility == Visibility.Visible && ckbAnswerFive.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerFive.Visibility == Visibility.Visible && ckbAnswerFive.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerFive.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerFive.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerFive.Text;
                 }
                 else if (tbkQuestionSix.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerSix.Visibility == Visibility.Visible && ckbAnswerSix.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerSix.Visibility == Visibility.Visible && ckbAnswerSix.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerSix.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerSix.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerSix.Text;
                 }
                 else if (tbkQuestionSeven.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerSeven.Visibility == Visibility.Visible && ckbAnswerSeven.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerSeven.Visibility == Visibility.Visible && ckbAnswerSeven.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerSeven.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerSeven.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerSeven.Text;
                 }
                 else if (tbkQuestionEight.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerEight.Visibility == Visibility.Visible && ckbAnswerEight.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerEight.Visibility == Visibility.Visible && ckbAnswerEight.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerEight.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerEight.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerEight.Text;
                 }
                 else if (tbkQuestionNine.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerNine.Visibility == Visibility.Visible && ckbAnswerNine.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerNine.Visibility == Visibility.Visible && ckbAnswerNine.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerNine.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerNine.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerNine.Text;
                 }
                 else if (tbkQuestionTen.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerTen.Visibility == Visibility.Visible && ckbAnswerTen.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerTen.Visibility == Visibility.Visible && ckbAnswerTen.IsChecked == false) surveyEntry.Answer = "false";
+                    else if (dprAnswerTen.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerTen.SelectedDate.ToString()).Split(' ')[0];
                     else surveyEntry.Answer = txtAnswerTen.Text;
                 }
 
                 try
                 {
-                    attendanceItemRepository.AddAttendanceItem(surveyEntry);
+                    if (surveyEntry.Answer != "")
+                    {
+                        attendanceItemRepository.AddAttendanceItem(surveyEntry);
+                    }
                 }
                 catch
                 {
-                    Jeeves.ShowMessage("Error", "There was a problem entering question " + x.EIDquestionCount.ToString());
+                    Jeeves.ShowMessage("Error", "There was a problem saving question " + x.EIDquestionCount.ToString());
                 }
             }
         }
@@ -219,7 +251,7 @@ namespace CAA_Event_Management.Views.EventViews
 
                 if (ListOfEID.Count == 0)
                 {
-                    SaveAttendenceItem();
+                    SaveAttendanceTrackingObject();
                     Frame.Navigate(this.GetType(), currentEvent);
                 }
             }
@@ -229,6 +261,9 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - BuildQuestions, ShowQuestions, CheckAnswers
 
+        /// <summary>
+        /// This method builds the various questions for the event and ties the Item object details to the EventItem objects
+        /// </summary>
         private void BuildQuestions()
         {
             try
@@ -266,17 +301,25 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method builds the questions in the Attendance Tracking view by connecting the question text to the 
+        /// necessary entry field
+        /// </summary>
+        /// <param name="count">This parameter contains the current question number</param>
+        /// <param name="question">This parameter contains the actual question info that is to built</param>
         private void ShowQuestion(int count, SurveyQuestion question)
         {
             if (count == 1)
             {
                 rpQuestionOne.Visibility = Visibility;
-
                 tbkQuestionOne.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerOne.Visibility = Visibility;
-                    txtAnswerOne.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerOne.Visibility = Visibility;
                 }
                 else txtAnswerOne.Visibility = Visibility;
             }
@@ -287,7 +330,10 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerTwo.Visibility = Visibility;
-                    txtAnswerTwo.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerTwo.Visibility = Visibility;
                 }
                 else txtAnswerTwo.Visibility = Visibility;
             }
@@ -298,7 +344,10 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerThree.Visibility = Visibility;
-                    txtAnswerThree .Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerThree.Visibility = Visibility;
                 }
                 else txtAnswerThree.Visibility = Visibility;
             }
@@ -309,7 +358,10 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerFour.Visibility = Visibility;
-                    txtAnswerFour.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerFour.Visibility = Visibility;
                 }
                 else txtAnswerFour.Visibility = Visibility;
             }
@@ -320,7 +372,10 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerFive.Visibility = Visibility;
-                    txtAnswerFive.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerFive.Visibility = Visibility;
                 }
                 else txtAnswerFive.Visibility = Visibility;
             }
@@ -331,7 +386,10 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerSix.Visibility = Visibility;
-                    txtAnswerSix.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerSix.Visibility = Visibility;
                 }
                 else txtAnswerSix.Visibility = Visibility;
             }
@@ -342,7 +400,10 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerSeven.Visibility = Visibility;
-                    txtAnswerSeven.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerSeven.Visibility = Visibility;
                 }
                 else txtAnswerSeven.Visibility = Visibility;
             }
@@ -353,7 +414,10 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerEight.Visibility = Visibility;
-                    txtAnswerEight.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerEight.Visibility = Visibility;
                 }
                 else txtAnswerEight.Visibility = Visibility;
             }
@@ -364,7 +428,10 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerNine.Visibility = Visibility;
-                    txtAnswerNine.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerNine.Visibility = Visibility;
                 }
                 else txtAnswerNine.Visibility = Visibility;
             }
@@ -375,12 +442,19 @@ namespace CAA_Event_Management.Views.EventViews
                 if (question.questDataType.Contains("Yes"))
                 {
                     ckbAnswerTen.Visibility = Visibility;
-                    txtAnswerTen.Visibility = Visibility.Collapsed;
+                }
+                else if (question.questDataType.Contains("Dates"))
+                {
+                    dprAnswerOne.Visibility = Visibility;
                 }
                 else txtAnswerTen.Visibility = Visibility;
             }
         }
 
+        /// <summary>
+        /// This method ensures that the form (AttendanceTracking view) is submitted only if it is correctly filled out
+        /// </summary>
+        /// <returns></returns>
         private bool CheckFormForCompletion()
         {
             bool formFilledIn = true;
@@ -394,10 +468,13 @@ namespace CAA_Event_Management.Views.EventViews
                 Jeeves.ShowMessage("Error", "You must fill in either the member number or a first and last name");
                 return false;
             }
-
             return formFilledIn;
         }
 
+        /// <summary>
+        /// This method ensures that the survey answers are completed before the form is submitted; returns "true" if it is
+        /// </summary>
+        /// <returns></returns>
         private bool CheckAnswersForCompletion()
         {
             bool answersFilledIn = true;

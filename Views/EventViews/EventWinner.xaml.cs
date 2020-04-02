@@ -26,7 +26,16 @@ namespace CAA_Event_Management.Views.EventViews
     /// </summary>
     public sealed partial class EventWinner : Page
     {
+        #region Startup - variables, repositories, methods
+
         Event view;
+        List<AttendanceTracking> allAttendants = new List<AttendanceTracking>();
+        List<AttendanceTracking> nonMembersOnly = new List<AttendanceTracking>();
+        List<AttendanceTracking> membersOnly = new List<AttendanceTracking>();
+
+        List<AttendanceTracking> allAttendantsWithGames = new List<AttendanceTracking>();
+        List<AttendanceTracking> nonMembersOnlyWithGames = new List<AttendanceTracking>();
+        List<AttendanceTracking> membersOnlyWithGames = new List<AttendanceTracking>();
 
         IAttendanceTrackingRepository attendanceTrackingRepository;
         IEventGameUserAnswerRepository eventGameUserAnswerRepository;
@@ -43,23 +52,27 @@ namespace CAA_Event_Management.Views.EventViews
             view = (Event)e.Parameter;
             ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("SELECT EVENT WINNER");
             txtEventName.Text = view.DisplayName;
+            FillListsWithEntries();
+            FillListsWithGamePlayers();
         }
+
+        #endregion
+
+        #region Buttons - ChooseWinner, RadioButton Changed, Checkbox Changed
 
         private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
         {
-            
-
             List<AttendanceTracking> currentListOfPeople = new List<AttendanceTracking>();
             AttendanceTracking person = new AttendanceTracking();
 
             try
             {
-                List<AttendanceTracking> attendanceTrackings = attendanceTrackingRepository.GetAttendanceTrackingByEvent(view.EventID);
+                List<AttendanceTracking> userSelectedList = new List<AttendanceTracking>();
                 List<EventGameUserAnswer> eventGameUserAnswers = eventGameUserAnswerRepository.GetEventGameUserAnswers(view.EventID);
 
-                if (attendanceTrackings.Count == 0)
+                if (userSelectedList.Count == 0)
                 {
-                    Jeeves.ShowMessage("Error", "Please chose a different event; this event has no entered data");
+                    Jeeves.ShowMessage("Error", "Please chose a different event or option as there are no available entries");
                     return;
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == true && eventGameUserAnswers.Count == 0)
@@ -70,52 +83,15 @@ namespace CAA_Event_Management.Views.EventViews
 
                 if (rdoNonMembers.IsChecked == true)
                 {
-                    List<AttendanceTracking> temp = attendanceTrackings
-                                            .Where(c => c.IsMember == "false")
-                                            .Distinct()
-                                            .ToList();
-                    foreach (var x in temp)
-                    {
-                        List<AttendanceTracking> checkPhone = currentListOfPeople
-                                                        .Where(c => c.PhoneNo == x.PhoneNo)
-                                                        .ToList();
-                        if (checkPhone.Count == 0) currentListOfPeople.Add(x);
-                    }
-
+                    userSelectedList = nonMembersOnly;
                 }
                 else if (rdoMemberOnly.IsChecked == true)
                 {
-                    List<AttendanceTracking> temp = attendanceTrackings
-                        .Where(c => c.IsMember == "true")
-                        .Distinct()
-                        .ToList();
-                 
-                    foreach (var x in temp)
-                    {
-                        List<AttendanceTracking> checkMemNum = currentListOfPeople
-                                                        .Where(c => c.MemberNo == x.MemberNo)
-                                                        .ToList();
-                        List<AttendanceTracking> checkPhone = currentListOfPeople
-                                                        .Where(c => c.PhoneNo == x.PhoneNo)
-                                                        .ToList();
-                        if (checkMemNum.Count == 0 && checkPhone.Count == 0) currentListOfPeople.Add(x);
-                    }
+                    userSelectedList = membersOnly;
                 }
                 else
                 {
-                    List<AttendanceTracking> temp = attendanceTrackings
-                                            .Distinct()
-                                            .ToList();
-                    foreach (var x in temp)
-                    {
-                        List<AttendanceTracking> checkMemNum = currentListOfPeople
-                                                        .Where(c => c.MemberNo == x.MemberNo)
-                                                        .ToList();
-                        List<AttendanceTracking> checkPhone = currentListOfPeople
-                                                        .Where(c => c.PhoneNo == x.PhoneNo)
-                                                        .ToList();
-                        if (checkMemNum.Count == 0 && checkPhone.Count == 0) currentListOfPeople.Add(x);
-                    }
+                    userSelectedList = allAttendants;
                 }
 
                 if (ckbOnlyQuizPlayers.IsChecked == true)
@@ -142,11 +118,160 @@ namespace CAA_Event_Management.Views.EventViews
                 txtWinnerInfo.Text = "Member Number: " + person.MemberNo +
                                    "\nPerson Name: " + person.FirstName + " " + person.LastName +
                                    "\nPerson Phone: " + person.PhoneNo;
-
             }
             catch
             {
                 Jeeves.ShowMessage("Error", "The was a problem getting your winner");
+            }
+        }
+
+        private void rdoNewRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ShowNumberOfEntriesText();
+        }
+
+        private void ckbOnlyQuizPlayers_Click(object sender, RoutedEventArgs e)
+        {
+            ShowNumberOfEntriesText();
+        }
+
+        #endregion
+
+        #region Helper Methods - FillListsWithEntries, FillListsWithGamePlayers, ShowNumberOfEntriesText, GetRandomNumber
+
+        private void FillListsWithEntries()
+        {
+            try
+            {
+                List<AttendanceTracking> attendanceTrackings = attendanceTrackingRepository.GetAttendanceTrackingByEvent(view.EventID);
+
+                //Building the nonMember Entry List
+                List<AttendanceTracking> tempNonMembers = attendanceTrackings
+                                    .Where(c => c.IsMember == "false")
+                                    .Distinct()
+                                    .ToList();
+                foreach (var x in tempNonMembers)
+                {
+                    List<AttendanceTracking> checkPhone1 = nonMembersOnly
+                                                    .Where(c => c.PhoneNo == x.PhoneNo)
+                                                    .ToList();
+                    if (checkPhone1.Count == 0) nonMembersOnly.Add(x);
+                }
+
+                //Building the memberOnly Entry List
+                List<AttendanceTracking> tempMembersOnly = attendanceTrackings
+                                    .Where(c => c.IsMember == "true")
+                                    .Distinct()
+                                    .ToList();
+                foreach (var x in tempMembersOnly)
+                {
+                    List<AttendanceTracking> checkMemNum = membersOnly
+                                                    .Where(c => c.MemberNo == x.MemberNo)
+                                                    .ToList();
+                    List<AttendanceTracking> checkPhone = membersOnly
+                                                    .Where(c => c.PhoneNo == x.PhoneNo)
+                                                    .ToList();
+                    if (checkMemNum.Count == 0 && checkPhone.Count == 0) membersOnly.Add(x);
+                }
+
+                //Building the allAttendance Entries List
+                List<AttendanceTracking> tempAllEntries = attendanceTrackings
+                                    .Distinct()
+                                    .ToList();
+                foreach (var x in tempAllEntries)
+                {
+                    List<AttendanceTracking> checkMemNum = allAttendants
+                                                    .Where(c => c.MemberNo == x.MemberNo)
+                                                    .ToList();
+                    List<AttendanceTracking> checkPhone = allAttendants
+                                                    .Where(c => c.PhoneNo == x.PhoneNo)
+                                                    .ToList();
+                    if (checkMemNum.Count == 0 && checkPhone.Count == 0) allAttendants.Add(x);
+                }
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "There was a problem connecting to the database; please exit and restart the program");
+            }
+            tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+        }
+
+        private void FillListsWithGamePlayers()
+        {
+            try
+            {
+                List<EventGameUserAnswer> eventGameUserAnswers = eventGameUserAnswerRepository.GetEventGameUserAnswers(view.EventID);
+
+                foreach(var x in allAttendants)
+                {
+                    List<EventGameUserAnswer> check = eventGameUserAnswers
+                                        .Where(p => p.AttendantID == x.MemberAttendanceID)
+                                        .ToList();
+                    if (check.Count > 0) allAttendantsWithGames.Add(x);
+                }
+
+                foreach (var x in nonMembersOnly)
+                {
+                    List<EventGameUserAnswer> check = eventGameUserAnswers
+                                        .Where(p => p.AttendantID == x.MemberAttendanceID)
+                                        .ToList();
+                    if (check.Count > 0) nonMembersOnlyWithGames.Add(x);
+                }
+
+                foreach (var x in membersOnly)
+                {
+                    List<EventGameUserAnswer> check = eventGameUserAnswers
+                                        .Where(p => p.AttendantID == x.MemberAttendanceID)
+                                        .ToList();
+                    if (check.Count > 0) membersOnlyWithGames.Add(x);
+                }
+            }
+            catch {  }
+        }
+
+        private void ShowNumberOfEntriesText()
+        {
+            if (ckbOnlyQuizPlayers == null)
+            {
+                if (rdoAllMembers.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+                }
+                else if (rdoMemberOnly.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnly.Count().ToString();
+                }
+                else if (rdoNonMembers.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
+                }
+            }
+            else
+            {
+                if (ckbOnlyQuizPlayers.IsChecked == true && rdoAllMembers.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendantsWithGames.Count().ToString();
+                }
+                else if (ckbOnlyQuizPlayers.IsChecked == true && rdoMemberOnly.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnlyWithGames.Count().ToString();
+                }
+                else if (ckbOnlyQuizPlayers.IsChecked == true && rdoNonMembers.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnlyWithGames.Count().ToString();
+                }
+                else if (ckbOnlyQuizPlayers.IsChecked == false && rdoAllMembers.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+                }
+                else if (ckbOnlyQuizPlayers.IsChecked == false && rdoMemberOnly.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnly.Count().ToString();
+                }
+                else if (ckbOnlyQuizPlayers.IsChecked == false && rdoNonMembers.IsChecked == true)
+                {
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
+                }
             }
         }
 
@@ -156,5 +281,8 @@ namespace CAA_Event_Management.Views.EventViews
             int number = random.Next(0, count);
             return number;
         }
+
+        #endregion
+
     }
 }

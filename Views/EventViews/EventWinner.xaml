@@ -30,24 +30,34 @@
 
             <RelativePanel Grid.Row="0"
                         Margin="80,0,0,0">
+                <TextBlock x:Name="tbkTotalNumberOfEnteries"
+                           Text="Total number of enteries:"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="0,0,0,10"/>
                 <TextBlock Text="Choose selection options:"
-                           Name="txtSelectionTitle"/>
+                           Name="txtSelectionTitle"
+                           FontSize="15"
+                           RelativePanel.Below="tbkTotalNumberOfEnteries"/>
                 <StackPanel RelativePanel.Below="txtSelectionTitle">
                     <RadioButton x:Name="rdoAllMembers"
                              Content="All Attendants"
                              GroupName="AttendantChoice"
-                             IsChecked="True"/>
+                             IsChecked="True"
+                             Checked="rdoNewRadioButton_Checked"/>
                     <RadioButton x:Name="rdoNonMembers"
                              Content="Non-Members Only"
                              GroupName="AttendantChoice"
-                                />
+                             Checked="rdoNewRadioButton_Checked"/>
                     <RadioButton x:Name="rdoMemberOnly"
                              Content="CAA Members Only"
                              GroupName="AttendantChoice"
-                               />
+                             Checked="rdoNewRadioButton_Checked"/>
                             
                     <CheckBox x:Name="ckbOnlyQuizPlayers"
-                          Content="Select From Quiz Players Only"/>
+                              Content="Select From Quiz Players Only"
+                              Click="ckbOnlyQuizPlayers_Click"
+                              IsChecked="False"/>
                 </StackPanel>
             </RelativePanel>
 

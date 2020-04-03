@@ -611,7 +611,7 @@ namespace CAA_Event_Management.Views.EventViews
         /// This function actually sets the EventStart and EventEnd dates/times to a particular event it returns a false 
         /// if there is a problem setting them
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns a bool based on the success of the method; "true" represents successful method completion</returns>
         private bool AddEventDatesAndTimes()
         {
             string[] startDate = eventStartDate.Date.ToString().Split(" ");
@@ -622,12 +622,12 @@ namespace CAA_Event_Management.Views.EventViews
             var endTime = tpEventEnd.Time.ToString();
             DateTime end = Convert.ToDateTime(endDate[0] + " " + endTime);
 
-            if (start > end)
-            {
-                Jeeves.ShowMessage("Error", "Please set a start date/time that is before the end date/time");
-                return false;
-            }
-
+            //if (start > end)
+            //{
+            //    Jeeves.ShowMessage("Error", "Please set a start date/time that is before the end date/time");
+            //    return false;
+            //}
+             
             view.EventStart = start;
             view.EventEnd = end;
             return true;

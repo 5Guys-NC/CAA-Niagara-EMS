@@ -117,10 +117,18 @@ namespace CAA_Event_Management.Views.EventViews
                     int randomNumber = GetRandomNumber(userSelectedList.Count);
                     person = userSelectedList[randomNumber];
 
-                    List<AttendanceTracking> winnerListCheck = winners
-                                    .Where(p => p.MemberAttendanceID == person.MemberAttendanceID)
-                                    .ToList();
-                    if (winnerListCheck.Count == 0) check = true;
+                    AttendanceTracking numCheck = winners
+                                .Where(c => c.MemberNo == person.MemberNo)
+                                .FirstOrDefault();
+                    AttendanceTracking phoneCheck = winners
+                                .Where(c => c.PhoneNo == person.PhoneNo)
+                                .FirstOrDefault();
+                    if (numCheck == null || phoneCheck == null) check = true;
+
+                    //List<AttendanceTracking> winnerListCheck = winners
+                    //                .Where(p => p.MemberAttendanceID == person.MemberAttendanceID)
+                    //                .ToList();
+                    //if (winnerListCheck.Count == 0) check = true;
                 }
 
                 person.IsAnEventWinner = true;
@@ -307,10 +315,25 @@ namespace CAA_Event_Management.Views.EventViews
                 foreach(var x in winners)
                 {
                     string winnerInfo = "";
-                    if (x.MemberNo != "") winnerInfo += "CAA Number: " + x.MemberNo + " ";
-                    if (x.FirstName != "") winnerInfo += x.FirstName + " ";
-                    if (x.LastName != "") winnerInfo += x.LastName + " ";
-                    if (x.PhoneNo != "") winnerInfo += "Ph: " + x.PhoneNo;
+                    if (x.FirstName != "")
+                    {
+                        winnerInfo += x.FirstName;
+                    }
+                    if (x.LastName != "") 
+                    {
+                        if (winnerInfo == "") winnerInfo += x.LastName;
+                        else winnerInfo += " " + x.LastName;
+                    }
+                    if (x.MemberNo != "")
+                    {
+                        if (winnerInfo == "") winnerInfo += "CAA Number: " + x.MemberNo;
+                        else winnerInfo += "  -  CAA Number: " + x.MemberNo;
+                    }
+                    if (x.PhoneNo != "")
+                    {
+                        if (winnerInfo == "") winnerInfo += "Ph: " + x.PhoneNo;
+                        else winnerInfo += "  -  Ph: " + x.PhoneNo;
+                    }
                     winnerInfoList.Add(winnerInfo);
                 }
             }

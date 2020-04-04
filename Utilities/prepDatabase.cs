@@ -158,6 +158,7 @@ namespace CAA_Event_Management.Utilities
                             QuestionText = "CAA Members save 10% on their bill at which restaurants?",
                             OptionsText = "Harvey's|Kelsey's|Montana's|All of the Above",
                             AnswerText = "All of the Above",
+                            ImageIDs ="",
                             GameID = 1
                         },
                         new GameModel
@@ -165,6 +166,7 @@ namespace CAA_Event_Management.Utilities
                             QuestionText = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park.",
                             OptionsText = "True|False",
                             AnswerText = "True",
+                            ImageIDs = "",
                             GameID = 1
                         },
                         new GameModel
@@ -172,6 +174,7 @@ namespace CAA_Event_Management.Utilities
                             QuestionText = "True or False: Members buy one jump pass and get one FREE at Sky Zone Trampoline Park.",
                             OptionsText = "True|False",
                             AnswerText = "True",
+                            ImageIDs = "",
                             GameID = 2
                         }
                     );

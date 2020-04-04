@@ -125,11 +125,13 @@
     <Compile Include="Data\CAAMigrations\CAAContextModelSnapshot.cs" />
     <Compile Include="Data\Interface Repos\IEventGameUserAnswerRepository.cs" />
     <Compile Include="Data\Interface Repos\IModelAuditLineRepository.cs" />
+    <Compile Include="Data\Interface Repos\IPictureRepository.cs" />
     <Compile Include="Data\Interface Repos\IUserAccountRepository.cs" />
     <Compile Include="Data\Repos\AnswerRepository.cs" />
     <Compile Include="Data\Repos\AttendanceItemRepository.cs" />
     <Compile Include="Data\Repos\AttendanceTrackingRepository.cs" />
     <Compile Include="Data\Repos\ModelAuditLineRepository.cs" />
+    <Compile Include="Data\Repos\PictureRepository.cs" />
     <Compile Include="Data\Repos\UserAccountRepository.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\AnswerPicture.cs" />
@@ -149,6 +151,8 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Utilities\AuditLog.cs" />
+    <Compile Include="Utilities\ImageConverter.cs" />
+    <Compile Include="ViewModels\AnswerPictureViewModel.cs" />
     <Compile Include="ViewModels\DataType.cs" />
     <Compile Include="ViewModels\EventItemDetails.cs" />
     <Compile Include="Data\Repos\EventGameUserAnswerRepository.cs" />
@@ -194,18 +198,12 @@
     <Compile Include="Views\EventViews\Surveys.xaml.cs">
       <DependentUpon>Surveys.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Games\AnswerMenu.xaml.cs">
-      <DependentUpon>AnswerMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Games\GameResult.xaml.cs">
-      <DependentUpon>GameResult.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\Games\AnswerMenu.xaml.cs" />
+    <Compile Include="Views\Games\GameResult.xaml.cs" />
     <Compile Include="Views\Games\PlayerGameView.xaml.cs">
       <DependentUpon>PlayerGameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Games\QuestionMenu.xaml.cs">
-      <DependentUpon>QuestionMenu.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Views\Games\QuestionMenu.xaml.cs" />
     <Compile Include="Views\Login\UserDetails.xaml.cs">
       <DependentUpon>UserDetails.xaml</DependentUpon>
     </Compile>
@@ -278,20 +276,20 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Games\AnswerMenu.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Games\GameResult.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Games\PlayerGameView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Games\QuestionMenu.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Login\UserDetails.xaml">
       <SubType>Designer</SubType>

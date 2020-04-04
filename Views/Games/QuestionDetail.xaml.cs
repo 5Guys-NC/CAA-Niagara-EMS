@@ -18,6 +18,7 @@ using CAA_Event_Management.ViewModels;
 using CAA_Event_Management.Utilities;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 /******************************
 *  Model Created By: Max Cashmore
 *  Edited by: Brian Culp
@@ -35,12 +36,16 @@ namespace CAA_Event_Management.Views.Games
 
         GameModel selected = new GameModel();
         IAnswerRepository ansRepo;
+        IPictureRepository picRepo;
         public List<QuestAnsViewModel> display = new List<QuestAnsViewModel>();
+        ImageConverter imageConverter = new ImageConverter();
+
 
         public QuestionDetail()
         {
             this.InitializeComponent();
             ansRepo = new AnswerRepository();
+            picRepo = new PictureRepository();
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -51,11 +56,42 @@ namespace CAA_Event_Management.Views.Games
 
         public void PopulateModelAnswerList()
         {
-            display.Clear();
-            //Seperate Question's possible answers
-            //then seperate correct answers
-            if (selected.OptionsText != null && selected.AnswerText != null)
+            //if question has images
+            if (selected.OptionsText != null && selected.AnswerText != null && selected.ImageIDs!="")
             {
+                //Splits question's details in their own list
+                var options = selected.OptionsText.Split('|');
+                var possibleAnswers = selected.AnswerText.Split('|');
+                var images = selected.ImageIDs.Split('|');
+
+                //Loop through possible answers
+                for (int i = 0; i < options.Length; i++)
+                {
+                    //place them in holder and set variables 
+                    QuestAnsViewModel t = new QuestAnsViewModel();
+                    t.Text = options[i];
+                    t.Index = i;
+                    //If possible answer is in correct answer, checkbox to true
+                    if (possibleAnswers.Contains(options[i]))
+                    { t.IsTrue = true; }
+
+                    if (images[i] != "0")
+                    {
+                        //gets the image for the question and puts it in the view model
+                        Picture pic = picRepo.GetPicture(Convert.ToInt32(images[i]));
+                        t.Image = imageConverter.ByteToImage(pic.Image);
+                        t.ImageID = images[i];
+                    }
+                    
+
+                    display.Add(t);
+                }
+            }
+            
+            //if question doesn't have images
+            else if (selected.OptionsText != null && selected.AnswerText != null)
+            {
+                //Splits question's details in their own list
                 var options = selected.OptionsText.Split('|');
                 var possibleAnswers = selected.AnswerText.Split('|');
 
@@ -69,14 +105,41 @@ namespace CAA_Event_Management.Views.Games
                     //If possible answer is in correct answer, checkbox to true
                     if (possibleAnswers.Contains(options[i]))
                     { t.IsTrue = true; }
-                    //Add holder into list<> display
-                    display.Add(t);
                 }
             }
+
+
             AnswerList.ItemsSource = display;
             var list = new List<Answer>();
+
             list = ansRepo.GetAnswerSelection();
             AnswerSelectionList.ItemsSource = list;
+        }
+
+        public void UpdateChanges()
+        {
+            List<string> option = new List<string>();
+            List<string> answer = new List<string>();
+            List<string> imageID = new List<string>();
+            foreach (var d in display)
+            {
+                //Loops through the view and adds each item to string
+                option.Add(d.Text);
+                //If checked, adds text to correct answer list
+                if (d.IsTrue) { answer.Add(d.Text); }
+
+                //if the view model has an image it sets it's ID
+                if (d.ImageID != "0")
+                { imageID.Add(d.ImageID.ToString()); }
+                //if not, gives it's default ID of 0
+                else
+                    imageID.Add("0");
+            }
+
+            //joins all strings together
+            selected.OptionsText = string.Join("|", option);
+            selected.AnswerText = string.Join("|", answer);
+            selected.ImageIDs = string.Join("|", imageID);
         }
 
         public void UpdateChanges()
@@ -167,7 +230,16 @@ namespace CAA_Event_Management.Views.Games
             QuestAnsViewModel t = new QuestAnsViewModel();
             t.Text = s.Text;
             t.Index = display.Count + 1;
-            //If possible answer is in correct answer, checkbox to true
+
+            //If selected answer has an image.
+            if (s.AnswerPictures.Count() != 0)
+            {
+                //get the image and adds it to the view model
+                var p = s.AnswerPictures.ToList();
+                Picture picture = picRepo.GetPicture(p[0].PictureID);
+                t.Image = imageConverter.ByteToImage(picture.Image);
+                t.ImageID = picture.ID.ToString();
+            }
 
             //Add holder into list<> display
             display.Add(t);

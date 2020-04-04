@@ -18,5 +18,7 @@ namespace CAA_Event_Management.Data
         void RemoveAnswer(Answer answer);
         void AddAnswer(Answer toAdd);
         void UpdateGM(GameModel UpdateGM);
+        void AddAnswerPicture(AnswerPicture ansPicToAdd);
+        void UpdateAnswer(Answer toUpdate);
     }
 }

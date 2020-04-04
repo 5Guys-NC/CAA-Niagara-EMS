@@ -96,10 +96,12 @@
                               Padding="15">
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel Name="spAnswers" Orientation="Horizontal">
+                                    
+                                    <StackPanel Name="spAnswers" Orientation="Horizontal" Height="auto" Width="auto">
                                         <CheckBox IsChecked="{Binding IsTrue, Mode=TwoWay}" MinWidth="30"/>
-                                        <TextBox Text="{Binding Text, Mode=TwoWay}" Width="260"
+                                        <TextBox Text="{Binding Text, Mode=TwoWay}" Width="120"
                                      FontSize="18"/>
+                                        <Image Source="{Binding Image}" Height="60" Width="60"/>
                                         <!--<CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
                                     <TextBox Text="{x:Bind Phrase, Mode=TwoWay}" Width="260" 
                                      FontSize="18"/>-->
@@ -133,7 +135,7 @@
                 </Grid>
 
 
-                <StackPanel Grid.Row="4" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Grid.Row="3" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Button Name="btnBack" Content="BACK" Click="btnBack_Click" Width="100" Style="{StaticResource secondaryButtonStyle}" Margin="0,0,10,0"/>
 
                     <Button  Name="btnAddAnswer" Content="ADD ANSWER" Style="{StaticResource actionButtonStyle}" Margin="10,0,0,0">
@@ -160,11 +162,15 @@
                 </StackPanel>
 
 
-                <GridView Name="AnswerSelectionList" Grid.Row="5" HorizontalAlignment="Center" IsItemClickEnabled="True" ItemClick="AnswerSelectionList_ItemClick" Margin="50,0,50,0">
+                <GridView Name="AnswerSelectionList"
+                          Grid.Row="4" HorizontalAlignment="Center" IsItemClickEnabled="True" 
+                          ItemClick="AnswerSelectionList_ItemClick" Margin="50,0,50,0"
+                          Width="400"
+                          Height="auto">
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
-                                <TextBlock Text="{Binding Text}"  TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding Text}"  TextWrapping="Wrap" Width="120" FontSize="18"/>
                             </StackPanel>
                         </DataTemplate>
                     </GridView.ItemTemplate>

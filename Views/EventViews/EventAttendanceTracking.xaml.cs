@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 /***********************************
@@ -328,7 +329,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerOne.Visibility = Visibility;
                 }
-                else txtAnswerOne.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerOne.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerOne.InputScope = scope;
+                }
             }
             else if (count == 2)
             {
@@ -342,7 +363,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerTwo.Visibility = Visibility;
                 }
-                else txtAnswerTwo.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerTwo.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerTwo.InputScope = scope;
+                };
             }
             else if (count == 3)
             {
@@ -356,7 +397,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerThree.Visibility = Visibility;
                 }
-                else txtAnswerThree.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerThree.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerThree.InputScope = scope;
+                }
             }
             else if (count == 4)
             {
@@ -370,7 +431,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerFour.Visibility = Visibility;
                 }
-                else txtAnswerFour.Visibility = Visibility;
+                else 
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerFour.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerFour.InputScope = scope;
+                }
             }
             else if (count == 5)
             {
@@ -384,7 +465,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerFive.Visibility = Visibility;
                 }
-                else txtAnswerFive.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerFive.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerFive.InputScope = scope;
+                }
             }
             else if (count == 6)
             {
@@ -398,7 +499,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerSix.Visibility = Visibility;
                 }
-                else txtAnswerSix.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerSix.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerSix.InputScope = scope;
+                }
             }
             else if (count == 7)
             {
@@ -412,7 +533,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerSeven.Visibility = Visibility;
                 }
-                else txtAnswerSeven.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerSeven.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerSeven.InputScope = scope;
+                }
             }
             else if (count == 8)
             {
@@ -426,7 +567,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerEight.Visibility = Visibility;
                 }
-                else txtAnswerEight.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerEight.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerEight.InputScope = scope;
+                }
             }
             else if (count == 9)
             {
@@ -440,7 +601,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerNine.Visibility = Visibility;
                 }
-                else txtAnswerNine.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerNine.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerNine.InputScope = scope;
+                }
             }
             else if (count == 10)
             {
@@ -454,7 +635,27 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerOne.Visibility = Visibility;
                 }
-                else txtAnswerTen.Visibility = Visibility;
+                else
+                {
+                    //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
+                    txtAnswerTen.Visibility = Visibility;
+                    InputScope scope = new InputScope();
+                    InputScopeName scopeName = new InputScopeName();
+                    if (question.questDataType.Contains("Numbers"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Number;
+                    }
+                    else if (question.questDataType.Contains("Email"))
+                    {
+                        scopeName.NameValue = InputScopeNameValue.EmailSmtpAddress;
+                    }
+                    else
+                    {
+                        scopeName.NameValue = InputScopeNameValue.Chat;
+                    }
+                    scope.Names.Add(scopeName);
+                    txtAnswerTen.InputScope = scope;
+                }
             }
         }
 

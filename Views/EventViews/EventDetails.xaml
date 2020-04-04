@@ -216,6 +216,7 @@
                                      Grid.Column="0"
                                      Height="30"
                                      HorizontalAlignment="Right"
+                                     InputScope="Search"
                                      Margin="5,0,0,10"                                   
                                      Width="150"
                                      RelativePanel.AlignVerticalCenterWith="tbSearch"

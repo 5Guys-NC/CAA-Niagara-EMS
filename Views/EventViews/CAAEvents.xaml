@@ -51,6 +51,7 @@
             <TextBox Name="txtSearch"
                      Background="White"
                      Height="30"
+                     InputScope="Search"
                      Margin="5,5,5,0"
                      RelativePanel.AlignRightWithPanel="True"
                      Width="150"

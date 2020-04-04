@@ -266,6 +266,7 @@ namespace CAA_Event_Management.Views.EventViews
             DataType dt2 = new DataType();
             DataType dt3 = new DataType();
             DataType dt4 = new DataType();
+            DataType dt5 = new DataType();
 
             dt1.DisplayText = "Yes-No";
             dt1.Type = "yesNo";
@@ -279,10 +280,14 @@ namespace CAA_Event_Management.Views.EventViews
             dt4.DisplayText = "Dates";
             dt4.Type = "date";
 
+            dt5.DisplayText = "Email Address";
+            dt5.Type = "email";
+
             dataList.Add(dt1);
             dataList.Add(dt2);
             dataList.Add(dt3);
             dataList.Add(dt4);
+            dataList.Add(dt5);
             cboDataType.ItemsSource = dataList;
         }
 

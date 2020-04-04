@@ -109,12 +109,13 @@
                                    FontWeight="Bold"
                                    HorizontalAlignment="Left" 
                                    Margin="0,0,10,0"
-                                   VerticalAlignment="Center" 
+                                   VerticalAlignment="Center"
                                    Text="Member Number:" />
                         <TextBox Name="memberNumTextBox" 
                                  Height="30"
+                                 InputScope="Number"
                                  MinWidth="200"
-                                 MaxLength="200" InputScope="Text" 
+                                 MaxLength="200" 
                                  Text="{x:Bind tracker.MemberNo, Mode=TwoWay}" 
                                  AcceptsReturn="False"
                                  RelativePanel.AlignBottomWith="memberNumTextBlock"
@@ -151,7 +152,7 @@
                              RelativePanel.RightOf="firstNameTextBlock"
                              Text="{x:Bind tracker.FirstName, Mode=TwoWay}" 
                              AcceptsReturn="True"  
-                             InputScope="Text" />
+                             InputScope="NameOrPhoneNumber"/>
                     </RelativePanel>
 
                     <RelativePanel Grid.Row="2" 
@@ -159,21 +160,23 @@
                                    BorderBrush="#1b3e6e" 
                                    BorderThickness="3,0,3,0">
                         <TextBlock HorizontalAlignment="Left" 
-                               FontSize="20"
-                               FontWeight="Bold"
-                               Margin="0,0,10,0"
-                               VerticalAlignment="Center" 
-                               Name="lastNameBlock" 
-                               Text="Last Name:" />
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Margin="0,0,10,0"
+                                   VerticalAlignment="Center" 
+                                   Name="lastNameBlock" 
+                                   Text="Last Name:" />
                         <TextBox Grid.Row="2" 
-                             Grid.Column="1" 
-                             Height="30"  
-                             Name="lastNameTextBox" 
-                             MaxLength="50"  
-                             MinWidth="240"
-                             RelativePanel.AlignBottomWith="lastNameBlock"
-                             RelativePanel.RightOf="lastNameBlock"
-                             Text="{x:Bind tracker.LastName, Mode=TwoWay}" AcceptsReturn="False" InputScope="Text" />
+                                 Grid.Column="1" 
+                                 Height="30"
+                                 InputScope="NameOrPhoneNumber"
+                                 Name="lastNameTextBox" 
+                                 MaxLength="50"  
+                                 MinWidth="240"
+                                 RelativePanel.AlignBottomWith="lastNameBlock"
+                                 RelativePanel.RightOf="lastNameBlock"
+                                 Text="{x:Bind tracker.LastName, Mode=TwoWay}" 
+                                 AcceptsReturn="False"/>
                     </RelativePanel>
 
                     <RelativePanel Grid.Row="3" Padding="30,20" BorderBrush="#1b3e6e" BorderThickness="3,0,3,0">
@@ -183,15 +186,15 @@
                                VerticalAlignment="Center" 
                                Name="phoneNumBlock" 
                                Text="Phone number:" />
-                        <TextBox Height="30"  
-                             Name="phoneNumTextBox" 
-                             MaxLength="50" 
-                             MinWidth="205"
+                        <TextBox Height="30"
+                                 InputScope="TelephoneNumber"
+                                 Name="phoneNumTextBox" 
+                                 MaxLength="50" 
+                                 MinWidth="205"
                                  RelativePanel.AlignBottomWith="phoneNumBlock"
                                  RelativePanel.RightOf="phoneNumBlock"
-                             Text="{x:Bind  tracker.PhoneNo, Mode=TwoWay}" 
-                             AcceptsReturn="False" 
-                             InputScope="Text" />
+                                 Text="{x:Bind  tracker.PhoneNo, Mode=TwoWay}" 
+                                 AcceptsReturn="False" />
                     </RelativePanel>
                     <RelativePanel Grid.Row="4" Padding="30,20" BorderBrush="#1b3e6e" BorderThickness="3,0,3,3">
                         <TextBlock Text="Is a Member"
@@ -206,10 +209,17 @@
                                   RelativePanel.AlignVerticalCenterWith="isMembersBlock"
                                   RelativePanel.RightOf="isMembersBlock"/>
                     </RelativePanel>
-
+                    <TextBlock x:Name="tbkLastSwipe"
+                               Margin="35,20,10,10"
+                               FontSize="15"
+                               FontWeight="Bold"
+                               Text="Last Entry:"
+                               Grid.Row="5"/>
                 </Grid>
             </Grid>
-            <ScrollViewer Grid.Column="1" Grid.Row="1" MaxHeight="500">
+            <ScrollViewer Grid.Column="1" 
+                          Grid.Row="1" 
+                          MaxHeight="500">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -287,16 +297,17 @@
                                  Margin="5,0,0,0"
                                  Visibility="Collapsed"
                                  MaxWidth="125"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerTwo" 
-                              Grid.Row="2" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right" 
-                              Visibility="Collapsed" 
-                              Content="Check if Yes" 
-                              VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerTwo"
+                        <CheckBox Name="ckbAnswerTwo" 
+                                    Grid.Row="2" 
+                                    Grid.Column="1" 
+                                    HorizontalAlignment="Right" 
+                                    Visibility="Collapsed" 
+                                    Content="Check if Yes" 
+                                    VerticalAlignment="Center"
+                                 RelativePanel.AlignBottomWith="tbkQuestionTwo"
+                                 RelativePanel.RightOf="tbkQuestionTwo"
+                                    Margin="5,0,0,0"/>
+                        <DatePicker x:Name="dprAnswerTwo"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -304,6 +315,8 @@
                                     RelativePanel.RightOf="tbkQuestionTwo"
                                     RelativePanel.AlignBottomWith="tbkQuestionTwo"
                                     Margin="5,0,0,0"/>
+                    </RelativePanel>
+
 
                     <RelativePanel Name="rpQuestionThree" Grid.Row="3" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
                         <TextBlock Name="tbkQuestionThree" 
@@ -322,16 +335,17 @@
                                  Margin="5,0,0,0"
                                  MaxWidth="125"
                                  Visibility="Collapsed"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerThree" 
+                        <CheckBox Name="ckbAnswerThree" 
                               Grid.Row="3" 
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
                               Visibility="Collapsed" 
-                              Content="Check if Yes" 
+                              Content="Check if Yes"
+                              RelativePanel.AlignBottomWith="tbkQuestionThree"
+                                 RelativePanel.RightOf="tbkQuestionThree"
                               VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerThree"
+                              Margin="5,0,0,0"/>
+                        <DatePicker x:Name="dprAnswerThree"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -339,6 +353,8 @@
                                     RelativePanel.RightOf="tbkQuestionThree"
                                     RelativePanel.AlignBottomWith="tbkQuestionThree"
                                     Margin="5,0,0,0"/>
+                    </RelativePanel>
+
 
                     <RelativePanel x:Name="rpQuestionFour" Grid.Row="4" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
                         <TextBlock Name="tbkQuestionFour" 
@@ -357,16 +373,17 @@
                              VerticalAlignment="Center"
                              Margin="5,0,0,0"
                              MaxWidth="125"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerFour" 
+                        <CheckBox Name="ckbAnswerFour" 
                               Grid.Row="4" 
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
                               Visibility="Collapsed" 
                               Content="Check if Yes" 
+                                 RelativePanel.AlignBottomWith="tbkQuestionFour"
+                                 RelativePanel.RightOf="tbkQuestionFour"
                               VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerFour"
+                              Margin="5,0,0,0"/>
+                         <DatePicker x:Name="dprAnswerFour"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -374,6 +391,9 @@
                                     RelativePanel.RightOf="tbkQuestionFour"
                                     RelativePanel.AlignBottomWith="tbkQuestionFour"
                                     Margin="5,0,0,0"/>
+
+                    </RelativePanel>
+
 
                     <RelativePanel Name="rpQuestionFive" Grid.Row="5" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
                         <TextBlock Name="tbkQuestionFive" 
@@ -391,16 +411,17 @@
                              VerticalAlignment="Center"
                              Margin="5,0,0,0"
                              MaxWidth="125"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerFive" 
+                        <CheckBox Name="ckbAnswerFive" 
                               Grid.Row="5" 
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
-                              Visibility="Collapsed" 
+                              Visibility="Collapsed"
+                                RelativePanel.AlignBottomWith="tbkQuestionFive"
+                             RelativePanel.RightOf="tbkQuestionFive"
                               Content="Check if Yes" 
                               VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerFive"
+                              Margin="5,0,0,0"/>
+                        <DatePicker x:Name="dprAnswerFive"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -408,6 +429,8 @@
                                     RelativePanel.RightOf="tbkQuestionFive"
                                     RelativePanel.AlignBottomWith="tbkQuestionFive"
                                     Margin="5,0,0,0"/>
+                    </RelativePanel>
+
 
                     <RelativePanel Name="rpQuestionSix" Grid.Row="6" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,10,0,15" Padding="30,20" Visibility="Collapsed">
                         <TextBlock Name="tbkQuestionSix" 
@@ -426,16 +449,17 @@
                                  Margin="5,0,0,0"
                                  MaxWidth="500"
                                  Visibility="Collapsed"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerSix" 
+                        <CheckBox Name="ckbAnswerSix" 
                               Grid.Row="6" 
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
                               Visibility="Collapsed" 
-                              Content="Check if Yes" 
+                              Content="Check if Yes"
+                                RelativePanel.RightOf="tbkQuestionSix"
+                                 RelativePanel.AlignBottomWith="tbkQuestionSix"
                               VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerSix"
+                              Margin="5,0,0,0"/>
+                        <DatePicker x:Name="dprAnswerSix"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -443,6 +467,8 @@
                                     RelativePanel.RightOf="tbkQuestionSix"
                                     RelativePanel.AlignBottomWith="tbkQuestionSix"
                                     Margin="5,0,0,0"/>
+                    </RelativePanel>
+
 
                     <RelativePanel Name="rpQuestionSeven" Grid.Row="7" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
                         <TextBlock Name="tbkQuestionSeven" 
@@ -460,16 +486,17 @@
                                  Margin="5,0,0,0"
                                  MaxWidth="125"
                                  Visibility="Collapsed"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerSeven" 
+                        <CheckBox Name="ckbAnswerSeven" 
                               Grid.Row="7" 
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
                               Visibility="Collapsed" 
+                                 RelativePanel.RightOf="tbkQuestionSeven"
+                                 RelativePanel.AlignBottomWith="tbkQuestionSeven"
                               Content="Check if Yes" 
                               VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerSeven"
+                              Margin="5,0,0,0"/>
+                        <DatePicker x:Name="dprAnswerSeven"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -477,6 +504,8 @@
                                     RelativePanel.RightOf="tbkQuestionSeven"
                                     RelativePanel.AlignBottomWith="tbkQuestionSeven"
                                     Margin="5,0,0,0"/>
+                    </RelativePanel>
+
 
                     <RelativePanel Name="rpQuestionEight" Grid.Row="8" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
                         <TextBlock Name="tbkQuestionEight" 
@@ -495,16 +524,17 @@
                                  Margin="5,0,0,0"
                                  MaxWidth="125"
                                  Visibility="Collapsed"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerEight" 
+                        <CheckBox Name="ckbAnswerEight" 
                               Grid.Row="8" 
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
                               Visibility="Collapsed" 
+                                  RelativePanel.AlignBottomWith="tbkQuestionEight"
+                                 RelativePanel.RightOf="tbkQuestionEight"
                               Content="Check if Yes" 
                               VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerEight"
+                              Margin="5,0,0,0"/>
+                        <DatePicker x:Name="dprAnswerEight"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -512,6 +542,8 @@
                                     RelativePanel.RightOf="tbkQuestionEight"
                                     RelativePanel.AlignBottomWith="tbkQuestionEight"
                                     Margin="5,0,0,0"/>
+                    </RelativePanel>
+
 
                     <RelativePanel x:Name="rpQuestionNine" Grid.Row="9" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
                         <TextBlock Name="tbkQuestionNine" 
@@ -530,16 +562,17 @@
                              VerticalAlignment="Center"
                              Margin="5,0,0,0"
                              MaxWidth="125"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerNine" 
+                        <CheckBox Name="ckbAnswerNine" 
                               Grid.Row="9" 
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
                               Visibility="Collapsed" 
+                                  RelativePanel.AlignBottomWith="tbkQuestionNine"
+                             RelativePanel.RightOf="tbkQuestionNine"
                               Content="Check if Yes" 
                               VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerNine"
+                              Margin="5,0,0,0"/>
+                        <DatePicker x:Name="dprAnswerNine"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -547,6 +580,8 @@
                                     RelativePanel.RightOf="tbkQuestionNine"
                                     RelativePanel.AlignBottomWith="tbkQuestionNine"
                                     Margin="5,0,0,0"/>
+                    </RelativePanel>
+
 
                     <RelativePanel Name="rpQuestionTen" Grid.Row="10" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="15,15" Visibility="Collapsed">
                         <TextBlock Name="tbkQuestionTen" 
@@ -564,16 +599,17 @@
                              VerticalAlignment="Center"
                              Margin="5,0,0,0"
                              MaxWidth="125"/>
-                    </RelativePanel>
-                    <CheckBox Name="ckbAnswerTen" 
+                        <CheckBox Name="ckbAnswerTen" 
                               Grid.Row="10" 
                               Grid.Column="1" 
-                              HorizontalAlignment="Right" 
+                              HorizontalAlignment="Right"
+                                  RelativePanel.AlignBottomWith="tbkQuestionTen"
+                             RelativePanel.RightOf="tbkQuestionTen"
                               Visibility="Collapsed" 
                               Content="Check if Yes" 
-                              VerticalAlignment="Center"
-                              Margin="5,2,50,20"/>
-                    <DatePicker x:Name="dprAnswerTen"
+                              
+                              Margin="5,0,0,0"/>
+                        <DatePicker x:Name="dprAnswerTen"
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
@@ -581,6 +617,8 @@
                                     RelativePanel.RightOf="tbkQuestionTen"
                                     RelativePanel.AlignBottomWith="tbkQuestionTen"
                                     Margin="5,0,0,0"/>
+                    </RelativePanel>
+
 
                     <Button x:Name="btnSubmit" 
                             Content="Submit"
@@ -595,11 +633,6 @@
                 </Grid>
             </ScrollViewer>
         </Grid>
-        <TextBlock x:Name="tbkLastSwipe"
-                   Margin="65,20,10,10"
-                   FontSize="15"
-                   FontWeight="Bold"
-                   Text="Last Entry:"
-                   Grid.Row="2"/>
+
     </Grid>
 </Page>

@@ -39,14 +39,14 @@ namespace CAA_Event_Management.Data
             }
         }
 
-        public Answer GetAnswer(int id)
-        {
-            using (CAAContext context = new CAAContext())
-            {
-                var items = context.Answers.Where(a => a.ID == id).FirstOrDefault();
-                return items;
-            }
-        }
+        //public Answer GetAnswer(int id)
+        //{
+        //    using (CAAContext context = new CAAContext())
+        //    {
+        //        var items = context.Answers.Where(a => a.ID == id).FirstOrDefault();
+        //        return items;
+        //    }
+        //}
 
         /// <summary>
         /// Get Game Model by ID

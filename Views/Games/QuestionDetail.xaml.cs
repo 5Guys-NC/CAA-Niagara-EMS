@@ -142,22 +142,22 @@ namespace CAA_Event_Management.Views.Games
             selected.ImageIDs = string.Join("|", imageID);
         }
 
-        public void UpdateChanges()
-        {
-            List<string> option = new List<string>();
-            List<string> answer = new List<string>();
-            foreach (var d in display)
-            {
-                //Loops through the view and adds each item to string
-                option.Add(d.Text);
-                //If checked, adds text to correct answer list
-                if (d.IsTrue) { answer.Add(d.Text); }
-            }
+        //public void UpdateChanges()
+        //{
+        //    List<string> option = new List<string>();
+        //    List<string> answer = new List<string>();
+        //    foreach (var d in display)
+        //    {
+        //        //Loops through the view and adds each item to string
+        //        option.Add(d.Text);
+        //        //If checked, adds text to correct answer list
+        //        if (d.IsTrue) { answer.Add(d.Text); }
+        //    }
 
-            //joins all strings together
-            selected.OptionsText = string.Join("|", option);
-            selected.AnswerText = string.Join("|", answer);
-        }
+        //    //joins all strings together
+        //    selected.OptionsText = string.Join("|", option);
+        //    selected.AnswerText = string.Join("|", answer);
+        //}
 
 
         #endregion

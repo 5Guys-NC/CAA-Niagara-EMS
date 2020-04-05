@@ -244,7 +244,7 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 Jeeves.ShowMessage("Error", "There was a problem connecting to the database; please exit and restart the program");
             }
-            tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+            tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
         }
 
         /// <summary>
@@ -294,42 +294,42 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 if (rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
                 }
                 else if (rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnly.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnly.Count().ToString();
                 }
                 else if (rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnly.Count().ToString();
                 }
             }
             else
             {
                 if (ckbOnlyQuizPlayers.IsChecked == true && rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendantsWithGames.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendantsWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == true && rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnlyWithGames.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnlyWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == true && rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnlyWithGames.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnlyWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnly.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnly.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnly.Count().ToString();
                 }
             }
         }

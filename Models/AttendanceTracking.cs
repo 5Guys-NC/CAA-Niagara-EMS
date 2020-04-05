@@ -54,7 +54,7 @@ namespace CAA_Event_Management.Models
         public bool ExternalData { get; set; }
 
         [Display(Name = "Person is an event winner")]
-        public bool IsAnEventWinner { get; set; } = false;
+        public int? IsAnEventWinner { get; set; } =  null;
 
         #endregion
 

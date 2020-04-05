@@ -62,6 +62,11 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Buttons - ChooseWinner, RadioButton Changed, Checkbox Changed
 
+        /// <summary>
+        /// This method handles the "Choose a Winner" button click by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
         {
             AttendanceTracking person = new AttendanceTracking();
@@ -145,16 +150,31 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method handles the user interaction with any radio button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rdoNewRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             ShowNumberOfEntriesText();
         }
 
+        /// <summary>
+        /// This method handles the user interaction with the "quiz only" checkbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ckbOnlyQuizPlayers_Click(object sender, RoutedEventArgs e)
         {
             ShowNumberOfEntriesText();
         }
 
+        /// <summary>
+        /// This method handles the user click on the "back to events" button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(CAAEvents));
@@ -164,6 +184,11 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - FillListsWithEntries, FillListsWithGamePlayers, ShowNumberOfEntriesText, FillListOfEventWinners, GetRandomNumber
 
+        /// <summary>
+        /// This method fills the various lists on the startup of the page; the lists provide the attendanceTracking objects 
+        /// that the winners are drawn from; this method filters out duplicate entries based on CAA member numbers or 
+        /// provided telephone numbers (not by names)
+        /// </summary>
         private void FillListsWithEntries()
         {
             try
@@ -221,6 +246,10 @@ namespace CAA_Event_Management.Views.EventViews
             tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
         }
 
+        /// <summary>
+        /// This method determines which winner entries (attendanceTracking objects) have played the quiz game; it separates 
+        /// them into separate lists determined by what catagory the play falls into
+        /// </summary>
         private void FillListsWithGamePlayers()
         {
             try
@@ -254,6 +283,10 @@ namespace CAA_Event_Management.Views.EventViews
             catch {  }
         }
 
+        /// <summary>
+        /// This method determines and displays the total number of available entries for the various radio buttons and quiz 
+        /// checkbox as chosen by the user for the selected event; it displays this information in the view
+        /// </summary>
         private void ShowNumberOfEntriesText()
         {
             if (ckbOnlyQuizPlayers == null)
@@ -300,6 +333,10 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method fills the winner list or determines that no winners have been selected; it displays this 
+        /// information in the view
+        /// </summary>
         private void FillListOfEventWinners()
         {
             bool check = false;
@@ -352,6 +389,12 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// This method provides a random number which is used to determine an event winner; the parameter
+        /// is the number of entries in a particular drawing pool from an event
+        /// </summary>
+        /// <param name="count">this parameter is the number of entries in a particular drawing pool</param>
+        /// <returns></returns>
         private int GetRandomNumber(int count)
         {
             Random random = new Random();

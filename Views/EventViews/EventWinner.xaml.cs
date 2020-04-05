@@ -139,9 +139,10 @@ namespace CAA_Event_Management.Views.EventViews
                 person.IsAnEventWinner = (winners.Count)+1;
                 attendanceTrackingRepository.UpdateAttendanceTracking(person);
 
-                txtWinnerInfo.Text = "Member Number: " + person.MemberNo +
-                                   "\nPerson Name: " + person.FirstName + " " + person.LastName +
-                                   "\nPerson Phone: " + person.PhoneNo;
+                txtWinnerInfo.Text = "Name: " + person.FirstName + " " + person.LastName +
+                                     "\nCAA Number: " + person.MemberNo +
+                                     "\nPhone: " + person.PhoneNo.Substring(0,3) + "-" + person.PhoneNo.Substring(3,3) + "-" + person.PhoneNo.Substring(6);
+                                     
                 FillListOfEventWinners();
             }
             catch
@@ -368,11 +369,11 @@ namespace CAA_Event_Management.Views.EventViews
                     }
                     if (x.MemberNo != "")
                     {
-                        winnerInfo += "  -  CAA Number: " + x.MemberNo;
+                        winnerInfo += "\n" + "CAA Number: " + x.MemberNo;
                     }
                     if (x.PhoneNo != "")
                     {
-                        winnerInfo += "  -  Ph: " + x.PhoneNo;
+                        winnerInfo += "\n" + "Ph: " + x.PhoneNo.Substring(0, 3) + "-" + x.PhoneNo.Substring(3, 3) + "-" + x.PhoneNo.Substring(6) + "\n";
                     }
                     winnerInfoList.Add(winnerInfo);
                 }

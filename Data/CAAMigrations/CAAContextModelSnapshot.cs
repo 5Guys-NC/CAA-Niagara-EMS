@@ -108,7 +108,7 @@ namespace CAA_Event_Management.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasMaxLength(25);
 
-                    b.Property<bool>("IsAnEventWinner");
+                    b.Property<int?>("IsAnEventWinner");
 
                     b.Property<string>("IsMember")
                         .HasMaxLength(20);

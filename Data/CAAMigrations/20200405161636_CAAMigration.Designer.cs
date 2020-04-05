@@ -8,8 +8,8 @@ using CAA_Event_Management.Data;
 namespace CAA_Event_Management.Data.Migrations
 {
     [DbContext(typeof(CAAContext))]
-    [Migration("20200402165617_CAAMigrations")]
-    partial class CAAMigrations
+    [Migration("20200405161636_CAAMigration")]
+    partial class CAAMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,7 +109,7 @@ namespace CAA_Event_Management.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasMaxLength(25);
 
-                    b.Property<bool>("IsAnEventWinner");
+                    b.Property<int?>("IsAnEventWinner");
 
                     b.Property<string>("IsMember")
                         .HasMaxLength(20);

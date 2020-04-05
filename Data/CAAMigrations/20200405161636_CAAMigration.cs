@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CAA_Event_Management.Data.Migrations
 {
-    public partial class CAAMigrations : Migration
+    public partial class CAAMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -319,7 +319,7 @@ namespace CAA_Event_Management.Data.Migrations
                     EventID = table.Column<string>(maxLength: 36, nullable: false),
                     ExternalData = table.Column<bool>(nullable: false),
                     FirstName = table.Column<string>(maxLength: 25, nullable: true),
-                    IsAnEventWinner = table.Column<bool>(nullable: false),
+                    IsAnEventWinner = table.Column<int>(nullable: true),
                     IsMember = table.Column<string>(maxLength: 20, nullable: true),
                     LastName = table.Column<string>(maxLength: 25, nullable: true),
                     MemberNo = table.Column<string>(maxLength: 16, nullable: true),

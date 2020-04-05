@@ -103,7 +103,7 @@ namespace CAA_Event_Management.Views.EventViews
 
                 if (userSelectedList.Count == 0)
                 {
-                    Jeeves.ShowMessage("Error", "Please chose different selection options as there are no available entries");
+                    Jeeves.ShowMessage("Error", "No available entries. Select another option.");
                     return;
                 }
                 if (userSelectedList.Count <= winners.Count)
@@ -134,14 +134,14 @@ namespace CAA_Event_Management.Views.EventViews
                 person.IsAnEventWinner = true;
                 attendanceTrackingRepository.UpdateAttendanceTracking(person);
 
-                txtWinnerInfo.Text = "Member Number: " + person.MemberNo +
-                                   "\nPerson Name: " + person.FirstName + " " + person.LastName +
-                                   "\nPerson Phone: " + person.PhoneNo;
+                txtWinnerInfo.Text = "Name: " + person.FirstName + " " + person.LastName +
+                                     "\nCAA Number: " + person.MemberNo +
+                                     "\nPhone: " + person.PhoneNo.Substring(0,3) + "-" + person.PhoneNo.Substring(3,3) + "-" + person.PhoneNo.Substring(6);
                 FillListOfEventWinners();
             }
             catch
             {
-                Jeeves.ShowMessage("Error", "The was a problem getting your winner");
+                Jeeves.ShowMessage("Error", "There was a problem getting your winner");
             }
         }
 
@@ -155,7 +155,7 @@ namespace CAA_Event_Management.Views.EventViews
             ShowNumberOfEntriesText();
         }
 
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void btnReturntoEvents_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(CAAEvents));
         }
@@ -218,7 +218,7 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 Jeeves.ShowMessage("Error", "There was a problem connecting to the database; please exit and restart the program");
             }
-            tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+            tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
         }
 
         private void FillListsWithGamePlayers()
@@ -260,42 +260,42 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 if (rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
                 }
                 else if (rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnly.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnly.Count().ToString();
                 }
                 else if (rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnly.Count().ToString();
                 }
             }
             else
             {
                 if (ckbOnlyQuizPlayers.IsChecked == true && rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendantsWithGames.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendantsWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == true && rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnlyWithGames.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnlyWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == true && rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnlyWithGames.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnlyWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnly.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnly.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
+                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnly.Count().ToString();
                 }
             }
         }
@@ -326,13 +326,13 @@ namespace CAA_Event_Management.Views.EventViews
                     }
                     if (x.MemberNo != "")
                     {
-                        if (winnerInfo == "") winnerInfo += "CAA Number: " + x.MemberNo;
-                        else winnerInfo += "  -  CAA Number: " + x.MemberNo;
+                        if (winnerInfo == "") winnerInfo += "\n" + "CAA Number: " + x.MemberNo;
+                        else winnerInfo += "\n" + "CAA Number: " + x.MemberNo;
                     }
                     if (x.PhoneNo != "")
                     {
-                        if (winnerInfo == "") winnerInfo += "Ph: " + x.PhoneNo;
-                        else winnerInfo += "  -  Ph: " + x.PhoneNo;
+                        if (winnerInfo == "") winnerInfo += "\n" + "Ph: " + x.PhoneNo;
+                        else winnerInfo += "\n" + "Ph: " + x.PhoneNo.Substring(0, 3) + "-" + x.PhoneNo.Substring(3, 3) + "-" + x.PhoneNo.Substring(6) + "\n";
                     }
                     winnerInfoList.Add(winnerInfo);
                 }

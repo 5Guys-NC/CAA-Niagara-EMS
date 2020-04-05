@@ -63,7 +63,8 @@
         <TextBlock x:Name="tbkEventInfo"
                    FontSize="60"
                    Grid.Row="1"
-                   Margin="100,150,0,0"
+                   HorizontalAlignment="Center"
+                   Margin="0,150,0,0"
                    Visibility="Collapsed"
                    Text="No Current Events"/>
 

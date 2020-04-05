@@ -60,6 +60,7 @@ namespace CAA_Event_Management.Views.EventViews
             else
             {
                 tbkEventInfo.Visibility = Visibility.Visible;
+                btnStartEvent.Visibility = Visibility.Collapsed;
             }
         }
 

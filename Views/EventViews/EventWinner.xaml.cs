@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -62,6 +62,11 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Buttons - ChooseWinner, RadioButton Changed, Checkbox Changed
 
+        /// <summary>
+        /// This method handles the "Choose a Winner" button click by the user
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
         {
             AttendanceTracking person = new AttendanceTracking();
@@ -103,7 +108,7 @@ namespace CAA_Event_Management.Views.EventViews
 
                 if (userSelectedList.Count == 0)
                 {
-                    Jeeves.ShowMessage("Error", "No available entries. Select another option.");
+                    Jeeves.ShowMessage("Error", "Please chose different selection options as there are no available entries");
                     return;
                 }
                 if (userSelectedList.Count <= winners.Count)
@@ -131,31 +136,47 @@ namespace CAA_Event_Management.Views.EventViews
                     //if (winnerListCheck.Count == 0) check = true;
                 }
 
-                person.IsAnEventWinner = true;
+                person.IsAnEventWinner = (winners.Count)+1;
                 attendanceTrackingRepository.UpdateAttendanceTracking(person);
 
                 txtWinnerInfo.Text = "Name: " + person.FirstName + " " + person.LastName +
                                      "\nCAA Number: " + person.MemberNo +
                                      "\nPhone: " + person.PhoneNo.Substring(0,3) + "-" + person.PhoneNo.Substring(3,3) + "-" + person.PhoneNo.Substring(6);
+                                     
                 FillListOfEventWinners();
             }
             catch
             {
-                Jeeves.ShowMessage("Error", "There was a problem getting your winner");
+                Jeeves.ShowMessage("Error", "The was a problem getting your winner");
             }
         }
 
+        /// <summary>
+        /// This method handles the user interaction with any radio button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rdoNewRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             ShowNumberOfEntriesText();
         }
 
+        /// <summary>
+        /// This method handles the user interaction with the "quiz only" checkbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ckbOnlyQuizPlayers_Click(object sender, RoutedEventArgs e)
         {
             ShowNumberOfEntriesText();
         }
 
-        private void btnReturntoEvents_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// This method handles the user click on the "back to events" button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(CAAEvents));
         }
@@ -164,6 +185,11 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Helper Methods - FillListsWithEntries, FillListsWithGamePlayers, ShowNumberOfEntriesText, FillListOfEventWinners, GetRandomNumber
 
+        /// <summary>
+        /// This method fills the various lists on the startup of the page; the lists provide the attendanceTracking objects 
+        /// that the winners are drawn from; this method filters out duplicate entries based on CAA member numbers or 
+        /// provided telephone numbers (not by names)
+        /// </summary>
         private void FillListsWithEntries()
         {
             try
@@ -218,9 +244,13 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 Jeeves.ShowMessage("Error", "There was a problem connecting to the database; please exit and restart the program");
             }
-            tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
+            tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
         }
 
+        /// <summary>
+        /// This method determines which winner entries (attendanceTracking objects) have played the quiz game; it separates 
+        /// them into separate lists determined by what catagory the play falls into
+        /// </summary>
         private void FillListsWithGamePlayers()
         {
             try
@@ -254,93 +284,113 @@ namespace CAA_Event_Management.Views.EventViews
             catch {  }
         }
 
+        /// <summary>
+        /// This method determines and displays the total number of available entries for the various radio buttons and quiz 
+        /// checkbox as chosen by the user for the selected event; it displays this information in the view
+        /// </summary>
         private void ShowNumberOfEntriesText()
         {
             if (ckbOnlyQuizPlayers == null)
             {
                 if (rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
                 }
                 else if (rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnly.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnly.Count().ToString();
                 }
                 else if (rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnly.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
                 }
             }
             else
             {
                 if (ckbOnlyQuizPlayers.IsChecked == true && rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendantsWithGames.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendantsWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == true && rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnlyWithGames.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnlyWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == true && rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnlyWithGames.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnlyWithGames.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoAllMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + allAttendants.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + allAttendants.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoMemberOnly.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + membersOnly.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + membersOnly.Count().ToString();
                 }
                 else if (ckbOnlyQuizPlayers.IsChecked == false && rdoNonMembers.IsChecked == true)
                 {
-                    tbkTotalNumberOfEntries.Text = "Total number of entries: " + nonMembersOnly.Count().ToString();
+                    tbkTotalNumberOfEnteries.Text = "Total number of enteries: " + nonMembersOnly.Count().ToString();
                 }
             }
         }
 
+        /// <summary>
+        /// This method fills the winner list or determines that no winners have been selected; it displays this 
+        /// information in the view
+        /// </summary>
         private void FillListOfEventWinners()
         {
+            bool check = false;
             List<string> winnerInfoList = new List<string>();
             winners = attendanceTrackingRepository.GetAttendanceTrackingByEvent(view.EventID)
-                            .Where(p => p.IsAnEventWinner == true)
+                            .Where(p => p.IsAnEventWinner != null)
+                            .OrderBy(p => p.IsAnEventWinner)
+                            .ThenBy(p => p.FirstName)
                             .ToList();
+
             if(winners.Count == 0)
             {
+                check = true;
+                tbkNumberOfWinners.Text = "Selected Event Winners: " + winnerInfoList.Count;
                 winnerInfoList.Add("No Event Winners Selected");
             }
             else
             {
                 foreach(var x in winners)
                 {
-                    string winnerInfo = "";
+                    string winnerInfo = x.IsAnEventWinner.ToString() + ".";
                     if (x.FirstName != "")
                     {
-                        winnerInfo += x.FirstName;
+                        winnerInfo += " " + x.FirstName;
                     }
                     if (x.LastName != "") 
                     {
-                        if (winnerInfo == "") winnerInfo += x.LastName;
-                        else winnerInfo += " " + x.LastName;
+                        winnerInfo += " " + x.LastName;
                     }
                     if (x.MemberNo != "")
                     {
-                        if (winnerInfo == "") winnerInfo += "\n" + "CAA Number: " + x.MemberNo;
-                        else winnerInfo += "\n" + "CAA Number: " + x.MemberNo;
+                        winnerInfo += "\n" + "CAA Number: " + x.MemberNo;
                     }
                     if (x.PhoneNo != "")
                     {
-                        if (winnerInfo == "") winnerInfo += "\n" + "Ph: " + x.PhoneNo;
-                        else winnerInfo += "\n" + "Ph: " + x.PhoneNo.Substring(0, 3) + "-" + x.PhoneNo.Substring(3, 3) + "-" + x.PhoneNo.Substring(6) + "\n";
+                        winnerInfo += "\n" + "Ph: " + x.PhoneNo.Substring(0, 3) + "-" + x.PhoneNo.Substring(3, 3) + "-" + x.PhoneNo.Substring(6) + "\n";
                     }
                     winnerInfoList.Add(winnerInfo);
                 }
             }
             lstWinnersList.ItemsSource = winnerInfoList;
-            tbkNumberOfWinners.Text = "Selected Event Winners: " + winnerInfoList.Count;
+            if (check == false)
+            {
+                tbkNumberOfWinners.Text = "Selected Event Winners: " + winnerInfoList.Count;
+            }
         }
 
+        /// <summary>
+        /// This method provides a random number which is used to determine an event winner; the parameter
+        /// is the number of entries in a particular drawing pool from an event
+        /// </summary>
+        /// <param name="count">this parameter is the number of entries in a particular drawing pool</param>
+        /// <returns></returns>
         private int GetRandomNumber(int count)
         {
             Random random = new Random();

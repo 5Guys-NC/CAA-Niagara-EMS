@@ -302,12 +302,20 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void FillListOfEventWinners()
         {
+            bool check = false;
             List<string> winnerInfoList = new List<string>();
             winners = attendanceTrackingRepository.GetAttendanceTrackingByEvent(view.EventID)
                             .Where(p => p.IsAnEventWinner == true)
+                            .OrderBy(p => p.FirstName)
+                            .ThenBy(p => p.LastName)
+                            .ThenBy(p => p.MemberNo)
+                            .ThenBy(p => p.PhoneNo)
                             .ToList();
+
             if(winners.Count == 0)
             {
+                check = true;
+                tbkNumberOfWinners.Text = "Selected Event Winners: " + winnerInfoList.Count;
                 winnerInfoList.Add("No Event Winners Selected");
             }
             else
@@ -338,7 +346,10 @@ namespace CAA_Event_Management.Views.EventViews
                 }
             }
             lstWinnersList.ItemsSource = winnerInfoList;
-            tbkNumberOfWinners.Text = "Selected Event Winners: " + winnerInfoList.Count;
+            if (check == false)
+            {
+                tbkNumberOfWinners.Text = "Selected Event Winners: " + winnerInfoList.Count;
+            }
         }
 
         private int GetRandomNumber(int count)

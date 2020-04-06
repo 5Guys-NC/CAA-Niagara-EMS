@@ -120,7 +120,7 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 time[0] = (Convert.ToInt32(time[0]) + 12).ToString();
             }
-            else if (timeArray[2] == "AM" && time[0] == "AM")
+            else if (timeArray[2] == "AM" && time[0] == "12")
             {
                 time[0] = "00";
             }
@@ -542,14 +542,22 @@ namespace CAA_Event_Management.Views.EventViews
         /// <returns>If the dates are correctly set by the user, this function returns "true", else it returns "false"</returns>
         private bool CheckForProperDateUsage()
         {
-            var eventStart = Convert.ToDateTime(eventStartDate.Date.ToString());
-            var eventEnd = Convert.ToDateTime(cdpEventEnd.Date.ToString());
-            if (eventStart > eventEnd)
+            //var eventStart = Convert.ToDateTime(eventStartDate.Date.ToString());
+            //var eventEnd = Convert.ToDateTime(cdpEventEnd.Date.ToString());
+            string[] startDate = eventStartDate.Date.ToString().Split(" ");
+            var startTime = tpEventStart.Time.ToString();
+            DateTime start = Convert.ToDateTime(startDate[0] + " " + startTime);
+
+            string[] endDate = cdpEventEnd.Date.ToString().Split(" ");
+            var endTime = tpEventEnd.Time.ToString();
+            DateTime end = Convert.ToDateTime(endDate[0] + " " + endTime);
+
+            if (start > end)
             {
                 Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");
                 return false;
             }
-            else if (eventStart < (DateTime.Now.AddDays(-2)))
+            else if (start < (DateTime.Now.AddDays(-2)))
             {
                 Jeeves.ShowMessage("Error", "Please choose a start date in the future");
                 return false;
@@ -628,12 +636,6 @@ namespace CAA_Event_Management.Views.EventViews
             var endTime = tpEventEnd.Time.ToString();
             DateTime end = Convert.ToDateTime(endDate[0] + " " + endTime);
 
-            //if (start > end)
-            //{
-            //    Jeeves.ShowMessage("Error", "Please set a start date/time that is before the end date/time");
-            //    return false;
-            //}
-             
             view.EventStart = start;
             view.EventEnd = end;
             return true;

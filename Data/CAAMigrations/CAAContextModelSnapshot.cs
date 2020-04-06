@@ -83,7 +83,7 @@ namespace CAA_Event_Management.Data.Migrations
                         .HasMaxLength(36);
 
                     b.Property<string>("Answer")
-                        .HasMaxLength(50);
+                        .HasMaxLength(100);
 
                     b.HasKey("MemberAttendanceID", "EventItemID");
 
@@ -106,7 +106,7 @@ namespace CAA_Event_Management.Data.Migrations
                     b.Property<bool>("ExternalData");
 
                     b.Property<string>("FirstName")
-                        .HasMaxLength(25);
+                        .HasMaxLength(50);
 
                     b.Property<int?>("IsAnEventWinner");
 
@@ -114,12 +114,13 @@ namespace CAA_Event_Management.Data.Migrations
                         .HasMaxLength(20);
 
                     b.Property<string>("LastName")
-                        .HasMaxLength(25);
+                        .HasMaxLength(75);
 
                     b.Property<string>("MemberNo")
                         .HasMaxLength(16);
 
-                    b.Property<string>("PhoneNo");
+                    b.Property<string>("PhoneNo")
+                        .HasMaxLength(50);
 
                     b.HasKey("MemberAttendanceID");
 
@@ -142,13 +143,13 @@ namespace CAA_Event_Management.Data.Migrations
                     b.Property<DateTime?>("CreatedDate");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(100);
+                        .HasMaxLength(155);
 
                     b.Property<DateTime?>("EventEnd");
 
                     b.Property<string>("EventName")
                         .IsRequired()
-                        .HasMaxLength(100);
+                        .HasMaxLength(155);
 
                     b.Property<DateTime?>("EventStart")
                         .IsRequired();
@@ -308,7 +309,7 @@ namespace CAA_Event_Management.Data.Migrations
 
                     b.Property<string>("ItemName")
                         .IsRequired()
-                        .HasMaxLength(75);
+                        .HasMaxLength(150);
 
                     b.Property<string>("LastModifiedBy")
                         .HasMaxLength(256);

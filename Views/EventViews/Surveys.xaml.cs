@@ -96,6 +96,12 @@ namespace CAA_Event_Management.Views.EventViews
 
         private void btnSaveQuestion_Click(object sender, RoutedEventArgs e)
         {
+            if (txtNewSurveyQuestion.Text.Length > 150)
+            {
+                Jeeves.ShowMessage("Error", "Please shorten the survey question to 150 characters");
+                return;
+            }
+
             DataType selectedDataType = (DataType)cboDataType.SelectedItem;
 
             if (addOrEdit == 1)

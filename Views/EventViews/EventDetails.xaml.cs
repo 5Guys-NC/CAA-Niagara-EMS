@@ -129,7 +129,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Buttons - Event - Save, Delete, Cancel, and MemberCheckBox Methods
+        #region Buttons - Event - btnSave, btnCancel, and MemberCheckBox Methods
 
         /// <summary>
         /// This method saves creates/edits of an event and passes all the changes to the database
@@ -142,6 +142,12 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 if(!AddEventDatesAndTimes()) return;  //this must be before BuildNamesForTheEvent()
                 if(!BuildNamesForTheEvent()) return;
+
+                if(eventNameTextBox.Text.Length > 150)
+                {
+                    Jeeves.ShowMessage("Error", "Please shorten the event name as it cannot exceed 150 characters");
+                    return;
+                }
 
                 if (membersOnlyCheck.IsChecked == true) view.MembersOnly = true;
                 else view.MembersOnly = false;

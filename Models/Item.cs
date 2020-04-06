@@ -35,7 +35,7 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Item")]
         [Required(ErrorMessage = "ItemName Required")]
-        [StringLength(75, ErrorMessage = "Item Name cannot be more then 75 characters")]
+        [StringLength(150, ErrorMessage = "Item Name cannot be more then 75 characters")]
         public string ItemName { get; set; }
 
         [Display(Name = "Type")]

@@ -86,6 +86,7 @@
                     <TextBox x:Name="txtNewSurveyQuestion"  
                              Grid.Column="1"
                              InputScope="Chat"
+                             MaxLength="149" 
                              Text="{x:Bind item.ItemName,Mode=TwoWay}"
                              AcceptsReturn="False" 
                              Width="250"

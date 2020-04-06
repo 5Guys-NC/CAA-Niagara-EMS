@@ -40,14 +40,15 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Phone")]
         [Phone(ErrorMessage = "Phone Number in incorrect format")]
+        [StringLength(50)]
         public string PhoneNo { get; set; }
 
         [Display(Name = "First Name")]
-        [StringLength(25, ErrorMessage = "First Name cannot be more then 25 characters")]
+        [StringLength(50, ErrorMessage = "First Name cannot be more then 25 characters")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last Name")]
-        [StringLength(25, ErrorMessage = "Last Name cannot be more then 25 characters")]
+        [StringLength(75, ErrorMessage = "Last Name cannot be more then 25 characters")]
         public string LastName { get; set; }
 
         [Display(Name = "External Data")]

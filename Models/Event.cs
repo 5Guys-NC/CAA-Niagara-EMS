@@ -57,7 +57,7 @@ namespace CAA_Event_Management.Models
 
         [Display(Name = "Event Name")]
         [Required(ErrorMessage = "Event Name Required")]
-        [StringLength(100, ErrorMessage = "Event Name cannot be more then 100 characters")]
+        [StringLength(155, ErrorMessage = "Event Name cannot be more then 100 characters")]
         public string EventName { get; set; } = "";
 
         [Display(Name = "Event Start")]
@@ -81,7 +81,7 @@ namespace CAA_Event_Management.Models
         public string Keywords { get; set; } = "";
 
         [Display(Name = "Display Name")]
-        [StringLength(100, ErrorMessage = "Display Name cannot be more then 100 characters")]
+        [StringLength(155, ErrorMessage = "Display Name cannot be more then 100 characters")]
         public string DisplayName { get; set; } = "";
 
         [Display(Name = "isDeleted?")]
@@ -89,7 +89,7 @@ namespace CAA_Event_Management.Models
 
         #endregion
 
-        #region Table Connections
+        #region Table Connections and Overrides
 
         public ICollection<EventItem> EventItems { get; set; }
         public ICollection<AttendanceTracking> AttendanceTrackings { get; set; }

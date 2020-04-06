@@ -124,11 +124,13 @@ namespace CAA_Event_Management.Views.EventViews
                 tracker.ArrivalTime = DateTime.Now;
                 List<EventItem> eventItems = eventItemRepository.GetEventItems(currentEvent.EventID);
                 if (eventItems.Count == 0) loadSurveyQuestionsView = false;
+
                 attendanceTrackingRepository.AddAttendanceTracking(tracker);
             }
-            catch (Exception exc)
+            catch //(Exception exc)
             {
-                Jeeves.ShowMessage("Error", exc.InnerException.ToString());
+                Jeeves.ShowMessage("Error", "There was a problem saving this event to the data base; please re-try");
+                //Jeeves.ShowMessage("Error", exc.InnerException.ToString());
                 return false;
             }
 

@@ -13,7 +13,7 @@ namespace CAA_Event_Management.Models
         #region Table Fields
 
         [Display(Name = "Answer")]
-        [StringLength(50, ErrorMessage = "Answer cannot be more then 50 characters")]
+        [StringLength(100, ErrorMessage = "Answer cannot be more then 50 characters")]
         public string Answer { get; set; }
 
         #endregion

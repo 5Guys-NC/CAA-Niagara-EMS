@@ -200,7 +200,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - FillDropDown, SearchBox_TextChanged, DeleteModeToggle
+        #region Helper Methods - FillDropDown, SearchBox_TextChanged, DeleteModeToggle, RemoveOldEvents, WriteNewAuditLineToDatabase
 
         /// <summary>
         /// This methods fills the CAAEvent view with events based on whether or not the events are in the past or the future

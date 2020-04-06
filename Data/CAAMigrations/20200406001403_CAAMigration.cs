@@ -52,7 +52,7 @@ namespace CAA_Event_Management.Data.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: true),
                     ItemCount = table.Column<int>(nullable: true),
-                    ItemName = table.Column<string>(maxLength: 75, nullable: false),
+                    ItemName = table.Column<string>(maxLength: 150, nullable: false),
                     LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
                     LastModifiedDate = table.Column<DateTime>(nullable: true),
                     ValueType = table.Column<string>(maxLength: 25, nullable: false)
@@ -161,9 +161,9 @@ namespace CAA_Event_Management.Data.Migrations
                     AbrevEventname = table.Column<string>(maxLength: 20, nullable: true),
                     CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
-                    DisplayName = table.Column<string>(maxLength: 100, nullable: true),
+                    DisplayName = table.Column<string>(maxLength: 155, nullable: true),
                     EventEnd = table.Column<DateTime>(nullable: true),
-                    EventName = table.Column<string>(maxLength: 100, nullable: false),
+                    EventName = table.Column<string>(maxLength: 155, nullable: false),
                     EventStart = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
                     Keywords = table.Column<string>(nullable: true),
@@ -318,12 +318,12 @@ namespace CAA_Event_Management.Data.Migrations
                     ArrivalTime = table.Column<DateTime>(nullable: false),
                     EventID = table.Column<string>(maxLength: 36, nullable: false),
                     ExternalData = table.Column<bool>(nullable: false),
-                    FirstName = table.Column<string>(maxLength: 25, nullable: true),
+                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
                     IsAnEventWinner = table.Column<int>(nullable: true),
                     IsMember = table.Column<string>(maxLength: 20, nullable: true),
-                    LastName = table.Column<string>(maxLength: 25, nullable: true),
+                    LastName = table.Column<string>(maxLength: 75, nullable: true),
                     MemberNo = table.Column<string>(maxLength: 16, nullable: true),
-                    PhoneNo = table.Column<string>(nullable: true)
+                    PhoneNo = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -399,7 +399,7 @@ namespace CAA_Event_Management.Data.Migrations
                 {
                     MemberAttendanceID = table.Column<string>(maxLength: 36, nullable: false),
                     EventItemID = table.Column<string>(maxLength: 36, nullable: false),
-                    Answer = table.Column<string>(maxLength: 50, nullable: true)
+                    Answer = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {

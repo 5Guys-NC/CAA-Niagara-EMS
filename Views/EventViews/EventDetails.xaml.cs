@@ -136,8 +136,6 @@ namespace CAA_Event_Management.Views.EventViews
         /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (!CheckForProperDateUsage()) return;
-
             try
             {
                 if(!AddEventDatesAndTimes()) return;  //this must be before BuildNamesForTheEvent()
@@ -534,37 +532,6 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
-        /// <summary>
-        /// This method ensures that the user has properly set the start and end dates/times of the event.
-        /// It checks to make sure that the start date is before the end date and that the start date is not more than 2 days in the past.
-        /// It returns a false bool if the dates/times are not properly set, and a true if they are correctly set
-        /// </summary>
-        /// <returns>If the dates are correctly set by the user, this function returns "true", else it returns "false"</returns>
-        private bool CheckForProperDateUsage()
-        {
-            //var eventStart = Convert.ToDateTime(eventStartDate.Date.ToString());
-            //var eventEnd = Convert.ToDateTime(cdpEventEnd.Date.ToString());
-            string[] startDate = eventStartDate.Date.ToString().Split(" ");
-            var startTime = tpEventStart.Time.ToString();
-            DateTime start = Convert.ToDateTime(startDate[0] + " " + startTime);
-
-            string[] endDate = cdpEventEnd.Date.ToString().Split(" ");
-            var endTime = tpEventEnd.Time.ToString();
-            DateTime end = Convert.ToDateTime(endDate[0] + " " + endTime);
-
-            if (start > end)
-            {
-                Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");
-                return false;
-            }
-            else if (start < (DateTime.Now.AddDays(-2)))
-            {
-                Jeeves.ShowMessage("Error", "Please choose a start date in the future");
-                return false;
-            }
-            return true;
-        }
-
         #endregion
 
         #region Helper Methods - BuildNamesForTheEvent, AddDatesAndTimes, NewAuditLine, WriteNewAuditLineToDatabase
@@ -622,8 +589,9 @@ namespace CAA_Event_Management.Views.EventViews
         }
 
         /// <summary>
-        /// This function actually sets the EventStart and EventEnd dates/times to a particular event it returns a false 
-        /// if there is a problem setting them
+        /// This function sets the EventStart and EventEnd dates/times of a selected event object. It returns a false 
+        /// if there is a problem setting these dateTimes (ie. the start date is before the end date or 
+        /// the start date is more than 3 days in the past).
         /// </summary>
         /// <returns>Returns a bool based on the success of the method; "true" represents successful method completion</returns>
         private bool AddEventDatesAndTimes()
@@ -635,6 +603,17 @@ namespace CAA_Event_Management.Views.EventViews
             string[] endDate = cdpEventEnd.Date.ToString().Split(" ");
             var endTime = tpEventEnd.Time.ToString();
             DateTime end = Convert.ToDateTime(endDate[0] + " " + endTime);
+
+            if (start > end)
+            {
+                Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");
+                return false;
+            }
+            else if (start < (DateTime.Now.AddDays(-3)))
+            {
+                Jeeves.ShowMessage("Error", "Please choose a start date in the future");
+                return false;
+            }
 
             view.EventStart = start;
             view.EventEnd = end;
@@ -684,12 +663,6 @@ namespace CAA_Event_Management.Views.EventViews
                 differences += "Quiz(ID) change: " + startView.QuizID + " TO: " + view.QuizID;
             }
             return differences;
-        }
-
-        private async Task NewAuditLine(string newLine)
-        {
-            AuditLog line = new AuditLog();
-            await line.WriteToAuditLog(newLine);
         }
 
         /// <summary>

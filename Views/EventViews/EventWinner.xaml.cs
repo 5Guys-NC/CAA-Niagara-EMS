@@ -176,7 +176,7 @@ namespace CAA_Event_Management.Views.EventViews
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void btnReturntoEvents_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(CAAEvents));
         }

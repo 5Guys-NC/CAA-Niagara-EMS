@@ -26,8 +26,6 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="txtGameMenu.Margin" Value="45,0,0,0" />
-                        <Setter Target="btnCreateGame.Margin" Value="80,60,10,0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
@@ -35,7 +33,6 @@
                         <AdaptiveTrigger MinWindowWidth="961" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="txtGameMenu.Margin" Value="130,0,0,0" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -44,7 +41,7 @@
         <ScrollViewer>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="95"/>
+                    <RowDefinition Height="45"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="100"/>
@@ -53,28 +50,6 @@
 
                 <RelativePanel Name="rpTitleBar"  Grid.Row="0" Background="#1b3e6e">
 
-                    <TextBlock Name="txtGameMenu"
-                           Margin="130,0,0,0" 
-                           Text="Game Menu"
-                           Foreground="#eaeaea"
-                           FontWeight="Bold"
-                           FontSize="30"/>
-                    <Button Name="btnCreateGame" 
-                    Background="Transparent"
-                    Content="Create A Game"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    Margin="140,60,10,0"/>
-                    <Button Name="btnCreateQuestion"
-                    Background="Transparent"
-                    Content="Create Questions/Answers"
-                    FontSize="16"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    RelativePanel.AlignBottomWith="btnCreateGame"
-                    RelativePanel.RightOf="btnCreateGame">
-                    </Button>
                     <TextBlock Name="tbkSearch" 
                            FontSize="14"
                            Margin="0,10,0,0"
@@ -91,49 +66,79 @@
                          Width="150"/>
                 </RelativePanel>
 
+                <RelativePanel Name="rpCreates" Grid.Row="1" Margin="0,80,0,0" HorizontalAlignment="Center">
+                    <Button Name="btnCreateGame" 
+                            Content="Create Game"
+                            Margin="0,0,10,0"
+                            Style="{StaticResource actionButtonStyle}">
+                        <Button.Flyout>
+                            <Flyout LightDismissOverlayMode="On">
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter"></Style>
+                                </Flyout.FlyoutPresenterStyle>
+                                <StackPanel>
+                                    <TextBlock Name="tbCreateNewGame" Text="Enter A Game Name" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                    <TextBox Name ="txtCreateNewGame" Width="360"/>
+                                    <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
+                                        <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource actionButtonStyle}" Margin="0,0,10,0" Tapped="BtnCreateConfirm_Tapped"/>
+                                        <Button Name="btnCreateCancel" Content="CANCEL"  Style="{StaticResource secondaryButtonStyle}" Margin="10,0,0,0" Tapped="BtnCreateCancel_Tapped"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button Name="btnCreateQuestion"
+                            Content="Create Questions/Answers"
+                            RelativePanel.RightOf="btnCreateGame"
+                            RelativePanel.AlignBottomWith="btnCreateGame"
+                            Style="{StaticResource secondaryButtonStyle}"/>
+                </RelativePanel>
+
                 <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="50,50,0,0" HorizontalAlignment="Center">
                     <Button Name="btnGame" 
-                    Background="#5291bf" 
-                    BorderBrush="#0d4e97" 
-                    BorderThickness="3,3,3,0"
-                    CornerRadius="20,20,0,0"
-                    Content="Game"
-                    Click="btnGames_Click"
-                    FontSize="14"  
-                    Height="50"
-                    Margin="0,3,-10,0"
-                    Width="105"
-                    Canvas.ZIndex="2"/>
-
+                            Background="#5291bf" 
+                            BorderBrush="#0d4e97" 
+                            BorderThickness="3,3,3,0"
+                            CornerRadius="20,20,0,0"
+                            Content="Game"
+                            Click="btnGames_Click"
+                            FontSize="20"
+                            Foreground="#eaeaea"
+                            Height="50"
+                            Margin="0,3,-10,0"
+                            Width="105"
+                            Canvas.ZIndex="-1"/>
 
                     <Button Name="btnQuestion" 
-                    Background="#5291bf "
-                    BorderBrush="#0d4e97"
-                    BorderThickness="3,3,3,0"
-                    Content="Question"
-                    CornerRadius="20,20,0,0"
+                            Background="#5291bf "
+                            BorderBrush="#0d4e97"
+                            BorderThickness="3,3,3,0"
+                            Content="Question"
+                            CornerRadius="20,20,0,0"
                             Click="btnQuestion_Click"
-                    FontSize="14"
-                    RelativePanel.RightOf="btnGame" 
-                    RelativePanel.AlignBottomWith="btnGame"
-                    Height="50" 
-                    Width="105"
-                    Canvas.ZIndex="2"/>
+                            FontSize="20"
+                            Foreground="#eaeaea"
+                            RelativePanel.RightOf="btnGame" 
+                            RelativePanel.AlignBottomWith="btnGame"
+                            Height="50" 
+                            Width="105"
+                            Canvas.ZIndex="1"/> 
 
                     <Button Name="btnAnswer" 
-                    Background="#5291bf "
-                    BorderBrush="#0d4e97"
-                    BorderThickness="3,3,3,0"
-                    Content="Answer"
-                    CornerRadius="20,20,0,0"
+                            Background="#5291bf "
+                            BorderBrush="#0d4e97"
+                            BorderThickness="3,3,3,0"
+                            Content="Answer"
+                            CornerRadius="20,20,0,0"
                             Click="btnAnswer_Click"
-                    FontSize="14"
+                            FontSize="20"
+                            Foreground="#eaeaea"
                             Margin="-10,0,0,0"
-                    RelativePanel.RightOf="btnQuestion" 
-                    RelativePanel.AlignBottomWith="btnQuestion"
-                    Height="50"  
-                    Width="105"
-                    Canvas.ZIndex="1"/>
+                            RelativePanel.RightOf="btnQuestion" 
+                            RelativePanel.AlignBottomWith="btnQuestion"
+                            Height="50"  
+                            Width="105"
+                            Canvas.ZIndex="-1"/>
 
                     <GridView Name="GameList"
                       Background="#5291bf"
@@ -148,24 +153,32 @@
                       MinWidth="400"
                       Padding="15"
                       >
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
                         <GridView.ItemTemplate>
                             <DataTemplate >
-                                <RelativePanel Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="100" Margin="10">
-                                    <TextBlock Name ="txtGameTitle" Text="{Binding Text}"  TextWrapping="WrapWholeWords" Margin="5,0,40,0"
-                                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                           RelativePanel.AlignVerticalCenterWithPanel="True"
-                                           FontSize="16"
-                                           FontWeight="ExtraBold"
-                                           Foreground="#1b3e6e"/>
+                                <RelativePanel Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="150" Margin="10">
+                                    <TextBlock Name ="txtGameTitle" 
+                                               Text="{Binding Text}"  
+                                               TextWrapping="WrapWholeWords" 
+                                               Margin="5,0,40,0"
+                                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                                               FontSize="18"
+                                               FontWeight="ExtraBold"
+                                               Foreground="#1b3e6e"/>
                                     <Button Name="btnRemove" 
-                                Background="#eaeaea" 
-                                RelativePanel.AlignRightWithPanel="True"
-                                RelativePanel.AlignTopWithPanel="True"
-                                VerticalAlignment="Top"  
-                                DataContext="{Binding ID}" 
-                                FontFamily="Segoe MDL2 Assets" 
-                                Foreground="Red" Content="&#xE74D;" 
-                                Style="{StaticResource AddRemoveStyle}">
+                                            Background="#eaeaea" 
+                                            RelativePanel.AlignRightWithPanel="True"
+                                            RelativePanel.AlignTopWithPanel="True"
+                                            VerticalAlignment="Top"  
+                                            DataContext="{Binding ID}" 
+                                            FontFamily="Segoe MDL2 Assets" 
+                                            Foreground="Red" Content="&#xE74D;" 
+                                            Style="{StaticResource AddRemoveStyle}">
                                         <Button.Flyout>
                                             <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">
                                                 <Flyout.FlyoutPresenterStyle>
@@ -186,30 +199,6 @@
                         </GridView.ItemTemplate>
                     </GridView>
                 </RelativePanel>
-
-                <Button Name="btnCreateNewQuest" 
-                    Style="{StaticResource actionButtonStyle}"
-                    Content=" CREATE NEW QUESTION"               
-                    Grid.Row="3"                    
-                    HorizontalAlignment="Center" 
-                    Margin="40,0,0,0"
-                    Width="240">
-                    <Button.Flyout>
-                        <Flyout LightDismissOverlayMode="On">
-                            <Flyout.FlyoutPresenterStyle>
-                                <Style TargetType="FlyoutPresenter"></Style>
-                            </Flyout.FlyoutPresenterStyle>
-                            <StackPanel>
-                                <TextBlock Name="tbCreateNewQuest" Text="Enter A Game Name" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                                <TextBox Name ="txtCreateNewQuest" Width="360"/>
-                                <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
-                                    <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource actionButtonStyle}" Margin="0,0,10,0" Tapped="BtnCreateConfirm_Tapped"/>
-                                    <Button Name="btnCreateCancel" Content="CANCEL"  Style="{StaticResource secondaryButtonStyle}" Margin="10,0,0,0" Tapped="BtnCreateCancel_Tapped"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
             </Grid>
         </ScrollViewer>
     </Grid>

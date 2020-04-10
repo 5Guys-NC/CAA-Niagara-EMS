@@ -1,0 +1,2 @@
+MainPackage=C:\Users\Nathan\Source\Repos\CAA-Niagara-EMSNathanWIP\bin\ARM\Debug\CAA Event Management_1.0.5.0_ARM_Debug.msix
+SymbolPackage=C:\Users\Nathan\Source\Repos\CAA-Niagara-EMSNathanWIP\obj\ARM\Debug\Symbols\CAA Event Management_1.0.5.0_ARM_Debug.appxsym

@@ -147,7 +147,7 @@
                     Click="btnDelete_Click"/>
                 </RelativePanel>
 
-                <RelativePanel Name="rpSurvey" Grid.Row="3" Margin="50,50,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpSurvey" Grid.Row="3" Margin="30,30,0,0" HorizontalAlignment="Center">
                 <Button Name="btnMostUsedQuestions" 
                         Background="#5291bf "
                         BorderBrush="#0d4e97"
@@ -186,14 +186,20 @@
                               Grid.Row="2"
                               HorizontalAlignment="Left"
                               IsItemClickEnabled="True"
-                              Margin="0,50,0,0"
+                              Margin="0,50,0,20"
+                              MaxHeight="450"
                               MinHeight="450"
                               MinWidth="400"
-                              Padding="15"> 
+                              Padding="15">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
                         <GridView.ItemTemplate>
                         <DataTemplate x:Name="dtSurveys" x:DataType="data:Item">
                             <RelativePanel Name="rpSurveys" Width="320" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
-                                    <TextBlock Name="txtSurveyQuestions" Foreground="#1b3e6e" Margin="5,0,40,0" TextWrapping="WrapWholeWords">                                     
+                                    <TextBlock Name="txtSurveyQuestions" Foreground="#1b3e6e" Margin="5,0,43,0" TextWrapping="WrapWholeWords">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind ItemName}"/>
@@ -223,7 +229,7 @@
             </RelativePanel>
                 
                 
-                <RelativePanel Name="rpSurveyDeleteMode" Grid.Row="3" Margin="50,50,0,0" HorizontalAlignment="Center" Visibility="Collapsed">
+                <RelativePanel Name="rpSurveyDeleteMode" Grid.Row="3" Margin="30,30,0,0" HorizontalAlignment="Center" Visibility="Collapsed">
                     <Button Name="btnMostUsedQuestionsDeleteMode" 
                     Background="#5291bf "
                     BorderBrush="#0d4e97"
@@ -263,14 +269,20 @@
                   Grid.Row="2"
                   HorizontalAlignment="Center"
                   IsItemClickEnabled="True"
-                  Margin="0,50,0,0"
+                  Margin="0,50,0,20"
+                  MaxHeight="450"
                   MinHeight="450"
                   MinWidth="400"
                   Padding="15">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
                         <GridView.ItemTemplate>
                             <DataTemplate x:Name="dtSurveysDeleteMode" x:DataType="data:Item">
                                 <RelativePanel Name="rpSurveysDeleteMode" Width="320" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
-                                    <TextBlock Name="txtSurveyQuestionsDeleteMode" Foreground="#1b3e6e" Margin="5,0,40,0" TextWrapping="WrapWholeWords">                                     
+                                    <TextBlock Name="txtSurveyQuestionsDeleteMode" Foreground="#1b3e6e" Margin="5,0,43,0" TextWrapping="WrapWholeWords">                                     
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind ItemName}"/>

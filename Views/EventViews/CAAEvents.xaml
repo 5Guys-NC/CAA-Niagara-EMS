@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:Microsoft.Toolkit.Uwp.UI.Converters"
+    xmlns:Interactivity="using:Microsoft.Xaml.Interactivity" xmlns:Interactions="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundColor}"
     FontFamily="{ThemeResource ContentControlThemeFontFamily}">
@@ -76,7 +77,7 @@
                         Click="NewEvent_Click"/>
 
                 <!--Sorting Tabs -->
-                <RelativePanel Name="rpEventsTabs" Grid.Row="2" Margin="0,20,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpEventsTabs" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">
                     <Button Name="btnCurrentEvents" 
                         Background="#5291bf" 
                         BorderBrush="#0d4e97" 
@@ -115,15 +116,36 @@
                       HorizontalAlignment="Center"
                       IsItemClickEnabled="True"
                       Margin="0,50,0,0"
-                      MaxHeight="600"
+                      MaxHeight="450"
                       MinHeight="450"
                       MinWidth="400"
                       Padding="15"
                       Visibility="Visible">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
                         <GridView.ItemTemplate>
                             <DataTemplate x:Name="dtEditEvents" x:DataType="data:Event">
                                 <RelativePanel Name="rpEvents" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" MinHeight="120" Margin="10">
-                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,40,0">                                     
+                                    <Interactivity:Interaction.Behaviors>
+                                        <Interactions:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=rpEvents}">
+                                            <Interactions:ChangePropertyAction
+                                            PropertyName="BorderBrush"
+                                            TargetObject="{Binding ElementName=rpEvents}"
+                                            Value="Green"
+                                            />
+                                        </Interactions:EventTriggerBehavior>
+                                        <Interactions:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=txtEvents}">
+                                            <Interactions:ChangePropertyAction
+                            PropertyName="Foreground"
+                            TargetObject="{Binding ElementName=txtEvents}"
+                            Value="Green"
+                            />
+                                        </Interactions:EventTriggerBehavior>
+                                    </Interactivity:Interaction.Behaviors>
+                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,40,0">
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind DisplayName}"/>
@@ -161,10 +183,16 @@
                       HorizontalAlignment="Center"
                       IsItemClickEnabled="True"
                       Margin="0,50,0,0"
+                      MaxHeight="450"
                       MinHeight="450"
                       MinWidth="400"
                       Padding="15"
                       Visibility="Collapsed">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
                         <GridView.ItemTemplate>
                             <DataTemplate x:Name="dtDeleteEvents" x:DataType="data:Event">
                                 <RelativePanel Name="rpEvents" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" MinHeight="120" Margin="10">

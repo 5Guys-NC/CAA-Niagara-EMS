@@ -158,7 +158,15 @@ namespace CAA_Event_Management.Views.Games
             //when image is selected reopens flyout
             btnCreateNewAnswer.Flyout.ShowAt(btnCreateNewAnswer);
             //with file name to confirm selection
-            txbImageFile.Text = file.Name;
+
+            if (txbImageFile.Text != null && txbImageFile.Text != "")
+            {
+                txbImageFile.Text = file.Name;
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

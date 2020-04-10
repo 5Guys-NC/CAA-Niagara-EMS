@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -232,7 +231,7 @@ namespace CAA_Event_Management.Views.EventViews
                 }
                 else
                 {
-                    Jeeves.ShowMessage("Error", "You are only allowed 5 questions per event");
+                    Jeeves.ShowMessage("Error", "You are only allowed 10 questions per event");
                 }
             }
             catch
@@ -295,6 +294,11 @@ namespace CAA_Event_Management.Views.EventViews
                     newEventItem.EIDItemPhrase = x.ItemName;
                     newEventItem.EIDItemAssigned = false;
 
+                    if (newEventItem.EIDItemPhrase.Length > 40)
+                    {
+                        newEventItem.EIDItemPhrase = CreateItemPhrase(newEventItem.EIDItemPhrase);
+                    }
+
                     listOfEventItemsDetails.Add(newEventItem);
                 }
             }
@@ -302,6 +306,33 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 Jeeves.ShowMessage("Error", ex.GetBaseException().Message.ToString());
             }
+        }
+
+        /// <summary>
+        /// This method breaks down the survey question phrase into multiple lines
+        /// </summary>
+        /// <param name="oldPhrase">This is the original survey item question phrase</param>
+        /// <returns>A string that is the new survey question phrase</returns>
+        private string CreateItemPhrase(string oldPhrase)
+        {
+            string[] brokenPhrase = oldPhrase.Split(' ');
+            string newPhrase = "";
+            int currentLength = 0;
+
+            foreach (var x in brokenPhrase)
+            {
+                currentLength += x.Length + 1;
+                if (currentLength < 30)
+                {
+                    newPhrase += x + " ";
+                }
+                else
+                {
+                    newPhrase += Environment.NewLine + x + " ";
+                    currentLength = x.Length + 1;
+                }
+            }
+            return newPhrase;
         }
 
         /// <summary>

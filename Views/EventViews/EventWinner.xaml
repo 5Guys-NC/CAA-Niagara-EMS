@@ -105,7 +105,7 @@
                         Content="Return to Events"
                         Margin="20,10,0,0"
                         RelativePanel.Below="btnChooseWinner"
-                        Click="btnReturntoEvents_Click"/>
+                        Click="btnBack_Click"/>
 
                 <TextBlock x:Name="txtWinnerInfo"
                        Text="Winner Details:"

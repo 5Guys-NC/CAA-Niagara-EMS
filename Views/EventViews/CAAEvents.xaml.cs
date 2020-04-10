@@ -37,6 +37,11 @@ namespace CAA_Event_Management.Views.EventViews
 
         int CurrentOrPast = 1;
         int deleteMode = 0;
+        
+        //change this variable to move events to the "past"; lower number to move the event sooner
+        int hoursUntilMovedToPastEvents = 5;
+        
+        //change this variable to auto delete old events; lower the number to "delete" the event sooner
         int daysUntilEventAutoDelete = 7;
 
         IEventRepository eventRepository;
@@ -208,7 +213,7 @@ namespace CAA_Event_Management.Views.EventViews
         /// <param name="check"></param>
         private void FillDropDown(int check)
         {
-            DateTime now = DateTime.Today.AddHours(-5);
+            DateTime now = DateTime.Today.AddHours(-hoursUntilMovedToPastEvents);
 
             try
             {

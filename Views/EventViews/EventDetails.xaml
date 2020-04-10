@@ -198,7 +198,8 @@
                                    Margin="0,10,0,10"
                                    TextWrapping="Wrap"
                                    Grid.Column="0"
-                                   Grid.Row="0"/>
+                                   Grid.Row="0"
+                                       />
                             <Button Name="txtSearchIcon"
                                     Background="#1b3e6e"
                                     BorderBrush="#eaeaea"
@@ -235,7 +236,7 @@
                         </RelativePanel>
 
 
-                        <ListBox x:Name="lstAvailableSurveyQuestions"        
+                        <ListView x:Name="lstAvailableSurveyQuestions"        
                                  BorderBrush="#1b3e6e" 
                                  BorderThickness="1"
                                  FontWeight="Bold"
@@ -245,7 +246,7 @@
                                  MaxHeight="400"
                                  MinHeight="50"
                                  MinWidth="275"
-                                 DisplayMemberPath="EIDItemPhrase"/>
+                            DisplayMemberPath="EIDItemPhrase"/>
                     </Grid>
                     <TextBlock Name="tbAvailableQuizzes"
                                FontSize="16"

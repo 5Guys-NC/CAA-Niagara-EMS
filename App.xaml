@@ -1,0 +1,75 @@
+﻿<!--******************
+    Auto Generated
+    Edited By: Nathan Smith
+    ******************-->
+<Application
+    x:Class="CAA_Event_Management.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CAA_Event_Management">
+    <Application.Resources>
+
+
+
+        <FontFamily x:Key="ContentControlThemeFontFamily">Assets/Fonts/Roboto-Regular.ttf#Roboto</FontFamily>
+        <SolidColorBrush x:Key="BackgroundColor" Color="#eaeaea"/>
+        <SolidColorBrush x:Key="FlyoutPresenterBackground" Color="#5291bf"/>
+        <SolidColorBrush x:Key="FlyoutBorderThemeBrush" Color="#eaeaea"/>
+        <SolidColorBrush x:Key="NavigationViewItemForeground" Color="#000"/>
+        <Thickness x:Key="FlyoutBorderThemeThickness">3</Thickness>
+
+        <SolidColorBrush x:Key="CheckboxForegroundUncheckedPointerOver" Color="Transparent"></SolidColorBrush>
+
+        <Style TargetType="Button" x:Key="navButtonStyle">
+            <Setter Property="Background" Value="#9ab33b"/>
+            <Setter Property="BorderBrush" Value="#9ab33b"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#eaeaea"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="MinWidth" Value="200"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="secondaryButtonStyle">
+            <Setter Property="Background" Value="#eaeaea"/>
+            <Setter Property="BorderBrush" Value="#1b3e6e"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#1b3e6e"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="MinWidth" Value="180"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="actionButtonStyle">
+            <Setter Property="Background" Value="#9ab33b"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#eaeaea"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="MinWidth" Value="180"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="AddRemoveStyle">
+            <Setter Property="Background" Value="#5291bf"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="ExtraBold"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="StandardTextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#eaeaea"/>
+        </Style>
+
+        <Style TargetType="TextBox" x:Key="StandardTextBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#1b3e6e"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Width" Value="180"/>
+        </Style>
+    </Application.Resources>
+</Application>

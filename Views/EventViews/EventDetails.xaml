@@ -1,0 +1,301 @@
+﻿<Page
+    x:Class="CAA_Event_Management.Views.EventViews.EventDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CAA_Event_Management"
+    xmlns:data="using:CAA_Event_Management.Models"
+    xmlns:Converters="using:CAA_Event_Management.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource BackgroundColor}"
+    FontFamily="{ThemeResource ContentControlThemeFontFamily}">
+
+    <Page.Resources>
+        <Converters:DateTimeToOffsetConverter x:Key="DateTimeToOffsetConverter"/>
+        <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
+        <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="#1b3e6e"/>
+    </Page.Resources>
+
+    <Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VisualStateGroup">
+                <VisualState x:Name="vsPortrait">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="txtEventDetails.Margin" Value="45,0,0,0" />
+                        <Setter Target="btnReturnToEvents.Margin" Value="80,50,10,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="vsLandscape">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="961" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="txtEventDetails.Margin" Value="130,0,0,0" />
+                        <Setter Target="ContentPanel.Margin" Value="130,0,0,0"/>
+                        <Setter Target="tbSelectedSurveyQuestions.Margin" Value="40,5,0,0"/>
+                        <!--<Setter Target="btnRemoveQuestion.Margin" Value="40"/>
+                        <Setter Target="spAddAndSearch.(Grid.Column)" Value="2"/>
+                        <Setter Target="spAddAndSearch.(Grid.Row)" Value="2"/>
+                        <Setter Target="tbAvailableSurveyQuestions.(Grid.Column)" Value="1"/>
+                        <Setter Target="lstAvailableSurveyQuestions.(Grid.Column)" Value="2"/>
+                        <Setter Target="tbAvailableSurveyQuestions.(Grid.Row)" Value="0"/>-->
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <RelativePanel Grid.Row="0" Background="#1b3e6e">
+
+        </RelativePanel>
+        
+        <!--ContentPanel - place additional content here-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="25,0,10,0">
+            <ScrollViewer>
+                <Grid Name="gdEventData">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <RelativePanel Name="rpEventName" Margin="0,15,0,0" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+                        <TextBlock Name="tbEventName" FontSize="16" FontWeight="Bold" Foreground="#000" Margin="3,5,5,0"
+                                 VerticalAlignment="Center" Text="Event Name"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Height="30" Name="eventNameTextBox" RelativePanel.RightOf="tbEventName" Margin="5,0,0,0"
+                                 InputScope="Text" Text="{x:Bind view.DisplayName,Mode=TwoWay}" AcceptsReturn="False" Width="220"/>
+                        <TextBlock FontSize="16" FontWeight="Bold" Text="Members Only?" Foreground="#000" Grid.Row="3" Grid.Column="0"  HorizontalAlignment="Left"  Margin="20,0,10,0"
+                                 VerticalAlignment="Center" RelativePanel.RightOf="eventNameTextBox" RelativePanel.AlignVerticalCenterWith="tbEventName" Name="membersOnlyBlock" />
+                        <CheckBox x:Name="membersOnlyCheck" FontSize="16" FontWeight="Bold" 
+                                  Grid.Row="3" Grid.Column="1"
+                                  Checked="membersOnlyCheck_Checked"
+                                  MinWidth="20"
+                                  Unchecked="membersOnlyCheck_Unchecked" RelativePanel.RightOf="membersOnlyBlock" RelativePanel.AlignVerticalCenterWith="membersOnlyBlock" Width="25" />
+                    </RelativePanel>
+
+                    <RelativePanel x:Name="rpEventStart" Grid.Column="0" Grid.Row="2" BorderBrush="#1b3e6e" BorderThickness="1" Margin="0,10,3,0" Width="275">
+                        <TextBlock FontSize="16"  FontWeight="Bold" Foreground="#000" Grid.Row="1"
+                                   RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True"
+                                   Name="startDateTextBlock" Text="Event Start Date" />
+                        <CalendarDatePicker Header="" Grid.Column="0" Grid.Row="2" Width="150" Margin="5,0,0,0" VerticalAlignment="Center" 
+                                        Date="{x:Bind view.EventStart, Converter={StaticResource DateTimeToOffsetConverter}, Mode=TwoWay}"
+                                        RelativePanel.Below="startDateTextBlock"
+                                        RelativePanel.AlignHorizontalCenterWithPanel="True" Name="eventStartDate" Grid.ColumnSpan="2" />
+                        <TimePicker Name="tpEventStart" RelativePanel.Below="eventStartDate" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="4" MinuteIncrement="15"/>
+                    </RelativePanel>
+
+                    <RelativePanel x:Name="rpEventEnd" Grid.Column="1" Grid.Row="2" BorderBrush="#1b3e6e" BorderThickness="1" Margin="0,10,3,0" Width="275">
+                        <TextBlock FontSize="16" FontWeight="Bold" Foreground="#000" Grid.Column="1" Grid.Row="1"
+                                   RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignTopWithPanel="True"
+                                   Name="endDateTextBlock" Text="Event End Date" />
+
+                        <CalendarDatePicker Name="cdpEventEnd" Header="" Grid.Column="1" Grid.Row="2" Width="150" Margin="85,0,0,0" 
+                                            Date="{x:Bind view.EventEnd, Converter={StaticResource DateTimeToOffsetConverter}, Mode=TwoWay}"
+                                            RelativePanel.Below="endDateTextBlock"
+                                            Grid.ColumnSpan="2" />
+                        <TimePicker x:Name="tpEventEnd" RelativePanel.Below="cdpEventEnd" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="4" MinuteIncrement="15"/>
+                    </RelativePanel>
+
+                    <Grid Name="gdListBoxes" Grid.Row="4" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Name="tbSelectedSurveyQuestions"
+                                   Text="Selected Survey Questions:" 
+                                   FontSize="16"
+                                   FontWeight="bold"
+                                   Foreground="#000"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,10,0,0"
+                                   TextWrapping="Wrap"
+                                   Grid.Column="2"
+                                   VerticalAlignment="Center"/>
+
+                        <ListBox x:Name="lstSelectedSurveyQuestions"
+                                 BorderBrush="#1b3e6e" 
+                                 BorderThickness="1"
+                                 FontWeight="Bold"
+                                 Grid.Row="2"
+                                 Grid.Column="2"
+                                 Margin="10,10,0,0"
+                                 MaxHeight="400"
+                                 MinHeight="50"
+                                 MinWidth="275"
+                                 HorizontalAlignment="Center"
+                                 DisplayMemberPath="EIDItemPhrase"/>
+
+                        <RelativePanel Name="rpButtons" Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+                            <Button x:Name="btnRemoveQuestion" 
+                                    Background="#1b3e6e"
+                                    Content="&#xF0D5;"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Foreground="#eaeaea"
+                                    FontWeight="Bold"
+                                    RelativePanel.Below="btnAddQuestion"
+                                    Click="btnRemoveQuestion_Click"/>
+
+                            <Button x:Name="btnAddQuestion"  
+                                Background="#1b3e6e"
+                                Content="&#xF0D6;" 
+                                FontFamily="Segoe MDL2 Assets"
+                                Foreground="#eaeaea"
+                                FontWeight="Bold"
+                                Click="btnAddQuestion_Click"/>
+                        </RelativePanel>
+
+                        <RelativePanel Name="rpSearch" Grid.Row="0" Grid.Column="0" Margin="0,10,0,0" HorizontalAlignment="Center">
+                            <TextBlock Name="tbAvailableSurveyQuestions"
+                                   Text="Available Survey Questions:" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="#000"
+                                   Margin="0,10,0,10"
+                                   TextWrapping="Wrap"
+                                   Grid.Column="0"
+                                   Grid.Row="0"
+                                       />
+                            <Button Name="txtSearchIcon"
+                                    Background="#1b3e6e"
+                                    BorderBrush="#eaeaea"
+                                    BorderThickness="2"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    FontSize="20"
+                                    FontWeight="Bold"
+                                    Foreground="#eaeaea"
+                                    RelativePanel.RightOf="tbAvailableSurveyQuestions"
+                                    Content="&#xF78B;" Click="txtSearchIcon_Click"/>
+                        </RelativePanel>
+                        <RelativePanel Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center">
+                            <TextBlock Name="tbSearch"
+                                       Text="Search:" 
+                                       FontSize="16"
+                                       FontWeight="Bold"
+                                       Foreground="#000"
+                                       Margin="0,15,0,10"
+                                       Grid.Row="1" 
+                                       Grid.Column="1" 
+                                       Visibility="Collapsed"/>
+                            <TextBox x:Name="txtSearchBox" 
+                                     Grid.Row="3" 
+                                     Grid.Column="0"
+                                     Height="30"
+                                     HorizontalAlignment="Right"
+                                     InputScope="Search"
+                                     Margin="5,0,0,10"                                   
+                                     Width="150"
+                                     RelativePanel.AlignVerticalCenterWith="tbSearch"
+                                     RelativePanel.RightOf="tbSearch"
+                                     TextChanged="txtSearchBox_TextChanged"
+                                     Visibility="Collapsed"/>
+                        </RelativePanel>
+
+
+                        <ListView x:Name="lstAvailableSurveyQuestions"        
+                                 BorderBrush="#1b3e6e" 
+                                 BorderThickness="1"
+                                 FontWeight="Bold"
+                                 Grid.Row="2"
+                                 Grid.Column="0"
+                                 Margin="0,10,0,0"
+                                 MaxHeight="400"
+                                 MinHeight="50"
+                                 MinWidth="275"
+                            DisplayMemberPath="EIDItemPhrase"/>
+                    </Grid>
+                    <TextBlock Name="tbAvailableQuizzes"
+                               FontSize="16"
+                               FontWeight="bold"
+                               Grid.Row="6"
+                               Grid.ColumnSpan="2"
+                               HorizontalAlignment="Center"
+                                   Text="Available Quizzes (Select One):" 
+                                   Foreground="#000"
+                                   Margin="0,20,0,10"
+                                   TextWrapping="Wrap"/>
+                    <ListBox x:Name="lstAvailableQuizzes"
+                             BorderBrush="#1b3e6e" 
+                             BorderThickness="1"
+                             FontWeight="Bold"
+                             Grid.Row="7"
+                             Grid.ColumnSpan="2"
+                             HorizontalAlignment="Center"
+                             MinWidth="250"
+                             MaxHeight="400"
+                             HorizontalContentAlignment="Center"
+                             DisplayMemberPath="Title"
+                             SelectionChanged="lstAvailableQuizzes_SelectionChanged"/>
+
+                    <RelativePanel Grid.ColumnSpan="2"
+                                   Grid.Row="8"
+                                   HorizontalAlignment="Center">
+                        <TextBlock x:Name="tbChosenQuiz"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Foreground="#000"
+                               
+                               Text="Selected Quiz: None" 
+                               TextWrapping="Wrap"
+                               Grid.Column="0"/>
+                        <Button x:Name="btnClearQuiz"
+                                Background="#eaeaea"
+                                FontFamily="Segoe MDL2 Assets"
+                                Foreground="Red"
+                                   FontSize="12" 
+                                   Content="&#xEF2C;"
+                                   RelativePanel.RightOf="tbChosenQuiz"
+                                   
+                                   Margin="10,0,0,0"
+                                   Visibility="Collapsed"
+                                Click="btnClearQuiz_Click"/>
+                    </RelativePanel>
+                
+                    <RelativePanel Grid.Row="9" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,30,0,0">
+                        <!--<Button x:Name="btnDelete" Content="Delete" RelativePanel.LeftOf="btnSave"
+                        Click="btnDelete_Click" Margin="6,6,0,6" RelativePanel.AlignVerticalCenterWithPanel="True" Style="{StaticResource ButtonStyle}" />-->
+                        <Button x:Name="btnSave" Content="Save" 
+                        Click="btnSave_Click" Margin="6,6,6,6" Style="{StaticResource actionButtonStyle}" />
+                        <Button x:Name="btnCancel" Content="Cancel" RelativePanel.RightOf="btnSave" RelativePanel.AlignVerticalCenterWithPanel="True" 
+                        Click="btnCancel_Click" Margin="0,6,6,6" Style="{StaticResource secondaryButtonStyle}" />
+                    </RelativePanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

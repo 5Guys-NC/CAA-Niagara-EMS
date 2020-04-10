@@ -45,7 +45,7 @@
         </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -57,19 +57,32 @@
                        Foreground="#eaeaea"
                        FontWeight="Bold"
                        FontSize="30"/>-->
-            <Button Name="btnBack" 
+            <Button Name="btnBack"
                     Background="Transparent"
                     Content="Back To Events"
-                    FontSize="25"
+                    FontSize="20"
                     FontWeight="Bold"
                     Foreground="#eaeaea"                    
-                    Margin="30,20,10,0"
+                    Margin="30,40,10,0"
                     IsTabStop="False"
-                    Click="btnBack_Click"/>
+                    Click="btnBack_Click">
+                <Button.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.ThemeDictionaries>
+                            <ResourceDictionary x:Key="Light">
+                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="#74c4ea"/>
+                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+                                <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent"/>
+                            </ResourceDictionary>
+                        </ResourceDictionary.ThemeDictionaries>
+                    </ResourceDictionary>
+                </Button.Resources>
+            </Button>
+
         </RelativePanel>
 
         <Grid x:Name="LayoutRoot" 
-              Margin="60,0,0,0"
+              Margin="15,0,0,0"
               Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -99,26 +112,29 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <RelativePanel Grid.Row="0" 
-                                   Padding="30,20" 
+                    <RelativePanel Grid.Row="0"  
                                    BorderBrush="#1b3e6e" 
                                    BorderThickness="3"
+                                   HorizontalAlignment="Center"
+                                   Padding="20"
                                    VerticalAlignment="Center">
                         <TextBlock Name="memberNumTextBlock"
-                                   FontSize="20"
+                                   FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Left" 
                                    Margin="0,0,10,0"
+                                   Padding="5"
                                    VerticalAlignment="Center"
                                    Text="Member Number:" />
                         <TextBox Name="memberNumTextBox" 
-                                 Height="30"
+                                 BorderBrush="#1b3e6e"
                                  InputScope="Number"
+                                 Margin="0,0,10,0"
+                                 MaxLength="170" 
                                  MinWidth="200"
-                                 MaxLength="200" 
+                                 Style="{StaticResource StandardTextBox}"
                                  Text="{x:Bind tracker.MemberNo, Mode=TwoWay}" 
                                  AcceptsReturn="False"
-                                 RelativePanel.AlignBottomWith="memberNumTextBlock"
                                  RelativePanel.RightOf="memberNumTextBlock"
                                  TextChanged="cardEntryTextBox_TextChanged"/>
                         <TextBlock x:Name="numberError"
@@ -132,79 +148,88 @@
                     </RelativePanel>
                     <!--TextCompositionEnded="memberNumTextBox_TextCompositionEnded"-->
                     <RelativePanel Grid.Row="1"
-                                   Padding="30,20" 
+                                   Padding="20" 
                                    BorderBrush="#1b3e6e" 
                                    BorderThickness="3,3,3,0"
                                    Margin="0,50,0,0"
                                    VerticalAlignment="Center">
                         <TextBlock HorizontalAlignment="Left"  
-                               FontSize="20"
-                               FontWeight="Bold"
-                               Margin="0,0,10,0"
-                               VerticalAlignment="Center"  
-                               Name="firstNameTextBlock" 
-                               Text="First Name:" />
-                        <TextBox Height="30" 
-                             Name="firstNameTextBox" 
-                             MaxLength="50"
-                             MinWidth="240"
-                             RelativePanel.AlignBottomWith="firstNameTextBlock"
-                             RelativePanel.RightOf="firstNameTextBlock"
-                             Text="{x:Bind tracker.FirstName, Mode=TwoWay}" 
-                             AcceptsReturn="True"  
-                             InputScope="NameOrPhoneNumber"/>
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Margin="0,0,10,0"
+                                   Padding="5"
+                                   VerticalAlignment="Center"  
+                                   Name="firstNameTextBlock" 
+                                   Text="First Name:" />
+                        <TextBox Name="firstNameTextBox"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="50"
+                                 MinWidth="240"
+                                 RelativePanel.RightOf="firstNameTextBlock"
+                                 Style ="{StaticResource StandardTextBox}"
+                                 Text="{x:Bind tracker.FirstName, Mode=TwoWay}" 
+                                 AcceptsReturn="True"  
+                                 InputScope="NameOrPhoneNumber"/>
                     </RelativePanel>
 
                     <RelativePanel Grid.Row="2" 
-                                   Padding="30,20"                                    
+                                   Padding="20,20"                                    
                                    BorderBrush="#1b3e6e" 
                                    BorderThickness="3,0,3,0">
-                        <TextBlock HorizontalAlignment="Left" 
-                                   FontSize="20"
+                    <TextBlock HorizontalAlignment="Left" 
+                                   FontSize="16"
                                    FontWeight="Bold"
                                    Margin="0,0,10,0"
+                                   Padding="5"
                                    VerticalAlignment="Center" 
                                    Name="lastNameBlock" 
                                    Text="Last Name:" />
-                        <TextBox Grid.Row="2" 
+                        <TextBox Name="lastNameTextBox" 
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Grid.Row="2" 
                                  Grid.Column="1" 
-                                 Height="30"
+                                 Height="32"
                                  InputScope="NameOrPhoneNumber"
-                                 Name="lastNameTextBox" 
                                  MaxLength="50"  
                                  MinWidth="240"
-                                 RelativePanel.AlignBottomWith="lastNameBlock"
                                  RelativePanel.RightOf="lastNameBlock"
+                                 Style="{StaticResource StandardTextBox}"
                                  Text="{x:Bind tracker.LastName, Mode=TwoWay}" 
                                  AcceptsReturn="False"/>
                     </RelativePanel>
 
-                    <RelativePanel Grid.Row="3" Padding="30,20" BorderBrush="#1b3e6e" BorderThickness="3,0,3,0">
+                    <RelativePanel Grid.Row="3" Padding="20,20" BorderBrush="#1b3e6e" BorderThickness="3,0,3,0">
                         <TextBlock Margin="0,0,10,0"
-                               FontSize="20"
+                               FontSize="16"
                                FontWeight="Bold"
+                                   Padding="5"
                                VerticalAlignment="Center" 
                                Name="phoneNumBlock" 
                                Text="Phone number:" />
-                        <TextBox Height="30"
+                        <TextBox BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
                                  InputScope="TelephoneNumber"
                                  Name="phoneNumTextBox" 
                                  MaxLength="50" 
-                                 MinWidth="205"
-                                 RelativePanel.AlignBottomWith="phoneNumBlock"
+                                 MinWidth="214"
                                  RelativePanel.RightOf="phoneNumBlock"
+                                 Style="{StaticResource StandardTextBox}"
                                  Text="{x:Bind  tracker.PhoneNo, Mode=TwoWay}" 
                                  AcceptsReturn="False" />
                     </RelativePanel>
-                    <RelativePanel Grid.Row="4" Padding="30,20" BorderBrush="#1b3e6e" BorderThickness="3,0,3,3">
+                    <RelativePanel Grid.Row="4" Padding="20,20" BorderBrush="#1b3e6e" BorderThickness="3,0,3,3">
                         <TextBlock Text="Is a Member"
-                               FontSize="20"
+                               FontSize="16"
                                FontWeight="Bold"
                                Margin="3,0,0,0"
                                VerticalAlignment="Center" Name="isMembersBlock" />
                         <CheckBox x:Name="isMembersCheck" 
                                   Content="Yes (Card Not Available)"
-                                  FontSize="20"
+                                  FontSize="16"
                                   Margin="10,0,0,0"
                                   RelativePanel.AlignVerticalCenterWith="isMembersBlock"
                                   RelativePanel.RightOf="isMembersBlock"/>
@@ -242,22 +267,32 @@
 
                     <TextBlock Name="PersonNametbk" HorizontalAlignment="Right"></TextBlock>
 
-                    <RelativePanel Name="rpQuestionOne" Grid.Row="1" BorderBrush="#1b3e6e" BorderThickness="3" Margin="5" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel Name="rpQuestionOne" 
+                                   Grid.Row="1" 
+                                   BorderBrush="#1b3e6e" 
+                                   BorderThickness="3" 
+                                   HorizontalAlignment="Left"
+                                   Margin="0,12" 
+                                   Padding="20,20" 
+                                   Visibility="Collapsed"
+                                   Width="320">
                         <TextBlock Name="tbkQuestionOne" 
                                    FontSize="16"
                                    FontWeight="Bold"
-                               Grid.Row="1" 
-                               HorizontalAlignment="Left" 
-                               VerticalAlignment="Center"
-                               TextWrapping="WrapWholeWords"/>
+                                   Grid.Row="1" 
+                                   HorizontalAlignment="Left" 
+                                   MaxWidth="180"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerOne" 
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
                                  Grid.Row="1" 
-                                 Grid.Column="1"
-                                 MaxLength="60"
-                                 Height="30"
+                                 Grid.Column="1" 
+                                 Height="32"
                                  HorizontalAlignment="Left" 
                                  RelativePanel.RightOf="tbkQuestionOne"
-                                 RelativePanel.AlignBottomWith="tbkQuestionOne"
+                                 RelativePanel.AlignVerticalCenterWith="tbkQuestionOne"
                                  Margin="5,0,0,0"
                                  MaxWidth="500"
                                  Visibility="Collapsed" />
@@ -282,16 +317,26 @@
                     </RelativePanel>
 
                     
-                    <RelativePanel Name="rpQuestionTwo" Grid.Row="2" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel Name="rpQuestionTwo" 
+                                   Grid.Row="2" 
+                                   BorderBrush="#1b3e6e" 
+                                   BorderThickness="3"
+                                   HorizontalAlignment="Left"
+                                   Margin="0,0,0,15"
+                                   Padding="20,20" 
+                                   Visibility="Collapsed"
+                                   Width="320">
                         <TextBlock Name="tbkQuestionTwo" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerTwo"
-                                 MaxLength="60"
-                                 Height="30"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"                                 
+                                 Height="32"
                                  HorizontalAlignment="Left" 
                                  RelativePanel.RightOf="tbkQuestionTwo"
                                  RelativePanel.AlignBottomWith="tbkQuestionTwo"
@@ -320,16 +365,20 @@
                     </RelativePanel>
 
 
-                    <RelativePanel Name="rpQuestionThree" Grid.Row="3" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel Name="rpQuestionThree" Grid.Row="3" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
                         <TextBlock Name="tbkQuestionThree" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerThree" 
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
                                  Grid.Row="3" 
                                  Grid.Column="1" 
+                                 Height="32"
                                  HorizontalAlignment="Left" 
                                  MaxLength="60"
                                  RelativePanel.AlignBottomWith="tbkQuestionThree"
@@ -359,24 +408,27 @@
                     </RelativePanel>
 
 
-                    <RelativePanel x:Name="rpQuestionFour" Grid.Row="4" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel x:Name="rpQuestionFour" Grid.Row="4" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
                         <TextBlock Name="tbkQuestionFour" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerFour" 
-                             Grid.Row="4" 
-                             Grid.Column="1" 
-                             HorizontalAlignment="Left" 
-                                 MaxLength="60"
-                             RelativePanel.AlignBottomWith="tbkQuestionFour"
-                             RelativePanel.RightOf="tbkQuestionFour"
-                             Visibility="Collapsed"
-                             VerticalAlignment="Center"
-                             Margin="5,0,0,0"
-                             MaxWidth="125"/>
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"                                 
+                                 Grid.Row="4" 
+                                 Grid.Column="1" 
+                                 Height="32"
+                                 HorizontalAlignment="Left" 
+                                 RelativePanel.AlignBottomWith="tbkQuestionFour"
+                                 RelativePanel.RightOf="tbkQuestionFour"
+                                 Visibility="Collapsed"
+                                 VerticalAlignment="Center"
+                                 Margin="5,0,0,0"
+                                 MaxWidth="125"/>
                         <CheckBox Name="ckbAnswerFour" 
                               Grid.Row="4" 
                               Grid.Column="1" 
@@ -398,24 +450,26 @@
 
                     </RelativePanel>
 
-
-                    <RelativePanel Name="rpQuestionFive" Grid.Row="5" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel Name="rpQuestionFive" Grid.Row="5" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
                         <TextBlock Name="tbkQuestionFive" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerFive" 
-                             Grid.Row="5" 
-                             Grid.Column="1" 
-                                 MaxLength="60"
-                             RelativePanel.AlignBottomWith="tbkQuestionFive"
-                             RelativePanel.RightOf="tbkQuestionFive"
-                             Visibility="Collapsed" 
-                             VerticalAlignment="Center"
-                             Margin="5,0,0,0"
-                             MaxWidth="125"/>
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Grid.Row="5" 
+                                 Grid.Column="1"
+                                 Height="32"
+                                 RelativePanel.AlignBottomWith="tbkQuestionFive"
+                                 RelativePanel.RightOf="tbkQuestionFive"
+                                 Visibility="Collapsed" 
+                                 VerticalAlignment="Center"
+                                 Margin="5,0,0,0"
+                                 MaxWidth="125"/>
                         <CheckBox Name="ckbAnswerFive" 
                               Grid.Row="5" 
                               Grid.Column="1" 
@@ -437,17 +491,20 @@
                     </RelativePanel>
 
 
-                    <RelativePanel Name="rpQuestionSix" Grid.Row="6" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,10,0,15" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel Name="rpQuestionSix" Grid.Row="6" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,10,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
                         <TextBlock Name="tbkQuestionSix" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerSix" 
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
                                  Grid.Row="1" 
                                  Grid.Column="1" 
-                                 Height="30"
+                                 Height="32"
                                  HorizontalAlignment="Left" 
                                  MaxLength="60"
                                  RelativePanel.RightOf="tbkQuestionSix"
@@ -475,16 +532,18 @@
                                     Margin="5,0,0,0"/>
                     </RelativePanel>
 
-
-                    <RelativePanel Name="rpQuestionSeven" Grid.Row="7" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel Name="rpQuestionSeven" Grid.Row="7" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
                         <TextBlock Name="tbkQuestionSeven" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerSeven" 
-                                 Height="30"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
                                  HorizontalAlignment="Left" 
                                  MaxLength="60"
                                  RelativePanel.RightOf="tbkQuestionSeven"
@@ -514,16 +573,20 @@
                     </RelativePanel>
 
 
-                    <RelativePanel Name="rpQuestionEight" Grid.Row="8" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel Name="rpQuestionEight" Grid.Row="8" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
                         <TextBlock Name="tbkQuestionEight" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerEight" 
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"                                 
                                  Grid.Row="3" 
                                  Grid.Column="1" 
+                                 Height="32"
                                  HorizontalAlignment="Left" 
                                  MaxLength="60"
                                  RelativePanel.AlignBottomWith="tbkQuestionEight"
@@ -553,24 +616,27 @@
                     </RelativePanel>
 
 
-                    <RelativePanel x:Name="rpQuestionNine" Grid.Row="9" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="30,20" Visibility="Collapsed">
+                    <RelativePanel x:Name="rpQuestionNine" Grid.Row="9" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
                         <TextBlock Name="tbkQuestionNine" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerNine" 
-                             Grid.Row="4" 
-                             Grid.Column="1" 
-                             HorizontalAlignment="Left" 
-                                 MaxLength="60"
-                             RelativePanel.AlignBottomWith="tbkQuestionNine"
-                             RelativePanel.RightOf="tbkQuestionNine"
-                             Visibility="Collapsed"
-                             VerticalAlignment="Center"
-                             Margin="5,0,0,0"
-                             MaxWidth="125"/>
+                        <TextBox Name="txtAnswerNine"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"                                 
+                                 Grid.Row="4" 
+                                 Grid.Column="1" 
+                                 Height="32"
+                                 HorizontalAlignment="Left" 
+                                 RelativePanel.AlignBottomWith="tbkQuestionNine"
+                                 RelativePanel.RightOf="tbkQuestionNine"
+                                 Visibility="Collapsed"
+                                 VerticalAlignment="Center"
+                                 Margin="5,0,0,0"
+                                 MaxWidth="125"/>
                         <CheckBox Name="ckbAnswerNine" 
                               Grid.Row="9" 
                               Grid.Column="1" 
@@ -592,23 +658,26 @@
                     </RelativePanel>
 
 
-                    <RelativePanel Name="rpQuestionTen" Grid.Row="10" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="15,15" Visibility="Collapsed">
+                    <RelativePanel Name="rpQuestionTen" Grid.Row="10" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="15,15" Visibility="Collapsed" Width="320">
                         <TextBlock Name="tbkQuestionTen" 
                                    FontSize="16"
                                    FontWeight="Bold"
                                    HorizontalAlignment="Right" 
+                                   MaxWidth="180"
                                    VerticalAlignment="Center"
                                    TextWrapping="WrapWholeWords"/>
                         <TextBox Name="txtAnswerTen" 
-                             Grid.Row="5" 
-                             Grid.Column="1" 
-                                 MaxLength="60"
-                             RelativePanel.AlignBottomWith="tbkQuestionTen"
-                             RelativePanel.RightOf="tbkQuestionTen"
-                             Visibility="Collapsed" 
-                             VerticalAlignment="Center"
-                             Margin="5,0,0,0"
-                             MaxWidth="125"/>
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"                                 
+                                 Grid.Row="5" 
+                                 Grid.Column="1" 
+                                 Height="32"
+                                 Margin="5,0,0,0"
+                                 MaxWidth="125"
+                                 RelativePanel.AlignBottomWith="tbkQuestionTen"
+                                 RelativePanel.RightOf="tbkQuestionTen"
+                                 Visibility="Collapsed" 
+                                 VerticalAlignment="Center"/>
                         <CheckBox Name="ckbAnswerTen" 
                               Grid.Row="10" 
                               Grid.Column="1" 

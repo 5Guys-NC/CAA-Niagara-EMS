@@ -115,6 +115,7 @@
                       HorizontalAlignment="Center"
                       IsItemClickEnabled="True"
                       Margin="0,50,0,0"
+                      MaxHeight="600"
                       MinHeight="450"
                       MinWidth="400"
                       Padding="15"
@@ -212,17 +213,17 @@
                 <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="0,20,0,0">
                     <Button Name="btnDeleteMode" 
                         Content="DELETE MODE (OFF)"
-                        Margin="0,0,10,20"
+                        Margin="0,0,5,20"
                         Style="{StaticResource secondaryButtonStyle}"
                         Click="btnDeleteMode_Click"/>
                     <Button Name="btnBeginEvent"
                     Content="BEGIN EVENT"
-                        Margin="10,0,0,20"
+                        Margin="5,0,5,20"
                     Style="{StaticResource navButtonStyle}"
                     Click="btnRegisterAttendance_Click"/>
                     <Button Name="btnChooseWinner" 
                         Content="CHOOSE EVENT WINNER"
-                        Margin="20,0,0,20"
+                        Margin="5,0,0,20"
                         Style="{StaticResource secondaryButtonStyle}"
                         Click="btnChooseWinner_Click"/>
                 </StackPanel>

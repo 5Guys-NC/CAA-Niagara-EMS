@@ -39,7 +39,7 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="#1b3e6e"/>
             <Setter Property="MinHeight" Value="50"/>
-            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="MinWidth" Value="180"/>
         </Style>
 
         <Style TargetType="Button" x:Key="actionButtonStyle">
@@ -48,7 +48,7 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="#eaeaea"/>
             <Setter Property="MinHeight" Value="50"/>
-            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="MinWidth" Value="180"/>
         </Style>
 
         <Style TargetType="Button" x:Key="AddRemoveStyle">
@@ -65,7 +65,10 @@
         </Style>
 
         <Style TargetType="TextBox" x:Key="StandardTextBox">
-            <Setter Property="Background" Value="#eaeaea"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#1b3e6e"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Height" Value="32"/>
             <Setter Property="Width" Value="180"/>
         </Style>
     </Application.Resources>

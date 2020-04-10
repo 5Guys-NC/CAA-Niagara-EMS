@@ -16,68 +16,63 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="95"/>
+            <RowDefinition Height="45"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="4*"/>
-
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <RelativePanel Grid.Row="0" Background="#1b3e6e">
-            <Button x:Name="btnBack"
-                    Background="Transparent"
-                    Content="Back To Events"
-                    FontSize="25"
-                    Margin="30,20,10,0"
-                    FontWeight="Bold"
-                    Foreground="#eaeaea"  
-                    RelativePanel.AlignLeftWithPanel="True"
-                    Click="btnBack_Click"/>
-        </RelativePanel>
-
+      <RelativePanel Background="#1b3e6e" Canvas.ZIndex="1" Height="50" VerticalAlignment="Top">
+      </RelativePanel>
+        
         <TextBlock x:Name="txtEventName"
                    Grid.Row="1"
                    FontSize="40"
-                   Margin="80,20,20,20"/>
-        <Grid Grid.Row="2">
+                   Margin="80,60,20,20"/>
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
 
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
 
             <RelativePanel Grid.Row="0"
-                        Margin="80,0,0,0">
-                <TextBlock x:Name="tbkTotalNumberOfEnteries"
-                           Text="Total number of enteries:"
+                           HorizontalAlignment="Center"
+                           Margin="20,0,0,0">
+                <TextBlock x:Name="tbkTotalNumberOfEntries"
+                           Text="Total number of entries:"
                            FontSize="18"
                            FontWeight="Bold"
                            Margin="0,0,0,10"/>
                 <TextBlock Text="Choose selection options:"
                            Name="txtSelectionTitle"
-                           FontSize="15"
-                           RelativePanel.Below="tbkTotalNumberOfEnteries"/>
-                <StackPanel RelativePanel.Below="txtSelectionTitle">
+                           FontSize="16"
+                           RelativePanel.Below="tbkTotalNumberOfEntries"/>
+                <StackPanel RelativePanel.Below="txtSelectionTitle" HorizontalAlignment="Center">
                     <RadioButton x:Name="rdoAllMembers"
-                             Content="All Attendants"
-                             GroupName="AttendantChoice"
-                             IsChecked="True"
-                             Checked="rdoNewRadioButton_Checked"/>
+                                 Content="All Attendants"
+                                 FontSize="16"
+                                 GroupName="AttendantChoice"
+                                 IsChecked="True"
+                                 Checked="rdoNewRadioButton_Checked"/>
                     <RadioButton x:Name="rdoNonMembers"
-                             Content="Non-Members Only"
-                             GroupName="AttendantChoice"
-                             Checked="rdoNewRadioButton_Checked"/>
+                                 Content="Non-Members Only"
+                                 FontSize="16"
+                                 GroupName="AttendantChoice"
+                                 Checked="rdoNewRadioButton_Checked"/>
                     <RadioButton x:Name="rdoMemberOnly"
                              Content="CAA Members Only"
                              GroupName="AttendantChoice"
+                                 FontSize="16"
                              Checked="rdoNewRadioButton_Checked"/>
                             
                     <CheckBox x:Name="ckbOnlyQuizPlayers"
                               Content="Select From Quiz Players Only"
+                              FontSize="16"
                               Click="ckbOnlyQuizPlayers_Click"
                               IsChecked="False"/>
                 </StackPanel>
@@ -85,6 +80,7 @@
 
             <StackPanel Grid.Row="0"
                         Grid.Column="1"
+                        HorizontalAlignment="Center"
                         Margin="25,0,0,0">
                 <TextBlock x:Name="tbkNumberOfWinners"
                            Text="Selected Event Winners:"
@@ -99,13 +95,21 @@
                            Grid.ColumnSpan="2">
                 <Button x:Name="btnChooseWinner"
                         Style="{StaticResource actionButtonStyle}"
-                        Content="Chose a Winner"
+                        Content="Choose a Winner"
                         Grid.Row="1"
-                        Margin="80,10,10,10"
+                        Margin="20,10,10,10"
                         Click="btnChooseWinner_Click"/>
+
+                <Button Name="btnReturntoEvents"
+                        Style="{StaticResource secondaryButtonStyle}"
+                        Content="Return to Events"
+                        Margin="20,10,0,0"
+                        RelativePanel.Below="btnChooseWinner"
+                        Click="btnReturntoEvents_Click"/>
+
                 <TextBlock x:Name="txtWinnerInfo"
                        Text="Winner Details:"
-                       FontSize="25"
+                       FontSize="22"
                        Margin="20,10,0,0"
                        RelativePanel.RightOf="btnChooseWinner"/>
             </RelativePanel>

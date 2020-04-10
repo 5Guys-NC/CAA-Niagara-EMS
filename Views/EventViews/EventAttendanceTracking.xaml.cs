@@ -733,5 +733,6 @@ namespace CAA_Event_Management.Views.EventViews
         }
 
         #endregion
+
     }
 }

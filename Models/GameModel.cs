@@ -1,6 +1,8 @@
 ﻿/*************************
  * Created By: Max Cashmore
  * **********************/
+using Windows.UI.Xaml.Media.Imaging;
+
 namespace CAA_Event_Management.Models
 {
     /// <summary>
@@ -19,7 +21,7 @@ namespace CAA_Event_Management.Models
         //text of answer(s) that is correct 
         
         public string AnswerText { get; set; }
-
+        public string QuestionImageId { get; set; }
         public string ImageIDs { get; set; }
         public int GameID { get; set; }
         public Game Game { get; set; }

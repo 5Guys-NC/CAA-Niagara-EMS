@@ -20,6 +20,7 @@ using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Views.EventViews;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -35,6 +36,8 @@ namespace CAA_Event_Management.Views.Games
         int index = 0; //used to go through the list of questions
         int questionCount;
         IQuestionRepository questRepo;
+        IPictureRepository picRepo;
+        ImageConverter imageConverter = new ImageConverter();
         public List<QuestAnsViewModel> display = new List<QuestAnsViewModel>();
         ResultsViewModel resultVM = new ResultsViewModel();
 
@@ -42,18 +45,25 @@ namespace CAA_Event_Management.Views.Games
         {
             this.InitializeComponent();
             questRepo = new QuestionRepository();
+            picRepo = new PictureRepository();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             thisEvent = (Event)e.Parameter;
+            SetUpGame();
+            DisplayQuestion();
+        }
+
+        public void SetUpGame()
+        {
             gameQuest = questRepo.GetModelQuestions(Convert.ToInt32(thisEvent.QuizID));
             questionCount = gameQuest.Count;
             resultVM.QuestionCount = gameQuest.Count;
             resultVM.Event = thisEvent;
-            DisplayQuestion();
-        }
 
+            
+        }
         public void IncrementQuestion()
         {
             //increases index to move onto next question
@@ -63,11 +73,23 @@ namespace CAA_Event_Management.Views.Games
 
         public void DisplayQuestion()
         {
+            if (gameQuest[index].QuestionImageId != "0")
+            {
+                imageQuest.Source = null;
+                var p = new Picture();
+                var image = new BitmapImage();
+                p = picRepo.GetPicture(Convert.ToInt32(gameQuest[index].QuestionImageId));
+                image = imageConverter.ByteToImage(p.Image);
+                imageQuest.Source = image;
+            }
+
             tbkQuestion.Text = gameQuest[index].QuestionText;
             display.Clear();
 
+
             var options = gameQuest[index].OptionsText.Split('|');
-            //var possibleAnswers = gameQuest[index].AnswerText.Split('|');
+            var images = gameQuest[index].ImageIDs.Split('|');
+            var possibleAnswers = gameQuest[index].AnswerText.Split('|');
 
             //Loop through possible answers
             for (int i = 0; i < options.Length; i++)
@@ -75,33 +97,46 @@ namespace CAA_Event_Management.Views.Games
                 //place them in holder and set variables 
                 QuestAnsViewModel t = new QuestAnsViewModel();
                 t.Text = options[i];
+
+                if (images[i] != "0")
+                {
+                    var p = new Picture();
+                    p = picRepo.GetPicture(Convert.ToInt32(images[i]));
+                    t.Image = imageConverter.ByteToImage(p.Image);
+                }
+
+                if (possibleAnswers.Contains(options[i]) || possibleAnswers.Contains(images[i]))
+                    t.IsTrue = true;
+
+
                 display.Add(t);
             }
-
             gameplayView.ItemsSource = display;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var select = ((Button)sender);
-            //Changes button color if selected was right or wrong
-            if (gameQuest[index].AnswerText.Contains(select.Content.ToString()))
-            {
-                select.Background = new SolidColorBrush(Windows.UI.Colors.Green);
-                txtDisplayResult.Text = "Correct!";
-                resultVM.CorrectAnswerCount++;
-            }
+        
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var select = ((Button)sender);
+        //    //Changes button color if selected was right or wrong
+        //    if (gameQuest[index].AnswerText.Contains(select.Content.ToString())
+        //        )
+        //    {
+        //        select.Background = new SolidColorBrush(Windows.UI.Colors.Green);
+        //        txtDisplayResult.Text = "Correct!";
+        //        resultVM.CorrectAnswerCount++;
+        //    }
 
-            else
-            {
-                select.Background = new SolidColorBrush(Windows.UI.Colors.Red);
-                txtDisplayResult.Text = "Incorrect";
-            }
+        //    else
+        //    {
+        //        select.Background = new SolidColorBrush(Windows.UI.Colors.Red);
+        //        txtDisplayResult.Text = "Incorrect";
+        //    }
 
-            NextQuestion();
+        //    NextQuestion();
 
-            //btnResultNext.Visibility =  Visibility.Visible;
-        }
+        //    //btnResultNext.Visibility =  Visibility.Visible;
+        //}
 
         public async void NextQuestion()
         {
@@ -125,6 +160,25 @@ namespace CAA_Event_Management.Views.Games
         private void btnCancelGame_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(EventAttendanceTracking), thisEvent);
+        }
+
+        private void gameplayView_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            var selected = e.ClickedItem as QuestAnsViewModel;
+
+            if(selected.IsTrue)
+            {
+                txtDisplayResult.Text = "Correct!";
+                resultVM.CorrectAnswerCount++;
+            }
+            else
+            {
+                txtDisplayResult.Text = "Incorrect!";
+            }
+            NextQuestion();
+            //var selected = new QuestAnsViewModel();
+            //selected = ((QuestAnsViewModel(e.ClickedItem);
+            //selected = Convert.QuestAnsViewModel((e.ClickedItem));
         }
     }
 }

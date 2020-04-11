@@ -193,7 +193,9 @@ namespace CAA_Event_Management.Data.Migrations
                     GameID = table.Column<int>(nullable: false),
                     ImageIDs = table.Column<string>(nullable: true),
                     OptionsText = table.Column<string>(nullable: true),
+                    QuestionImageId = table.Column<string>(nullable: true),
                     QuestionText = table.Column<string>(nullable: true)
+                    
                 },
                 constraints: table =>
                 {

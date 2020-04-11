@@ -21,7 +21,9 @@ namespace CAA_Event_Management.Models
         //text of answer(s) that is correct 
         
         public string AnswerText { get; set; }
+        //Display image for the the question
         public string QuestionImageId { get; set; }
+        //Image IDs for the answers
         public string ImageIDs { get; set; }
         public int GameID { get; set; }
         public Game Game { get; set; }

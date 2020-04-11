@@ -60,10 +60,9 @@ namespace CAA_Event_Management.Views.Games
             gameQuest = questRepo.GetModelQuestions(Convert.ToInt32(thisEvent.QuizID));
             questionCount = gameQuest.Count;
             resultVM.QuestionCount = gameQuest.Count;
-            resultVM.Event = thisEvent;
-
-            
+            resultVM.Event = thisEvent;           
         }
+
         public void IncrementQuestion()
         {
             //increases index to move onto next question
@@ -73,6 +72,7 @@ namespace CAA_Event_Management.Views.Games
 
         public void DisplayQuestion()
         {
+            //If the question has an image with it, displays it
             if (gameQuest[index].QuestionImageId != "0")
             {
                 imageQuest.Source = null;
@@ -84,9 +84,8 @@ namespace CAA_Event_Management.Views.Games
             }
 
             tbkQuestion.Text = gameQuest[index].QuestionText;
+
             display.Clear();
-
-
             var options = gameQuest[index].OptionsText.Split('|');
             var images = gameQuest[index].ImageIDs.Split('|');
             var possibleAnswers = gameQuest[index].AnswerText.Split('|');
@@ -105,16 +104,19 @@ namespace CAA_Event_Management.Views.Games
                     t.Image = imageConverter.ByteToImage(p.Image);
                 }
 
+                //if the correct answer is either an image or a text, sets the item to true
                 if (possibleAnswers.Contains(options[i]) || possibleAnswers.Contains(images[i]))
                     t.IsTrue = true;
-
 
                 display.Add(t);
             }
             gameplayView.ItemsSource = display;
         }
 
-        
+        /// <summary>
+        /// Doesn't use this function to check answer.
+        /// Grid Items are now clickable
+        /// </summary>
         //private void Button_Click(object sender, RoutedEventArgs e)
         //{
         //    var select = ((Button)sender);
@@ -164,6 +166,7 @@ namespace CAA_Event_Management.Views.Games
 
         private void gameplayView_ItemClick(object sender, ItemClickEventArgs e)
         {
+            //Gets grid item selected and casts as a QuestAnsViewModel
             var selected = e.ClickedItem as QuestAnsViewModel;
 
             if(selected.IsTrue)
@@ -176,9 +179,6 @@ namespace CAA_Event_Management.Views.Games
                 txtDisplayResult.Text = "Incorrect!";
             }
             NextQuestion();
-            //var selected = new QuestAnsViewModel();
-            //selected = ((QuestAnsViewModel(e.ClickedItem);
-            //selected = Convert.QuestAnsViewModel((e.ClickedItem));
         }
     }
 }

@@ -106,7 +106,8 @@ namespace CAA_Event_Management.Views.Games
                     t.Text = options[i];
                     t.Index = i;
                     //If possible answer is in correct answer, checkbox to true
-                    if (possibleAnswers.Contains(options[i]) || possibleAnswers.Contains(images[i]))
+                    if (possibleAnswers.Contains(options[i]) 
+                        || possibleAnswers.Contains(images[i]))
                     { t.IsTrue = true; }
                 }
             }
@@ -135,7 +136,6 @@ namespace CAA_Event_Management.Views.Games
             List<string> imageID = new List<string>();
             Picture questPic = new Picture();
            
-
             foreach (var d in display)
             {
                 //Loops through the view and adds each item to string
@@ -143,6 +143,7 @@ namespace CAA_Event_Management.Views.Games
                 //If checked, adds text to correct answer list
                 if (d.IsTrue)
                 {
+                    //Checks if text is empty. Sets the id to be true
                     if(d.Text=="")
                         answer.Add(d.ImageID);
                     else
@@ -157,6 +158,7 @@ namespace CAA_Event_Management.Views.Games
                     imageID.Add("0");
             }
 
+            //Checks to see if image was uploaded for answer
             if(file!=null)
             {
                 questPic.Image = await imageConverter.ImageToByte(file);

@@ -40,6 +40,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
                 <RelativePanel Grid.Row="0" Background="#1b3e6e" Canvas.ZIndex="5">
@@ -60,9 +61,11 @@
                     <TextBlock Name="tbQuestion" FontWeight="Bold" Foreground="#1b3e6e" Text="Question" HorizontalAlignment="Center" FontSize="20" Margin="0,50,0,0"/>
                     <!--<TextBox x:Name="txtQuestion" Text="{x:Bind view.Phrase, Mode=TwoWay}" FontSize="16" HorizontalAlignment="Center" Margin="35,10,0,0" Width="440"/>-->
                     <TextBlock Name="tbAnswers" Foreground="#1b3e6e" Text="Answers (Check correct answer(s))" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
+                    <Image Name="imgQuestionImage" Height="60" Width="60"/>
                 </StackPanel>
 
                 <Grid Grid.Row="2" Margin="20,0,0,0">
+
                     <RelativePanel Name="rpQuestionTabs" Grid.Row="2" Margin="50,20,0,0" HorizontalAlignment="Center">
                         <Button Name="btnQuestion" 
                             Background="#5291bf" 
@@ -96,7 +99,7 @@
                               Padding="15">
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    
+
                                     <StackPanel Name="spAnswers" Orientation="Horizontal" Height="auto" Width="auto">
                                         <CheckBox IsChecked="{Binding IsTrue, Mode=TwoWay}" MinWidth="30"/>
                                         <TextBox Text="{Binding Text, Mode=TwoWay}" Width="120"
@@ -176,8 +179,15 @@
                     </GridView.ItemTemplate>
                 </GridView>
 
+                <StackPanel Grid.Row="5" Orientation="Vertical" >
+                    <TextBlock FontWeight="Bold" Foreground="#1b3e6e" Text="Image" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
+                    <TextBlock Foreground="#1b3e6e" Text="Select and optional image for question" HorizontalAlignment="Center" FontSize="20"/>
+                    <Button Name="btnImageUpload" Content="Select Image"  Style="{StaticResource actionButtonStyle}" Click="btnImageUpload_Click" HorizontalAlignment="Center"/>
+                    <TextBlock Name="txbImageFile"  FontSize="18" FontWeight="Bold" Foreground="#1b3e6e" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                </StackPanel>
 
             </Grid>
         </ScrollViewer>
+
     </Grid>
 </Page>

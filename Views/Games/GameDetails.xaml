@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     Background="{StaticResource BackgroundColor}"
     FontFamily="{ThemeResource ContentControlThemeFontFamily}">
-<!--****************************
+    <!--****************************
     Created By: Max Cashmore
     Edited By: Brian Culp
     Edited By: Nathan Smith
@@ -57,7 +57,7 @@
         </RelativePanel>
 
         <ScrollViewer>
-    <Grid>
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
                     <RowDefinition Height="auto"/>
@@ -73,7 +73,7 @@
                        Text="Game Details"/>
                 </RelativePanel>-->
 
-        <RelativePanel Name="rpGamesDetailsTabs" Grid.Row="1" Margin="35,50,0,20" HorizontalAlignment="Center">
+                <RelativePanel Name="rpGamesDetailsTabs" Grid.Row="1" Margin="35,50,0,20" HorizontalAlignment="Center">
                     <Button Name="btnGameDetails" 
                     Background="#5291bf" 
                     BorderBrush="#0d4e97" 
@@ -102,10 +102,10 @@
                       MinHeight="450"
                       MinWidth="300"
                       Padding="15">
-                            <GridView.ItemTemplate>
-                                <DataTemplate  x:DataType="data:GameModel">
-                                    <RelativePanel HorizontalAlignment="Center" Background="#eaeaea" Margin="10" MinHeight="180" MaxWidth="300" BorderBrush="#0d4e97" BorderThickness="3">
-                                    <TextBlock Text="{x:Bind QuestionText}" FontSize="22" FontWeight="ExtraBold" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,45,0"/>
+                        <GridView.ItemTemplate>
+                            <DataTemplate  x:DataType="data:GameModel">
+                                <RelativePanel HorizontalAlignment="Center" Background="#eaeaea" Margin="10" MinHeight="180" MaxWidth="300" BorderBrush="White" BorderThickness="3">
+                                    <TextBlock Text="{x:Bind QuestionText}" FontSize="18" TextWrapping="WrapWholeWords" Margin="5,0,45,0"/>
                                     <Button Name="btnRemove" 
                                 Background="#eaeaea" 
                                             FontSize="20"
@@ -119,7 +119,7 @@
                                             RelativePanel.AlignRightWithPanel="True"
                                 Content="&#xE74D;" 
                                 Style="{StaticResource AddRemoveStyle}">
-                                            <!--<Button.Flyout>
+                                        <!--<Button.Flyout>
                                                 <Flyout LightDismissOverlayMode="On">
                                                     <Flyout.FlyoutPresenterStyle>
                                                         <Style TargetType="FlyoutPresenter"/>
@@ -133,13 +133,13 @@
                                                     </StackPanel>
                                                 </Flyout>
                                             </Button.Flyout>-->
-                                        </Button>
-                                        <!--<TextBlock Text="{x:Bind Phrase}" 
+                                    </Button>
+                                    <!--<TextBlock Text="{x:Bind Phrase}" 
                                       FontSize="16" TextWrapping="WrapWholeWords" Foreground="#1b3e6e" FontWeight="Bold" Margin="10,0,10,20" VerticalAlignment="Bottom"/>-->
-                                    </RelativePanel>
-                                </DataTemplate>
-                            </GridView.ItemTemplate>
-                        </GridView>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
                 </RelativePanel>
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,30,0">
                     <Button Name="btnBack" Content="BACK" Click="btnBack_Tapped" Style="{StaticResource secondaryButtonStyle}" Width="100" Margin="0,0,10,0"/>

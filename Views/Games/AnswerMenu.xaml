@@ -143,15 +143,11 @@
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 
                       Margin="0,50,0,0"
-                      MaxHeight="400"
-                      MinHeight="400"
+                      MaxHeight="500"
+                      MinHeight="450"
                       MinWidth="400"
-                      Padding="15">
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
+                      Padding="15"
+                      >
                         <GridView.ItemTemplate>
                             <DataTemplate >
                                 <RelativePanel Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="100" Margin="10">
@@ -161,8 +157,7 @@
                                            RelativePanel.AlignVerticalCenterWithPanel="True"
                                            FontSize="24"
                                            FontWeight="ExtraBold"
-                                           Foreground="#1b3e6e"
-                                                   Margin="5,5,0,0"/>
+                                           Foreground="#1b3e6e"/>
                                         <Image Source="{Binding Image}"
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                                            RelativePanel.AlignVerticalCenterWithPanel="True" 
@@ -180,9 +175,8 @@
                 <Button Name="btnCreateNewAnswer" 
                     Style="{StaticResource actionButtonStyle}"
                     Content=" CREATE NEW ANSWER"               
-                    Grid.Row="1"                    
+                    Grid.Row="3"                    
                     HorizontalAlignment="Center"
-                        Margin="0,80,0,0"
                     Width="250">
                     <Button.Flyout>
                         <Flyout LightDismissOverlayMode="On">

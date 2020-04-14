@@ -31,6 +31,7 @@ namespace CAA_Event_Management.Views.Games
         {
             this.InitializeComponent();
             questRepo = new QuestionRepository();
+            gameRepo = new GameRepository();
             PopulateGameList();
         }
 

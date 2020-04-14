@@ -95,7 +95,7 @@
                             Style="{StaticResource secondaryButtonStyle}"/>
                 </RelativePanel>
 
-                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,50,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">
                     <Button Name="btnGame" 
                             Background="#5291bf" 
                             BorderBrush="#0d4e97" 
@@ -150,7 +150,8 @@
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 
                       Margin="0,50,0,0"
-                      MinHeight="450"
+                              MaxHeight="400"
+                      MinHeight="370"
                       MinWidth="400"
                       Padding="15"
                       ItemClick="GameList_ItemClick">

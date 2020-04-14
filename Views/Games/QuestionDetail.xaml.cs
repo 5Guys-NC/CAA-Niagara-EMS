@@ -120,6 +120,7 @@ namespace CAA_Event_Management.Views.Games
                 p = picRepo.GetPicture(Convert.ToInt32(selected.QuestionImageId));
                 q.Source = imageConverter.ByteToImage(p.Image);
                 imgQuestionImage.Source = q.Source;
+                imgQuestionImage.Visibility = Visibility.Visible;
             }
 
             AnswerList.ItemsSource = display;

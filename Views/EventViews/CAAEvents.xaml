@@ -35,6 +35,8 @@
                     <VisualState.Setters>
                         <Setter Target="gdvEditEvents.MinWidth" Value="700"/>
                         <Setter Target="gdvDeleteEvents.MinWidth" Value="700"/>
+                        <Setter Target="gdvEditEvents.MaxHeight" Value="700"/>
+                        <Setter Target="gdvDeleteEvents.MaxHeight" Value="700"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -68,13 +70,20 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Button Name="btnCreateEvent" 
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" Margin="0,80,0,0">
+                    <Button Name="btnCreateEvent" 
                         Content="CREATE EVENT"
                         Grid.Row="1"
-                        Margin="0,70,0,0"
+                        Margin="0,0,5,0"
                         HorizontalAlignment="Center"
                         Style="{StaticResource secondaryButtonStyle}"
                         Click="NewEvent_Click"/>
+                    <Button Name="btnDeleteMode" 
+                        Content="DELETE MODE (OFF)"
+                            Margin="5,0,0,0"
+                        Style="{StaticResource secondaryButtonStyle}"
+                        Click="btnDeleteMode_Click"/>
+                </StackPanel>
 
                 <!--Sorting Tabs -->
                 <RelativePanel Name="rpEventsTabs" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">
@@ -116,8 +125,8 @@
                       HorizontalAlignment="Center"
                       IsItemClickEnabled="True"
                       Margin="0,50,0,0"
-                      MaxHeight="450"
-                      MinHeight="450"
+                      MaxHeight="370"
+                      MinHeight="370"
                       MinWidth="400"
                       Padding="15"
                       Visibility="Visible">
@@ -239,11 +248,6 @@
 
                 </RelativePanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="0,20,0,0">
-                    <Button Name="btnDeleteMode" 
-                        Content="DELETE MODE (OFF)"
-                        Margin="0,0,5,20"
-                        Style="{StaticResource secondaryButtonStyle}"
-                        Click="btnDeleteMode_Click"/>
                     <Button Name="btnBeginEvent"
                     Content="BEGIN EVENT"
                         Margin="5,0,5,20"

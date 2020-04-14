@@ -149,7 +149,8 @@
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 
                       Margin="0,50,30,0"
-                      MinHeight="450"
+                              MaxHeight="370"
+                      MinHeight="370"
                       MinWidth="400"
                       Padding="15"
                       >

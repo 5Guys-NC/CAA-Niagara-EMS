@@ -10,6 +10,7 @@ using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -61,17 +62,17 @@ namespace CAA_Event_Management.Views.Games
         //Navigation
         private void btnGames_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GameMenu));
+            Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
         }
 
         private void btnQuestion_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(QuestionMenu));
+            Frame.Navigate(typeof(QuestionMenu), null, new SuppressNavigationTransitionInfo());
         }
 
         private void btnAnswer_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AnswerMenu));
+            Frame.Navigate(typeof(AnswerMenu), null, new SuppressNavigationTransitionInfo());
         }
 
         private void btnAddAnswer_Click(object sender, RoutedEventArgs e)

@@ -213,7 +213,7 @@ namespace CAA_Event_Management.Views.Games
             IGameRepository gr = new GameRepository();
             Game back = new Game();
             back = gr.GetGame(selected.GameID);
-            Frame.Navigate(typeof(GameDetails), back);
+            Frame.Navigate(typeof(GameDetails), back, new SuppressNavigationTransitionInfo());
 
             //questionRepo.UpdateQuestion(view);
             //answerRepo.UpdateAnswers(answers);
@@ -239,7 +239,7 @@ namespace CAA_Event_Management.Views.Games
             var index = Convert.ToInt32(((Button)sender).DataContext);
             display.RemoveAt(index);
             UpdateChanges();
-            Frame.Navigate(typeof(QuestionDetail), selected);
+            Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
 
             //answerRepo.UpdateAnswers(answers);
             //int selected = Convert.ToInt32(((Button)sender).DataContext);
@@ -277,7 +277,7 @@ namespace CAA_Event_Management.Views.Games
             //Add holder into list<> display
             display.Add(t);
             UpdateChanges();
-            Frame.Navigate(typeof(QuestionDetail), selected);
+            Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
         }
 
         private void btnAddAnswer_Click(object sender, RoutedEventArgs e)
@@ -297,7 +297,7 @@ namespace CAA_Event_Management.Views.Games
             //Add holder into list<> display
             display.Add(t);
             UpdateChanges();
-            Frame.Navigate(typeof(QuestionDetail), selected);
+            Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
         }
 
         private void btnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)
@@ -321,7 +321,7 @@ namespace CAA_Event_Management.Views.Games
             file = await openPicker.PickSingleFileAsync();
 
             UpdateChanges();
-            Frame.Navigate(typeof(QuestionDetail), selected);
+            Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
         }
     }
 }

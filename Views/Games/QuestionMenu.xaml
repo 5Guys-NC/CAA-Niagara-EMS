@@ -7,7 +7,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{StaticResource BackgroundColor}">
+    Background="{StaticResource BackgroundColor}"
+    FontFamily="{ThemeResource ContentControlThemeFontFamily}">
     <!--******************************
      *  Model Created By: Max Cashmore
      *  Edited By: Nathan Smith
@@ -94,7 +95,7 @@
                             Style="{StaticResource secondaryButtonStyle}"/>
                 </RelativePanel>
 
-                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="50,50,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">
                     <Button Name="btnGame" 
                             Background="#5291bf" 
                             BorderBrush="#0d4e97" 
@@ -148,9 +149,9 @@
                       Grid.Row="1" 
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 
-                      Margin="0,50,30,0"
-                              MaxHeight="370"
-                      MinHeight="370"
+                      Margin="0,50,0,0"
+                      MaxHeight="400"
+                      MinHeight="400"
                       MinWidth="400"
                       Padding="15"
                       >

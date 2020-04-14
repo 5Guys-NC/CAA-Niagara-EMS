@@ -74,8 +74,8 @@ namespace CAA_Event_Management.Views.EventViews
             bool refreshScreen = SaveAttendanceTrackingObject();
 
             //maybe add a bool return for saveSurveyResponses
-            if (refreshScreen && currentEvent.QuizID == null) Frame.Navigate(this.GetType(), currentEvent);
-            else if (refreshScreen) Frame.Navigate(typeof(PlayerGameView), (Event)currentEvent);
+            if (refreshScreen && currentEvent.QuizID == null) Frame.Navigate(this.GetType(), currentEvent, new SuppressNavigationTransitionInfo());
+            else if (refreshScreen) Frame.Navigate(typeof(PlayerGameView), (Event)currentEvent, new SuppressNavigationTransitionInfo());
         }
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace CAA_Event_Management.Views.EventViews
                 if (ListOfEID.Count == 0)
                 {
                     SaveAttendanceTrackingObject();
-                    Frame.Navigate(this.GetType(), currentEvent);
+                    Frame.Navigate(this.GetType(), currentEvent, new SuppressNavigationTransitionInfo());
                 }
             }
         }

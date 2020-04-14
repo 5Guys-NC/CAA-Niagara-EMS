@@ -28,7 +28,6 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="btnCreateGame.Margin" Value="80,60,10,0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
@@ -68,10 +67,10 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-                <RelativePanel Name="rpCreates" Grid.Row="1" Margin="0,40,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpCreates" Grid.Row="1" Margin="0,80,0,0" HorizontalAlignment="Center">
                     <Button Name="btnCreateGame" 
-                            Content="Create A Game"
-                            Margin="0,30,10,0"
+                            Content="Create Game"
+                            Margin="0,0,10,0"
                             Style="{StaticResource actionButtonStyle}">
                         <Button.Flyout>
                             <Flyout LightDismissOverlayMode="On">
@@ -96,7 +95,7 @@
                             Style="{StaticResource secondaryButtonStyle}"/>
                 </RelativePanel>
 
-                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,50,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">
                     <Button Name="btnGame" 
                             Background="#5291bf" 
                             BorderBrush="#0d4e97" 
@@ -126,7 +125,7 @@
                             Width="105"
                             Canvas.ZIndex="0"/>
 
-                    <!--<Button Name="btnAnswer" 
+                    <Button Name="btnAnswer" 
                             Background="#5291bf"
                             BorderBrush="#0d4e97"
                             BorderThickness="3,3,3,0"
@@ -140,7 +139,7 @@
                             RelativePanel.AlignBottomWith="btnQuestion"
                             Height="50" 
                             Width="105"
-                            Canvas.ZIndex="-1"/>-->
+                            Canvas.ZIndex="-1"/>
 
                     <GridView Name="menuList"
                       Background="#5291bf"
@@ -151,10 +150,16 @@
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 
                       Margin="0,50,0,0"
-                      MinHeight="450"
+                              MaxHeight="400"
+                      MinHeight="370"
                       MinWidth="400"
                       Padding="15"
                       ItemClick="GameList_ItemClick">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
                         <GridView.ItemTemplate>
                             <DataTemplate>
                                 <RelativePanel Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">

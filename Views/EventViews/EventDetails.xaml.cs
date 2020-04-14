@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -232,7 +231,7 @@ namespace CAA_Event_Management.Views.EventViews
                 }
                 else
                 {
-                    Jeeves.ShowMessage("Error", "You are only allowed 5 questions per event");
+                    Jeeves.ShowMessage("Error", "You are only allowed 10 questions per event");
                 }
             }
             catch
@@ -299,6 +298,7 @@ namespace CAA_Event_Management.Views.EventViews
                     {
                         newEventItem.EIDItemPhrase = CreateItemPhrase(newEventItem.EIDItemPhrase);
                     }
+
                     listOfEventItemsDetails.Add(newEventItem);
                 }
             }
@@ -317,19 +317,19 @@ namespace CAA_Event_Management.Views.EventViews
         {
             string[] brokenPhrase = oldPhrase.Split(' ');
             string newPhrase = "";
-            int currentLenght = 0;
+            int currentLength = 0;
 
             foreach (var x in brokenPhrase)
             {
-                currentLenght += x.Length + 1;
-                if (currentLenght < 35)
+                currentLength += x.Length + 1;
+                if (currentLength < 30)
                 {
                     newPhrase += x + " ";
                 }
                 else
                 {
                     newPhrase += Environment.NewLine + x + " ";
-                    currentLenght = x.Length + 1;
+                    currentLength = x.Length + 1;
                 }
             }
             return newPhrase;

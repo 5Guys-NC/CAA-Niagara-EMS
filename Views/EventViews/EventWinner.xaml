@@ -27,7 +27,9 @@
         <TextBlock x:Name="txtEventName"
                    Grid.Row="1"
                    FontSize="40"
-                   Margin="80,60,20,20"/>
+                   HorizontalAlignment="Center"
+                   Margin="0,60,0,20"
+                   TextWrapping="WrapWholeWords"/>
         <Grid Grid.Row="2" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
@@ -87,6 +89,7 @@
                            FontSize="18"
                            FontWeight="Bold"/>
                 <ListView x:Name="lstWinnersList"
+                          Margin="0,5,0,0"
                           MaxHeight="200"
                           SelectionMode="None"/>
             </StackPanel>
@@ -105,11 +108,11 @@
                         Content="Return to Events"
                         Margin="20,10,0,0"
                         RelativePanel.Below="btnChooseWinner"
-                        Click="btnBack_Click"/>
+                        Click="btnReturntoEvents_Click"/>
 
                 <TextBlock x:Name="txtWinnerInfo"
                        Text="Winner Details:"
-                       FontSize="22"
+                       FontSize="20"
                        Margin="20,10,0,0"
                        RelativePanel.RightOf="btnChooseWinner"/>
             </RelativePanel>

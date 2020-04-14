@@ -19,6 +19,8 @@ using CAA_Event_Management.Utilities;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 /******************************
 *  Model Created By: Max Cashmore
 *  Edited by: Brian Culp
@@ -39,7 +41,7 @@ namespace CAA_Event_Management.Views.Games
         IPictureRepository picRepo;
         public List<QuestAnsViewModel> display = new List<QuestAnsViewModel>();
         ImageConverter imageConverter = new ImageConverter();
-
+        StorageFile file;
 
         public QuestionDetail()
         {
@@ -57,7 +59,7 @@ namespace CAA_Event_Management.Views.Games
         public void PopulateModelAnswerList()
         {
             //if question has images
-            if (selected.OptionsText != null && selected.AnswerText != null && selected.ImageIDs!="")
+            if (selected.OptionsText != null && selected.AnswerText != null && selected.ImageIDs != "")
             {
                 //Splits question's details in their own list
                 var options = selected.OptionsText.Split('|');
@@ -77,23 +79,24 @@ namespace CAA_Event_Management.Views.Games
 
                     if (images[i] != "0")
                     {
+
                         //gets the image for the question and puts it in the view model
                         Picture pic = picRepo.GetPicture(Convert.ToInt32(images[i]));
                         t.Image = imageConverter.ByteToImage(pic.Image);
                         t.ImageID = images[i];
                     }
-                    
 
                     display.Add(t);
                 }
             }
-            
+
             //if question doesn't have images
             else if (selected.OptionsText != null && selected.AnswerText != null)
             {
                 //Splits question's details in their own list
                 var options = selected.OptionsText.Split('|');
                 var possibleAnswers = selected.AnswerText.Split('|');
+                var images = selected.ImageIDs.Split('|');
 
                 //Loop through possible answers
                 for (int i = 0; i < options.Length; i++)
@@ -103,11 +106,22 @@ namespace CAA_Event_Management.Views.Games
                     t.Text = options[i];
                     t.Index = i;
                     //If possible answer is in correct answer, checkbox to true
-                    if (possibleAnswers.Contains(options[i]))
+                    if (possibleAnswers.Contains(options[i])
+                        || possibleAnswers.Contains(images[i]))
                     { t.IsTrue = true; }
                 }
             }
 
+            if (selected.QuestionImageId != null)
+            {
+                imgQuestionImage.Source = null;
+                var q = new Image();
+                var p = new Picture();
+                p = picRepo.GetPicture(Convert.ToInt32(selected.QuestionImageId));
+                q.Source = imageConverter.ByteToImage(p.Image);
+                imgQuestionImage.Source = q.Source;
+                imgQuestionImage.Visibility = Visibility.Visible;
+            }
 
             AnswerList.ItemsSource = display;
             var list = new List<Answer>();
@@ -116,17 +130,26 @@ namespace CAA_Event_Management.Views.Games
             AnswerSelectionList.ItemsSource = list;
         }
 
-        public void UpdateChanges()
+        public async void UpdateChanges()
         {
             List<string> option = new List<string>();
             List<string> answer = new List<string>();
             List<string> imageID = new List<string>();
+            Picture questPic = new Picture();
+
             foreach (var d in display)
             {
                 //Loops through the view and adds each item to string
                 option.Add(d.Text);
                 //If checked, adds text to correct answer list
-                if (d.IsTrue) { answer.Add(d.Text); }
+                if (d.IsTrue)
+                {
+                    //Checks if text is empty. Sets the id to be true
+                    if (d.Text == "")
+                        answer.Add(d.ImageID);
+                    else
+                        answer.Add(d.Text);
+                }
 
                 //if the view model has an image it sets it's ID
                 if (d.ImageID != "0")
@@ -136,10 +159,20 @@ namespace CAA_Event_Management.Views.Games
                     imageID.Add("0");
             }
 
+            //Checks to see if image was uploaded for answer
+            if (file != null)
+            {
+                questPic.Image = await imageConverter.ImageToByte(file);
+                picRepo.AddPicture(questPic);
+                selected.QuestionImageId = questPic.ID.ToString();
+            }
+
+
             //joins all strings together
             selected.OptionsText = string.Join("|", option);
             selected.AnswerText = string.Join("|", answer);
             selected.ImageIDs = string.Join("|", imageID);
+
         }
 
         //public void UpdateChanges()
@@ -270,6 +303,25 @@ namespace CAA_Event_Management.Views.Games
         private void btnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
             btnAddAnswer.Flyout.Hide();
+        }
+
+        private async void btnImageUpload_Click(object sender, RoutedEventArgs e)
+        {
+            /// <summary>
+            /// File picker code source:
+            /// https://docs.microsoft.com/en-us/windows/uwp/files/quickstart-using-file-and-folder-pickers
+            /// </summary>
+
+            file = null;
+            FileOpenPicker openPicker = new FileOpenPicker();
+            openPicker.ViewMode = PickerViewMode.Thumbnail;
+            openPicker.SuggestedStartLocation = PickerLocationId.PicturesLibrary;
+            openPicker.FileTypeFilter.Add(".jpg");
+            openPicker.FileTypeFilter.Add(".png");
+            file = await openPicker.PickSingleFileAsync();
+
+            UpdateChanges();
+            Frame.Navigate(typeof(QuestionDetail), selected);
         }
     }
 }

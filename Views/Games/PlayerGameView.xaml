@@ -10,10 +10,10 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
         <RelativePanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom">
@@ -32,8 +32,10 @@
                     Click="btnNextQuestion_Click"
                     FontSize="40"/>-->
         </RelativePanel>
-        <TextBlock Name="tbkQuestion"
-                   Grid.Row="1"
+        <StackPanel Grid.Row="1" Orientation="Vertical" >
+            <Image Name="imageQuest" MaxHeight="200" MaxWidth="200"/>
+            <TextBlock Name="tbkQuestion"
+                   
                    FontWeight="ExtraBlack"
                    FontSize="25"
                    TextWrapping="Wrap"
@@ -41,21 +43,24 @@
                    VerticalAlignment="Center"
                    />
 
-        <GridView Name="gameplayView" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <GridView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <Button Content="{Binding Text}" Click="Button_Click"/>
-                    </StackPanel>
-                    <!--<TextBlock Text="{Binding Text}" Width="200"/>-->
+        </StackPanel>
 
+
+        <GridView IsItemClickEnabled="True" ItemClick="gameplayView_ItemClick" Name="gameplayView" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <GridView.ItemTemplate>
+                <DataTemplate >
+                    <StackPanel Height="150">
+                        <Image Source="{Binding Image}" MaxWidth="100" MaxHeight="100" HorizontalAlignment="Center" />
+                        <TextBlock Text="{Binding Text}" Width="200"/>
+
+                    </StackPanel>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
 
         <RelativePanel Grid.Row="3" HorizontalAlignment="Center">
             <StackPanel Orientation="Vertical">
-                <TextBlock Name="txtDisplayResult" Width="500"/>
+                <TextBlock Name="txtDisplayResult" Width="500" Height="50"/>
 
             </StackPanel>
         </RelativePanel>

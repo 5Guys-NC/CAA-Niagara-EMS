@@ -16,7 +16,8 @@
     Edited By: Brian Culp
     ************************-->
     <Page.Resources>
-        <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
+        <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#1b3e6e</SolidColorBrush>
+        <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="#1b3e6e"/>
     </Page.Resources>
     <Grid>
         <RelativePanel Grid.Row="0" Background="#1b3e6e" Canvas.ZIndex="5" Height="45" VerticalAlignment="Top">
@@ -40,6 +41,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
                 <RelativePanel Grid.Row="0" Background="#1b3e6e" Canvas.ZIndex="5">
@@ -57,13 +59,22 @@
                 </RelativePanel>
 
                 <StackPanel Name="spAnswers" Grid.Row="1">
-                    <TextBlock Name="tbQuestion" FontWeight="Bold" Foreground="#1b3e6e" Text="Question" HorizontalAlignment="Center" FontSize="20" Margin="0,50,0,0"/>
+                    <TextBlock Name="tbQuestion" 
+                               FontWeight="Bold" 
+                               Foreground="#1b3e6e" 
+                               Text="Question" 
+                               HorizontalAlignment="Center" 
+                               FontSize="20" 
+                               Margin="5,50,5,0"
+                               TextWrapping="WrapWholeWords"/>
                     <!--<TextBox x:Name="txtQuestion" Text="{x:Bind view.Phrase, Mode=TwoWay}" FontSize="16" HorizontalAlignment="Center" Margin="35,10,0,0" Width="440"/>-->
                     <TextBlock Name="tbAnswers" Foreground="#1b3e6e" Text="Answers (Check correct answer(s))" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
+                    <Image Name="imgQuestionImage" Height="60" Width="60" Visibility="Collapsed"/>
                 </StackPanel>
 
-                <Grid Grid.Row="2" Margin="20,0,0,0">
-                    <RelativePanel Name="rpQuestionTabs" Grid.Row="2" Margin="50,20,0,0" HorizontalAlignment="Center">
+                <Grid Grid.Row="2" Margin="20,20,0,0">
+
+                    <RelativePanel Name="rpQuestionTabs" Grid.Row="2" Margin="50,0,0,0" HorizontalAlignment="Center">
                         <Button Name="btnQuestion" 
                             Background="#5291bf" 
                             BorderBrush="#0d4e97" 
@@ -91,16 +102,22 @@
                               MaxHeight="300" 
                               HorizontalAlignment="Center" 
                               Margin="0,50,50,0" 
-                              MinHeight="450"
-                              MinWidth="400"
+                              MinHeight="370"
+                              MinWidth="370"
                               Padding="15">
                             <GridView.ItemTemplate>
                                 <DataTemplate>
-                                    
+
                                     <StackPanel Name="spAnswers" Orientation="Horizontal" Height="auto" Width="auto">
                                         <CheckBox IsChecked="{Binding IsTrue, Mode=TwoWay}" MinWidth="30"/>
-                                        <TextBox Text="{Binding Text, Mode=TwoWay}" Width="120"
-                                     FontSize="18"/>
+                                        <TextBox Text="{Binding Text, Mode=TwoWay}" 
+                                                 Background="#eaeaea"
+                                                 BorderBrush="#0d4e97"
+                                                 BorderThickness="3"
+                                                 FontSize="18"
+                                                 Foreground="#1b3e6e"
+                                                 Height="35"
+                                                 Width="180"/>
                                         <Image Source="{Binding Image}" Height="60" Width="60"/>
                                         <!--<CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
                                     <TextBox Text="{x:Bind Phrase, Mode=TwoWay}" Width="260" 
@@ -136,7 +153,6 @@
 
 
                 <StackPanel Grid.Row="3" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Name="btnBack" Content="BACK" Click="btnBack_Click" Width="100" Style="{StaticResource secondaryButtonStyle}" Margin="0,0,10,0"/>
 
                     <Button  Name="btnAddAnswer" Content="ADD ANSWER" Style="{StaticResource actionButtonStyle}" Margin="10,0,0,0">
                         <Button.Flyout>
@@ -176,8 +192,15 @@
                     </GridView.ItemTemplate>
                 </GridView>
 
+                <StackPanel Grid.Row="5" Orientation="Vertical" >
+                    <TextBlock FontWeight="Bold" Foreground="#1b3e6e" Text="Image" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
+                    <TextBlock Foreground="#1b3e6e" Text="Select an optional image for question" HorizontalAlignment="Center" FontSize="20"/>
+                    <Button Name="btnImageUpload" Content="Select Image"  Style="{StaticResource actionButtonStyle}" Click="btnImageUpload_Click" HorizontalAlignment="Center"/>
+                    <TextBlock Name="txbImageFile"  FontSize="18" FontWeight="Bold" Foreground="#1b3e6e" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                </StackPanel>
 
             </Grid>
         </ScrollViewer>
+
     </Grid>
 </Page>

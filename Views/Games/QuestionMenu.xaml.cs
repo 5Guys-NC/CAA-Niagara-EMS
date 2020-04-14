@@ -25,11 +25,13 @@ namespace CAA_Event_Management.Views.Games
     public sealed partial class QuestionMenu : Page
     {
         IQuestionRepository questRepo;
+        IGameRepository gameRepo;
 
         public QuestionMenu()
         {
             this.InitializeComponent();
             questRepo = new QuestionRepository();
+            gameRepo = new GameRepository();
             PopulateGameList();
         }
 
@@ -65,16 +67,16 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnCreateConfirm_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Question add = new Question();
-            add.Text = txtCreateNewQuest.Text;
-            questRepo.AddQuestion(add);
-            btnCreateNewQuest.Flyout.Hide();
-            PopulateGameList();
+            Game newGame = new Game();
+
+            newGame.Title = txtCreateNewGame.Text;
+            gameRepo.AddGame(newGame);
+            Frame.Navigate(typeof(GameDetails), (newGame));
         }
 
         private void BtnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            btnCreateNewQuest.Flyout.Hide();
+            btnCreateGame.Flyout.Hide();
         }
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)

@@ -9,7 +9,7 @@
   <Identity
     Name="fb5e2539-03f0-4ede-bfe0-89b0007d23cd"
     Publisher="CN=brian"
-    Version="1.0.0.0" />
+    Version="1.0.5.0" />
 
   <mp:PhoneIdentity PhoneProductId="fb5e2539-03f0-4ede-bfe0-89b0007d23cd" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
@@ -38,7 +38,12 @@
         Description="CAA Event Management"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="portrait"/>
+          <uap:Rotation Preference="landscape"/>
+          <uap:Rotation Preference="landscapeFlipped"/>
+          <uap:Rotation Preference="portraitFlipped"/></uap:InitialRotationPreference>
+        <uap:SplashScreen Image="Assets\SplashScreen.png"/>
       </uap:VisualElements>
     </Application>
   </Applications>

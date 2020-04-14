@@ -155,70 +155,70 @@ namespace CAA_Event_Management.Views.EventViews
                     if (ckbAnswerOne.Visibility == Visibility.Visible && ckbAnswerOne.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerOne.Visibility == Visibility.Visible && ckbAnswerOne.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerOne.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerOne.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerOne.Text;
+                    else surveyEntry.Answer = txtAnswerOne.Text.Trim();
                 }
                 else if (tbkQuestionTwo.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerTwo.Visibility == Visibility.Visible && ckbAnswerTwo.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerTwo.Visibility == Visibility.Visible && ckbAnswerTwo.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerTwo.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerTwo.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerTwo.Text;
+                    else surveyEntry.Answer = txtAnswerTwo.Text.Trim();
                 }
                 else if (tbkQuestionThree.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerThree.Visibility == Visibility.Visible && ckbAnswerThree.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerThree.Visibility == Visibility.Visible && ckbAnswerThree.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerThree.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerThree.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerThree.Text;
+                    else surveyEntry.Answer = txtAnswerThree.Text.Trim();
                 }
                 else if (tbkQuestionFour.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerFour.Visibility == Visibility.Visible && ckbAnswerFour.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerFour.Visibility == Visibility.Visible && ckbAnswerFour.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerFour.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerFour.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerFour.Text;
+                    else surveyEntry.Answer = txtAnswerFour.Text.Trim();
                 }
                 else if (tbkQuestionFive.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerFive.Visibility == Visibility.Visible && ckbAnswerFive.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerFive.Visibility == Visibility.Visible && ckbAnswerFive.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerFive.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerFive.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerFive.Text;
+                    else surveyEntry.Answer = txtAnswerFive.Text.Trim();
                 }
                 else if (tbkQuestionSix.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerSix.Visibility == Visibility.Visible && ckbAnswerSix.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerSix.Visibility == Visibility.Visible && ckbAnswerSix.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerSix.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerSix.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerSix.Text;
+                    else surveyEntry.Answer = txtAnswerSix.Text.Trim();
                 }
                 else if (tbkQuestionSeven.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerSeven.Visibility == Visibility.Visible && ckbAnswerSeven.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerSeven.Visibility == Visibility.Visible && ckbAnswerSeven.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerSeven.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerSeven.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerSeven.Text;
+                    else surveyEntry.Answer = txtAnswerSeven.Text.Trim();
                 }
                 else if (tbkQuestionEight.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerEight.Visibility == Visibility.Visible && ckbAnswerEight.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerEight.Visibility == Visibility.Visible && ckbAnswerEight.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerEight.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerEight.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerEight.Text;
+                    else surveyEntry.Answer = txtAnswerEight.Text.Trim();
                 }
                 else if (tbkQuestionNine.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerNine.Visibility == Visibility.Visible && ckbAnswerNine.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerNine.Visibility == Visibility.Visible && ckbAnswerNine.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerNine.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerNine.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerNine.Text;
+                    else surveyEntry.Answer = txtAnswerNine.Text.Trim();
                 }
                 else if (tbkQuestionTen.Text == x.EIDItemPhrase)
                 {
                     if (ckbAnswerTen.Visibility == Visibility.Visible && ckbAnswerTen.IsChecked == true) surveyEntry.Answer = "true";
                     else if (ckbAnswerTen.Visibility == Visibility.Visible && ckbAnswerTen.IsChecked == false) surveyEntry.Answer = "false";
                     else if (dprAnswerTen.Visibility == Visibility.Visible) surveyEntry.Answer = (dprAnswerTen.SelectedDate.ToString()).Split(' ')[0];
-                    else surveyEntry.Answer = txtAnswerTen.Text;
+                    else surveyEntry.Answer = txtAnswerTen.Text.Trim();
                 }
 
                 try
@@ -269,7 +269,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Helper Methods - BuildQuestions, ShowQuestions, CheckAnswers, ShowLastSwipeInfo
+        #region Helper Methods - BuildQuestions, ShowQuestions, CheckAnswers, ShowLastSwipeInfo, CheckFormForCompletion
 
         /// <summary>
         /// This method builds the various questions for the event and ties the Item object details to the EventItem objects
@@ -667,18 +667,27 @@ namespace CAA_Event_Management.Views.EventViews
         /// <returns></returns>
         private bool CheckFormForCompletion()
         {
-            bool formFilledIn = true;
-            if (memberNumTextBox.Text.Trim() == "")
+            bool formMemeberNumCheck = false;
+            bool formPersonInfoCheck = false;
+
+            if (memberNumTextBox.Text.Trim().Length == 16)
             {
-                if (firstNameTextBox.Text.Trim() == "" || lastNameTextBox.Text.Trim() == "") formFilledIn = false;
+                formMemeberNumCheck = true;
+            }
+            if (firstNameTextBox.Text.Trim() != "" && lastNameTextBox.Text.Trim() != "" && phoneNumTextBox.Text.Trim().Length > 6)
+            {
+                formPersonInfoCheck = true;
             }
 
-            if (formFilledIn == false)
+            if (formPersonInfoCheck == true || formMemeberNumCheck == true)
             {
-                Jeeves.ShowMessage("Error", "You must fill in either the member number or a first and last name");
+                return true;
+            }
+            else
+            {
+                Jeeves.ShowMessage("Error", "Enter either a CAA member number OR a first and last name along with a phone number");
                 return false;
             }
-            return formFilledIn;
         }
 
         /// <summary>

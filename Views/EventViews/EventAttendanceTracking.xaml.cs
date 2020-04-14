@@ -230,7 +230,7 @@ namespace CAA_Event_Management.Views.EventViews
                     }
                     else
                     {
-                        surveyEntry = null;
+                        surveyEntry.Answer = null;
                         attendanceItemRepository.AddAttendanceItem(surveyEntry);
                     }
                 }

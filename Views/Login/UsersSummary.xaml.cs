@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 /******************************
 *  Model Created By: Nathan Smith
 *  Edited by: Brian Culp
@@ -72,7 +73,7 @@ namespace CAA_Event_Management
                 //put selected user data in UserParams object
                 up.selectedUser = (UserAccount)lvUsers.SelectedItem;
                 //navigate to corresponding frame
-                Frame.Navigate(typeof(UserDetails), up);
+                Frame.Navigate(typeof(UserDetails), up, new SuppressNavigationTransitionInfo());
             }
         }
 
@@ -103,7 +104,7 @@ namespace CAA_Event_Management
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
             //Navigate to CreateNewUser
-            Frame.Navigate(typeof(CreateNewUser));
+            Frame.Navigate(typeof(CreateNewUser), null, new SuppressNavigationTransitionInfo());
         }
     }
     

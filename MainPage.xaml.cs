@@ -37,7 +37,7 @@ namespace CAA_Event_Management
             //check authentication of user, return out boolean
             isAuthenticated(out AuthStatus);
             //Beginning Frame on Startup
-            MyFrame.Navigate(typeof(EventStartView));
+            MyFrame.Navigate(typeof(EventStartView), null, new SuppressNavigationTransitionInfo());
             DataContext = this;
         }
         #endregion

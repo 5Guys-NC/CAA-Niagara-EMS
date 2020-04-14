@@ -21,6 +21,7 @@ using CAA_Event_Management.ViewModels;
 using System.Threading.Tasks;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using Windows.UI.Xaml.Media.Animation;
 
 /******************************
 *  Model Created By: Jon Yade
@@ -172,7 +173,7 @@ namespace CAA_Event_Management.Views.EventViews
                     }
                     SaveEventItemsToThisEvent();
                 }
-                Frame.Navigate(typeof(CAAEvents));
+                Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
             }
             catch (Exception)
             {
@@ -187,7 +188,7 @@ namespace CAA_Event_Management.Views.EventViews
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(CAAEvents));
+            Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
             //Frame.GoBack();
         }
 

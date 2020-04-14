@@ -87,7 +87,7 @@
                     </Button>-->
 
 
-                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="50,30,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">
                     <Button Name="btnGame" 
                     Background="#5291bf" 
                     BorderBrush="#0d4e97" 
@@ -143,8 +143,8 @@
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 
                       Margin="0,50,0,0"
-                      MaxHeight="370"
-                      MinHeight="370"
+                      MaxHeight="400"
+                      MinHeight="400"
                       MinWidth="400"
                       Padding="15"
                       >

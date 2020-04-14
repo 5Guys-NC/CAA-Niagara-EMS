@@ -16,6 +16,7 @@ using CAA_Event_Management.ViewModels;
 using System.Threading.Tasks;
 using CAA_Event_Management.Views.EventViews;
 using System.Threading;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -59,7 +60,7 @@ namespace CAA_Event_Management.Views.Games
             //Shows the score result
             tbResult.Text = "You scored " + resultVM.CorrectAnswerCount + " out of " + resultVM.QuestionCount + "!";
             await Task.Delay(3000);
-            Frame.Navigate(typeof(EventAttendanceTracking), resultVM.Event);
+            Frame.Navigate(typeof(EventAttendanceTracking), resultVM.Event, new SuppressNavigationTransitionInfo());
         }
     }
 }

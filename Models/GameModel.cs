@@ -13,6 +13,8 @@ namespace CAA_Event_Management.Models
 
         //holds question
         public string QuestionText { get; set; }
+
+        public string QuestionImageId { get; set; }
         //the possible answers to select from
         
         public string OptionsText { get; set; }

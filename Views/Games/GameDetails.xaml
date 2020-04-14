@@ -104,8 +104,19 @@
                       Padding="15">
                         <GridView.ItemTemplate>
                             <DataTemplate  x:DataType="data:GameModel">
-                                <RelativePanel HorizontalAlignment="Center" Background="#eaeaea" Margin="10" MinHeight="180" MaxWidth="300" BorderBrush="White" BorderThickness="3">
-                                    <TextBlock Text="{x:Bind QuestionText}" FontSize="18" TextWrapping="WrapWholeWords" Margin="5,0,45,0"/>
+                                <RelativePanel HorizontalAlignment="Center" 
+                                               Background="#eaeaea" 
+                                               Margin="10" 
+                                               MinHeight="180" 
+                                               MaxWidth="300" 
+                                               BorderBrush="#0d4e97" 
+                                               BorderThickness="3">
+                                    <TextBlock Text="{x:Bind QuestionText}" 
+                                               FontSize="18" 
+                                               FontWeight="Bold"
+                                               Foreground="#1b3e6e"
+                                               TextWrapping="WrapWholeWords" 
+                                               Margin="5,0,45,0"/>
                                     <Button Name="btnRemove" 
                                 Background="#eaeaea" 
                                             FontSize="20"

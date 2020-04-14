@@ -316,6 +316,16 @@ namespace CAA_Event_Management
             else nvNav.Visibility = Visibility.Visible;
         }
 
+        internal void HideTheLoginButton()
+        {
+            App check = (App)Application.Current;
+            if (check.userIsLogIn == false)
+            {
+                btnSignInFlyout.Visibility = Visibility.Collapsed;
+            }
+
+        }
+
         #endregion
     }
 }

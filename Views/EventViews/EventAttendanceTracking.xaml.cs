@@ -50,6 +50,7 @@ namespace CAA_Event_Management.Views.EventViews
             currentEvent = (Event)e.Parameter;
             ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName(currentEvent.DisplayName.ToUpper());
             ((Window.Current.Content as Frame).Content as MainPage).HideTheNavBar(false);
+            ((Window.Current.Content as Frame).Content as MainPage).HideTheLoginButton();
             this.DataContext = tracker;
             tracker.EventID = currentEvent.EventID;
             tracker.ArrivalTime = DateTime.Now;

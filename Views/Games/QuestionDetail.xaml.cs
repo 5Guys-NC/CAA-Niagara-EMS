@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage;
 using Windows.Storage.Pickers;
+using CAA_Event_Management.Converters;
 /******************************
 *  Model Created By: Max Cashmore
 *  Edited by: Brian Culp

@@ -11,7 +11,7 @@ using CAA_Event_Management.Data.Repos;
 *******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-namespace CAA_Event_Management
+namespace CAA_Event_Management.Views.Login
 {
     /// <summary>
     /// Frame for User Details
@@ -70,6 +70,11 @@ namespace CAA_Event_Management
             txtLastName.IsReadOnly = !status;
             txtPassword.IsReadOnly = !status;
             txtUserName.IsReadOnly = !status;   
+        }
+
+        private void btnEdit_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+
         }
     }
 }

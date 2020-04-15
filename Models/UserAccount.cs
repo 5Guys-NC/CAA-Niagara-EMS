@@ -49,6 +49,17 @@ namespace CAA_Event_Management.Models
         public bool isAdmin { get; set; } = false;
 
         /// <summary>
+        /// Summary property to display full name
+        /// </summary>
+        public string FullName
+        {
+            get 
+            {
+                return this.FirstName + " " + this.LastName;
+            }
+        }
+
+        /// <summary>
         /// Method to Encrypt Password
         /// </summary>
         /// <param name="password"></param>

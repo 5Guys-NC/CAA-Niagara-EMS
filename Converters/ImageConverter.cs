@@ -11,7 +11,7 @@ using Windows.Storage.Streams;
 using CAA_Event_Management.Models;
 using Windows.Storage;
 
-namespace CAA_Event_Management.Utilities
+namespace CAA_Event_Management.Converters
 {
     public class ImageConverter
     {

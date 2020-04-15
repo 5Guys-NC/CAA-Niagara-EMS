@@ -40,7 +40,7 @@ namespace CAA_Event_Management.Utilities
 
                 #region Seed Data
 
-                #region Users
+                #region UsersAccounts
 
                 if (!context.UserAccounts.Any())
                 {
@@ -64,7 +64,7 @@ namespace CAA_Event_Management.Utilities
                          ID = Guid.NewGuid().ToString(),
                          FirstName = "CAA",
                          LastName = "Admin",
-                         UserName = "admin1",
+                         UserName = "employee",
                          Password = "password",
                          isAdmin = true
                      },
@@ -447,9 +447,10 @@ namespace CAA_Event_Management.Utilities
                 }
 
                 #endregion
-                
+
                 #endregion
 
+                #region EventGameUserAnswer
                 if (context.EventGameUserAnswers.Count() == 0)
                 {
                     string beefjerky = context.Events.Where(e => e.EventName == "Beef Jerky Invitational").Select(e => e.EventID).FirstOrDefault();
@@ -476,6 +477,7 @@ namespace CAA_Event_Management.Utilities
                         
 
                 }
+                #endregion
 
                 #region Items
 

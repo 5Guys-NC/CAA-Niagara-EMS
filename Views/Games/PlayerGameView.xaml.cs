@@ -21,6 +21,7 @@ using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Views.EventViews;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
+using CAA_Event_Management.Converters;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 

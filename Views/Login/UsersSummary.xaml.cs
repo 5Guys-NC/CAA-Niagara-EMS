@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 /******************************
 *  Model Created By: Nathan Smith
 *  Edited by: Brian Culp
@@ -75,7 +76,7 @@ public sealed partial class UsersSummary : Page
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
             //Navigate to CreateNewUser
-            Frame.Navigate(typeof(CreateNewUser));
+            Frame.Navigate(typeof(CreateNewUser), null, new SuppressNavigationTransitionInfo());
         }
 
         private void btnAllUsers_Click(object sender, RoutedEventArgs e)
@@ -128,7 +129,7 @@ public sealed partial class UsersSummary : Page
             //put selected user data in UserParams object
             up.selectedUser = (UserAccount)e.ClickedItem;
             //navigate to corresponding frame
-            Frame.Navigate(typeof(UserDetails), up);
+            Frame.Navigate(typeof(UserDetails), up, new SuppressNavigationTransitionInfo());
         }
     }
     

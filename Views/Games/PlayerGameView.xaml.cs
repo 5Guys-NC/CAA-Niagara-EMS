@@ -20,6 +20,7 @@ using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Views.EventViews;
 using System.Threading.Tasks;
+using CAA_Event_Management.Converters;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
 

@@ -4,6 +4,10 @@ using CAA_Event_Management.Models;
 using System;
 using System.Threading.Tasks;
 
+/*************************
+ * Created By: Jon Yade
+ * **********************/
+
 namespace CAA_Event_Management.Utilities
 {
     internal class AuditLog

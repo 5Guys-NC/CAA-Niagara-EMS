@@ -16,8 +16,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 /***********************************
- * Created By: Jon Yade
- * Edited By: Brian Culp
+ * Created By: Jon Yade 95%
+ * Edited By: Brian Culp 5%
  * ********************************/
 
 namespace CAA_Event_Management.Views.EventViews

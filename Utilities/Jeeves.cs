@@ -3,8 +3,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 /******************************
 *  Created By: Jon Yade
-*  using code by David Stovell
-*  Edited by:
+*   >>> using code by David Stovell
 *******************************/
 namespace CAA_Event_Management.Models
 {

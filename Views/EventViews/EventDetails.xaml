@@ -11,6 +11,11 @@
     Background="{ThemeResource BackgroundColor}"
     FontFamily="{ThemeResource ContentControlThemeFontFamily}">
 
+    <!--************************
+        Design work: Nathan Smith 75%
+        Extra work by: Jon Yade 25%
+    ************************-->
+
     <Page.Resources>
         <Converters:DateTimeToOffsetConverter x:Key="DateTimeToOffsetConverter"/>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>

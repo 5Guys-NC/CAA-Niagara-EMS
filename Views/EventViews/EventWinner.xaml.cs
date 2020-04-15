@@ -1,24 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using CAA_Event_Management.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+/*********************************
+* Created By: Jon Yade 95%
+* Help from: Nathan 5%
+* *******************************/
 
 namespace CAA_Event_Management.Views.EventViews
 {

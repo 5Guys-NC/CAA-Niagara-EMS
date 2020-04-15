@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Data;
 /******************************
 *  Model Created By: Nathan Smith
-*  Edited by:
+*    >>> with code from David Stovell
 *******************************/
 
 namespace CAA_Event_Management.Converters

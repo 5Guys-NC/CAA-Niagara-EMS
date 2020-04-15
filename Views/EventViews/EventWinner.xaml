@@ -9,6 +9,11 @@
     Background="{ThemeResource BackgroundColor}"
     FontFamily="{ThemeResource ContentControlThemeFontFamily}">
 
+    <!--***********************
+    Design work: Jon Yade 60%
+    Help from: Nathan Smith 40%
+    *************************-->
+    
     <Page.Resources>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
         <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="#1b3e6e"/>

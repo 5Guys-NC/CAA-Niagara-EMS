@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Data.Interface_Repos;
 
+/*************************
+ * Created By: Jon Yade
+ * **********************/
+
 namespace CAA_Event_Management.Data.Repos
 {
     public class ModelAuditLineRepository : IModelAuditLineRepository

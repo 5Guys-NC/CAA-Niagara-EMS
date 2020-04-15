@@ -1,8 +1,8 @@
 ﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 /******************************
- * Created By: Brian Culp
- * Edited By: Jon Yade
+ * Created By: Brian Culp 95%
+ * Edited By: Jon Yade 5%
  * ***************************/
 
 namespace CAA_Event_Management.Data.Interface_Repos

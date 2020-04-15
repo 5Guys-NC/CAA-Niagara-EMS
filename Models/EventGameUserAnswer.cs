@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 /*************************
- * Created By: Max Cashmore
+ * Created By: Jon Yade and Max Cashmore
  * **********************/
 namespace CAA_Event_Management.Models
 {

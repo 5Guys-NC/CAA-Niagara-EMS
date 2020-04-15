@@ -1,27 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using CAA_Event_Management.Data;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.Utilities;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using System.ComponentModel.DataAnnotations;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.ViewModels;
-using System.Threading.Tasks;
+﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using CAA_Event_Management.Models;
+using CAA_Event_Management.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 
 /******************************
 *  Model Created By: Jon Yade

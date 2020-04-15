@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.Data;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.Views;
-using Windows.UI.Xaml.Media.Animation;
-using CAA_Event_Management.Views.EventViews;
-using CAA_Event_Management.Utilities;
+﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using CAA_Event_Management.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 /******************************
-*  Model Created By: Jon Yade
-*  Edited by: Nathan Smith
+*  Created By: Jon Yade 95%
+*  Edited by: Nathan Smith 5%
 *******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238

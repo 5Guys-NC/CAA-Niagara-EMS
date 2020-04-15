@@ -1,24 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using CAA_Event_Management.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+/*********************************
+* Created By: Jon Yade 95%
+* Help from: Nathan 5%
+* *******************************/
 
 namespace CAA_Event_Management.Views.EventViews
 {
@@ -38,7 +33,14 @@ namespace CAA_Event_Management.Views.EventViews
         List<AttendanceTracking> nonMembersOnlyWithGames = new List<AttendanceTracking>();
         List<AttendanceTracking> membersOnlyWithGames = new List<AttendanceTracking>();
         List<AttendanceTracking> winners = new List<AttendanceTracking>();
-        
+
+        List<AttendanceTracking> allAttendantsWinners = new List<AttendanceTracking>();
+        List<AttendanceTracking> nonMembersOnlyWinners = new List<AttendanceTracking>();
+        List<AttendanceTracking> membersOnlyWinners = new List<AttendanceTracking>();
+        List<AttendanceTracking> allAttendantsWithGamesWinners = new List<AttendanceTracking>();
+        List<AttendanceTracking> nonMembersOnlyWithGamesWinners = new List<AttendanceTracking>();
+        List<AttendanceTracking> membersOnlyWithGamesWinners = new List<AttendanceTracking>();
+
         IAttendanceTrackingRepository attendanceTrackingRepository;
         IEventGameUserAnswerRepository eventGameUserAnswerRepository;
 
@@ -51,12 +53,20 @@ namespace CAA_Event_Management.Views.EventViews
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            loadingRing.IsActive = true;
+            lstWinnersList.Visibility = Visibility.Collapsed;
+            loadingRing.Visibility = Visibility.Visible;
+
             view = (Event)e.Parameter;
             ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("SELECT EVENT WINNER");
             txtEventName.Text = view.DisplayName;
             FillListsWithEntries();
             FillListsWithGamePlayers();
             FillListOfEventWinners();
+
+            loadingRing.IsActive = false;
+            loadingRing.Visibility = Visibility.Collapsed;
+            lstWinnersList.Visibility = Visibility.Visible;
         }
 
         #endregion
@@ -71,7 +81,9 @@ namespace CAA_Event_Management.Views.EventViews
         private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
         {
             AttendanceTracking person = new AttendanceTracking();
-            
+            List<AttendanceTracking> chosenList = new List<AttendanceTracking>();
+            int listChoice = 0;
+
             try
             {
                 List<AttendanceTracking> userSelectedList = new List<AttendanceTracking>();
@@ -81,14 +93,20 @@ namespace CAA_Event_Management.Views.EventViews
                     if (rdoNonMembers.IsChecked == true)
                     {
                         userSelectedList = nonMembersOnlyWithGames;
+                        chosenList = nonMembersOnlyWithGamesWinners;
+                        listChoice = 1;
                     }
                     else if (rdoMemberOnly.IsChecked == true)
                     {
                         userSelectedList = membersOnlyWithGames;
+                        chosenList = membersOnlyWithGamesWinners;
+                        listChoice = 2;
                     }
                     else
                     {
                         userSelectedList = allAttendantsWithGames;
+                        chosenList = allAttendantsWithGamesWinners;
+                        listChoice = 3;
                     }
                 }
                 else
@@ -96,14 +114,20 @@ namespace CAA_Event_Management.Views.EventViews
                     if (rdoNonMembers.IsChecked == true)
                     {
                         userSelectedList = nonMembersOnly;
+                        chosenList = nonMembersOnlyWinners;
+                        listChoice = 4;
                     }
                     else if (rdoMemberOnly.IsChecked == true)
                     {
                         userSelectedList = membersOnly;
+                        chosenList = membersOnlyWinners;
+                        listChoice = 5;
                     }
                     else
                     {
                         userSelectedList = allAttendants;
+                        chosenList = allAttendantsWinners;
+                        listChoice = 6;
                     }
                 }
 
@@ -112,9 +136,10 @@ namespace CAA_Event_Management.Views.EventViews
                     Jeeves.ShowMessage("Error", "Please chose different selection options as there are no available entries");
                     return;
                 }
-                if (userSelectedList.Count <= winners.Count)
+                if (userSelectedList.Count <= chosenList.Count)
                 {
-                    Jeeves.ShowMessage("Error", "No extra winners can be selected for this event, as all entries have been selected");
+                    Jeeves.ShowMessage("Error", "No more winners can be selected from the chosen options, as all entries have been selected");
+                    return;
                 }
 
                 bool check = false;
@@ -130,20 +155,58 @@ namespace CAA_Event_Management.Views.EventViews
                                 .Where(c => c.PhoneNo == person.PhoneNo)
                                 .FirstOrDefault();
                     if (numCheck == null || phoneCheck == null) check = true;
-
-                    //List<AttendanceTracking> winnerListCheck = winners
-                    //                .Where(p => p.MemberAttendanceID == person.MemberAttendanceID)
-                    //                .ToList();
-                    //if (winnerListCheck.Count == 0) check = true;
                 }
 
-                person.IsAnEventWinner = (winners.Count)+1;
+                person.IsAnEventWinner = (winners.Count) + 1;
                 attendanceTrackingRepository.UpdateAttendanceTracking(person);
 
-                txtWinnerInfo.Text = "Name: " + person.FirstName + " " + person.LastName +
-                                     "\nCAA Number: " + person.MemberNo +
-                                     "\nPhone: " + person.PhoneNo.Substring(0,3) + "-" + person.PhoneNo.Substring(3,3) + "-" + person.PhoneNo.Substring(6);
-                                     
+                if (listChoice == 1)
+                {
+                    nonMembersOnlyWithGamesWinners.Add(person);
+                }
+                else if (listChoice == 2)
+                {
+                    membersOnlyWithGamesWinners.Add(person);
+                }
+                else if (listChoice == 3)
+                {
+                    allAttendantsWithGamesWinners.Add(person);
+                }
+                else if (listChoice == 4)
+                {
+                    nonMembersOnlyWinners.Add(person);
+                }
+                else if (listChoice == 5)
+                {
+                    membersOnlyWinners.Add(person);
+                }
+                else if (listChoice == 6)
+                {
+                    allAttendantsWinners.Add(person);
+                }
+
+                txtWinnerInfo.Text = "Winner Information:";
+                if (person.FirstName != null)
+                {
+                    if (person.FirstName != "") txtWinnerInfo.Text += Environment.NewLine + "Name: " + person.FirstName;
+                }
+                if (person.LastName != null)
+                {
+                    if (person.LastName != "")
+                    {
+                        if (txtWinnerInfo.Text.Contains("Name")) txtWinnerInfo.Text += " " + person.LastName;
+                        else txtWinnerInfo.Text += Environment.NewLine + "Last Name: " + person.LastName;
+                    }
+                }
+                if (person.MemberNo != null)
+                {
+                    if (person.MemberNo != "") txtWinnerInfo.Text += Environment.NewLine + "CAA Number: " + person.MemberNo;
+                }
+                if (person.PhoneNo != null)
+                {
+                    if (person.PhoneNo != "") txtWinnerInfo.Text += Environment.NewLine + "Phone: " + person.PhoneNo.Substring(0, 3) + "-" + person.PhoneNo.Substring(3, 3) + "-" + person.PhoneNo.Substring(6);
+                }
+
                 FillListOfEventWinners();
             }
             catch
@@ -208,6 +271,7 @@ namespace CAA_Event_Management.Views.EventViews
                                                     .Where(c => c.PhoneNo == x.PhoneNo)
                                                     .ToList();
                     if (checkPhone1.Count == 0) nonMembersOnly.Add(x);
+                    if (x.IsAnEventWinner != null) nonMembersOnlyWinners.Add(x);
                 }
 
                 //Building the memberOnly Entry List
@@ -224,6 +288,7 @@ namespace CAA_Event_Management.Views.EventViews
                                                     .Where(c => c.PhoneNo == x.PhoneNo)
                                                     .ToList();
                     if (checkMemNum.Count == 0 && checkPhone.Count == 0) membersOnly.Add(x);
+                    if (x.IsAnEventWinner != null) membersOnlyWinners.Add(x);
                 }
 
                 //Building the allAttendance Entries List
@@ -239,6 +304,7 @@ namespace CAA_Event_Management.Views.EventViews
                                                     .Where(c => c.PhoneNo == x.PhoneNo)
                                                     .ToList();
                     if (checkMemNum.Count == 0 && checkPhone.Count == 0) allAttendants.Add(x);
+                    if (x.IsAnEventWinner != null) allAttendantsWinners.Add(x);
                 }
             }
             catch
@@ -264,6 +330,7 @@ namespace CAA_Event_Management.Views.EventViews
                                         .Where(p => p.AttendantID == x.MemberAttendanceID)
                                         .ToList();
                     if (check.Count > 0) allAttendantsWithGames.Add(x);
+                    if (x.IsAnEventWinner != null) allAttendantsWithGamesWinners.Add(x);
                 }
 
                 foreach (var x in nonMembersOnly)
@@ -272,6 +339,7 @@ namespace CAA_Event_Management.Views.EventViews
                                         .Where(p => p.AttendantID == x.MemberAttendanceID)
                                         .ToList();
                     if (check.Count > 0) nonMembersOnlyWithGames.Add(x);
+                    if (x.IsAnEventWinner != null) nonMembersOnlyWithGamesWinners.Add(x);
                 }
 
                 foreach (var x in membersOnly)
@@ -280,6 +348,7 @@ namespace CAA_Event_Management.Views.EventViews
                                         .Where(p => p.AttendantID == x.MemberAttendanceID)
                                         .ToList();
                     if (check.Count > 0) membersOnlyWithGames.Add(x);
+                    if (x.IsAnEventWinner != null) membersOnlyWithGamesWinners.Add(x);
                 }
             }
             catch {  }
@@ -360,21 +429,21 @@ namespace CAA_Event_Management.Views.EventViews
                 foreach(var x in winners)
                 {
                     string winnerInfo = x.IsAnEventWinner.ToString() + ".";
-                    if (x.FirstName != "")
+                    if (x.FirstName != null)
                     {
-                        winnerInfo += " " + x.FirstName;
+                        if (x.FirstName != "") winnerInfo += " " + x.FirstName;
                     }
-                    if (x.LastName != "") 
+                    if (x.LastName != null) 
                     {
-                        winnerInfo += " " + x.LastName;
+                        if(x.LastName != "") winnerInfo += " " + x.LastName;
                     }
-                    if (x.MemberNo != "")
+                    if (x.MemberNo != null)
                     {
-                        winnerInfo += "\n" + "CAA Number: " + x.MemberNo;
+                        if (x.MemberNo != "") winnerInfo += Environment.NewLine + "CAA Number: " + x.MemberNo;
                     }
-                    if (x.PhoneNo != "")
+                    if (x.PhoneNo != null)
                     {
-                        winnerInfo += "\n" + "Ph: " + x.PhoneNo.Substring(0, 3) + "-" + x.PhoneNo.Substring(3, 3) + "-" + x.PhoneNo.Substring(6) + "\n";
+                        if (x.PhoneNo != "") winnerInfo += Environment.NewLine + "Ph: " + x.PhoneNo.Substring(0, 3) + "-" + x.PhoneNo.Substring(3, 3) + "-" + x.PhoneNo.Substring(6) + "\n";
                     }
                     winnerInfoList.Add(winnerInfo);
                 }

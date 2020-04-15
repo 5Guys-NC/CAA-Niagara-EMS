@@ -10,6 +10,11 @@
     Background="{ThemeResource BackgroundColor}"
     FontFamily="{ThemeResource ContentControlThemeFontFamily}">
 
+    <!--*************************
+    Design Work: Nathan Smith 90%
+    Assistance work: Jon Yade 10%
+    **************************-->
+    
     <Page.Resources>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
     </Page.Resources>

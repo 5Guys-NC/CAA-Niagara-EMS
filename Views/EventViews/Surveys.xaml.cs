@@ -1,25 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Data;
-using CAA_Event_Management.Views.EventViews;
-using CAA_Event_Management.Models;
-using Windows.UI.Xaml.Media.Animation;
-using CAA_Event_Management.Utilities;
-using System.Threading.Tasks;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using CAA_Event_Management.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 /********************************
 * Created By: Jon Yade
 * Edited By:
@@ -121,7 +112,7 @@ namespace CAA_Event_Management.Views.EventViews
 
                         App userInfo = (App)Application.Current;
                         item.ItemID = Guid.NewGuid().ToString();
-                        item.ItemName = (string)txtNewSurveyQuestion.Text;
+                        item.ItemName = (string)txtNewSurveyQuestion.Text.Trim();
                         item.ValueType = selectedDataType.DisplayText;
                         item.CreatedBy = userInfo.userAccountName;
                         item.LastModifiedBy = userInfo.userAccountName;
@@ -137,7 +128,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else
             {
-                selectedItem.ItemName = (string)txtNewSurveyQuestion.Text;
+                selectedItem.ItemName = (string)txtNewSurveyQuestion.Text.Trim();
                 selectedItem.ValueType = selectedDataType.DisplayText;
 
                 if (!startItemEditState.Equals(selectedItem))
@@ -163,6 +154,11 @@ namespace CAA_Event_Management.Views.EventViews
             addOrEdit = 0;
         }
 
+        /// <summary>
+        /// This method handles the user clicking the "Cancel" button during "Create/Edit" mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancelSave_Click(object sender, RoutedEventArgs e)
         {
             startItemEditState = null;
@@ -171,6 +167,11 @@ namespace CAA_Event_Management.Views.EventViews
             ClearFields();
         }
 
+        /// <summary>
+        /// This method handles the user selection of "Delete Mode"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             DeleteModeToggle();
@@ -215,6 +216,11 @@ namespace CAA_Event_Management.Views.EventViews
         }
 
 
+        /// <summary>
+        /// This method handles the user selection of the "most used" questions tab
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnMostUsedQuestions_Click(object sender, RoutedEventArgs e)
         {
             Canvas.SetZIndex(btnMostUsedQuestions, 1);
@@ -223,6 +229,11 @@ namespace CAA_Event_Management.Views.EventViews
             FillFields(displayChoice);
         }
 
+        /// <summary>
+        /// This method handles the user selection of the "alphabetical" questions tab
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAlphabeticalQuestions_Click(object sender, RoutedEventArgs e)
         {
             Canvas.SetZIndex(btnAlphabeticalQuestions, 1);
@@ -423,12 +434,12 @@ namespace CAA_Event_Management.Views.EventViews
             string differences = "";
             if (startItemEditState.ItemName != selectedItem.ItemName)
             {
-                differences += "ItemName change: " + startItemEditState.ItemName + " TO: " + selectedItem.ItemName;
+                differences += "ItemName change: " + startItemEditState.ItemName + " [TO] " + selectedItem.ItemName;
             }
             if (startItemEditState.ValueType != selectedItem.ValueType)
             {
                 if (differences != "") differences += " | ";
-                differences += "ValueType change: " + startItemEditState.ValueType + " TO: " + selectedItem.ValueType;
+                differences += "ValueType change: " + startItemEditState.ValueType + " [TO] " + selectedItem.ValueType;
             }
             return differences;
         }

@@ -9,8 +9,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundColor}">
     <!--************************
-    Created By: Jon Yade
-    Edited By: 
+        Design work: Nathan Smith 80%
+        Extra work by: Jon Yade 20%
     ************************-->
     
     <Page.Resources>

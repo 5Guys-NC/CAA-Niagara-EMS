@@ -12,9 +12,9 @@
     FontFamily="{ThemeResource ContentControlThemeFontFamily}">
     
     <!--**************************
-    Created By: Jon Yade
-    Edited By: Nathan Smith
-    **************************-->
+        Design work: Nathan Smith 60%
+        Extra work by: JOn Yade 40%
+    ************************-->
 
     <Page.Resources>
         <Converters:DateTimeToOffsetConverter x:Key="DateTimeToOffsetConverter"/>

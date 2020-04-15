@@ -16,7 +16,12 @@
         <converters:FormatStringConverter x:Key="StringConverter"/>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
     </Page.Resources>
-
+    
+    <!--************************
+        Design work: Nathan Smith 90%
+        Extra work by: JOn Yade 10%
+    ************************-->
+    
     <Grid>
 
         <VisualStateManager.VisualStateGroups>
@@ -150,9 +155,10 @@
                                         </Interactions:EventTriggerBehavior>
                                         <Interactions:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=txtEvents}">
                                             <Interactions:ChangePropertyAction
-                            PropertyName="Foreground"
-                            TargetObject="{Binding ElementName=txtEvents}"
-                            Value="Green"
+                                        PropertyName="Foreground"
+                                        TargetObject="{Binding ElementName=txtEvents}"
+                                        Value="Green"
+                                                  
                             />
                                         </Interactions:EventTriggerBehavior>
                                     </Interactivity:Interaction.Behaviors>

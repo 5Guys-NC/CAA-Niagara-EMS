@@ -1,27 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using CAA_Event_Management.Data;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.Utilities;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using System.ComponentModel.DataAnnotations;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.ViewModels;
-using System.Threading.Tasks;
+﻿using CAA_Event_Management.Data;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using CAA_Event_Management.Models;
+using CAA_Event_Management.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 
 /******************************
 *  Model Created By: Jon Yade
@@ -623,7 +611,7 @@ namespace CAA_Event_Management.Views.EventViews
         /// <summary>
         /// This function sets the EventStart and EventEnd dates/times of a selected event object. It returns a false 
         /// if there is a problem setting these dateTimes (ie. the start date is before the end date or 
-        /// the start date is more than 3 days in the past).
+        /// the start date is more than 7 days in the past).
         /// </summary>
         /// <returns>Returns a bool based on the success of the method; "true" represents successful method completion</returns>
         private bool AddEventDatesAndTimes()
@@ -641,9 +629,9 @@ namespace CAA_Event_Management.Views.EventViews
                 Jeeves.ShowMessage("Error", "Please choose an end date that is after the start date");
                 return false;
             }
-            else if (start < (DateTime.Now.AddDays(-3)))
+            else if (start < (DateTime.Now.AddDays(-7)))
             {
-                Jeeves.ShowMessage("Error", "Please choose a start date in the future");
+                Jeeves.ShowMessage("Error", "Please choose a start date in the more recent past or the future");
                 return false;
             }
 
@@ -672,27 +660,27 @@ namespace CAA_Event_Management.Views.EventViews
 
             if (startView.DisplayName != view.DisplayName)
             {
-                differences += "DisplayName change: " + startView.DisplayName + " TO: " + view.DisplayName;
+                differences += "DisplayName change: " + startView.DisplayName + " [TO] " + view.DisplayName;
             }
             if (startView.EventStart != view.EventStart)
             {
                 if (differences != "") differences += " | ";
-                differences += "EventSart change: " + startView.EventStart.ToString() + " TO: " + view.EventStart.ToString();
+                differences += "EventSart change: " + startView.EventStart.ToString() + " [TO] " + view.EventStart.ToString();
             }
             if (startView.EventEnd != view.EventEnd)
             {
                 if (differences != "") differences += " | ";
-                differences += "EventEnd change: " + startView.EventEnd.ToString() + " TO: " + view.EventEnd.ToString();
+                differences += "EventEnd change: " + startView.EventEnd.ToString() + " [TO] " + view.EventEnd.ToString();
             }
             if (startView.MembersOnly != view.MembersOnly)
             {
                 if (differences != "") differences += " | ";
-                differences += "MembersOnly change: " + startView.MembersOnly.ToString() + " TO: " + view.MembersOnly.ToString();
+                differences += "MembersOnly change: " + startView.MembersOnly.ToString() + " [TO] " + view.MembersOnly.ToString();
             }
             if (startView.QuizID != view.QuizID)
             {
                 if (differences != "") differences += " | ";
-                differences += "Quiz(ID) change: " + startView.QuizID + " TO: " + view.QuizID;
+                differences += "Quiz(ID) change: " + startView.QuizID + " [TO] " + view.QuizID;
             }
             return differences;
         }

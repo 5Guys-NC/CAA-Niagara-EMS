@@ -78,8 +78,6 @@ namespace CAA_Event_Management.Models
         public int? QuizID { get; set; }
         public virtual Game Quiz { get; set; }
 
-        public string Keywords { get; set; } = "";
-
         [Display(Name = "Display Name")]
         [StringLength(155, ErrorMessage = "Display Name cannot be more then 100 characters")]
         public string DisplayName { get; set; } = "";

@@ -311,12 +311,19 @@ namespace CAA_Event_Management
             txtTitle.Text = newTitle;
         }
 
+        /// <summary>
+        /// This method hides the Navigation bar on the top of the page
+        /// </summary>
+        /// <param name="isVisible"></param>
         internal void HideTheNavBar(bool isVisible)
         {
             if (isVisible == false) nvNav.Visibility = Visibility.Collapsed;
             else nvNav.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// This method hides the login button on the top rigth of the page (if it is present)
+        /// </summary>
         internal void HideTheLoginButton()
         {
             App check = (App)Application.Current;
@@ -327,6 +334,9 @@ namespace CAA_Event_Management
 
         }
 
+        /// <summary>
+        /// This method shows the login button on the top right of the page (if it is present)
+        /// </summary>
         internal void ShowTheLoginButton()
         {
             App check = (App)Application.Current;

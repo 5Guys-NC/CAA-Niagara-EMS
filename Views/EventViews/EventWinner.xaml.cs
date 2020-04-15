@@ -16,6 +16,7 @@ using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using CAA_Event_Management.Data.Interface_Repos;
 using CAA_Event_Management.Data.Repos;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -178,7 +179,7 @@ namespace CAA_Event_Management.Views.EventViews
         /// <param name="e"></param>
         private void btnReturntoEvents_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(CAAEvents));
+            Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
         }
 
         #endregion

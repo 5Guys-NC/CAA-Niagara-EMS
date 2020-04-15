@@ -21,7 +21,7 @@ using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Views.EventViews;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
-using CAA_Event_Management.Converters;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -148,7 +148,7 @@ namespace CAA_Event_Management.Views.Games
             if (index + 1 == questionCount)
             {
                 //If question answered was the last one, goes to the result page
-                Frame.Navigate(typeof(GameResult), resultVM);
+                Frame.Navigate(typeof(GameResult), resultVM, new SuppressNavigationTransitionInfo());
             }
             else
             {
@@ -162,7 +162,7 @@ namespace CAA_Event_Management.Views.Games
 
         private void btnCancelGame_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(EventAttendanceTracking), thisEvent);
+            Frame.Navigate(typeof(EventAttendanceTracking), thisEvent, new SuppressNavigationTransitionInfo());
         }
 
         private void gameplayView_ItemClick(object sender, ItemClickEventArgs e)

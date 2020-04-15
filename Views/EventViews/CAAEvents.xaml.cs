@@ -193,12 +193,12 @@ namespace CAA_Event_Management.Views.EventViews
             if (gdvEditEvents.SelectedItem != null)
             {
                 var selectedEvent = gdvEditEvents.SelectedItem;
-                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent);
+                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent, new SuppressNavigationTransitionInfo()); ;
             }
             else if (gdvDeleteEvents.SelectedItem != null)
             {
                 var selectedEvent = gdvEditEvents.SelectedItem;
-                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent);
+                Frame.Navigate(typeof(EventWinner), (Models.Event)selectedEvent, new SuppressNavigationTransitionInfo());
             }
             else Jeeves.ShowMessage("Error", "Please select an event first");
         }

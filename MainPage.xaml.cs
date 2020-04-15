@@ -38,7 +38,7 @@ namespace CAA_Event_Management
             //check authentication of user, return out boolean
             isAuthenticated(out AuthStatus);
             //Beginning Frame on Startup
-            MyFrame.Navigate(typeof(EventStartView));
+            MyFrame.Navigate(typeof(EventStartView), null, new SuppressNavigationTransitionInfo());
             DataContext = this;
         }
         #endregion
@@ -219,7 +219,7 @@ namespace CAA_Event_Management
                 UsersLink.Visibility = Visibility.Collapsed;
 
                 //navigate to home page
-                MyFrame.Navigate(typeof(EventStartView), new SuppressNavigationTransitionInfo());
+                MyFrame.Navigate(typeof(EventStartView),null, new SuppressNavigationTransitionInfo());
             }
             else
             {
@@ -232,7 +232,7 @@ namespace CAA_Event_Management
                 SignOutLink.Visibility = Visibility.Visible;
 
                 //navigate to Events page
-                MyFrame.Navigate(typeof(CAAEvents), new SuppressNavigationTransitionInfo());
+                MyFrame.Navigate(typeof(CAAEvents),null, new SuppressNavigationTransitionInfo());
 
                 //if user has admin rights, show those restricted views
                 if (currentUser.isAdmin == true)
@@ -315,6 +315,16 @@ namespace CAA_Event_Management
         {
             if (isVisible == false) nvNav.Visibility = Visibility.Collapsed;
             else nvNav.Visibility = Visibility.Visible;
+        }
+
+        internal void HideTheLoginButton()
+        {
+            App check = (App)Application.Current;
+            if (check.userIsLogIn == false)
+            {
+                btnSignInFlyout.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         #endregion

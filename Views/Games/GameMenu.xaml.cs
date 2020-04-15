@@ -58,14 +58,14 @@ namespace CAA_Event_Management.Views.Games
             
             newGame.Title = txtCreateNewGame.Text;
             gameRepo.AddGame(newGame);
-            Frame.Navigate(typeof(GameDetails), (newGame));
+            Frame.Navigate(typeof(GameDetails), (newGame), new SuppressNavigationTransitionInfo());
         }
 
         private void GameList_ItemClick(object sender, ItemClickEventArgs e)
         {
             Game g = (Game)e.ClickedItem;
 
-            Frame.Navigate(typeof(GameDetails), (Game)e.ClickedItem);
+            Frame.Navigate(typeof(GameDetails), (Game)e.ClickedItem, new SuppressNavigationTransitionInfo());
         }
 
         private void BtnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)
@@ -116,17 +116,17 @@ namespace CAA_Event_Management.Views.Games
         //Navigation
         private void btnGames_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(GameMenu));
+            Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
         }
 
         private void btnQuestion_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(QuestionMenu));
+            Frame.Navigate(typeof(QuestionMenu), null, new SuppressNavigationTransitionInfo());
         }
 
         private void btnAnswer_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(AnswerMenu));
+            Frame.Navigate(typeof(AnswerMenu), null, new SuppressNavigationTransitionInfo());
         }
     }
 }

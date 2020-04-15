@@ -79,7 +79,7 @@ namespace CAA_Event_Management.Views.Games
         private void btnSave_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //gameRepo.UpdateGame(view);
-            Frame.Navigate(typeof(GameMenu), (view));
+            Frame.Navigate(typeof(GameMenu), (view), new SuppressNavigationTransitionInfo());
         }
 
         private void btnDelete_Tapped(object sender, TappedRoutedEventArgs e)
@@ -138,7 +138,7 @@ namespace CAA_Event_Management.Views.Games
             gameRepo.SaveGameModel(gm);
             //btnAddQuestion.Flyout.Hide();
             //PopulateModelQuestList();
-            this.Frame.Navigate(typeof(QuestionDetail), gm);
+            this.Frame.Navigate(typeof(QuestionDetail), gm, new SuppressNavigationTransitionInfo());
         }
 
         private void btnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)

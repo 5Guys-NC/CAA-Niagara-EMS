@@ -69,7 +69,7 @@
 
                 <RelativePanel Name="rpCreates" Grid.Row="1" Margin="0,80,0,0" HorizontalAlignment="Center">
                     <Button Name="btnCreateGame" 
-                            Content="Create Game"
+                            Content="CREATE GAME"
                             Margin="0,0,10,0"
                             Style="{StaticResource actionButtonStyle}">
                         <Button.Flyout>
@@ -89,13 +89,13 @@
                         </Button.Flyout>
                     </Button>
                     <Button Name="btnCreateQuestion"
-                            Content="Create Questions/Answers"
+                            Content="CREATE QUESTIONS/ANSWERS"
                             RelativePanel.RightOf="btnCreateGame"
                             RelativePanel.AlignBottomWith="btnCreateGame"
                             Style="{StaticResource secondaryButtonStyle}"/>
                 </RelativePanel>
 
-                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,50,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="30,30,0,0" HorizontalAlignment="Center">
                     <Button Name="btnGame" 
                             Background="#5291bf" 
                             BorderBrush="#0d4e97" 
@@ -103,7 +103,8 @@
                             CornerRadius="20,20,0,0"
                             Content="Game"
                             Click="btnGames_Click"
-                            FontSize="20"  
+                            FontSize="20"
+                            FontWeight="Bold"
                             Foreground="#eaeaea"
                             Height="50"
                             Margin="0,3,-10,0"
@@ -118,6 +119,7 @@
                             CornerRadius="20,20,0,0"
                             Click="btnQuestion_Click"
                             FontSize="20"
+                            FontWeight="Bold"
                             Foreground="#eaeaea"
                             RelativePanel.RightOf="btnGame" 
                             RelativePanel.AlignBottomWith="btnGame"
@@ -132,6 +134,7 @@
                             Content="Answer"
                             CornerRadius="20,20,0,0"
                             FontSize="20"
+                            FontWeight="Bold"
                             Foreground="#eaeaea"
                             Margin="-10,0,0,0"
                             Click="btnAnswer_Click"
@@ -149,8 +152,9 @@
                       Grid.Row="1" 
                       HorizontalAlignment="Center" 
                       IsItemClickEnabled="True" 
-                      Margin="0,50,0,0"
-                      MinHeight="450"
+                      Margin="0,50,30,0"
+                      MaxHeight="400"
+                      MinHeight="370"
                       MinWidth="400"
                       Padding="15"
                       ItemClick="GameList_ItemClick">

@@ -73,19 +73,19 @@
                        Text="Game Details"/>
                 </RelativePanel>-->
 
-                <RelativePanel Name="rpGamesDetailsTabs" Grid.Row="1" Margin="35,50,0,20" HorizontalAlignment="Center">
+                <RelativePanel Name="rpGamesDetailsTabs" Grid.Row="1" Margin="0,50,0,20" HorizontalAlignment="Center">
                     <Button Name="btnGameDetails" 
-                    Background="#5291bf" 
-                    BorderBrush="#0d4e97" 
-                    BorderThickness="3,3,3,0"
-                    CornerRadius="20,20,0,0" 
-                    FontSize="20"
+                            Background="#5291bf" 
+                            BorderBrush="#0d4e97" 
+                            BorderThickness="3,3,3,0"
+                            CornerRadius="20,20,0,0" 
+                            FontSize="20"
                             FontWeight="Bold"
-                    Foreground="#eaeaea"
-                    Height="50"
-                    Margin="0,3,0,0"
-                    MinWidth="105"
-                    Canvas.ZIndex="1">
+                            Foreground="#eaeaea"
+                            Height="50"
+                            Margin="0,3,0,0"
+                            MinWidth="105"
+                            Canvas.ZIndex="1">
                         <TextBlock Name="txtGameTitle" TextWrapping="WrapWholeWords"/>
                     </Button>
                     <GridView Name="questionList" 
@@ -99,15 +99,18 @@
                       IsItemClickEnabled="True" 
                       HorizontalAlignment="Center" 
                       Margin="0,50,30,0"
-                      MinHeight="450"
-                      MinWidth="300"
+                      MaxHeight="475"
+                      MinHeight="370"
+                      MinWidth="400"
                       Padding="15">
                         <GridView.ItemTemplate>
                             <DataTemplate  x:DataType="data:GameModel">
-                                <RelativePanel HorizontalAlignment="Center" 
+                                <RelativePanel Name="rpQuizQuestions"
                                                Background="#eaeaea" 
+                                               HorizontalAlignment="Center"
                                                Margin="10" 
-                                               MinHeight="180" 
+                                               MinHeight="120" 
+                                               MinWidth="300"
                                                MaxWidth="300" 
                                                BorderBrush="#0d4e97" 
                                                BorderThickness="3">
@@ -115,6 +118,7 @@
                                                FontSize="18" 
                                                FontWeight="Bold"
                                                Foreground="#1b3e6e"
+                                               HorizontalAlignment="Center"
                                                TextWrapping="WrapWholeWords" 
                                                Margin="5,0,45,0"/>
                                     <Button Name="btnRemove" 
@@ -175,17 +179,56 @@
                     <!--<Button  Name="btnSave" Content="SAVE" Style="{StaticResource ButtonStyle}"  Width="100" Margin="10,0,10,0" Tapped="btnSave_Tapped"/>-->
                     <!--<Button  Name="btnDelete" Content="DELETE GAME" Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="btnDelete_Tapped"/>-->
                 </StackPanel>
-                <GridView Name="QuestionSelection" Grid.Row="3" HorizontalAlignment="Center" IsItemClickEnabled="True" ItemClick="QuestionSelection_ItemClick"  Margin="50,0,50,0">
-                    <GridView.ItemTemplate>
-                        <DataTemplate  x:DataType="data:Question">
-                            <ScrollViewer>
-                                <StackPanel BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
-                                    <TextBlock Text="{x:Bind Text}" TextWrapping="Wrap"/>
-                                </StackPanel>
-                            </ScrollViewer>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
+
+                <RelativePanel Name="rpEventsTabs" Grid.Row="3" Margin="0,30,0,0" HorizontalAlignment="Center">
+                    <Button Name="btnCurrentEvents" 
+                        Background="#5291bf" 
+                        BorderBrush="#0d4e97" 
+                        BorderThickness="3,3,3,0"
+                        Content="Existing Questions"
+                        CornerRadius="20,20,0,0" 
+                        FontSize="20"  
+                        FontWeight="Bold"
+                        Foreground="#eaeaea"
+                        Height="50"
+                        Margin="0,3,-10,0"
+                        Width="195"
+                        Canvas.ZIndex="1"/>
+
+                    <GridView Name="QuestionSelection" 
+                          Background="#5291bf"
+                          BorderBrush="#0d4e97"
+                          BorderThickness="3"
+                          Canvas.ZIndex="0"
+                          CornerRadius="0,20,20,0"
+                          Grid.Row="3" 
+                          IsItemClickEnabled="True" 
+                          HorizontalAlignment="Center" 
+                          MaxHeight="400"
+                          MinHeight="370"
+                          MinWidth="400"
+                          Padding="15"
+                          ItemClick="QuestionSelection_ItemClick"  
+                          Margin="0,50,30,20">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                        <GridView.ItemTemplate>
+                            <DataTemplate  x:DataType="data:Question">
+                                <RelativePanel Name="rpQuestions" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" HorizontalAlignment="Center" MinHeight="120" Margin="10">
+                                    <TextBlock Text="{x:Bind Text}"
+                                               FontSize="18" 
+                                               FontWeight="Bold"
+                                               Foreground="#1b3e6e"
+                                               TextWrapping="WrapWholeWords" 
+                                               Margin="5,0,45,0"/>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </RelativePanel>
 
             </Grid>
         </ScrollViewer>

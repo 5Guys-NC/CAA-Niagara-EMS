@@ -326,6 +326,14 @@ namespace CAA_Event_Management
 
         }
 
+        internal void ShowTheLoginButton()
+        {
+            App check = (App)Application.Current;
+            if (check.userIsLogIn == false)
+            {
+                btnSignInFlyout.Visibility = Visibility.Visible;
+            }
+        }
         #endregion
     }
 }

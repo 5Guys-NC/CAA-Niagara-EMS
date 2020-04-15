@@ -88,8 +88,8 @@ namespace CAA_Event_Management.Views.EventViews
             ((Window.Current.Content as Frame).Content as MainPage).HideTheNavBar(true);
             App userCheck = (App)Application.Current;
 
-            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView),new SuppressNavigationTransitionInfo());
-            else Frame.Navigate(typeof(CAAEvents), new SuppressNavigationTransitionInfo());
+            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView),null,new SuppressNavigationTransitionInfo());
+            else Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
         }
 
         #endregion

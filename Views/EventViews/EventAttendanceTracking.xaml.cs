@@ -9,6 +9,7 @@ using CAA_Event_Management.Views.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -30,6 +31,9 @@ namespace CAA_Event_Management.Views.EventViews
         AttendanceTracking tracker = new AttendanceTracking();
         AttendanceItem survey = new AttendanceItem(); //may be able to delete this after testing
         List<EventItemDetails> ListOfEID = new List<EventItemDetails>();
+
+        private string cardInfo = "g";
+        MemberNumberCheck MemNumCheck = new MemberNumberCheck();
 
         IAttendanceItemRepository attendanceItemRepository;
         IAttendanceTrackingRepository attendanceTrackingRepository;
@@ -56,6 +60,90 @@ namespace CAA_Event_Management.Views.EventViews
             tracker.ArrivalTime = DateTime.Now;
             BuildQuestions();
             ShowLastSwipeInfo();
+            Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
+        }
+
+        private void CoreWindow_CharacterReceived(CoreWindow sender, CharacterReceivedEventArgs args)
+        {
+            if (args.KeyCode == 37)
+            {
+                cardInfo = "%";
+            }
+            else if (cardInfo.Substring(0, 1) == "%")
+            {
+                cardInfo += Convert.ToChar(args.KeyCode).ToString();
+            }
+
+            if (cardInfo.Substring(0, 1) != "%" && args.KeyCode >= 48 && args.KeyCode <= 57)
+            {
+                if (cardInfo == "g") cardInfo = Convert.ToChar(args.KeyCode).ToString();
+                else cardInfo += Convert.ToChar(args.KeyCode).ToString();
+                if (cardInfo.Length == 16)
+                {  
+                    if (MemNumCheck.CheckMemberNumber(cardInfo)) SaveScannedCardNumber();
+                    else cardInfo = "g";
+                }
+            }
+
+            if (cardInfo.Length == 18 && cardInfo.Substring(0, 1) == "%" && !MemNumCheck.CheckMemberNumber(cardInfo.Substring(2)))
+            {
+                cardInfo = "g";
+            }
+
+            if (cardInfo.Length > 70 && cardInfo.EndsWith("?"))
+            //if (cardInfo.Length > 75 && cardInfo.EndsWith((char)Windows.System.VirtualKey.Enter))
+            {
+                CardReadDisplay();
+            }
+
+            if (cardInfo.Length == 18)
+            {
+                memberNumTextBox.IsTabStop = false;
+                firstNameTextBox.IsTabStop = false;
+                lastNameTextBox.IsTabStop = false;
+                phoneNumTextBox.IsTabStop = false;
+                TextBoxLockDown();
+            }
+        }
+
+        private void CardReadDisplay()
+        {
+            try
+            {
+                tracker.MemberNo = cardInfo.Substring(2, 16);
+
+                int firstName = cardInfo.IndexOf("/");
+                int lastName = cardInfo.IndexOf("^");
+
+                string firstNamePlusRemainingString = cardInfo.Substring(firstName + 1);
+                //inspired by: https://stackoverflow.com/questions/24028945/find-first-character-in-string-that-is-a-letter
+                string firstNameLetters = new string(firstNamePlusRemainingString.TakeWhile(Char.IsLetter).ToArray());
+
+                tracker.FirstName = firstNameLetters.Substring(0, 1).ToUpper() + firstNameLetters.Substring(1).ToLower(); ;
+                tracker.LastName = cardInfo.Substring(lastName + 1, 1) + cardInfo.Substring(lastName + 2, firstName - lastName - 2).ToLower();
+                tracker.IsMember = "true";
+               
+                cardInfo = "g";
+                memberNumTextBox.Text = tracker.MemberNo;
+                firstNameTextBox.Text = tracker.FirstName;
+                lastNameTextBox.Text = tracker.LastName;
+                isMembersCheck.IsChecked = true;
+
+                if (ListOfEID.Count == 0)
+                {
+                    bool refreshScreen = SaveAttendanceTrackingObject();
+                    if (refreshScreen && currentEvent.QuizID == null) Frame.Navigate(this.GetType(), currentEvent, new SuppressNavigationTransitionInfo());
+                    else if (refreshScreen) Frame.Navigate(typeof(PlayerGameView), (Event)currentEvent, new SuppressNavigationTransitionInfo());
+                }
+                else
+                {
+                    TextBoxUnlock();
+                }
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "Please re-swip card");
+            }
         }
 
         #endregion
@@ -72,8 +160,6 @@ namespace CAA_Event_Management.Views.EventViews
             if (!CheckFormForCompletion()) return;
             //if (!CheckAnswersForCompletion()) return;   //This and the attached function should be deleted
             bool refreshScreen = SaveAttendanceTrackingObject();
-
-            //maybe add a bool return for saveSurveyResponses
             if (refreshScreen && currentEvent.QuizID == null) Frame.Navigate(this.GetType(), currentEvent, new SuppressNavigationTransitionInfo());
             else if (refreshScreen) Frame.Navigate(typeof(PlayerGameView), (Event)currentEvent, new SuppressNavigationTransitionInfo());
         }
@@ -88,13 +174,42 @@ namespace CAA_Event_Management.Views.EventViews
             ((Window.Current.Content as Frame).Content as MainPage).HideTheNavBar(true);
             App userCheck = (App)Application.Current;
 
-            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView),null,new SuppressNavigationTransitionInfo());
-            else Frame.Navigate(typeof(CAAEvents), null, new SuppressNavigationTransitionInfo());
+            ((Window.Current.Content as Frame).Content as MainPage).ShowTheLoginButton();
+            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView),new SuppressNavigationTransitionInfo());
+            else Frame.Navigate(typeof(CAAEvents), new SuppressNavigationTransitionInfo());
         }
 
         #endregion
 
-        #region Helper Methods - SaveSurveyResponses, Card Reading
+        #region Helper Methods - SaveScannedCardNumber, SaveSurveyResponses, Card Reading
+
+        /// <summary>
+        /// This method sets the current AttandenceTracking object's member number to that of the scanned CAA card.
+        /// If there are no survey questions, the form will auto submit
+        /// </summary>
+        /// <param name="cardNumber">This string parameter carries with the scanned card number</param>
+        private void SaveScannedCardNumber()
+        {
+            tracker.MemberNo = cardInfo;
+            tracker.IsMember = "true";
+            memberNumTextBox.Text = tracker.MemberNo;
+
+            if (firstNameTextBox.Text == tracker.MemberNo) firstNameTextBox.Text = "";
+            if (lastNameTextBox.Text == tracker.MemberNo) lastNameTextBox.Text = "";
+            if (phoneNumBlock.Text == tracker.MemberNo) phoneNumBlock.Text = "";
+
+            if (ListOfEID.Count == 0)
+            {
+                bool refreshScreen = SaveAttendanceTrackingObject();
+                if (refreshScreen && currentEvent.QuizID == null) Frame.Navigate(this.GetType(), currentEvent, new SuppressNavigationTransitionInfo());
+                else if (refreshScreen) Frame.Navigate(typeof(PlayerGameView), (Event)currentEvent, new SuppressNavigationTransitionInfo());
+            }
+            else
+            {
+                cardInfo = "g";
+                memberNumTextBox.IsTabStop = false;
+            }
+        }
 
         /// <summary>
         /// This method saves the AttendanceTracking object to the database. If it is a successful save, the method 
@@ -116,11 +231,23 @@ namespace CAA_Event_Management.Views.EventViews
                 return false;
             }
 
+            if(tracker.FirstName == "")
+            {
+                tracker.FirstName = firstNameTextBox.Text;
+            }
+            if(tracker.LastName == "")
+            {
+                tracker.LastName = lastNameTextBox.Text;
+            }
+            if(memberNumTextBox.Text == "")
+            {
+                tracker.PhoneNo = phoneNumTextBox.Text;
+            }
+            if (isMembersCheck.IsChecked == true) tracker.IsMember = "true";
+            else tracker.IsMember = "false";
+
             try
             {
-                if (isMembersCheck.IsChecked == true) tracker.IsMember = "true";
-                else tracker.IsMember = "false";
-
                 tracker.MemberAttendanceID = Guid.NewGuid().ToString();
                 tracker.ArrivalTime = DateTime.Now;
                 List<EventItem> eventItems = eventItemRepository.GetEventItems(currentEvent.EventID);
@@ -128,10 +255,9 @@ namespace CAA_Event_Management.Views.EventViews
 
                 attendanceTrackingRepository.AddAttendanceTracking(tracker);
             }
-            catch //(Exception exc)
+            catch
             {
                 Jeeves.ShowMessage("Error", "There was a problem saving this event to the data base; please re-try");
-                //Jeeves.ShowMessage("Error", exc.InnerException.ToString());
                 return false;
             }
 
@@ -241,31 +367,60 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
-        private void cardEntryTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        /// <summary>
+        /// This method locks down the survey questions as the card is read
+        /// </summary>
+        private void TextBoxLockDown()
         {
-            string entry = memberNumTextBox.Text;
-            if (entry.StartsWith(" ")) memberNumTextBox.Text = entry.Trim();
+            txtAnswerOne.IsTabStop = false;
+            txtAnswerTwo.IsTabStop = false;
+            txtAnswerThree.IsTabStop = false;
+            txtAnswerFour.IsTabStop = false;
+            txtAnswerFive.IsTabStop = false;
+            txtAnswerSix.IsTabStop = false;
+            txtAnswerSeven.IsTabStop = false;
+            txtAnswerEight.IsTabStop = false;
+            txtAnswerNine.IsTabStop = false;
+            txtAnswerTen.IsTabStop = false;
 
-            if (entry.Length > 76 && entry.EndsWith("?") && entry.IndexOf("%") == 0)
-            {
-                memberNumTextBox.Text = entry.Substring(2, 16);
-                int firstName = entry.IndexOf("/");
-                int lastName = entry.IndexOf("^");
+            dprAnswerOne.IsEnabled = false;
+            dprAnswerTwo.IsEnabled = false;
+            dprAnswerThree.IsEnabled = false;
+            dprAnswerFour.IsEnabled = false;
+            dprAnswerFive.IsEnabled = false;
+            dprAnswerSix.IsEnabled = false;
+            dprAnswerSeven.IsEnabled = false;
+            dprAnswerEight.IsEnabled = false;
+            dprAnswerNine.IsEnabled = false;
+            dprAnswerTen.IsEnabled = false;
+        }
 
-                string firstNamePlusRemainingString = entry.Substring(firstName + 1);
-                //inspired by: https://stackoverflow.com/questions/24028945/find-first-character-in-string-that-is-a-letter
-                string firstNameLetters = new string(firstNamePlusRemainingString.TakeWhile(Char.IsLetter).ToArray());
+        /// <summary>
+        /// This method unlocks the survey questions after the card is read
+        /// </summary>
+        private void TextBoxUnlock()
+        {
+            txtAnswerOne.IsTabStop = true;
+            txtAnswerTwo.IsTabStop = true;
+            txtAnswerThree.IsTabStop = true;
+            txtAnswerFour.IsTabStop = true;
+            txtAnswerFive.IsTabStop = true;
+            txtAnswerSix.IsTabStop = true;
+            txtAnswerSeven.IsTabStop = true;
+            txtAnswerEight.IsTabStop = true;
+            txtAnswerNine.IsTabStop = true;
+            txtAnswerTen.IsTabStop = true;
 
-                firstNameTextBox.Text = firstNameLetters.Substring(0, 1).ToUpper() + firstNameLetters.Substring(1).ToLower(); ;
-                lastNameTextBox.Text = entry.Substring(lastName + 1, 1) + entry.Substring(lastName + 2, firstName - lastName - 2).ToLower();
-                isMembersCheck.IsChecked = true;
-
-                if (ListOfEID.Count == 0)
-                {
-                    SaveAttendanceTrackingObject();
-                    Frame.Navigate(this.GetType(), currentEvent, new SuppressNavigationTransitionInfo());
-                }
-            }
+            dprAnswerOne.IsEnabled = true;
+            dprAnswerTwo.IsEnabled = true;
+            dprAnswerThree.IsEnabled = true;
+            dprAnswerFour.IsEnabled = true;
+            dprAnswerFive.IsEnabled = true;
+            dprAnswerSix.IsEnabled = true;
+            dprAnswerSeven.IsEnabled = true;
+            dprAnswerEight.IsEnabled = true;
+            dprAnswerNine.IsEnabled = true;
+            dprAnswerTen.IsEnabled = true;
         }
 
         #endregion

@@ -135,9 +135,9 @@
                                  Style="{StaticResource StandardTextBox}"
                                  Text="{x:Bind tracker.MemberNo, Mode=TwoWay}" 
                                  AcceptsReturn="False"
-                                 IsTabStop="False"
-                                 RelativePanel.RightOf="memberNumTextBlock"
-                                 TextChanged="cardEntryTextBox_TextChanged"/>
+
+                                 RelativePanel.RightOf="memberNumTextBlock"/>
+                        <!--TextChanged="cardEntryTextBox_TextChanged"/>-->
                         <TextBlock x:Name="numberError"
                                    FontFamily="Segoe MDL2 Assets" 
                                    FontSize="30" 
@@ -170,7 +170,7 @@
                                  MinWidth="240"
                                  RelativePanel.RightOf="firstNameTextBlock"
                                  Style ="{StaticResource StandardTextBox}"
-                                 IsTabStop="False"
+
                                  Text="{x:Bind tracker.FirstName, Mode=TwoWay}" 
                                  AcceptsReturn="True"  
                                  InputScope="Chat"/>
@@ -198,7 +198,7 @@
                                  MaxLength="50"  
                                  MinWidth="240"
                                  RelativePanel.RightOf="lastNameBlock"
-                                 IsTabStop="False"
+
                                  Style="{StaticResource StandardTextBox}"
                                  Text="{x:Bind tracker.LastName, Mode=TwoWay}" 
                                  AcceptsReturn="False"/>
@@ -219,7 +219,7 @@
                                  Name="phoneNumTextBox" 
                                  MaxLength="50" 
                                  MinWidth="214"
-                                 IsTabStop="False"
+
                                  RelativePanel.RightOf="phoneNumBlock"
                                  Style="{StaticResource StandardTextBox}"
                                  Text="{x:Bind  tracker.PhoneNo, Mode=TwoWay}" 
@@ -297,7 +297,7 @@
                                  Grid.Column="1" 
                                  Height="32"
                                  HorizontalAlignment="Left" 
-                                 IsTabStop="False"
+                   
                                  RelativePanel.RightOf="tbkQuestionOne"
                                  RelativePanel.AlignVerticalCenterWith="tbkQuestionOne"
                                  Margin="5,0,0,0"
@@ -308,7 +308,7 @@
                               Grid.Column="1" 
                               HorizontalAlignment="Center" 
                               Visibility="Collapsed" 
-                                  IsTabStop="False"
+                                 IsTabStop="False"
                               Content="Check if Yes" 
                               VerticalAlignment="Center"
                               RelativePanel.RightOf="tbkQuestionOne"
@@ -318,7 +318,7 @@
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
-                                    IsTabStop="False"
+                                
                                     VerticalAlignment="Center"
                                     RelativePanel.RightOf="tbkQuestionOne"
                                     RelativePanel.AlignBottomWith="tbkQuestionOne"
@@ -347,7 +347,7 @@
                                  BorderThickness="2"                                 
                                  Height="32"
                                  HorizontalAlignment="Left" 
-                                 IsTabStop="False"
+                           
                                  RelativePanel.RightOf="tbkQuestionTwo"
                                  RelativePanel.AlignBottomWith="tbkQuestionTwo"
                                  VerticalAlignment="Center"
@@ -359,7 +359,7 @@
                                     Grid.Column="1" 
                                     HorizontalAlignment="Right" 
                                     Visibility="Collapsed" 
-                                  IsTabStop="False"
+                                IsTabStop="False"
                                     Content="Check if Yes" 
                                     VerticalAlignment="Center"
                                  RelativePanel.AlignBottomWith="tbkQuestionTwo"
@@ -369,7 +369,7 @@
                                     Grid.Row="1" 
                                     Grid.Column="1"
                                     Visibility="Collapsed"
-                                    IsTabStop="False"
+                                  
                                     VerticalAlignment="Center"
                                     RelativePanel.RightOf="tbkQuestionTwo"
                                     RelativePanel.AlignBottomWith="tbkQuestionTwo"
@@ -392,7 +392,7 @@
                                  Grid.Column="1" 
                                  Height="32"
                                  HorizontalAlignment="Left" 
-                                 IsTabStop="False"
+                           
                                  MaxLength="60"
                                  RelativePanel.AlignBottomWith="tbkQuestionThree"
                                  RelativePanel.RightOf="tbkQuestionThree"
@@ -405,7 +405,7 @@
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
                               Visibility="Collapsed" 
-                                  IsTabStop="False"
+                              IsTabStop="False"
                               Content="Check if Yes"
                               RelativePanel.AlignBottomWith="tbkQuestionThree"
                                  RelativePanel.RightOf="tbkQuestionThree"
@@ -414,7 +414,7 @@
                         <DatePicker x:Name="dprAnswerThree"
                                     Grid.Row="1" 
                                     Grid.Column="1"
-                                    IsTabStop="False"
+                               
                                     Visibility="Collapsed"
                                     VerticalAlignment="Center"
                                     RelativePanel.RightOf="tbkQuestionThree"
@@ -438,7 +438,7 @@
                                  Grid.Column="1" 
                                  Height="32"
                                  HorizontalAlignment="Left" 
-                                 IsTabStop="False"
+                               
                                  RelativePanel.AlignBottomWith="tbkQuestionFour"
                                  RelativePanel.RightOf="tbkQuestionFour"
                                  Visibility="Collapsed"
@@ -449,7 +449,7 @@
                               Grid.Row="4" 
                               Grid.Column="1" 
                               HorizontalAlignment="Right" 
-                                  IsTabStop="False"
+                                IsTabStop="False"
                               Visibility="Collapsed" 
                               Content="Check if Yes" 
                                  RelativePanel.AlignBottomWith="tbkQuestionFour"
@@ -461,7 +461,7 @@
                                     Grid.Column="1"
                                     Visibility="Collapsed"
                                     VerticalAlignment="Center"
-                                     IsTabStop="False"
+                                     
                                     RelativePanel.RightOf="tbkQuestionFour"
                                     RelativePanel.AlignBottomWith="tbkQuestionFour"
                                     Margin="5,0,0,0"/>
@@ -482,7 +482,7 @@
                                  Grid.Row="5" 
                                  Grid.Column="1"
                                  Height="32"
-                                 IsTabStop="False"
+                           
                                  RelativePanel.AlignBottomWith="tbkQuestionFive"
                                  RelativePanel.RightOf="tbkQuestionFive"
                                  Visibility="Collapsed" 
@@ -505,7 +505,7 @@
                                     Grid.Column="1"
                                     Visibility="Collapsed"
                                     VerticalAlignment="Center"
-                                    IsTabStop="False"
+                                  
                                     RelativePanel.RightOf="tbkQuestionFive"
                                     RelativePanel.AlignBottomWith="tbkQuestionFive"
                                     Margin="5,0,0,0"/>
@@ -527,7 +527,7 @@
                                  Grid.Column="1" 
                                  Height="32"
                                  HorizontalAlignment="Left" 
-                                 IsTabStop="False"
+                                
                                  MaxLength="60"
                                  RelativePanel.RightOf="tbkQuestionSix"
                                  RelativePanel.AlignBottomWith="tbkQuestionSix"
@@ -569,7 +569,7 @@
                                  BorderThickness="2"
                                  Height="32"
                                  HorizontalAlignment="Left" 
-                                 IsTabStop="False"
+                               
                                  MaxLength="60"
                                  RelativePanel.RightOf="tbkQuestionSeven"
                                  RelativePanel.AlignBottomWith="tbkQuestionSeven"
@@ -615,7 +615,7 @@
                                  Grid.Column="1" 
                                  Height="32"
                                  HorizontalAlignment="Left" 
-                                 IsTabStop="False"
+                             
                                  MaxLength="60"
                                  RelativePanel.AlignBottomWith="tbkQuestionEight"
                                  RelativePanel.RightOf="tbkQuestionEight"
@@ -661,7 +661,7 @@
                                  Grid.Column="1" 
                                  Height="32"
                                  HorizontalAlignment="Left" 
-                                 IsTabStop="False"
+                             
                                  RelativePanel.AlignBottomWith="tbkQuestionNine"
                                  RelativePanel.RightOf="tbkQuestionNine"
                                  Visibility="Collapsed"
@@ -705,7 +705,7 @@
                                  Grid.Row="5" 
                                  Grid.Column="1" 
                                  Height="32"
-                                 IsTabStop="False"
+                         
                                  Margin="5,0,0,0"
                                  MaxWidth="125"
                                  RelativePanel.AlignBottomWith="tbkQuestionTen"

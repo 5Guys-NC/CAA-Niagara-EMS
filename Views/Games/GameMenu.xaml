@@ -95,7 +95,7 @@
                             Style="{StaticResource secondaryButtonStyle}"/>
                 </RelativePanel>
 
-                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">
+                <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="30,30,0,0" HorizontalAlignment="Center">
                     <Button Name="btnGame" 
                             Background="#5291bf" 
                             BorderBrush="#0d4e97" 
@@ -103,7 +103,8 @@
                             CornerRadius="20,20,0,0"
                             Content="Game"
                             Click="btnGames_Click"
-                            FontSize="20"  
+                            FontSize="20"
+                            FontWeight="Bold"
                             Foreground="#eaeaea"
                             Height="50"
                             Margin="0,3,-10,0"
@@ -118,6 +119,7 @@
                             CornerRadius="20,20,0,0"
                             Click="btnQuestion_Click"
                             FontSize="20"
+                            FontWeight="Bold"
                             Foreground="#eaeaea"
                             RelativePanel.RightOf="btnGame" 
                             RelativePanel.AlignBottomWith="btnGame"
@@ -132,6 +134,7 @@
                             Content="Answer"
                             CornerRadius="20,20,0,0"
                             FontSize="20"
+                            FontWeight="Bold"
                             Foreground="#eaeaea"
                             Margin="-10,0,0,0"
                             Click="btnAnswer_Click"

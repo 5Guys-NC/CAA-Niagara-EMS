@@ -218,7 +218,7 @@ namespace CAA_Event_Management
                 UsersLink.Visibility = Visibility.Collapsed;
 
                 //navigate to home page
-                MyFrame.Navigate(typeof(EventStartView), new SuppressNavigationTransitionInfo());
+                MyFrame.Navigate(typeof(EventStartView),null, new SuppressNavigationTransitionInfo());
             }
             else
             {
@@ -231,7 +231,7 @@ namespace CAA_Event_Management
                 SignOutLink.Visibility = Visibility.Visible;
 
                 //navigate to Events page
-                MyFrame.Navigate(typeof(CAAEvents), new SuppressNavigationTransitionInfo());
+                MyFrame.Navigate(typeof(CAAEvents),null, new SuppressNavigationTransitionInfo());
 
                 //if user has admin rights, show those restricted views
                 if (currentUser.isAdmin == true)

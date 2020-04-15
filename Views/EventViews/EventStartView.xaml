@@ -53,11 +53,12 @@
                        Background="#1b3e6e">
             <TextBlock Name="txtCAAEvents"
                        RelativePanel.AlignHorizontalCenterWithPanel="True"
-                       RelativePanel.AlignBottomWithPanel="True"
+                       RelativePanel.AlignTopWithPanel="True"
+                       Margin="0,5,0,0"
                        Text="Today's Events"
                        Foreground="#eaeaea"
                        FontWeight="Bold"
-                       FontSize="30"/>
+                       FontSize="28"/>
         </RelativePanel>
 
         <TextBlock x:Name="tbkEventInfo"

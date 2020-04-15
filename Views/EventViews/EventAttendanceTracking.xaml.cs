@@ -33,7 +33,6 @@ namespace CAA_Event_Management.Views.EventViews
         List<EventItemDetails> ListOfEID = new List<EventItemDetails>();
 
         private string cardInfo = "g";
-        private bool cardEnd = false;
         MemberNumberCheck MemNumCheck = new MemberNumberCheck();
 
         IAttendanceItemRepository attendanceItemRepository;

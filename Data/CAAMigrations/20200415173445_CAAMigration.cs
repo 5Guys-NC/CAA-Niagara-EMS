@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CAA_Event_Management.Data.Migrations
+namespace CAA_Event_Management.Data.CAAMigrations
 {
     public partial class CAAMigration : Migration
     {
@@ -166,7 +166,6 @@ namespace CAA_Event_Management.Data.Migrations
                     EventName = table.Column<string>(maxLength: 155, nullable: false),
                     EventStart = table.Column<DateTime>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    Keywords = table.Column<string>(nullable: true),
                     LastModifiedBy = table.Column<string>(maxLength: 256, nullable: true),
                     LastModifiedDate = table.Column<DateTime>(nullable: true),
                     MembersOnly = table.Column<bool>(nullable: false),
@@ -193,9 +192,7 @@ namespace CAA_Event_Management.Data.Migrations
                     GameID = table.Column<int>(nullable: false),
                     ImageIDs = table.Column<string>(nullable: true),
                     OptionsText = table.Column<string>(nullable: true),
-                    QuestionImageId = table.Column<string>(nullable: true),
                     QuestionText = table.Column<string>(nullable: true)
-
                 },
                 constraints: table =>
                 {

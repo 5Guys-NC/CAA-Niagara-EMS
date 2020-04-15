@@ -85,7 +85,7 @@ namespace CAA_Event_Management.Views.EventViews
                 }
             }
 
-            if(cardInfo != "g" || cardInfo.Substring(0,1) != "%" && args.KeyCode >= 48 && args.KeyCode <= 57)
+            if (cardInfo != "g" && cardInfo.Substring(0, 1) != "%" && args.KeyCode < 48 && args.KeyCode > 57)
             {
                 cardInfo = "g";
             }
@@ -133,6 +133,7 @@ namespace CAA_Event_Management.Views.EventViews
                 firstNameTextBox.Text = tracker.FirstName;
                 lastNameTextBox.Text = tracker.LastName;
                 isMembersCheck.IsChecked = true;
+                phoneNumTextBox.Text = "";
 
                 if (ListOfEID.Count == 0)
                 {
@@ -142,6 +143,7 @@ namespace CAA_Event_Management.Views.EventViews
                 }
                 else
                 {
+                    phoneNumTextBox.IsTabStop = true;
                     TextBoxUnlock();
                 }
             }
@@ -211,8 +213,8 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else
             {
-                cardInfo = "g";
                 memberNumTextBox.IsTabStop = false;
+                cardInfo = "g";
             }
         }
 

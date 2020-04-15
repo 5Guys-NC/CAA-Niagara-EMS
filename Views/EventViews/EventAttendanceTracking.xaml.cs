@@ -85,6 +85,11 @@ namespace CAA_Event_Management.Views.EventViews
                 }
             }
 
+            if(cardInfo != "g" || cardInfo.Substring(0,1) != "%" && args.KeyCode >= 48 && args.KeyCode <= 57)
+            {
+                cardInfo = "g";
+            }
+
             if (cardInfo.Length == 18 && cardInfo.Substring(0, 1) == "%" && !MemNumCheck.CheckMemberNumber(cardInfo.Substring(2)))
             {
                 cardInfo = "g";
@@ -233,15 +238,15 @@ namespace CAA_Event_Management.Views.EventViews
 
             if(tracker.FirstName == "")
             {
-                tracker.FirstName = firstNameTextBox.Text;
+                tracker.FirstName = firstNameTextBox.Text.Trim();
             }
             if(tracker.LastName == "")
             {
-                tracker.LastName = lastNameTextBox.Text;
+                tracker.LastName = lastNameTextBox.Text.Trim();
             }
             if(memberNumTextBox.Text == "")
             {
-                tracker.PhoneNo = phoneNumTextBox.Text;
+                tracker.PhoneNo = phoneNumTextBox.Text.Trim();
             }
             if (isMembersCheck.IsChecked == true) tracker.IsMember = "true";
             else tracker.IsMember = "false";

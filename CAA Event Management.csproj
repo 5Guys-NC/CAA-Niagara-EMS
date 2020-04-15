@@ -162,7 +162,6 @@
     <Compile Include="Models\QuestionTag.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\UserAccount.cs" />
-    <Compile Include="Utilities\AuditLog.cs" />
     <Compile Include="Utilities\ImageConverter.cs" />
     <Compile Include="ViewModels\AnswerPictureViewModel.cs" />
     <Compile Include="ViewModels\DataType.cs" />

@@ -46,7 +46,7 @@
                        FontWeight="Bold"
                        Margin="0,10,0,0"
                        RelativePanel.LeftOf="txtSearch"
-                       Text="Search Events:" 
+                       Text="Search Users:" 
                        Foreground="#eaeaea"/>
             <TextBox Name="txtSearch"
                      Background="White"
@@ -72,7 +72,7 @@
                         Grid.Row="1"
                         Margin="0,70,0,0"
                         HorizontalAlignment="Center"
-                        Style="{StaticResource secondaryButtonStyle}"
+                        Style="{StaticResource actionButtonStyle}"
                         Click="BtnCreate_Click"/>
 
                 <!--Sorting Tabs -->
@@ -141,6 +141,7 @@
                         </GridView.ItemTemplate>
                     </GridView>
                 </RelativePanel>
+                
             </Grid>
         </ScrollViewer>
     </Grid>

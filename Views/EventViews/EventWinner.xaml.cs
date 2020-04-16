@@ -188,23 +188,23 @@ namespace CAA_Event_Management.Views.EventViews
                 txtWinnerInfo.Text = "Winner Information:";
                 if (person.FirstName != null)
                 {
-                    if (person.FirstName != "") txtWinnerInfo.Text += Environment.NewLine + "Name: " + person.FirstName;
+                    if (person.FirstName != "") txtWinnerInfo.Text += Environment.NewLine + "   Name: " + person.FirstName;
                 }
                 if (person.LastName != null)
                 {
                     if (person.LastName != "")
                     {
                         if (txtWinnerInfo.Text.Contains("Name")) txtWinnerInfo.Text += " " + person.LastName;
-                        else txtWinnerInfo.Text += Environment.NewLine + "Last Name: " + person.LastName;
+                        else txtWinnerInfo.Text += Environment.NewLine + "   Last Name: " + person.LastName;
                     }
                 }
                 if (person.MemberNo != null)
                 {
-                    if (person.MemberNo != "") txtWinnerInfo.Text += Environment.NewLine + "CAA Number: " + person.MemberNo;
+                    if (person.MemberNo != "") txtWinnerInfo.Text += Environment.NewLine + "   CAA Number: " + person.MemberNo;
                 }
                 if (person.PhoneNo != null)
                 {
-                    if (person.PhoneNo != "") txtWinnerInfo.Text += Environment.NewLine + "Phone: " + person.PhoneNo.Substring(0, 3) + "-" + person.PhoneNo.Substring(3, 3) + "-" + person.PhoneNo.Substring(6);
+                    if (person.PhoneNo != "") txtWinnerInfo.Text += Environment.NewLine + "   Phone: " + person.PhoneNo.Substring(0, 3) + "-" + person.PhoneNo.Substring(3, 3) + "-" + person.PhoneNo.Substring(6);
                 }
 
                 FillListOfEventWinners();
@@ -439,11 +439,11 @@ namespace CAA_Event_Management.Views.EventViews
                     }
                     if (x.MemberNo != null)
                     {
-                        if (x.MemberNo != "") winnerInfo += Environment.NewLine + "CAA Number: " + x.MemberNo;
+                        if (x.MemberNo != "") winnerInfo += Environment.NewLine + "     CAA Number: " + x.MemberNo;
                     }
                     if (x.PhoneNo != null)
                     {
-                        if (x.PhoneNo != "") winnerInfo += Environment.NewLine + "Ph: " + x.PhoneNo.Substring(0, 3) + "-" + x.PhoneNo.Substring(3, 3) + "-" + x.PhoneNo.Substring(6) + "\n";
+                        if (x.PhoneNo != "") winnerInfo += Environment.NewLine + "     Ph: " + x.PhoneNo.Substring(0, 3) + "-" + x.PhoneNo.Substring(3, 3) + "-" + x.PhoneNo.Substring(6) + "\n";
                     }
                     winnerInfoList.Add(winnerInfo);
                 }

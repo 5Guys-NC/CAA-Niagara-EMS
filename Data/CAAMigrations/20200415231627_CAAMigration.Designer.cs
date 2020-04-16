@@ -8,7 +8,7 @@ using CAA_Event_Management.Data;
 namespace CAA_Event_Management.Data.CAAMigrations
 {
     [DbContext(typeof(CAAContext))]
-    [Migration("20200415173445_CAAMigration")]
+    [Migration("20200415231627_CAAMigration")]
     partial class CAAMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -264,6 +264,8 @@ namespace CAA_Event_Management.Data.CAAMigrations
                     b.Property<string>("ImageIDs");
 
                     b.Property<string>("OptionsText");
+
+                    b.Property<string>("QuestionImageId");
 
                     b.Property<string>("QuestionText");
 

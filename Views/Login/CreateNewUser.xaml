@@ -62,21 +62,55 @@
 
                     <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,15,30,0">
 
-                        <TextBox Header="First Name:" x:Name="txtFName" Margin="5,5"/>
+                        <TextBox Header="First Name:"
+                                 x:Name="txtFName"
+                                 BorderBrush="#1b3e6e" 
+                                 MinWidth="300"
+                                 Height="50"
+                                 Style="{StaticResource StandardTextBox}"
+                                 Margin="5,5"/>
 
-                        <TextBox Header="Last Name:" x:Name="txtLName" Margin="5,5"/>
+                        <TextBox Header="Last Name:"
+                                 x:Name="txtLName"
+                                 BorderBrush="#1b3e6e" 
+                                 MinWidth="300"
+                                 Height="50"
+                                 Style="{StaticResource StandardTextBox}"
+                                 Margin="5,5"/>
 
-                        <TextBox Header="User Name:" x:Name="txtUserName" Margin="5,5"/>
+                        <TextBox Header="User Name:" 
+                                 x:Name="txtUserName"
+                                 BorderBrush="#1b3e6e" 
+                                 MinWidth="300"
+                                 Height="50"
+                                 Style="{StaticResource StandardTextBox}"
+                                 Margin="5,5"/>
 
-                        <PasswordBox Header="Password:" x:Name="txtPassword" Margin="5,5"/>
+                        <PasswordBox Header="Password:"
+                                     x:Name="txtPassword"
+                                     BorderBrush="#1b3e6e" 
+                                     Width="180"   
+                                     MinWidth="300"
+                                     BorderThickness="2"
+                                     Background="White"
+                                     Height="50" 
+                                     Margin="5,5"/>
 
-                        <PasswordBox Header="Confirm Password:" x:Name="txtConfirmPassword" Margin="5,5"/>
+                        <PasswordBox Header="Confirm Password:"
+                                     x:Name="txtConfirmPassword"
+                                     BorderBrush="#1b3e6e" 
+                                     Width="180"   
+                                     MinWidth="300"
+                                     BorderThickness="2"
+                                     Background="White"
+                                     Height="50" 
+                                     Margin="5,5"/>
 
                         <CheckBox x:Name="chkAdmin" Content="Is User Admin?" HorizontalAlignment="Center" Margin="5,5"/>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="btnCreate" Content="Create" Click="BtnCreate_Click" Margin="6,6,6,6" Style="{StaticResource actionButtonStyle}" />
-                            <Button x:Name="btnCancel" Content="Cancel" Margin="0,6,6,6" Style="{StaticResource secondaryButtonStyle}" />
+                            <Button x:Name="btnCreate" Content="CREATE" Click="BtnCreate_Click" Margin="6,6,6,6" Style="{StaticResource actionButtonStyle}" />
+                            <Button x:Name="btnCancel" Content="CANCEL" Click="btnCancel_Click" Margin="0,6,6,6" Style="{StaticResource secondaryButtonStyle}" />
                         </StackPanel>
 
                     </StackPanel>

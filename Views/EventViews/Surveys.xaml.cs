@@ -401,7 +401,7 @@ namespace CAA_Event_Management.Views.EventViews
         {
             if (btnDelete.Content.ToString() == "Delete Mode (OFF)" || deleteMode == 0)
             {
-                btnDelete.Content = "Delete Mode (ON)";
+                btnDelete.Content = "DELETE MODE (ON)";
                 rpSurvey.Visibility = Visibility.Collapsed;
                 rpSurveyDeleteMode.Visibility = Visibility.Visible;
                 SolidColorBrush toRed = new SolidColorBrush(Windows.UI.Colors.Red);
@@ -412,7 +412,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else
             {
-                btnDelete.Content = "Delete Mode (OFF)";
+                btnDelete.Content = "DELETE MODE (OFF)";
                 rpSurvey.Visibility = Visibility.Visible;
                 rpSurveyDeleteMode.Visibility = Visibility.Collapsed;
                 SolidColorBrush toBlue = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 27, 62, 110));

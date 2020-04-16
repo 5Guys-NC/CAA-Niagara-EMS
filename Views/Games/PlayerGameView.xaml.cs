@@ -99,52 +99,25 @@ namespace CAA_Event_Management.Views.Games
                 QuestAnsViewModel t = new QuestAnsViewModel();
                 t.Text = options[i];
                 
-                var elementExists = images.ElementAtOrDefault(i) != null;
+                var imageElementExists = images.ElementAtOrDefault(i) != null;
+                var optionElementExists = options.ElementAtOrDefault(i) != null;
                 t.IsTrue = false;
 
-                if (elementExists && images[i] != "" && images[i] != "0")
+                if (imageElementExists && images[i] != "" && images[i] != "0")
                 {
-                    var p = new Picture();
-                    p = picRepo.GetPicture(Convert.ToInt32(images[i]));
+                    var p = picRepo.GetPicture(Convert.ToInt32(images[i]));
                     t.Image = imageConverter.ByteToImage(p.Image);
                     if (possibleAnswers.Contains(images[i])) t.IsTrue = true;
                 }
 
                 //if the correct answer is either an image or a text, sets the item to true
-                if (elementExists && possibleAnswers.Contains(options[i]))
+                if (optionElementExists && possibleAnswers.Contains(options[i]))
                     t.IsTrue = true;
 
                 display.Add(t);
             }
             gameplayView.ItemsSource = display;
         }
-
-        /// <summary>
-        /// Doesn't use this function to check answer.
-        /// Grid Items are now clickable
-        /// </summary>
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var select = ((Button)sender);
-        //    //Changes button color if selected was right or wrong
-        //    if (gameQuest[index].AnswerText.Contains(select.Content.ToString())
-        //        )
-        //    {
-        //        select.Background = new SolidColorBrush(Windows.UI.Colors.Green);
-        //        txtDisplayResult.Text = "Correct!";
-        //        resultVM.CorrectAnswerCount++;
-        //    }
-
-        //    else
-        //    {
-        //        select.Background = new SolidColorBrush(Windows.UI.Colors.Red);
-        //        txtDisplayResult.Text = "Incorrect";
-        //    }
-
-        //    NextQuestion();
-
-        //    //btnResultNext.Visibility =  Visibility.Visible;
-        //}
 
         public async void NextQuestion()
         {
@@ -163,7 +136,6 @@ namespace CAA_Event_Management.Views.Games
                 IncrementQuestion();
             }
         }
-
 
         private void btnCancelGame_Click(object sender, RoutedEventArgs e)
         {

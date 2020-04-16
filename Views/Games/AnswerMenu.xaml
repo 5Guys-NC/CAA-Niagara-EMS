@@ -197,7 +197,7 @@
 
                                 <Button Name="btnImageUpload" Content="Select Image"  Style="{StaticResource actionButtonStyle}" Click="btnImageUpload_Click"/>
                                 <TextBlock Name="txbImageFile" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
-                                <TextBlock Name="tbCreateNewGame" Text="Enter A New Question" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                <TextBlock Name="tbCreateNewGame" Text="Enter A New Answer" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                                 <TextBox Name ="txtCreateNewAnswer"  Width="360"/>
                                 <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
                                     <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource actionButtonStyle}" Margin="0,0,10,0" Tapped="BtnCreateConfirm_Tapped"/>

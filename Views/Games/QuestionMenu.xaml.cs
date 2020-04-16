@@ -34,6 +34,8 @@ namespace CAA_Event_Management.Views.Games
             questRepo = new QuestionRepository();
             gameRepo = new GameRepository();
             PopulateGameList();
+
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("GAME MENU");
         }
 
         public void PopulateGameList()

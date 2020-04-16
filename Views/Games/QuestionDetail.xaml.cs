@@ -49,6 +49,8 @@ namespace CAA_Event_Management.Views.Games
             this.InitializeComponent();
             ansRepo = new AnswerRepository();
             picRepo = new PictureRepository();
+
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("QUESTION DETAIL");
         }
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

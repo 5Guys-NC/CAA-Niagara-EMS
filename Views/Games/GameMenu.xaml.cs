@@ -47,6 +47,8 @@ namespace CAA_Event_Management.Views.Games
             view = new Question();
             gameRepo = new GameRepository();
             populateGameList();
+
+            ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("GAME MENU");
         }
 
         #endregion

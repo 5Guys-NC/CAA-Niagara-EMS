@@ -80,12 +80,6 @@
         </Grid.RowDefinitions>
 
         <RelativePanel Grid.Row="0" Background="#1b3e6e">
-            <!--<TextBlock Name="txtCAAEventDetails"
-                       Margin="130,0,0,0"
-                       Text="CAA Events"
-                       Foreground="#eaeaea"
-                       FontWeight="Bold"
-                       FontSize="30"/>-->
             <Button Name="btnBack"
                     Background="Transparent"
                     Content="Back To Events"
@@ -131,7 +125,7 @@
                        Grid.ColumnSpan="3"
                        BorderBrush="#1b3e6e" 
                        BorderThickness="3"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Left"
                        Margin="5,20,0,0"
                        Padding="10"
                        VerticalAlignment="Center">
@@ -153,7 +147,6 @@
                      Text="{x:Bind tracker.MemberNo, Mode=TwoWay}" 
                      AcceptsReturn="False"
                      RelativePanel.RightOf="memberNumTextBlock"/>
-                <!--TextChanged="cardEntryTextBox_TextChanged"/>-->
                 <TextBlock x:Name="numberError"
                        FontFamily="Segoe MDL2 Assets" 
                        FontSize="30" 
@@ -312,10 +305,9 @@
                     Canvas.ZIndex="5"
                     Content="Submit"
                     Grid.Column="1"
-                    Grid.Row="3"
-                    Width="10"
-                    HorizontalAlignment="Center"
-                    Margin="0,15,0,0"
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    Margin="200,15,0,0"
                     Style="{StaticResource actionButtonStyle}"
                     Visibility="Visible"
                     IsTabStop="False"
@@ -328,11 +320,6 @@
                           Grid.Row="1"  
                           Height="345"
                           VerticalAlignment="Top">
-
-                <!--BorderBrush="#1b3e6e" 
-                          BorderThickness="3"-->
-
-               
 
                 <StackPanel Name="spSurveyQuestions" BorderBrush="#1b3e6e" BorderThickness="3" Width="310" Margin="5,25,0,15">
 

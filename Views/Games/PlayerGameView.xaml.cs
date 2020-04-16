@@ -107,13 +107,21 @@ namespace CAA_Event_Management.Views.Games
                 {
                     var p = picRepo.GetPicture(Convert.ToInt32(images[i]));
                     t.Image = imageConverter.ByteToImage(p.Image);
-                    if (possibleAnswers.Contains(images[i])) t.IsTrue = true;
+                    foreach (var x in possibleAnswers)
+                    {
+                        if (x.Contains(images[i])) t.IsTrue = true;
+                    }
                 }
 
                 //if the correct answer is either an image or a text, sets the item to true
-                if (optionElementExists && possibleAnswers.Contains(options[i]))
-                    t.IsTrue = true;
-
+                if (optionElementExists)
+                {
+                    foreach (var x in possibleAnswers)
+                    {
+                        if (x.Contains(options[i])) t.IsTrue = true;
+                    }
+                }
+                
                 display.Add(t);
             }
             gameplayView.ItemsSource = display;

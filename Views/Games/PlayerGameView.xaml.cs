@@ -75,13 +75,11 @@ namespace CAA_Event_Management.Views.Games
         public void DisplayQuestion()
         {
             //If the question has an image with it, displays it
-            if (gameQuest[index].QuestionImageId != "0")
+            if (gameQuest[index].QuestionImageId != null && gameQuest[index].QuestionImageId != "0" && gameQuest[index].QuestionImageId != "")
             {
                 imageQuest.Source = null;
-                var p = new Picture();
-                var image = new BitmapImage();
-                p = picRepo.GetPicture(Convert.ToInt32(gameQuest[index].QuestionImageId));
-                image = imageConverter.ByteToImage(p.Image);
+                var p = picRepo.GetPicture(Convert.ToInt32(gameQuest[index].QuestionImageId));
+                var image = imageConverter.ByteToImage(p.Image);
                 imageQuest.Source = image;
             }
 
@@ -98,16 +96,20 @@ namespace CAA_Event_Management.Views.Games
                 //place them in holder and set variables 
                 QuestAnsViewModel t = new QuestAnsViewModel();
                 t.Text = options[i];
+                
+                var elementExists = images.ElementAtOrDefault(i) != null;
+                t.IsTrue = false;
 
-                if (images[i] != "0")
+                if (elementExists && images[i] != "" && images[i] != "0")
                 {
                     var p = new Picture();
                     p = picRepo.GetPicture(Convert.ToInt32(images[i]));
                     t.Image = imageConverter.ByteToImage(p.Image);
+                    if (possibleAnswers.Contains(images[i])) t.IsTrue = true;
                 }
 
                 //if the correct answer is either an image or a text, sets the item to true
-                if (possibleAnswers.Contains(options[i]) || possibleAnswers.Contains(images[i]))
+                if (elementExists && possibleAnswers.Contains(options[i]))
                     t.IsTrue = true;
 
                 display.Add(t);

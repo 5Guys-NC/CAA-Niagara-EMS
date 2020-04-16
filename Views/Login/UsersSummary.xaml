@@ -30,7 +30,7 @@
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="961" />
+                        <AdaptiveTrigger MinWindowWidth="769" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="gdvUsers.MinWidth" Value="700"/>

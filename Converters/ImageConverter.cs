@@ -10,7 +10,9 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.Storage.Streams;
 using CAA_Event_Management.Models;
 using Windows.Storage;
-
+/******************************
+*  Model Created By: Max Cashmore
+*******************************/
 namespace CAA_Event_Management.Converters
 {
     public class ImageConverter

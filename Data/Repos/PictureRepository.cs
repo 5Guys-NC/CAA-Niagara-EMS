@@ -1,7 +1,9 @@
 ﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
 using System.Linq;
-
+/******************************
+*  Model Created By: Max Cashmore
+*******************************/
 namespace CAA_Event_Management.Data
 {
     public class PictureRepository : IPictureRepository

@@ -1,5 +1,7 @@
 ﻿using CAA_Event_Management.Models;
-
+/******************************
+*  Model Created By: Max Cashmore
+*******************************/
 namespace CAA_Event_Management.ViewModels
 {
     public class ResultsViewModel

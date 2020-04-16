@@ -28,6 +28,8 @@ using CAA_Event_Management.Converters;
 *******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
+//Created by: Max Cashmore
 namespace CAA_Event_Management.Views.Games
 {
     /// <summary>
@@ -325,6 +327,20 @@ namespace CAA_Event_Management.Views.Games
 
             UpdateChanges();
             Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
+        }
+
+
+        private async void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            var result = await Jeeves.ConfirmDialog("Warning", "Are you sure you want to delete?");
+
+            if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
+            {
+                var index = Convert.ToInt32(((Button)sender).DataContext);
+                display.RemoveAt(index);
+                UpdateChanges();
+                Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
+            }
         }
     }
 }

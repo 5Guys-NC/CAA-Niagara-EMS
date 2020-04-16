@@ -77,6 +77,8 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            
+            //FlyDelete.Hide();
             //Flyout FlyDelete = new Flyout();
             //FlyDelete.Hide();
         }
@@ -129,6 +131,25 @@ namespace CAA_Event_Management.Views.Games
         private void btnAnswer_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(AnswerMenu), null, new SuppressNavigationTransitionInfo());
+        }
+
+        private void FlyDelete_Closed(object sender, object e)
+        {
+            
+        }
+
+        private async void btnRemove_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var result = await Jeeves.ConfirmDialog("Warning", "Are you sure you want to delete?");
+
+            if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
+            {
+                int selected = Convert.ToInt32(((Button)sender).DataContext);
+                Game game = new Game();
+                game = gameRepo.GetGame(selected);
+                gameRepo.RemoveGame(game);
+                Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
+            }
         }
     }
 }

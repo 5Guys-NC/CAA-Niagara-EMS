@@ -31,7 +31,7 @@
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="961" />
+                        <AdaptiveTrigger MinWindowWidth="769" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                     </VisualState.Setters>
@@ -185,22 +185,9 @@
                                             FontFamily="Segoe MDL2 Assets" 
                                             FontSize="20"
                                             Foreground="Red" Content="&#xE74D;" 
-                                            Style="{StaticResource AddRemoveStyle}">
-                                        <Button.Flyout>
-                                            <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">
-                                                <Flyout.FlyoutPresenterStyle>
-                                                    <Style TargetType="FlyoutPresenter"/>
-                                                </Flyout.FlyoutPresenterStyle>
-                                                <StackPanel>
-                                                    <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
-                                                    <StackPanel Name="spAddRemove" Orientation="Horizontal">
-                                                        <Button Name="btnConfirmRemove" Style="{StaticResource actionButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
-                                                        <Button Name="btnCancel" Style="{StaticResource secondaryButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Flyout>
-                                        </Button.Flyout>
-                                    </Button>
+                                            Style="{StaticResource AddRemoveStyle}"
+                                            Tapped="btnRemove_Tapped"/>
+
                                 </RelativePanel>
                             </DataTemplate>
                         </GridView.ItemTemplate>

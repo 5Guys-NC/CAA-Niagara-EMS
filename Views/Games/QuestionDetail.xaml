@@ -119,19 +119,19 @@
                                                  Height="35"
                                                  Width="180"/>
                                         <Image Source="{Binding Image}" Height="60" Width="60"/>
-                                        <!--<CheckBox IsChecked="{x:Bind IsCorrect, Mode=TwoWay}" Margin="0,0,-80,0"/>
-                                    <TextBox Text="{x:Bind Phrase, Mode=TwoWay}" Width="260" 
-                                     FontSize="18"/>-->
-                                        <!--<Button Name="btnRemove" 
-                                            Background="#f8bf38"
-                                            DataContext="{Binding ID}" 
-                                            FontFamily="Segoe MDL2 Assets" 
-                                            FontSize="26"
-                                            Content="&#xE738;" 
-                                            Foreground="Red" 
-                                            Margin="0,0,30,0" 
-                                            Style="{StaticResource AddRemoveStyle}" 
-                                            Tapped="btnRemove_Tapped"/>-->
+                                        <Button Name="btnRemove" 
+                                        Background="#eaeaea" 
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.AlignTopWithPanel="True"
+                                        VerticalAlignment="Top"  
+                                        DataContext="{Binding ID}" 
+                                        FontFamily="Segoe MDL2 Assets" 
+                                        FontSize="20"
+                                        Foreground="Red" 
+                                        Content="&#xE74D;" 
+                                        Style="{StaticResource AddRemoveStyle}"
+                                                Click="btnRemove_Click"/>
+
                                     </StackPanel>
                                 </DataTemplate>
                             </GridView.ItemTemplate>

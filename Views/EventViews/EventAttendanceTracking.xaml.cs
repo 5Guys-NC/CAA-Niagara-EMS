@@ -60,6 +60,11 @@ namespace CAA_Event_Management.Views.EventViews
             BuildQuestions();
             ShowLastSwipeInfo();
             Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
+
+            if(questionCount==0)
+            {
+                spSurveyQuestions.Visibility = Visibility.Collapsed;
+            }
         }
 
         /// <summary>
@@ -84,7 +89,7 @@ namespace CAA_Event_Management.Views.EventViews
                 if (cardInfo == "g") cardInfo = Convert.ToChar(args.KeyCode).ToString();
                 else cardInfo += Convert.ToChar(args.KeyCode).ToString();
                 if (cardInfo.Length == 16)
-                {  
+                {
                     if (MemNumCheck.CheckMemberNumber(cardInfo)) SaveScannedCardNumber();
                     else cardInfo = "g";
                 }
@@ -145,7 +150,7 @@ namespace CAA_Event_Management.Views.EventViews
             App userCheck = (App)Application.Current;
 
             ((Window.Current.Content as Frame).Content as MainPage).ShowTheLoginButton();
-            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView),new SuppressNavigationTransitionInfo());
+            if (userCheck.userIsLogIn == false) Frame.Navigate(typeof(EventStartView), new SuppressNavigationTransitionInfo());
             else Frame.Navigate(typeof(CAAEvents), new SuppressNavigationTransitionInfo());
         }
 
@@ -248,15 +253,15 @@ namespace CAA_Event_Management.Views.EventViews
                 return false;
             }
 
-            if(tracker.FirstName == "")
+            if (tracker.FirstName == "")
             {
                 tracker.FirstName = firstNameTextBox.Text.Trim();
             }
-            if(tracker.LastName == "")
+            if (tracker.LastName == "")
             {
                 tracker.LastName = lastNameTextBox.Text.Trim();
             }
-            if(memberNumTextBox.Text == "")
+            if (memberNumTextBox.Text == "")
             {
                 tracker.PhoneNo = phoneNumTextBox.Text.Trim();
             }
@@ -511,7 +516,7 @@ namespace CAA_Event_Management.Views.EventViews
         {
             if (count == 1)
             {
-                rpQuestionOne.Visibility = Visibility;
+                tbkQuestionOne.Visibility = Visibility;
                 tbkQuestionOne.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -545,7 +550,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 2)
             {
-                rpQuestionTwo.Visibility = Visibility;
+                tbkQuestionTwo.Visibility = Visibility;
                 tbkQuestionTwo.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -579,7 +584,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 3)
             {
-                rpQuestionThree.Visibility = Visibility;
+                tbkQuestionThree.Visibility = Visibility;
                 tbkQuestionThree.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -613,7 +618,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 4)
             {
-                rpQuestionFour.Visibility = Visibility;
+                tbkQuestionFour.Visibility = Visibility;
                 tbkQuestionFour.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -623,7 +628,7 @@ namespace CAA_Event_Management.Views.EventViews
                 {
                     dprAnswerFour.Visibility = Visibility;
                 }
-                else 
+                else
                 {
                     //Inputscope code comes from https://docs.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.textbox.inputscope
                     txtAnswerFour.Visibility = Visibility;
@@ -647,7 +652,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 5)
             {
-                rpQuestionFive.Visibility = Visibility;
+                tbkQuestionFive.Visibility = Visibility;
                 tbkQuestionFive.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -681,7 +686,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 6)
             {
-                rpQuestionSix.Visibility = Visibility;
+                tbkQuestionSix.Visibility = Visibility;
                 tbkQuestionSix.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -715,7 +720,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 7)
             {
-                rpQuestionSeven.Visibility = Visibility;
+                tbkQuestionSeven.Visibility = Visibility;
                 tbkQuestionSeven.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -749,7 +754,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 8)
             {
-                rpQuestionEight.Visibility = Visibility;
+                tbkQuestionEight.Visibility = Visibility;
                 tbkQuestionEight.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -783,7 +788,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 9)
             {
-                rpQuestionNine.Visibility = Visibility;
+                tbkQuestionNine.Visibility = Visibility;
                 tbkQuestionNine.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -817,7 +822,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 10)
             {
-                rpQuestionTen.Visibility = Visibility;
+                tbkQuestionTen.Visibility = Visibility;
                 tbkQuestionTen.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -910,7 +915,7 @@ namespace CAA_Event_Management.Views.EventViews
             var lastSwipe = attendanceTrackingRepository.GetLastAttendanceTrackingByEvent(currentEvent.EventID);
             string personInfo = "";
 
-            if(lastSwipe == null)
+            if (lastSwipe == null)
             {
                 tbkLastSwipe.Text = "Last Entry: no available data";
             }

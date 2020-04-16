@@ -12,7 +12,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
-
+/******************************
+*  Model Created By: Max Cashmore
+*******************************/
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace CAA_Event_Management.Views.Games
@@ -163,6 +165,20 @@ namespace CAA_Event_Management.Views.Games
             btnCreateNewAnswer.Flyout.ShowAt(btnCreateNewAnswer);
             //with file name to confirm selection
             txbImageFile.Text = file.Name;
+        }
+
+        private async void btnRemove_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var result = await Jeeves.ConfirmDialog("Warning", "Are you sure you want to delete?");
+
+            if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
+            {
+                int selected = Convert.ToInt32(((Button)sender).DataContext);
+                Answer answer = new Answer();
+                answer = answerRepo.GetAnswer(selected);
+                answerRepo.RemoveAnswer(answer);
+                Frame.Navigate(typeof(AnswerMenu), null, new SuppressNavigationTransitionInfo());
+            }
         }
     }
 }

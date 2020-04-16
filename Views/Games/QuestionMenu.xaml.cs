@@ -15,6 +15,10 @@ using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using Windows.UI.Xaml.Media.Animation;
+using System.Threading.Tasks;
+/******************************
+*  Model Created By: Max Cashmore
+*******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -84,12 +88,25 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
+            int selected = Convert.ToInt32(((Button)sender).DataContext);
+            Question question = new Question();
+            question = questRepo.GetQuestion(selected);
+            questRepo.RemoveQuestion(question);
+            Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
         }
 
-        private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void btnRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            var result = await Jeeves.ConfirmDialog("Warning", "Are you sure you want to delete?");
 
+            if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
+            {
+                int selected = Convert.ToInt32(((Button)sender).DataContext);
+                Question question = new Question();
+                question = questRepo.GetQuestion(selected);
+                questRepo.RemoveQuestion(question);
+                Frame.Navigate(typeof(QuestionMenu), null, new SuppressNavigationTransitionInfo());
+            }
         }
     }
 }

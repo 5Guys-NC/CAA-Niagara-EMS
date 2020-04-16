@@ -21,6 +21,15 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        public Question GetQuestion(int id)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                var items = context.Questions.Where(q=>q.ID == id).FirstOrDefault();
+                return items;
+            }
+        }
+
         public List<GameModel> GetModelQuestions(int ID)
         {
             using (CAAContext context = new CAAContext())
@@ -62,6 +71,15 @@ namespace CAA_Event_Management.Data
             using (CAAContext context = new CAAContext())
             {
                 context.GameModels.Remove(toRemove);
+                context.SaveChanges();
+            }
+        }
+
+        public void RemoveQuestion(Question toRemove)
+        {
+            using (CAAContext context = new CAAContext())
+            {
+                context.Questions.Remove(toRemove);
                 context.SaveChanges();
             }
         }

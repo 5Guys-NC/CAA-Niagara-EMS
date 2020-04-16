@@ -17,7 +17,9 @@ using System.Threading.Tasks;
 using CAA_Event_Management.Views.EventViews;
 using System.Threading;
 using Windows.UI.Xaml.Media.Animation;
-
+/******************************
+*  Model Created By: Max Cashmore
+*******************************/
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace CAA_Event_Management.Views.Games

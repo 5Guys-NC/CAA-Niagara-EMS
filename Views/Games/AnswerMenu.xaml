@@ -158,21 +158,47 @@
                         </GridView.ItemsPanel>
                         <GridView.ItemTemplate>
                             <DataTemplate >
-                                <RelativePanel Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="100" Margin="10">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Name ="txtGameTitle" Text="{Binding Text}" 
+                                <RelativePanel Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
+                                    <TextBlock Name ="txtGameTitle" Text="{Binding Text}" 
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                                            RelativePanel.AlignVerticalCenterWithPanel="True"
                                            FontSize="24"
                                            FontWeight="ExtraBold"
                                            Foreground="#1b3e6e"/>
-                                        <Image Source="{Binding Image}"
+                                    <Image Source="{Binding Image}"
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                                            RelativePanel.AlignVerticalCenterWithPanel="True" 
-                                           Height="120" Width="120"
+                                           Height="90" Width="90"
                                            Stretch="UniformToFill"
+                                               HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
                                            />
-                                    </StackPanel>
+                                    <Button Name="btnRemove" 
+                                        Background="#eaeaea" 
+                                        RelativePanel.AlignRightWithPanel="True"
+                                        RelativePanel.AlignTopWithPanel="True"
+                                        VerticalAlignment="Top"  
+                                        DataContext="{Binding ID}" 
+                                        FontFamily="Segoe MDL2 Assets" 
+                                        FontSize="20"
+                                        Foreground="Red" 
+                                        Content="&#xE74D;" 
+                                        Style="{StaticResource AddRemoveStyle}">
+                                        <Button.Flyout>
+                                            <Flyout x:Name="FlyDelete"  LightDismissOverlayMode="On" Placement="Top">
+                                                <Flyout.FlyoutPresenterStyle>
+                                                    <Style TargetType="FlyoutPresenter"/>
+                                                </Flyout.FlyoutPresenterStyle>
+                                                <StackPanel>
+                                                    <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10" Text="Are you sure you want to delete the game?"/>
+                                                    <StackPanel Name="spAddRemove" Orientation="Horizontal">
+                                                        <Button Name="btnConfirmRemove" Style="{StaticResource actionButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
+                                                        <Button Name="btnCancel" Style="{StaticResource secondaryButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Flyout>
+                                        </Button.Flyout>
+                                    </Button>
                                 </RelativePanel>
 
                             </DataTemplate>

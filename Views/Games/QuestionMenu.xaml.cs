@@ -15,6 +15,9 @@ using Windows.UI.Xaml.Navigation;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Data;
 using Windows.UI.Xaml.Media.Animation;
+/******************************
+*  Model Created By: Max Cashmore
+*******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -82,7 +85,11 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
         {
-
+            int selected = Convert.ToInt32(((Button)sender).DataContext);
+            Question question = new Question();
+            question = questRepo.GetQuestion(selected);
+            questRepo.RemoveQuestion(question);
+            Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
         }
 
         private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)

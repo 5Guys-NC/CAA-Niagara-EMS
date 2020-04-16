@@ -159,6 +159,7 @@ namespace CAA_Event_Management.Utilities
                             OptionsText = "Harvey's|Kelsey's|Montana's|All of the Above",
                             AnswerText = "All of the Above",
                             ImageIDs ="",
+                            QuestionImageId="",
                             GameID = 1
                         },
                         new GameModel
@@ -167,6 +168,7 @@ namespace CAA_Event_Management.Utilities
                             OptionsText = "True|False",
                             AnswerText = "True",
                             ImageIDs = "",
+                            QuestionImageId = "",
                             GameID = 1
                         },
                         new GameModel
@@ -175,6 +177,7 @@ namespace CAA_Event_Management.Utilities
                             OptionsText = "True|False",
                             AnswerText = "True",
                             ImageIDs = "",
+                            QuestionImageId = "",
                             GameID = 2
                         }
                     );

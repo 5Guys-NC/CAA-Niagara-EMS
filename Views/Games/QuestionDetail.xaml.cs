@@ -28,6 +28,8 @@ using CAA_Event_Management.Converters;
 *******************************/
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+
+//Created by: Max Cashmore
 namespace CAA_Event_Management.Views.Games
 {
     /// <summary>
@@ -323,6 +325,19 @@ namespace CAA_Event_Management.Views.Games
 
             UpdateChanges();
             Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
+        }
+
+        private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var index = Convert.ToInt32(((Button)sender).DataContext);
+            display.RemoveAt(index);
+            UpdateChanges();
+            Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
+        }
+
+        private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
         }
     }
 }

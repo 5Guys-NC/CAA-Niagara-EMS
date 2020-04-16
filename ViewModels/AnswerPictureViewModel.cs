@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-
+/******************************
+*  Model Created By: Max Cashmore
+*******************************/
 namespace CAA_Event_Management.ViewModels
 {
     /// <summary>

@@ -165,7 +165,8 @@
                                            RelativePanel.AlignVerticalCenterWithPanel="True"
                                            FontSize="24"
                                            FontWeight="ExtraBold"
-                                           Foreground="#1b3e6e"/>
+                                           Foreground="#1b3e6e"
+                                           VerticalAlignment="Center"/>
                                         <Image Source="{Binding Image}"
                                            RelativePanel.AlignHorizontalCenterWithPanel="True"
                                            RelativePanel.AlignVerticalCenterWithPanel="True" 

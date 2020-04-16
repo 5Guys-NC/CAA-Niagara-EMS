@@ -22,6 +22,7 @@
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
         <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="#1b3e6e"/>
         <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillUnchecked" Color="White"/>
+        <SolidColorBrush x:Key="DatePickerButtonBackground" Color="White"/>
     </Page.Resources>
 
     <Grid>
@@ -36,7 +37,7 @@
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="650"/>
+                        <AdaptiveTrigger MinWindowWidth="769"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <!--rpFirstName Changes-->
@@ -60,7 +61,8 @@
                         <Setter Target="rpMemberCheck.HorizontalAlignment" Value="Left"/>
                         <!--Other Changes-->
                         <Setter Target="tbkLastSwipe.Margin" Value="30,30,0,0"/>
-                        <Setter Target="svSurvey.MaxHeight" Value="180"/>
+                        <Setter Target="btnSubmit.Margin" Value="0,25,0,0"/>
+                        <Setter Target="svSurvey.Height" Value="180"/>
                         <!--Border Settings-->
                         <Setter Target="rpFirstName.BorderThickness" Value="3,3,0,0"/>
                         <Setter Target="rpLastName.BorderThickness" Value="0,3,3,0"/>
@@ -286,7 +288,8 @@
                        FontSize="15"
                        FontWeight="Bold"
                        Grid.ColumnSpan="2"
-                       Margin="30,00,0,0"
+                       HorizontalAlignment="Center"
+                       Margin="30,10,0,0"
                        Text="Last Entry:"
                        Grid.Row="6"
                        TextWrapping="WrapWholeWords"/>
@@ -323,7 +326,7 @@
             <ScrollViewer Name="svSurvey"
                           Grid.Column="1" 
                           Grid.Row="1"  
-                          MaxHeight="400" 
+                          Height="345"
                           VerticalAlignment="Top">
 
                 <!--BorderBrush="#1b3e6e" 

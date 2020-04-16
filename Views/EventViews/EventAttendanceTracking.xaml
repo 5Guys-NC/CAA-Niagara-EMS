@@ -302,13 +302,18 @@
             </Grid.ColumnDefinitions>
 
             <Button x:Name="btnSubmit"
+                    Background="#9ab33b"
                     Canvas.ZIndex="5"
-                    Content="Submit"
+                    Content="SUBMIT"
+                    Foreground="#eaeaea"
+                    FontSize="16"
+                    FontWeight="Bold"
                     Grid.Column="1"
                     Grid.Row="0"
+                    Height="60"
                     HorizontalAlignment="Left"
-                    Margin="200,15,0,0"
-                    Style="{StaticResource actionButtonStyle}"
+                    Margin="200,20,0,0"
+
                     Visibility="Visible"
                     IsTabStop="False"
                     VerticalAlignment="Top"

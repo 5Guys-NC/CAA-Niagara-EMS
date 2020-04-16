@@ -132,8 +132,8 @@
     </Compile>
     <Compile Include="Converters\DateTimeToOffsetConverter.cs" />
     <Compile Include="Data\CAAContext.cs" />
-    <Compile Include="Data\CAAMigrations\20200415173445_CAAMigration.cs" />
-    <Compile Include="Data\CAAMigrations\20200415173445_CAAMigration.Designer.cs" />
+    <Compile Include="Data\CAAMigrations\20200415231627_CAAMigration.cs" />
+    <Compile Include="Data\CAAMigrations\20200415231627_CAAMigration.Designer.cs" />
     <Compile Include="Data\CAAMigrations\CAAContextModelSnapshot.cs" />
     <Compile Include="Data\Interface Repos\IEventGameUserAnswerRepository.cs" />
     <Compile Include="Data\Interface Repos\IModelAuditLineRepository.cs" />

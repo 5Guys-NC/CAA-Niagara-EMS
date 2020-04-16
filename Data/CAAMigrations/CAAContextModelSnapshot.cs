@@ -264,6 +264,8 @@ namespace CAA_Event_Management.Data.CAAMigrations
 
                     b.Property<string>("OptionsText");
 
+                    b.Property<string>("QuestionImageId");
+
                     b.Property<string>("QuestionText");
 
                     b.HasKey("ID");

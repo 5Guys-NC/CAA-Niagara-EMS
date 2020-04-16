@@ -511,7 +511,7 @@ namespace CAA_Event_Management.Views.EventViews
         {
             if (count == 1)
             {
-                rpQuestionOne.Visibility = Visibility;
+                tbkQuestionOne.Visibility = Visibility;
                 tbkQuestionOne.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -545,7 +545,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 2)
             {
-                rpQuestionTwo.Visibility = Visibility;
+                tbkQuestionTwo.Visibility = Visibility;
                 tbkQuestionTwo.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -579,7 +579,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 3)
             {
-                rpQuestionThree.Visibility = Visibility;
+                tbkQuestionThree.Visibility = Visibility;
                 tbkQuestionThree.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -613,7 +613,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 4)
             {
-                rpQuestionFour.Visibility = Visibility;
+                tbkQuestionFour.Visibility = Visibility;
                 tbkQuestionFour.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -647,7 +647,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 5)
             {
-                rpQuestionFive.Visibility = Visibility;
+                tbkQuestionFive.Visibility = Visibility;
                 tbkQuestionFive.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -681,7 +681,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 6)
             {
-                rpQuestionSix.Visibility = Visibility;
+                tbkQuestionSix.Visibility = Visibility;
                 tbkQuestionSix.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -715,7 +715,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 7)
             {
-                rpQuestionSeven.Visibility = Visibility;
+                tbkQuestionSeven.Visibility = Visibility;
                 tbkQuestionSeven.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -749,7 +749,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 8)
             {
-                rpQuestionEight.Visibility = Visibility;
+                tbkQuestionEight.Visibility = Visibility;
                 tbkQuestionEight.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -783,7 +783,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 9)
             {
-                rpQuestionNine.Visibility = Visibility;
+                tbkQuestionNine.Visibility = Visibility;
                 tbkQuestionNine.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {
@@ -817,7 +817,7 @@ namespace CAA_Event_Management.Views.EventViews
             }
             else if (count == 10)
             {
-                rpQuestionTen.Visibility = Visibility;
+                tbkQuestionTen.Visibility = Visibility;
                 tbkQuestionTen.Text = question.questPhrase;
                 if (question.questDataType.Contains("Yes"))
                 {

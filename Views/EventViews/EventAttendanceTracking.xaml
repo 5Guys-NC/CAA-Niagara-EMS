@@ -7,19 +7,21 @@
     xmlns:Converters="using:CAA_Event_Management.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:windowsStateTriggers="using:WindowsStateTriggers"
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundColor}"
     FontFamily="{ThemeResource ContentControlThemeFontFamily}">
-    
+
     <!--**************************
         Design work: Nathan Smith 60%
-        Extra work by: JOn Yade 40%
+        Extra work by: Jon Yade 40%
     ************************-->
 
     <Page.Resources>
         <Converters:DateTimeToOffsetConverter x:Key="DateTimeToOffsetConverter"/>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
         <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillChecked" Color="#1b3e6e"/>
+        <SolidColorBrush x:Key="CheckBoxCheckBackgroundFillUnchecked" Color="White"/>
     </Page.Resources>
 
     <Grid>
@@ -30,15 +32,40 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="btnCancel.Margin" Value="45,7,0,0" />
-                        <!--<Setter Target="btnSave.Margin" Value="80,60,10,0"/>-->
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="961" />
+                        <AdaptiveTrigger MinWindowWidth="650"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <!--rpFirstName Changes-->
+                        <Setter Target ="rpFirstName.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="rpFirstName.Padding" Value="20,0,20,0"/>
+                        <!--rpLastName Changes-->
+                        <Setter Target="rpLastName.(Grid.Column)" Value="1"/>
+                        <Setter Target="rpLastName.(Grid.Row)" Value="2"/>
+                        <Setter Target="rpLastName.HorizontalAlignment" Value="Right"/>
+                        <Setter Target="rpLastName.Margin" Value="-10,30,0,0"/>
+                        <Setter Target="rpLastName.Padding" Value="20,0,20,0"/>
+                        <!--rpPhone Changes-->
+                        <Setter Target="rpPhone.Padding" Value="20,10,20,29"/>
+                        <Setter Target="rpPhone.(Grid.Row)" Value="3"/>
+                        <Setter Target="rpPhone.HorizontalAlignment" Value="Right"/>
+                        <!--rpMemberCheck Changes-->
+                        <Setter Target="rpMemberCheck.(Grid.Column)" Value="1"/>
+                        <Setter Target="rpMemberCheck.(Grid.Row)" Value="3"/>
+                        <Setter Target="rpMemberCheck.Margin" Value="0,0,0,0"/>
+                        <Setter Target="rpMemberCheck.Padding" Value="-10,10,20,5"/>
+                        <Setter Target="rpMemberCheck.HorizontalAlignment" Value="Left"/>
+                        <!--Other Changes-->
+                        <Setter Target="tbkLastSwipe.Margin" Value="30,30,0,0"/>
+                        <Setter Target="svSurvey.MaxHeight" Value="180"/>
+                        <!--Border Settings-->
+                        <Setter Target="rpFirstName.BorderThickness" Value="3,3,0,0"/>
+                        <Setter Target="rpLastName.BorderThickness" Value="0,3,3,0"/>
+                        <Setter Target="rpPhone.BorderThickness" Value="3,0,0,3"/>
+                        <Setter Target="rpMemberCheck.BorderThickness" Value="0,0,3,3"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -78,676 +105,576 @@
                     </ResourceDictionary>
                 </Button.Resources>
             </Button>
-
         </RelativePanel>
 
-        <Grid x:Name="LayoutRoot" 
-              Margin="15,0,0,0"
-              Grid.Row="1">
+        <Grid x:Name="LayoutRoot"
+              Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <!--ContentPanel - place additional content here-->
-            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,30,10,0">
-                <Grid Name="attendanceDisplayGrid">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
 
-                    <RelativePanel Grid.Row="0"  
-                                   BorderBrush="#1b3e6e" 
-                                   BorderThickness="3"
-                                   HorizontalAlignment="Center"
-                                   Padding="20"
-                                   VerticalAlignment="Center">
-                        <TextBlock Name="memberNumTextBlock"
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Left" 
-                                   Margin="0,0,10,0"
-                                   Padding="5"
-                                   VerticalAlignment="Center"
-                                   Text="Member Number:" />
-                        <TextBox Name="memberNumTextBox" 
-                                 BorderBrush="#1b3e6e"
-                                 InputScope="Number"
-                                 Margin="0,0,10,0"
-                                 MaxLength="170" 
-                                 MinWidth="200"
-                                 Style="{StaticResource StandardTextBox}"
-                                 Text="{x:Bind tracker.MemberNo, Mode=TwoWay}" 
-                                 AcceptsReturn="False"
+            <RelativePanel Grid.Row="1"  
+                       Grid.ColumnSpan="3"
+                       BorderBrush="#1b3e6e" 
+                       BorderThickness="3"
+                       HorizontalAlignment="Center"
+                       Margin="5,20,0,0"
+                       Padding="10"
+                       VerticalAlignment="Center">
+                <TextBlock Name="memberNumTextBlock"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Left" 
+                       Margin="0,0,10,0"
+                       Padding="5"
+                       VerticalAlignment="Center"
+                       Text="CAA Number:" />
+                <TextBox Name="memberNumTextBox" 
+                     BorderBrush="#1b3e6e"
+                     InputScope="Number"
+                     Margin="0,0,10,0"
+                     MaxLength="170" 
+                     MinWidth="200"
+                     Style="{StaticResource StandardTextBox}"
+                     Text="{x:Bind tracker.MemberNo, Mode=TwoWay}" 
+                     AcceptsReturn="False"
+                     RelativePanel.RightOf="memberNumTextBlock"/>
+                <!--TextChanged="cardEntryTextBox_TextChanged"/>-->
+                <TextBlock x:Name="numberError"
+                       FontFamily="Segoe MDL2 Assets" 
+                       FontSize="30" 
+                       Text="&#xEF2C;"
+                       RelativePanel.RightOf="memberNumTextBox"
+                       Foreground="Red"
+                       Margin="10,0,0,0"
+                       Visibility="Collapsed"/>
+            </RelativePanel>
 
-                                 RelativePanel.RightOf="memberNumTextBlock"/>
-                        <!--TextChanged="cardEntryTextBox_TextChanged"/>-->
-                        <TextBlock x:Name="numberError"
-                                   FontFamily="Segoe MDL2 Assets" 
-                                   FontSize="30" 
-                                   Text="&#xEF2C;"
-                                   RelativePanel.RightOf="memberNumTextBox"
-                                   Foreground="Red"
-                                   Margin="10,0,0,0"
-                                   Visibility="Collapsed"/>
-                    </RelativePanel>
-                    <!--TextCompositionEnded="memberNumTextBox_TextCompositionEnded"-->
-                    <RelativePanel Grid.Row="1"
-                                   Padding="20" 
-                                   BorderBrush="#1b3e6e" 
-                                   BorderThickness="3,3,3,0"
-                                   Margin="0,50,0,0"
-                                   VerticalAlignment="Center">
-                        <TextBlock HorizontalAlignment="Left"  
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   Margin="0,0,10,0"
-                                   Padding="5"
-                                   VerticalAlignment="Center"  
-                                   Name="firstNameTextBlock" 
-                                   Text="First Name:" />
-                        <TextBox Name="firstNameTextBox"
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"
-                                 Height="32"
-                                 MaxLength="50"
-                                 MinWidth="240"
-                                 RelativePanel.RightOf="firstNameTextBlock"
-                                 Style ="{StaticResource StandardTextBox}"
+            <RelativePanel Name="rpFirstName" 
+                       Grid.Row="2"
+                       Padding="20,10,20,0" 
+                       BorderBrush="#1b3e6e" 
+                       BorderThickness="3,3,3,0"
+                       HorizontalAlignment="Center"
+                       Margin="10,30,0,0"
+                       VerticalAlignment="Top">
+                <TextBlock Name="firstNameTextBlock" 
+                       HorizontalAlignment="Left"  
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Margin="0,0,10,0"
+                       Padding="5"
+                       VerticalAlignment="Top"  
+                       Text="First Name:" />
+                <TextBox Name="firstNameTextBox"
+                     BorderBrush="#1b3e6e"
+                     BorderThickness="2"
+                     Height="32"
+                     MaxLength="50"
+                     Margin="0,0,0,0"
+                     Width="110"
+                     RelativePanel.Below="firstNameTextBlock"
+                     Style ="{StaticResource StandardTextBox}"
+                     Text="{x:Bind tracker.FirstName, Mode=TwoWay}" 
+                     AcceptsReturn="True"  
+                     InputScope="Chat"/>
+            </RelativePanel>
 
-                                 Text="{x:Bind tracker.FirstName, Mode=TwoWay}" 
-                                 AcceptsReturn="True"  
-                                 InputScope="Chat"/>
-                    </RelativePanel>
+            <RelativePanel Name="rpLastName"
+                           Grid.Row="3"
+                           HorizontalAlignment="Center"
+                           Margin="10,0,0,0"
+                           Padding="20,5,20,0"                                    
+                           BorderBrush="#1b3e6e" 
+                           BorderThickness="3,0,3,0"
+                           VerticalAlignment="Top">
+                <TextBlock Name="lastNameBlock" 
+                           HorizontalAlignment="Left" 
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Margin="0,0,10,0"
+                           Padding="5"
+                           VerticalAlignment="Center" 
+                           Text="Last Name:" />
+                <TextBox Name="lastNameTextBox" 
+                         BorderBrush="#1b3e6e"
+                         BorderThickness="2"
+                         Grid.Row="2" 
+                         Grid.Column="1" 
+                         Height="32"
+                         InputScope="Chat"
+                         MaxLength="50"  
+                         Width="110"
+                         RelativePanel.Below="lastNameBlock"
+                         Style="{StaticResource StandardTextBox}"
+                         Text="{x:Bind tracker.LastName, Mode=TwoWay}" 
+                         AcceptsReturn="False"/>
+            </RelativePanel>
 
-                    <RelativePanel Grid.Row="2" 
-                                   Padding="20,20"                                    
-                                   BorderBrush="#1b3e6e" 
-                                   BorderThickness="3,0,3,0">
-                    <TextBlock HorizontalAlignment="Left" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   Margin="0,0,10,0"
-                                   Padding="5"
-                                   VerticalAlignment="Center" 
-                                   Name="lastNameBlock" 
-                                   Text="Last Name:" />
-                        <TextBox Name="lastNameTextBox" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"
-                                 Grid.Row="2" 
-                                 Grid.Column="1" 
-                                 Height="32"
-                                 InputScope="Chat"
-                                 MaxLength="50"  
-                                 MinWidth="240"
-                                 RelativePanel.RightOf="lastNameBlock"
+            <RelativePanel Name="rpPhone"
+                           Grid.Row="4" 
+                           Padding="20,5,20,0" 
+                           BorderBrush="#1b3e6e" 
+                           BorderThickness="3,0,3,0" 
+                           HorizontalAlignment="Center"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Top">
+                <TextBlock Margin="0,0,10,0"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Padding="5"
+                           VerticalAlignment="Center" 
+                           Name="phoneNumBlock" 
+                           Text="Phone:" />
+                <TextBox BorderBrush="#1b3e6e"
+                         BorderThickness="2"
+                         Height="32"
+                         InputScope="Number"
+                         Name="phoneNumTextBox" 
+                         MaxLength="50" 
+                         Width="110"
+                         RelativePanel.Below="phoneNumBlock"
+                         Style="{StaticResource StandardTextBox}"
+                         Text="{x:Bind  tracker.PhoneNo, Mode=TwoWay}" 
+                         AcceptsReturn="False" />
+            </RelativePanel>
 
-                                 Style="{StaticResource StandardTextBox}"
-                                 Text="{x:Bind tracker.LastName, Mode=TwoWay}" 
-                                 AcceptsReturn="False"/>
-                    </RelativePanel>
+            <RelativePanel Name="rpMemberCheck"
+                           Grid.Row="5" 
+                           HorizontalAlignment="Center" 
+                           Margin="10,0,0,10"
+                           Padding="10"
+                           BorderBrush="#1b3e6e" 
+                           BorderThickness="3,0,3,3"
+                           VerticalAlignment="Top">
+                <TextBlock Text="CAA Member?     "
+                           FontSize="16"            
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="10,0,0,0"
+                           VerticalAlignment="Center" 
+                           Name="isMembersBlock" />
+                <CheckBox x:Name="isMembersCheck" 
+                          Content="Yes"
+                          FontSize="16"
+                          IsTabStop="False"
+                          Margin="10,0,0,0"
+                          RelativePanel.Below="isMembersBlock"/>
+                <TextBlock Name="tbMemberCheck"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Margin="10,0,0,0"
+                           RelativePanel.Below="isMembersCheck"
+                           Text="(Check if card not available)"
+                           TextWrapping="WrapWholeWords"
+                           Width="120"/>
+            </RelativePanel>
 
-                    <RelativePanel Grid.Row="3" Padding="20,20" BorderBrush="#1b3e6e" BorderThickness="3,0,3,0">
-                        <TextBlock Margin="0,0,10,0"
-                               FontSize="16"
-                               FontWeight="Bold"
-                                   Padding="5"
-                               VerticalAlignment="Center" 
-                               Name="phoneNumBlock" 
-                               Text="Phone number:" />
-                        <TextBox BorderBrush="#1b3e6e"
-                                 BorderThickness="2"
-                                 Height="32"
-                                 InputScope="Number"
-                                 Name="phoneNumTextBox" 
-                                 MaxLength="50" 
-                                 MinWidth="214"
+            <TextBlock x:Name="tbkLastSwipe"
+                       FontSize="15"
+                       FontWeight="Bold"
+                       Grid.ColumnSpan="2"
+                       Margin="30,00,0,0"
+                       Text="Last Entry:"
+                       Grid.Row="6"
+                       TextWrapping="WrapWholeWords"/>
 
-                                 RelativePanel.RightOf="phoneNumBlock"
-                                 Style="{StaticResource StandardTextBox}"
-                                 Text="{x:Bind  tracker.PhoneNo, Mode=TwoWay}" 
-                                 AcceptsReturn="False" />
-                    </RelativePanel>
-                    <RelativePanel Grid.Row="4" Padding="20,20" BorderBrush="#1b3e6e" BorderThickness="3,0,3,3">
-                        <TextBlock Text="Is a Member"
-                               FontSize="16"
-                                   
-                               FontWeight="Bold"
-                               Margin="3,0,0,0"
-                               VerticalAlignment="Center" Name="isMembersBlock" />
-                        <CheckBox x:Name="isMembersCheck" 
-                                  Content="Yes (Card Not Available)"
-                                  FontSize="16"
-                                  IsTabStop="False"
-                                  Margin="10,0,0,0"
-                                  RelativePanel.AlignVerticalCenterWith="isMembersBlock"
-                                  RelativePanel.RightOf="isMembersBlock"/>
-                    </RelativePanel>
-                    <TextBlock x:Name="tbkLastSwipe"
-                               Margin="35,20,10,10"
-                               FontSize="15"
-                               FontWeight="Bold"
-                               Text="Last Entry:"
-                               Grid.Row="5"/>
-                </Grid>
-            </Grid>
-            <ScrollViewer Grid.Column="1" 
-                          Grid.Row="1" 
-                          MaxHeight="500">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Name="PersonNametbk" HorizontalAlignment="Right"></TextBlock>
-
-                    <RelativePanel Name="rpQuestionOne" 
-                                   Grid.Row="1" 
-                                   BorderBrush="#1b3e6e" 
-                                   BorderThickness="3" 
-                                   HorizontalAlignment="Left"
-                                   Margin="0,12" 
-                                   Padding="20,20" 
-                                   Visibility="Collapsed"
-                                   Width="320">
-                        <TextBlock Name="tbkQuestionOne" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   Grid.Row="1" 
-                                   HorizontalAlignment="Left" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerOne" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"
-                                 Grid.Row="1" 
-                                 Grid.Column="1" 
-                                 Height="32"
-                                 HorizontalAlignment="Left" 
-                   
-                                 RelativePanel.RightOf="tbkQuestionOne"
-                                 RelativePanel.AlignVerticalCenterWith="tbkQuestionOne"
-                                 Margin="5,0,0,0"
-                                 MaxWidth="500"
-                                 Visibility="Collapsed" />
-                        <CheckBox Name="ckbAnswerOne" 
-                              Grid.Row="1" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Center" 
-                              Visibility="Collapsed" 
-                                 IsTabStop="False"
-                              Content="Check if Yes" 
-                              VerticalAlignment="Center"
-                              RelativePanel.RightOf="tbkQuestionOne"
-                              RelativePanel.AlignBottomWith="tbkQuestionOne"
-                              Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerOne"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    Visibility="Collapsed"
-                                
-                                    VerticalAlignment="Center"
-                                    RelativePanel.RightOf="tbkQuestionOne"
-                                    RelativePanel.AlignBottomWith="tbkQuestionOne"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-                    
-                    <RelativePanel Name="rpQuestionTwo" 
-                                   Grid.Row="2" 
-                                   BorderBrush="#1b3e6e" 
-                                   BorderThickness="3"
-                                   HorizontalAlignment="Left"
-                                   Margin="0,0,0,15"
-                                   Padding="20,20" 
-                                   Visibility="Collapsed"
-                                   Width="320">
-                        <TextBlock Name="tbkQuestionTwo" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerTwo"
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"                                 
-                                 Height="32"
-                                 HorizontalAlignment="Left" 
-                           
-                                 RelativePanel.RightOf="tbkQuestionTwo"
-                                 RelativePanel.AlignBottomWith="tbkQuestionTwo"
-                                 VerticalAlignment="Center"
-                                 Margin="5,0,0,0"
-                                 Visibility="Collapsed"
-                                 MaxWidth="125"/>
-                        <CheckBox Name="ckbAnswerTwo" 
-                                    Grid.Row="2" 
-                                    Grid.Column="1" 
-                                    HorizontalAlignment="Right" 
-                                    Visibility="Collapsed" 
-                                IsTabStop="False"
-                                    Content="Check if Yes" 
-                                    VerticalAlignment="Center"
-                                 RelativePanel.AlignBottomWith="tbkQuestionTwo"
-                                 RelativePanel.RightOf="tbkQuestionTwo"
-                                    Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerTwo"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    Visibility="Collapsed"
-                                  
-                                    VerticalAlignment="Center"
-                                    RelativePanel.RightOf="tbkQuestionTwo"
-                                    RelativePanel.AlignBottomWith="tbkQuestionTwo"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-
-                    <RelativePanel Name="rpQuestionThree" Grid.Row="3" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
-                        <TextBlock Name="tbkQuestionThree" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerThree" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"
-                                 Grid.Row="3" 
-                                 Grid.Column="1" 
-                                 Height="32"
-                                 HorizontalAlignment="Left" 
-                           
-                                 MaxLength="60"
-                                 RelativePanel.AlignBottomWith="tbkQuestionThree"
-                                 RelativePanel.RightOf="tbkQuestionThree"
-                                 VerticalAlignment="Center"
-                                 Margin="5,0,0,0"
-                                 MaxWidth="125"
-                                 Visibility="Collapsed"/>
-                        <CheckBox Name="ckbAnswerThree" 
-                              Grid.Row="3" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right" 
-                              Visibility="Collapsed" 
-                              IsTabStop="False"
-                              Content="Check if Yes"
-                              RelativePanel.AlignBottomWith="tbkQuestionThree"
-                                 RelativePanel.RightOf="tbkQuestionThree"
-                              VerticalAlignment="Center"
-                              Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerThree"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                               
-                                    Visibility="Collapsed"
-                                    VerticalAlignment="Center"
-                                    RelativePanel.RightOf="tbkQuestionThree"
-                                    RelativePanel.AlignBottomWith="tbkQuestionThree"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-
-                    <RelativePanel x:Name="rpQuestionFour" Grid.Row="4" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
-                        <TextBlock Name="tbkQuestionFour" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerFour" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"                                 
-                                 Grid.Row="4" 
-                                 Grid.Column="1" 
-                                 Height="32"
-                                 HorizontalAlignment="Left" 
-                               
-                                 RelativePanel.AlignBottomWith="tbkQuestionFour"
-                                 RelativePanel.RightOf="tbkQuestionFour"
-                                 Visibility="Collapsed"
-                                 VerticalAlignment="Center"
-                                 Margin="5,0,0,0"
-                                 MaxWidth="125"/>
-                        <CheckBox Name="ckbAnswerFour" 
-                              Grid.Row="4" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right" 
-                                IsTabStop="False"
-                              Visibility="Collapsed" 
-                              Content="Check if Yes" 
-                                 RelativePanel.AlignBottomWith="tbkQuestionFour"
-                                 RelativePanel.RightOf="tbkQuestionFour"
-                              VerticalAlignment="Center"
-                              Margin="5,0,0,0"/>
-                         <DatePicker x:Name="dprAnswerFour"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    Visibility="Collapsed"
-                                    VerticalAlignment="Center"
-                                     
-                                    RelativePanel.RightOf="tbkQuestionFour"
-                                    RelativePanel.AlignBottomWith="tbkQuestionFour"
-                                    Margin="5,0,0,0"/>
-
-                    </RelativePanel>
-
-                    <RelativePanel Name="rpQuestionFive" Grid.Row="5" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
-                        <TextBlock Name="tbkQuestionFive" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerFive" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"
-                                 Grid.Row="5" 
-                                 Grid.Column="1"
-                                 Height="32"
-                           
-                                 RelativePanel.AlignBottomWith="tbkQuestionFive"
-                                 RelativePanel.RightOf="tbkQuestionFive"
-                                 Visibility="Collapsed" 
-                                 VerticalAlignment="Center"
-                                 Margin="5,0,0,0"
-                                 MaxWidth="125"/>
-                        <CheckBox Name="ckbAnswerFive" 
-                              Grid.Row="5" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right" 
-                              Visibility="Collapsed"
-                                  IsTabStop="False"
-                                RelativePanel.AlignBottomWith="tbkQuestionFive"
-                             RelativePanel.RightOf="tbkQuestionFive"
-                              Content="Check if Yes" 
-                              VerticalAlignment="Center"
-                              Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerFive"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    Visibility="Collapsed"
-                                    VerticalAlignment="Center"
-                                  
-                                    RelativePanel.RightOf="tbkQuestionFive"
-                                    RelativePanel.AlignBottomWith="tbkQuestionFive"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-
-                    <RelativePanel Name="rpQuestionSix" Grid.Row="6" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,10,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
-                        <TextBlock Name="tbkQuestionSix" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerSix" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"
-                                 Grid.Row="1" 
-                                 Grid.Column="1" 
-                                 Height="32"
-                                 HorizontalAlignment="Left" 
-                                
-                                 MaxLength="60"
-                                 RelativePanel.RightOf="tbkQuestionSix"
-                                 RelativePanel.AlignBottomWith="tbkQuestionSix"
-                                 Margin="5,0,0,0"
-                                 MaxWidth="500"
-                                 Visibility="Collapsed"/>
-                        <CheckBox Name="ckbAnswerSix" 
-                              Grid.Row="6" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right" 
-                                  IsTabStop="False"
-                              Visibility="Collapsed" 
-                              Content="Check if Yes"
-                                RelativePanel.RightOf="tbkQuestionSix"
-                                 RelativePanel.AlignBottomWith="tbkQuestionSix"
-                              VerticalAlignment="Center"
-                              Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerSix"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    IsTabStop="False"
-                                    Visibility="Collapsed"
-                                    VerticalAlignment="Center"
-                                    RelativePanel.RightOf="tbkQuestionSix"
-                                    RelativePanel.AlignBottomWith="tbkQuestionSix"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-                    <RelativePanel Name="rpQuestionSeven" Grid.Row="7" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
-                        <TextBlock Name="tbkQuestionSeven" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerSeven" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"
-                                 Height="32"
-                                 HorizontalAlignment="Left" 
-                               
-                                 MaxLength="60"
-                                 RelativePanel.RightOf="tbkQuestionSeven"
-                                 RelativePanel.AlignBottomWith="tbkQuestionSeven"
-                                 VerticalAlignment="Center"
-                                 Margin="5,0,0,0"
-                                 MaxWidth="125"
-                                 Visibility="Collapsed"/>
-                        <CheckBox Name="ckbAnswerSeven" 
-                              Grid.Row="7" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right" 
-                                  IsTabStop="False"
-                              Visibility="Collapsed" 
-                                 RelativePanel.RightOf="tbkQuestionSeven"
-                                 RelativePanel.AlignBottomWith="tbkQuestionSeven"
-                              Content="Check if Yes" 
-                              VerticalAlignment="Center"
-                              Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerSeven"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    IsTabStop="False"
-                                    Visibility="Collapsed"
-                                    VerticalAlignment="Center"
-                                    RelativePanel.RightOf="tbkQuestionSeven"
-                                    RelativePanel.AlignBottomWith="tbkQuestionSeven"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-
-                    <RelativePanel Name="rpQuestionEight" Grid.Row="8" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
-                        <TextBlock Name="tbkQuestionEight" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerEight" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"                                 
-                                 Grid.Row="3" 
-                                 Grid.Column="1" 
-                                 Height="32"
-                                 HorizontalAlignment="Left" 
-                             
-                                 MaxLength="60"
-                                 RelativePanel.AlignBottomWith="tbkQuestionEight"
-                                 RelativePanel.RightOf="tbkQuestionEight"
-                                 VerticalAlignment="Center"
-                                 Margin="5,0,0,0"
-                                 MaxWidth="125"
-                                 Visibility="Collapsed"/>
-                        <CheckBox Name="ckbAnswerEight" 
-                              Grid.Row="8" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right" 
-                                  IsTabStop="False"
-                              Visibility="Collapsed" 
-                                  RelativePanel.AlignBottomWith="tbkQuestionEight"
-                                 RelativePanel.RightOf="tbkQuestionEight"
-                              Content="Check if Yes" 
-                              VerticalAlignment="Center"
-                              Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerEight"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    IsTabStop="False"
-                                    Visibility="Collapsed"
-                                    VerticalAlignment="Center"
-                                    RelativePanel.RightOf="tbkQuestionEight"
-                                    RelativePanel.AlignBottomWith="tbkQuestionEight"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-
-                    <RelativePanel x:Name="rpQuestionNine" Grid.Row="9" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="20,20" Visibility="Collapsed" Width="320">
-                        <TextBlock Name="tbkQuestionNine" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerNine"
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"                                 
-                                 Grid.Row="4" 
-                                 Grid.Column="1" 
-                                 Height="32"
-                                 HorizontalAlignment="Left" 
-                             
-                                 RelativePanel.AlignBottomWith="tbkQuestionNine"
-                                 RelativePanel.RightOf="tbkQuestionNine"
-                                 Visibility="Collapsed"
-                                 VerticalAlignment="Center"
-                                 Margin="5,0,0,0"
-                                 MaxWidth="125"/>
-                        <CheckBox Name="ckbAnswerNine" 
-                              Grid.Row="9" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right" 
-                                  IsTabStop="False"
-                              Visibility="Collapsed" 
-                                  RelativePanel.AlignBottomWith="tbkQuestionNine"
-                             RelativePanel.RightOf="tbkQuestionNine"
-                              Content="Check if Yes" 
-                              VerticalAlignment="Center"
-                              Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerNine"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    IsTabStop="False"
-                                    Visibility="Collapsed"
-                                    VerticalAlignment="Center"
-                                    RelativePanel.RightOf="tbkQuestionNine"
-                                    RelativePanel.AlignBottomWith="tbkQuestionNine"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-
-                    <RelativePanel Name="rpQuestionTen" Grid.Row="10" BorderBrush="#1b3e6e" BorderThickness="3" Margin="0,0,0,15" Padding="15,15" Visibility="Collapsed" Width="320">
-                        <TextBlock Name="tbkQuestionTen" 
-                                   FontSize="16"
-                                   FontWeight="Bold"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="180"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="WrapWholeWords"/>
-                        <TextBox Name="txtAnswerTen" 
-                                 BorderBrush="#1b3e6e"
-                                 BorderThickness="2"                                 
-                                 Grid.Row="5" 
-                                 Grid.Column="1" 
-                                 Height="32"
-                         
-                                 Margin="5,0,0,0"
-                                 MaxWidth="125"
-                                 RelativePanel.AlignBottomWith="tbkQuestionTen"
-                                 RelativePanel.RightOf="tbkQuestionTen"
-                                 Visibility="Collapsed" 
-                                 VerticalAlignment="Center"/>
-                        <CheckBox Name="ckbAnswerTen" 
-                              Grid.Row="10" 
-                              Grid.Column="1" 
-                              HorizontalAlignment="Right"
-                                  IsTabStop="False"
-                                  RelativePanel.AlignBottomWith="tbkQuestionTen"
-                             RelativePanel.RightOf="tbkQuestionTen"
-                              Visibility="Collapsed" 
-                              Content="Check if Yes" 
-                              
-                              Margin="5,0,0,0"/>
-                        <DatePicker x:Name="dprAnswerTen"
-                                    Grid.Row="1" 
-                                    Grid.Column="1"
-                                    IsTabStop="False"
-                                    Visibility="Collapsed"
-                                    VerticalAlignment="Center"
-                                    RelativePanel.RightOf="tbkQuestionTen"
-                                    RelativePanel.AlignBottomWith="tbkQuestionTen"
-                                    Margin="5,0,0,0"/>
-                    </RelativePanel>
-
-
-                    <Button x:Name="btnSubmit" 
-                            Content="Submit"
-                            Grid.Row="11"
-                            HorizontalAlignment="Center"
-                            Margin="0,25,0,0"
-                            Style="{StaticResource actionButtonStyle}"
-                            Visibility="Visible"
-                            IsTabStop="False"
-                            Click="btnSubmit_Click"/>
-
-                </Grid>
-            </ScrollViewer>
         </Grid>
 
+        <Grid x:Name="LayoutRoot2"
+              Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="82"/>
+                <RowDefinition Height="345"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnSubmit"
+                    Canvas.ZIndex="5"
+                    Content="Submit"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Width="10"
+                    HorizontalAlignment="Center"
+                    Margin="0,15,0,0"
+                    Style="{StaticResource actionButtonStyle}"
+                    Visibility="Visible"
+                    IsTabStop="False"
+                    VerticalAlignment="Top"
+                    Click="btnSubmit_Click"/>
+
+            <!--Survey Questions-->
+            <ScrollViewer Name="svSurvey"
+                          Grid.Column="1" 
+                          Grid.Row="1"  
+                          MaxHeight="400" 
+                          VerticalAlignment="Top">
+
+                <!--BorderBrush="#1b3e6e" 
+                          BorderThickness="3"-->
+
+               
+
+                <StackPanel Name="spSurveyQuestions" BorderBrush="#1b3e6e" BorderThickness="3" Width="310" Margin="5,25,0,15">
+
+                    <!--SURVEY QUESTION 1-->
+                    <TextBlock Name="tbkQuestionOne" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Margin="0,5,0,5"
+                                   MaxWidth="275"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerOne" 
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 Margin="0,0,0,5"
+                                 MaxLength="100"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerOne"
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                              Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerOne"
+                                    Margin="0,0,0,5"
+                                    Visibility="Collapsed"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
+
+                    <!--SURVEY QUESTION 2-->
+                    <TextBlock Name="tbkQuestionTwo"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               MaxWidth="275"
+                               Margin="0,10,0,5"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerTwo"
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerTwo" 
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerTwo"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                    <!--SURVEY QUESTION 3-->
+                    <TextBlock Name="tbkQuestionThree" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   MaxWidth="275"
+                                   Margin="0,10,0,5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerThree" 
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerThree" 
+                                      Content="Check if Yes"  
+                                      IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                      Visibility="Collapsed"
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerThree"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                    <!--SURVEY QUESTION 4-->
+                    <TextBlock Name="tbkQuestionFour" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   MaxWidth="275"
+                                   Margin="0,10,0,5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerFour"
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerFour" 
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerFour"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                    <!--SURVEY QUESTION 5-->
+                    <TextBlock Name="tbkQuestionFive" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   MaxWidth="275"
+                                   Margin="0,10,0,5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerFive" 
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerFive" 
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerFive"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                    <!--SURVEY QUESTION 6-->
+                    <TextBlock Name="tbkQuestionSix" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   MaxWidth="275"
+                                   Margin="0,10,0,5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerSix" 
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerSix" 
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerSix"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                    <!--SURVEY QUESTION 7-->
+                    <TextBlock Name="tbkQuestionSeven" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   MaxWidth="275"
+                                   Margin="0,10,0,5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerSeven" 
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerSeven" 
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerSeven"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                    <!--SURVEY QUESTION 8-->
+                    <TextBlock Name="tbkQuestionEight" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   MaxWidth="275"
+                                   Margin="0,10,0,5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerEight" 
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerEight" 
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerEight"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                    <!--SURVEY QUESTION 9-->
+                    <TextBlock Name="tbkQuestionNine" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   MaxWidth="275"
+                                   Margin="0,10,0,5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerNine"
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerNine" 
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerNine"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                    <!--SURVEY QUESTION 10-->
+                    <TextBlock Name="tbkQuestionTen" 
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   MaxWidth="275"
+                                   Margin="0,10,0,5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="WrapWholeWords"
+                                   Visibility="Collapsed"/>
+                    <TextBox Name="txtAnswerTen" 
+                                 Background="White"
+                                 BorderBrush="#1b3e6e"
+                                 BorderThickness="2"
+                                 Height="32"
+                                 MaxLength="100"
+                                 Margin="0,0,0,5"
+                                 HorizontalAlignment="Center" 
+                                 VerticalAlignment="Center"
+                                 Width="180"
+                                 Visibility="Collapsed"/>
+                    <CheckBox Name="ckbAnswerTen" 
+                                  Content="Check if Yes"  
+                                  IsTabStop="False"
+                                  Margin="0,0,0,5"
+                                  Visibility="Collapsed"
+                                  HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"/>
+                    <DatePicker x:Name="dprAnswerTen"
+                                    Margin="0,0,0,5"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed"/>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

@@ -116,9 +116,9 @@ namespace CAA_Event_Management.Views.Games
                 //if the correct answer is either an image or a text, sets the item to true
                 if (optionElementExists)
                 {
-                    foreach (var x in possibleAnswers)
+                    if (possibleAnswers.Any(x => x.Contains(options[i])))
                     {
-                        if (x.Contains(options[i])) t.IsTrue = true;
+                        t.IsTrue = true;
                     }
                 }
                 

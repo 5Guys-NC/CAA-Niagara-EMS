@@ -61,7 +61,7 @@
                         <Setter Target="rpMemberCheck.HorizontalAlignment" Value="Left"/>
                         <!--Other Changes-->
                         <Setter Target="tbkLastSwipe.Margin" Value="30,30,0,0"/>
-                        <Setter Target="btnSubmit.Margin" Value="0,25,0,0"/>
+                        <Setter Target="btnSubmit.Margin" Value="100,20,0,0"/>
                         <Setter Target="svSurvey.Height" Value="180"/>
                         <!--Border Settings-->
                         <Setter Target="rpFirstName.BorderThickness" Value="3,3,0,0"/>

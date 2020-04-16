@@ -48,7 +48,7 @@ namespace CAA_Event_Management.Utilities
                      new UserAccount
                      {
                          ID = Guid.NewGuid().ToString(),
-                         UserName = "CAAUser1",
+                         UserName = "admin1",
                          Password = "password",
                          isAdmin = false
                      },

@@ -133,24 +133,11 @@
                                             RelativePanel.AlignTopWithPanel="True"
                                             RelativePanel.AlignRightWithPanel="True"
                                 Content="&#xE74D;" 
-                                Style="{StaticResource AddRemoveStyle}">
-                                        <!--<Button.Flyout>
-                                                <Flyout LightDismissOverlayMode="On">
-                                                    <Flyout.FlyoutPresenterStyle>
-                                                        <Style TargetType="FlyoutPresenter"/>
-                                                    </Flyout.FlyoutPresenterStyle>
-                                                    <StackPanel>
-                                                        <TextBlock Name="txtConfirm" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" Margin="0,0,0,10" HorizontalAlignment="Center" Text="Are you sure you want to delete the game?"/>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <Button Name="btnConfirmRemove" Style="{StaticResource actionButtonStyle}" Content="Delete" Margin="0,0,10,0" Tapped="BtnConfirmRemove_Tapped"/>
-                                                            <Button Name="btnCancel" Style="{StaticResource secondaryButtonStyle}" Content="Cancel" Margin="10,0,0,0" Tapped="BtnCancel_Tapped"/>
-                                                        </StackPanel>
-                                                    </StackPanel>
-                                                </Flyout>
-                                            </Button.Flyout>-->
-                                    </Button>
-                                    <!--<TextBlock Text="{x:Bind Phrase}" 
-                                      FontSize="16" TextWrapping="WrapWholeWords" Foreground="#1b3e6e" FontWeight="Bold" Margin="10,0,10,20" VerticalAlignment="Bottom"/>-->
+                                Style="{StaticResource AddRemoveStyle}"
+                                            Click="btnRemove_Click"/>
+
+
+
                                 </RelativePanel>
                             </DataTemplate>
                         </GridView.ItemTemplate>

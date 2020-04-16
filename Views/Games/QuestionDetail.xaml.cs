@@ -327,17 +327,18 @@ namespace CAA_Event_Management.Views.Games
             Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
         }
 
-        private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            var index = Convert.ToInt32(((Button)sender).DataContext);
-            display.RemoveAt(index);
-            UpdateChanges();
-            Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
-        }
 
-        private void BtnCancel_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void btnRemove_Click(object sender, RoutedEventArgs e)
         {
+            var result = await Jeeves.ConfirmDialog("Warning", "Are you sure you want to delete?");
 
+            if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
+            {
+                var index = Convert.ToInt32(((Button)sender).DataContext);
+                display.RemoveAt(index);
+                UpdateChanges();
+                Frame.Navigate(typeof(QuestionDetail), selected, new SuppressNavigationTransitionInfo());
+            }
         }
     }
 }

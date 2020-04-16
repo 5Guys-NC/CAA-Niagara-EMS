@@ -110,15 +110,6 @@ namespace CAA_Event_Management.Views.Games
             //TODO: Find fix!
         }
 
-        private void BtnConfirmRemove_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            //Removes question from game
-            GameModel remove = new GameModel();
-            var index = Convert.ToInt32(((Button)sender).DataContext);
-            remove = questRepo.GetModelQuestion(index);
-            questRepo.RemoveGameModel(remove);
-            PopulateModelQuestList();
-        }
         private void QuestionSelection_ItemClick(object sender, ItemClickEventArgs e)
         {
             GameModel gm = new GameModel();
@@ -145,5 +136,22 @@ namespace CAA_Event_Management.Views.Games
         {
             btnAddQuestion.Flyout.Hide();
         }
+
+        private async void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            var result = await Jeeves.ConfirmDialog("Warning", "Are you sure you want to delete?");
+
+            if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
+            {
+                //Removes question from game
+                GameModel remove = new GameModel();
+                var index = Convert.ToInt32(((Button)sender).DataContext);
+                remove = questRepo.GetModelQuestion(index);
+                questRepo.RemoveGameModel(remove);
+                PopulateModelQuestList();
+            }
+        }
+
+
     }
 }

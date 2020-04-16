@@ -164,5 +164,19 @@ namespace CAA_Event_Management.Views.Games
             //with file name to confirm selection
             txbImageFile.Text = file.Name;
         }
+
+        private async void btnRemove_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var result = await Jeeves.ConfirmDialog("Warning", "Are you sure you want to delete?");
+
+            if (result == ContentDialogResult.Secondary) //&& btnEditSurvey.Content.ToString() == "#xE74D;"
+            {
+                int selected = Convert.ToInt32(((Button)sender).DataContext);
+                Answer answer = new Answer();
+                answer = answerRepo.GetAnswer(selected);
+                answerRepo.RemoveAnswer(answer);
+                Frame.Navigate(typeof(AnswerMenu), null, new SuppressNavigationTransitionInfo());
+            }
+        }
     }
 }

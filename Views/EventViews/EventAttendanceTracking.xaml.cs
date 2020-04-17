@@ -63,7 +63,7 @@ namespace CAA_Event_Management.Views.EventViews
 
             if(questionCount==0)
             {
-                spSurveyQuestions.Visibility = Visibility.Collapsed;
+               // spSurveyQuestions.Visibility = Visibility.Collapsed;
             }
         }
 

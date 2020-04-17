@@ -74,11 +74,13 @@ namespace CAA_Event_Management.Views.Games
 
         private void BtnCreateConfirm_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Game newGame = new Game();
+           
+            Question newQuest = new Question();
 
-            newGame.Title = txtCreateNewGame.Text;
-            gameRepo.AddGame(newGame);
-            Frame.Navigate(typeof(GameDetails), (newGame), new SuppressNavigationTransitionInfo());
+            newQuest.Text = txtCreateNewGame.Text;
+
+            questRepo.AddQuestion(newQuest);
+            Frame.Navigate(typeof(QuestionMenu),new SuppressNavigationTransitionInfo());
         }
 
         private void BtnCreateCancel_Tapped(object sender, TappedRoutedEventArgs e)

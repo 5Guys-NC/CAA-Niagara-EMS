@@ -88,11 +88,7 @@
                             </Flyout>
                         </Button.Flyout>
                     </Button>
-                    <Button Name="btnCreateQuestion"
-                            Content="CREATE QUESTIONS/ANSWERS"
-                            RelativePanel.RightOf="btnCreateGame"
-                            RelativePanel.AlignBottomWith="btnCreateGame"
-                            Style="{StaticResource secondaryButtonStyle}"/>
+                   
                 </RelativePanel>
 
                 <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="30,30,0,0" HorizontalAlignment="Center">

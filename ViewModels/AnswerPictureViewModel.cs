@@ -9,6 +9,7 @@ namespace CAA_Event_Management.ViewModels
     /// </summary>
     public class AnswerPictureViewModel
     {
+        public int? ID { get; set; }
         public ImageSource Image { get; set; }
         public string Text { get; set; }
     }

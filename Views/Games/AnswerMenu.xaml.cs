@@ -48,6 +48,7 @@ namespace CAA_Event_Management.Views.Games
             {
                 var add = new AnswerPictureViewModel();
                 add.Text = a.Text;
+                add.ID = a.ID;
 
                 //if answer has an image
                 if (a.AnswerPictures.Count != 0)

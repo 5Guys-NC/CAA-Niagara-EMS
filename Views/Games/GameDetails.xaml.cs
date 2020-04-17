@@ -112,12 +112,22 @@ namespace CAA_Event_Management.Views.Games
 
         private void QuestionSelection_ItemClick(object sender, ItemClickEventArgs e)
         {
-            GameModel gm = new GameModel();
+            try
+            {
+                GameModel gm = new GameModel();
 
-            gm.QuestionText = ((Question)e.ClickedItem).Text;
-            gm.GameID = selected.ID;
-            gameRepo.SaveGameModel(gm);
-            PopulateModelQuestList();
+                gm.QuestionText = ((Question)e.ClickedItem).Text;
+                gm.GameID = selected.ID;
+
+
+
+                gameRepo.SaveGameModel(gm);
+                PopulateModelQuestList();
+            }
+            catch
+            {
+                Jeeves.ShowMessage("Error", "There was a problem adding the selected question; please try again!");
+            }
         }
 
         private void btnCreateConfirm_Tapped(object sender, TappedRoutedEventArgs e)

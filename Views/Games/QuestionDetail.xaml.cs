@@ -101,7 +101,7 @@ namespace CAA_Event_Management.Views.Games
                 //Splits question's details in their own list
                 var options = selected.OptionsText.Split('|');
                 var possibleAnswers = selected.AnswerText.Split('|');
-                var images = selected.ImageIDs.Split('|');
+                //var images = selected.ImageIDs.Split('|');
 
                 //Loop through possible answers
                 for (int i = 0; i < options.Length; i++)
@@ -111,9 +111,10 @@ namespace CAA_Event_Management.Views.Games
                     t.Text = options[i];
                     t.Index = i;
                     //If possible answer is in correct answer, checkbox to true
-                    if (possibleAnswers.Contains(options[i])
-                        || possibleAnswers.Contains(images[i]))
-                    { t.IsTrue = true; }
+                    if (possibleAnswers.Contains(options[i])) //|| possibleAnswers.Contains(images[i])
+                    { 
+                        t.IsTrue = true; 
+                    }
                 }
             }
 

@@ -1,28 +1,16 @@
+using CAA_Event_Management.Converters;
+using CAA_Event_Management.Data;
+using CAA_Event_Management.Models;
+using CAA_Event_Management.ViewModels;
+using CAA_Event_Management.Views.EventViews;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using CAA_Event_Management.Models;
-using CAA_Event_Management.Data;
-using CAA_Event_Management.Utilities;
-using CAA_Event_Management.ViewModels;
-using CAA_Event_Management.Data.Interface_Repos;
-using CAA_Event_Management.Data.Repos;
-using CAA_Event_Management.Views.EventViews;
-using System.Threading.Tasks;
-using CAA_Event_Management.Converters;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Navigation;
 /******************************
 *  Model Created By: Max Cashmore
 *******************************/

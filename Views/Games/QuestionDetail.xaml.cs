@@ -132,7 +132,7 @@ namespace CAA_Event_Management.Views.Games
             var list = new List<Answer>();
 
             list = ansRepo.GetAnswerSelection();
-            AnswerSelectionList.ItemsSource = list;
+            gdvAnswerPool.ItemsSource = list;
         }
 
         public async void UpdateChanges()

@@ -27,7 +27,6 @@
                         <AdaptiveTrigger MinWindowWidth="0"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="btnCreateGame.Margin" Value="80,60,10,0"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="vsLandscape">
@@ -160,16 +159,17 @@
                             <DataTemplate >
                                 <RelativePanel Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" Height="120" Margin="10">
                                     <TextBlock Name ="txtGameTitle" Text="{Binding Text}" 
-                                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                           RelativePanel.AlignVerticalCenterWithPanel="True"
+                                           RelativePanel.AlignLeftWithPanel="True"
+                                           RelativePanel.AlignTopWithPanel="True"
                                            FontSize="24"
+                                               Margin="0,0,90,0"
                                            FontWeight="ExtraBold"
                                            Foreground="#1b3e6e"
                                            VerticalAlignment="Center"/>
                                         <Image Source="{Binding Image}"
-                                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                           RelativePanel.AlignVerticalCenterWithPanel="True" 
-                                           Height="90" Width="90"
+                                           RelativePanel.AlignRightWithPanel="True"
+                                               RelativePanel.AlignBottomWithPanel="True"
+                                           Height="60" Width="60"
                                            Stretch="UniformToFill"
                                                HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"

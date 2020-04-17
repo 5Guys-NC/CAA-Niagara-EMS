@@ -67,9 +67,9 @@
                                FontSize="20" 
                                Margin="5,50,5,0"
                                TextWrapping="WrapWholeWords"/>
+                    <Image Name="imgQuestionImage" Height="180" Width="180" Visibility="Collapsed"/>
                     <!--<TextBox x:Name="txtQuestion" Text="{x:Bind view.Phrase, Mode=TwoWay}" FontSize="16" HorizontalAlignment="Center" Margin="35,10,0,0" Width="440"/>-->
                     <TextBlock Name="tbAnswers" Foreground="#1b3e6e" Text="Answers (Check correct answer(s))" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>
-                    <Image Name="imgQuestionImage" Height="60" Width="60" Visibility="Collapsed"/>
                 </StackPanel>
 
                 <Grid Grid.Row="2" Margin="20,20,0,0">
@@ -101,38 +101,42 @@
                               IsItemClickEnabled="True" 
                               MaxHeight="300" 
                               HorizontalAlignment="Center" 
-                              Margin="0,50,50,0" 
+                              Margin="0,50,50,40" 
                               MinHeight="370"
                               MinWidth="370"
                               Padding="15">
+                            <GridView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </GridView.ItemsPanel>
                             <GridView.ItemTemplate>
-                                <DataTemplate>
-
-                                    <StackPanel Name="spAnswers" Orientation="Horizontal" Height="auto" Width="auto">
-                                        <CheckBox IsChecked="{Binding IsTrue, Mode=TwoWay}" MinWidth="30"/>
-                                        <TextBox Text="{Binding Text, Mode=TwoWay}" 
-                                                 Background="#eaeaea"
-                                                 BorderBrush="#0d4e97"
-                                                 BorderThickness="3"
+                                <DataTemplate x:DataType="data:Answer">
+                                    <RelativePanel Name="spAnswers" Height="Auto" Width="Auto" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3">
+                                        <CheckBox Name="chkAnswer" IsChecked="{Binding IsTrue, Mode=TwoWay}" MinWidth="30" Margin="10"/>
+                                        <TextBlock Name="txtAnswer"
+                                                 Text="{Binding Text, Mode=TwoWay}" 
                                                  FontSize="18"
                                                  Foreground="#1b3e6e"
                                                  Height="35"
-                                                 Width="180"/>
-                                        <Image Source="{Binding Image}" Height="60" Width="60"/>
+                                                 Width="180"
+                                                 RelativePanel.RightOf="chkAnswer"
+                                                 RelativePanel.AlignBottomWith="chkAnswer"/>
+                                        <Image Source="{Binding Image}" Height="60" Width="60" RelativePanel.RightOf="txtAnswer"/>
                                         <Button Name="btnRemove" 
-                                        Background="#eaeaea" 
-                                        RelativePanel.AlignRightWithPanel="True"
-                                        RelativePanel.AlignTopWithPanel="True"
-                                        VerticalAlignment="Top"  
-                                        DataContext="{Binding ID}" 
-                                        FontFamily="Segoe MDL2 Assets" 
-                                        FontSize="20"
-                                        Foreground="Red" 
-                                        Content="&#xE74D;" 
-                                        Style="{StaticResource AddRemoveStyle}"
+                                                Background="#eaeaea" 
+                                                RelativePanel.AlignRightWithPanel="True"
+                                                RelativePanel.AlignTopWithPanel="True"
+                                                VerticalAlignment="Top"  
+                                                DataContext="{Binding ID}" 
+                                                FontFamily="Segoe MDL2 Assets" 
+                                                FontSize="20"
+                                                Foreground="Red" 
+                                                Content="&#xE74D;" 
+                                                Style="{StaticResource AddRemoveStyle}"
                                                 Click="btnRemove_Click"/>
 
-                                    </StackPanel>
+                                    </RelativePanel>
                                 </DataTemplate>
                             </GridView.ItemTemplate>
                         </GridView>
@@ -152,7 +156,7 @@
                 </Grid>
 
 
-                <StackPanel Grid.Row="3" Margin="0,20,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Grid.Row="3" Margin="0,20,0,40" Orientation="Horizontal" HorizontalAlignment="Center">
 
                     <Button  Name="btnAddAnswer" Content="ADD ANSWER" Style="{StaticResource actionButtonStyle}" Margin="10,0,0,0">
                         <Button.Flyout>
@@ -177,20 +181,52 @@
                     <!--<Button Name="btnDeleteQuestion" Content="Delete Question" Style="{StaticResource ButtonStyle}" Margin="10,0,0,0" Tapped="btnDeleteQuestion_Tapped"/>-->
                 </StackPanel>
 
-
-                <GridView Name="AnswerSelectionList"
-                          Grid.Row="4" HorizontalAlignment="Center" IsItemClickEnabled="True" 
-                          ItemClick="AnswerSelectionList_ItemClick" Margin="50,0,50,0"
-                          Width="400"
-                          Height="auto">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel BorderBrush="White" BorderThickness="3" Height="70" Margin="10">
-                                <TextBlock Text="{Binding Text}"  TextWrapping="Wrap" Width="120" FontSize="18"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
+                <RelativePanel Name="rpAnswerTab" Grid.Row="4" Margin="50,0,0,0" HorizontalAlignment="Center">
+                    <Button Name="btnAnswer" 
+                            Background="#5291bf" 
+                            BorderBrush="#0d4e97" 
+                            BorderThickness="3,3,3,0"
+                            CornerRadius="20,20,0,0" 
+                            FontSize="14"  
+                            Grid.Row="4"
+                            Height="50"
+                            Margin="0,3,-10,0"
+                            Width="155"
+                            Canvas.ZIndex="1">
+                        <TextBlock Name="tbAnswerPool"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   Foreground="#eaeaea"
+                                   Text= "Answer Pool" 
+                                   TextWrapping="WrapWholeWords"/>
+                    </Button>
+                    <GridView Name="gdvAnswerPool"
+                              Background="#5291bf"
+                              Canvas.ZIndex="0"
+                              CornerRadius="0,20,20,0"
+                              BorderBrush="#0d4e97"
+                              BorderThickness="3"
+                              IsItemClickEnabled="True" 
+                              MaxHeight="300" 
+                              HorizontalAlignment="Center" 
+                              Margin="0,50,50,0" 
+                              MinHeight="400"
+                              MinWidth="400"
+                              Padding="15">
+                        <GridView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </GridView.ItemsPanel>
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <RelativePanel BorderBrush="#1b3e6e" BorderThickness="3" Height="70" Background="#eaeaea" Margin="10">
+                                    <TextBlock  Text="{Binding Text}" Foreground="#1b3e6e"  TextWrapping="Wrap" Width="120" FontSize="18" VerticalAlignment="Center" Margin="5"/>
+                                </RelativePanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </RelativePanel>
 
                 <StackPanel Grid.Row="5" Orientation="Vertical" >
                     <TextBlock FontWeight="Bold" Foreground="#1b3e6e" Text="Image" HorizontalAlignment="Center" FontSize="20" Margin="0,20,0,0"/>

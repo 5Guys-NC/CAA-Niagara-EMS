@@ -145,24 +145,7 @@
                         <GridView.ItemTemplate>
                             <DataTemplate x:Name="dtEditEvents" x:DataType="data:Event">
                                 <RelativePanel Name="rpEvents" Width="300" Background="#eaeaea" BorderBrush="#0d4e97" BorderThickness="3" MinHeight="120" Margin="10">
-                                    <Interactivity:Interaction.Behaviors>
-                                        <Interactions:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=rpEvents}">
-                                            <Interactions:ChangePropertyAction
-                                            PropertyName="BorderBrush"
-                                            TargetObject="{Binding ElementName=rpEvents}"
-                                            Value="Green"
-                                            />
-                                        </Interactions:EventTriggerBehavior>
-                                        <Interactions:EventTriggerBehavior EventName="Tapped" SourceObject="{Binding ElementName=txtEvents}">
-                                            <Interactions:ChangePropertyAction
-                                        PropertyName="Foreground"
-                                        TargetObject="{Binding ElementName=txtEvents}"
-                                        Value="Green"
-                                                  
-                            />
-                                        </Interactions:EventTriggerBehavior>
-                                    </Interactivity:Interaction.Behaviors>
-                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,40,0">
+                                    <TextBlock Name="txtEvents" Foreground="#1b3e6e" TextWrapping="WrapWholeWords" Margin="5,0,43,0">
                                    <Run FontSize="24" 
                                         FontWeight="ExtraBold"
                                         Text="{x:Bind DisplayName}"/>

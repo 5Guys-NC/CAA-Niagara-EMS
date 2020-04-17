@@ -122,7 +122,7 @@
                                                  Width="180"
                                                  RelativePanel.RightOf="chkAnswer"
                                                  RelativePanel.AlignBottomWith="chkAnswer"/>
-                                        <Image Source="{Binding Image}" Height="60" Width="60" RelativePanel.RightOf="txtAnswer"/>
+                                        <Image Source="{Binding Image}" Height="60" Width="60" RelativePanel.LeftOf="btnRemove"/>
                                         <Button Name="btnRemove" 
                                                 Background="#eaeaea" 
                                                 RelativePanel.AlignRightWithPanel="True"
@@ -207,6 +207,7 @@
                               BorderBrush="#0d4e97"
                               BorderThickness="3"
                               IsItemClickEnabled="True" 
+                              ItemClick="AnswerSelectionList_ItemClick"
                               MaxHeight="300" 
                               HorizontalAlignment="Center" 
                               Margin="0,50,50,0" 

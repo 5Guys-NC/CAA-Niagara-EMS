@@ -251,7 +251,7 @@
                           Width="200"/>
         </StackPanel>
 
-            <TextBlock x:Name="tbkLastSwipe"
+            <!--<TextBlock x:Name="tbkLastSwipe"
                        FontSize="15"
                        FontWeight="Bold"
                        Grid.ColumnSpan="2"
@@ -259,11 +259,11 @@
                        Margin="30,10,0,0"
                        Text="Last Entry:"
                        Grid.Row="6"
-                       TextWrapping="WrapWholeWords"/>
+                       TextWrapping="WrapWholeWords"/>-->
 
-        </Grid>
+        <!--</Grid>-->
 
-        <Grid x:Name="LayoutRoot2"
+        <!--<Grid x:Name="LayoutRoot2"
               Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="82"/>
@@ -287,7 +287,7 @@
                     Visibility="Visible"
                     IsTabStop="False"
                     VerticalAlignment="Top"
-                    Click="btnSubmit_Click"/>
+                    Click="btnSubmit_Click"/>-->
 
             <!--Survey Questions-->
             <ScrollViewer Name="svSurvey"

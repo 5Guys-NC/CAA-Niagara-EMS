@@ -61,10 +61,6 @@ namespace CAA_Event_Management.Views.EventViews
             ShowLastSwipeInfo();
             Window.Current.CoreWindow.CharacterReceived += CoreWindow_CharacterReceived;
 
-            if(questionCount==0)
-            {
-               // spSurveyQuestions.Visibility = Visibility.Collapsed;
-            }
         }
 
         /// <summary>

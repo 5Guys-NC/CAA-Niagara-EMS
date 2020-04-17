@@ -64,7 +64,7 @@ namespace CAA_Event_Management.Views.Games
         public void PopulateModelAnswerList()
         {
             //if question has images
-            if (selected.OptionsText != null && selected.AnswerText != null && selected.ImageIDs != "")
+            if (selected.OptionsText != null && selected.AnswerText != null && selected.ImageIDs != "" && selected.ImageIDs != null)
             {
                 //Splits question's details in their own list
                 var options = selected.OptionsText.Split('|');
@@ -82,7 +82,7 @@ namespace CAA_Event_Management.Views.Games
                     if (possibleAnswers.Contains(options[i]))
                     { t.IsTrue = true; }
 
-                    if (images[i] != "0")
+                    if (images[i] != null && images[i] != "0")
                     {
 
                         //gets the image for the question and puts it in the view model

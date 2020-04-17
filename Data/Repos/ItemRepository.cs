@@ -29,6 +29,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get undelete Items
+        /// </summary>
+        /// <returns></returns>
         public List<Item> GetUndeletedItems()
         {
             using (CAAContext context = new CAAContext())
@@ -41,6 +45,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Undeleted Items by Count
+        /// </summary>
+        /// <returns></returns>
         public List<Item> GetUndeletedItemsByCount()
         {
             using (CAAContext context = new CAAContext())
@@ -97,6 +105,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Update Item Count
+        /// </summary>
+        /// <param name="itemID"></param>
+        /// <param name="countChange"></param>
         public void UpdateItemCount(string itemID, int countChange)
         {
             using (CAAContext context = new CAAContext())
@@ -110,6 +123,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Delete Update Item
+        /// </summary>
+        /// <param name="itemToDelete"></param>
         public void DeleteUpdateItem(Item itemToDelete)
         {
             using (CAAContext context = new CAAContext())

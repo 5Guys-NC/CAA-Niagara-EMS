@@ -1,14 +1,13 @@
-﻿using System;
+﻿using CAA_Event_Management.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CAA_Event_Management.Models;
 /*************************
  * Created By: Jon Yade
  * **********************/
 namespace CAA_Event_Management.Data.Interface_Repos
 {
+    /// <summary>
+    /// Interface for the ModelAuditLine Repository
+    /// </summary>
     public interface IModelAuditLineRepository
     {
         List<ModelAuditLine> GetModelAuditLines();

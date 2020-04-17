@@ -12,6 +12,10 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class GameRepository : IGameRepository
     {
+        /// <summary>
+        /// Get all Games
+        /// </summary>
+        /// <returns></returns>
         public List<Game> GetGames()
         {
             using (CAAContext context = new CAAContext())
@@ -21,6 +25,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Save Game Model
+        /// </summary>
+        /// <param name="gmToSave"></param>
         public void SaveGameModel(GameModel gmToSave)
         {
             using (CAAContext context = new CAAContext())
@@ -30,6 +38,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Add Game
+        /// </summary>
+        /// <param name="toAdd"></param>
         public void AddGame(Game toAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -38,6 +50,12 @@ namespace CAA_Event_Management.Data
                 context.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// Get Game by ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
         public Game GetGame(int ID)
         {
             using (CAAContext context = new CAAContext())
@@ -46,6 +64,11 @@ namespace CAA_Event_Management.Data
                 return items;
             }
         }
+
+        /// <summary>
+        /// Remove Game
+        /// </summary>
+        /// <param name="game"></param>
         public void RemoveGame(Game game)
         {
             using (CAAContext context = new CAAContext())

@@ -24,11 +24,5 @@ namespace CAA_Event_Management.Models
 
         [ScaffoldColumn(false)]
         public DateTime? LastModifiedDate { get; set; } = DateTime.Now;
-
-
-        //This can possible be uncommented for inclusion later for concurrency
-        //[ScaffoldColumn(false)]
-        //[Timestamp]
-        //public Byte[] RowVersion { get; set; }
     }
 }

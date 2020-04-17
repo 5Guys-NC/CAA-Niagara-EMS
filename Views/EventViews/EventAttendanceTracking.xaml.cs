@@ -1,10 +1,7 @@
 ﻿using CAA_Event_Management.Data;
-using CAA_Event_Management.Data.Interface_Repos;
-using CAA_Event_Management.Data.Repos;
 using CAA_Event_Management.Models;
 using CAA_Event_Management.Utilities;
 using CAA_Event_Management.ViewModels;
-using CAA_Event_Management.Views.EventViews;
 using CAA_Event_Management.Views.Games;
 using System;
 using System.Collections.Generic;

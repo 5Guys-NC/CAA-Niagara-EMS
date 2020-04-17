@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 /*********************************
  * Created By: Max Cashmore
+ * Edited By: Brian Culp
  ********************************/
-
 namespace CAA_Event_Management.Data.Repos
 {
     /// <summary>
@@ -13,16 +13,25 @@ namespace CAA_Event_Management.Data.Repos
     /// </summary>
     class EventGameUserAnswerRepository :IEventGameUserAnswerRepository
     {
+        /// <summary>
+        /// Get All EventGameUserAnswers
+        /// </summary>
+        /// <returns></returns>
         public List<EventGameUserAnswer> GetEventGameUserAnswers()
         {
             using (CAAContext context = new CAAContext())
             {
                 var answers = context.EventGameUserAnswers
-                    //.OrderBy(d => d.)
                     .ToList();
                 return answers;
             }
         }
+
+        /// <summary>
+        /// Get single EventGameUserAnswer by EventID
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
         public List<EventGameUserAnswer> GetEventGameUserAnswers(string eventID)
         {
             using (CAAContext context = new CAAContext())
@@ -34,6 +43,10 @@ namespace CAA_Event_Management.Data.Repos
             }
         }
 
+        /// <summary>
+        /// Add EventGameUserAnswer
+        /// </summary>
+        /// <param name="userAnswerToAdd"></param>
         public void AddEventGameUserAnswer(EventGameUserAnswer userAnswerToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -42,6 +55,11 @@ namespace CAA_Event_Management.Data.Repos
                 context.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// UpdateEventGameUserAnswer
+        /// </summary>
+        /// <param name="userAnswerToUpdate"></param>
         public void UpdateEventGameUserAnswer(EventGameUserAnswer userAnswerToUpdate)
         {
             using (CAAContext context = new CAAContext())
@@ -50,6 +68,11 @@ namespace CAA_Event_Management.Data.Repos
                 context.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// Delete EventGameUserAnswer
+        /// </summary>
+        /// <param name="userAnswerToDelete"></param>
         public void DeleleEventGameUserAnswer(EventGameUserAnswer userAnswerToDelete)
         {
             using (CAAContext context = new CAAContext())

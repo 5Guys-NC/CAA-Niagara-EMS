@@ -62,6 +62,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Last Attendance by Event
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
         public AttendanceTracking GetLastAttendanceTrackingByEvent(string eventID)
         {
             using (CAAContext context = new CAAContext())

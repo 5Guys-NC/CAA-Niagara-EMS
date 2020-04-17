@@ -3,7 +3,6 @@ using System.Collections.Generic;
 /***************************
  * Created By: Max Cashmore
  * *************************/
-
 namespace CAA_Event_Management.Data.Interface_Repos
 {
     /// <summary>

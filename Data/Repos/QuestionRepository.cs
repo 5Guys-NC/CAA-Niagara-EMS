@@ -12,6 +12,10 @@ namespace CAA_Event_Management.Data
     /// </summary>
     public class QuestionRepository : IQuestionRepository
     {
+        /// <summary>
+        /// Get all Questions
+        /// </summary>
+        /// <returns></returns>
         public List<Question> GetQuestions()
         {
             using (CAAContext context = new CAAContext())
@@ -21,6 +25,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Question by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Question GetQuestion(int id)
         {
             using (CAAContext context = new CAAContext())
@@ -30,6 +39,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Model Questions by ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>multiple</returns>
         public List<GameModel> GetModelQuestions(int ID)
         {
             using (CAAContext context = new CAAContext())
@@ -39,6 +53,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Model Questions by ID
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns>single</returns>
         public GameModel GetModelQuestion(int ID)
         {
             using (CAAContext context = new CAAContext())
@@ -48,6 +67,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Question Selection
+        /// </summary>
+        /// <returns></returns>
         public List<Question> GetQuestionSelection()
         {
             using (CAAContext context = new CAAContext())
@@ -57,6 +80,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Add Question
+        /// </summary>
+        /// <param name="toAdd"></param>
         public void AddQuestion(Question toAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -66,6 +93,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Remove Game Model
+        /// </summary>
+        /// <param name="toRemove"></param>
         public void RemoveGameModel(GameModel toRemove)
         {
             using (CAAContext context = new CAAContext())
@@ -75,6 +106,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Remove Question
+        /// </summary>
+        /// <param name="toRemove"></param>
         public void RemoveQuestion(Question toRemove)
         {
             using (CAAContext context = new CAAContext())

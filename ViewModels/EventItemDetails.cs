@@ -1,7 +1,6 @@
 ﻿/******************************
 *  Created By: Jon Yade
 *******************************/
-
 namespace CAA_Event_Management.ViewModels
 {
     /// <summary>

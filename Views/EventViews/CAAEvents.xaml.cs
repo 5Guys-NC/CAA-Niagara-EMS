@@ -48,6 +48,10 @@ namespace CAA_Event_Management.Views.EventViews
             ((Window.Current.Content as Frame).Content as MainPage).ChangeMainPageTitleName("GENERAL EVENT MANAGEMENT");
         }
 
+        /// <summary>
+        /// On Navigated
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             if (e.Parameter != null)
@@ -71,12 +75,22 @@ namespace CAA_Event_Management.Views.EventViews
 
         #region Buttons - CRUD - NewEvent, Event Display Toggle, SelectedEvent(edit)
 
+        /// <summary>
+        /// New Event Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewEvent_Click(object sender, RoutedEventArgs e)
         {
             Models.Event newEvent = new Models.Event();
             Frame.Navigate(typeof(EventDetails), newEvent, new SuppressNavigationTransitionInfo());
         }
 
+        /// <summary>
+        /// Current Events Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCurrentEvents_Click(object sender, RoutedEventArgs e)
         {
             Canvas.SetZIndex(btnCurrentEvents, 2);
@@ -85,6 +99,11 @@ namespace CAA_Event_Management.Views.EventViews
             FillDropDown(1);
         }
 
+        /// <summary>
+        /// Past Events Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPastEvents_Click(object sender, RoutedEventArgs e)
         {
             Canvas.SetZIndex(btnPastEvents, 2);
@@ -93,6 +112,11 @@ namespace CAA_Event_Management.Views.EventViews
             FillDropDown(2);
         }
 
+        /// <summary>
+        /// Delete Mode
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDeleteMode_Click(object sender, RoutedEventArgs e)
         {
             DeleteModeToggle();
@@ -160,10 +184,14 @@ namespace CAA_Event_Management.Views.EventViews
             catch
             {
                 Jeeves.ShowMessage("Error", "There was a problem deleting the selected record");
-                //Jeeves.ShowMessage("Error", test);
             }
         }
 
+        /// <summary>
+        /// Edit Event Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditEvent_Click(object sender, RoutedEventArgs e)
         {
             string selected = (((Button)sender).DataContext).ToString();
@@ -179,6 +207,11 @@ namespace CAA_Event_Management.Views.EventViews
             }
         }
 
+        /// <summary>
+        /// Choose Winner Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnChooseWinner_Click(object sender, RoutedEventArgs e)
         {
             if (gdvEditEvents.SelectedItem != null)

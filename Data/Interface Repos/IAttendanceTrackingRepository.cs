@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 /******************************
 *  Created By: Jon Yade
-*  Edited by:
 *******************************/
 namespace CAA_Event_Management.Data
 {
@@ -13,7 +12,7 @@ namespace CAA_Event_Management.Data
     {
         List<AttendanceTracking> GetAttendanceTrackings();
         AttendanceTracking GetAttendanceTracking(string attendanceTrackingID);
-        List<AttendanceTracking> GetAttendanceTrackingByEvent(string eventID);   //may need to add this for other respositories
+        List<AttendanceTracking> GetAttendanceTrackingByEvent(string eventID);
         AttendanceTracking GetLastAttendanceTrackingByEvent(string eventID);
         void AddAttendanceTracking(AttendanceTracking attendanceTrackingToAdd);
         void UpdateAttendanceTracking(AttendanceTracking attendanceTrackingToUpdate);

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 /******************************
 *  Created By: Jon Yade
-*  Edited by:
 *******************************/
 namespace CAA_Event_Management.Data
 {

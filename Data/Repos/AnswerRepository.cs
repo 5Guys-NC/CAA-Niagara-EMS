@@ -30,6 +30,11 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Get Answer by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Answer GetAnswer(int id)
         {
             using (CAAContext context = new CAAContext())
@@ -38,15 +43,6 @@ namespace CAA_Event_Management.Data
                 return items;
             }
         }
-
-        //public Answer GetAnswer(int id)
-        //{
-        //    using (CAAContext context = new CAAContext())
-        //    {
-        //        var items = context.Answers.Where(a => a.ID == id).FirstOrDefault();
-        //        return items;
-        //    }
-        //}
 
         /// <summary>
         /// Get Game Model by ID
@@ -104,6 +100,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Remove Answer
+        /// </summary>
+        /// <param name="answer"></param>
         public void RemoveAnswer(Answer answer)
         {
             using (CAAContext context = new CAAContext())
@@ -113,6 +113,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Add Answer Picture
+        /// </summary>
+        /// <param name="ansPicToAdd"></param>
         public void AddAnswerPicture(AnswerPicture ansPicToAdd)
         {
             using (CAAContext context = new CAAContext())
@@ -122,6 +126,10 @@ namespace CAA_Event_Management.Data
             }
         }
 
+        /// <summary>
+        /// Update Answer
+        /// </summary>
+        /// <param name="toUpdate"></param>
         public void UpdateAnswer(Answer toUpdate)
         {
             using (CAAContext context = new CAAContext())

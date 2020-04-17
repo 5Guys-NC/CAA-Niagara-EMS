@@ -88,7 +88,7 @@ namespace CAA_Event_Management.Views.Login
         {
             string popupMsg = "Are you sure that you want to make changes to this user?";
 
-            var result = await Jeeves.ConfirmDialog("Creating a New User", popupMsg);
+            var result = await Jeeves.ConfirmDialog("Edit Existing User", popupMsg);
 
             if (result == ContentDialogResult.Secondary)
             {

@@ -21,7 +21,6 @@ namespace CAA_Event_Management.Models
 
             public int ID { get; set; }
             public string Title { get; set; }
-            //public virtual Event Event { get; set; }
 
             public ICollection<GameModel> GameModels { get; set; }
 

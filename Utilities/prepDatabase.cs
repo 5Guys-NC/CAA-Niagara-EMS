@@ -510,59 +510,6 @@ namespace CAA_Event_Management.Utilities
 
                 #endregion
 
-                #region EventItems - Commented out
-
-                //if (!context.EventItems.Any())
-                //{
-                //    context.EventItems.AddRange(
-                //     new EventItem
-                //     {
-                //         EventID = 1,
-                //         ItemID = 1
-                //     },
-                //     new EventItem
-                //     {
-                //         EventID = 3,
-                //         ItemID = 2
-                //     },
-                //     new EventItem
-                //     {
-                //         EventID = 2,
-                //         ItemID = 3
-                //     });
-                //    context.SaveChanges();
-                //}
-
-                #endregion
-
-                #region AttendanceItems - Commented out
-
-                //if (!context.AttendanceItems.Any())
-                //{
-                //    context.AttendanceItems.AddRange(
-                //     new AttendanceItem
-                //     {
-                //         EventItemID = 1,
-                //         MemberAttendanceID = 1,
-                //         Answer = "Yes"
-                //     },
-                //     new AttendanceItem
-                //     {
-                //         EventItemID = 2,
-                //         MemberAttendanceID = 3,
-                //         Answer = "no"
-                //     },
-                //     new AttendanceItem
-                //     {
-                //         EventItemID = 3,
-                //         MemberAttendanceID = 2,
-                //         Answer = "15"
-                //     });
-                //    context.SaveChanges();
-                //}
-
-                #endregion
-
                 #endregion
             }
         }

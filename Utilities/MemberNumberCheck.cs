@@ -46,7 +46,6 @@ namespace CAA_Event_Management.Utilities
                 }
                 else runningTotal += number[i];
             }
-            //if (runningTotal % 10 != 0) return false;   <<Possibly add this or delete it later; ask CAA about it
 
             runningTotal = runningTotal * 9;
             double finalCheck = runningTotal % 10;

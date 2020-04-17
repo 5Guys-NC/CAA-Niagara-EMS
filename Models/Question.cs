@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 /******************************
 *  Created By: Max Cashmore
 *  Edited by: Brian Culp

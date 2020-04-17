@@ -10,7 +10,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource BackgroundColor}"
     FontFamily="{ThemeResource ContentControlThemeFontFamily}">
-    <!-- Views.Events. was in the class name  -->
+    
     <Page.Resources>
         <converters:FormatStringConverter x:Key="StringConverter"/>
         <SolidColorBrush x:Key="ButtonBackgroundPointerOver">#f5f5f5</SolidColorBrush>
@@ -18,7 +18,7 @@
 
     <!--************************
         Design work: Nathan Smith 90%
-        Extra work by: JOn Yade 10%
+        Extra work by: Jon Yade 10%
     ************************-->
 
     <Grid>

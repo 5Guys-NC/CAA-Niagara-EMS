@@ -124,7 +124,7 @@
                                         RelativePanel.AlignRightWithPanel="True"
                                         RelativePanel.AlignTopWithPanel="True"
                                         VerticalAlignment="Top"  
-                                        DataContext="{Binding ID}" 
+                                        DataContext="{Binding Index}" 
                                         FontFamily="Segoe MDL2 Assets" 
                                         FontSize="20"
                                         Foreground="Red" 

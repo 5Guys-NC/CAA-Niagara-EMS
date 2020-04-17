@@ -61,8 +61,9 @@
                         <Setter Target="rpMemberCheck.HorizontalAlignment" Value="Left"/>
                         <!--Other Changes-->
                         <Setter Target="tbkLastSwipe.Margin" Value="30,30,0,0"/>
-                        <Setter Target="btnSubmit.Margin" Value="100,20,0,0"/>
+                        <Setter Target="btnSubmit.Margin" Value="220,20,0,0"/>
                         <Setter Target="svSurvey.Height" Value="180"/>
+                        <Setter Target="rpMemberNumber.Margin" Value="50,20,0,0"/>
                         <!--Border Settings-->
                         <Setter Target="rpFirstName.BorderThickness" Value="3,3,0,0"/>
                         <Setter Target="rpLastName.BorderThickness" Value="0,3,3,0"/>
@@ -121,7 +122,8 @@
             </Grid.ColumnDefinitions>
 
 
-            <RelativePanel Grid.Row="1"  
+            <RelativePanel Name="rpMemberNumber"
+                        Grid.Row="1"  
                        Grid.ColumnSpan="3"
                        BorderBrush="#1b3e6e" 
                        BorderThickness="3"
@@ -312,8 +314,7 @@
                     Grid.Row="0"
                     Height="60"
                     HorizontalAlignment="Left"
-                    Margin="200,20,0,0"
-
+                    Margin="220,20,0,0"
                     Visibility="Visible"
                     IsTabStop="False"
                     VerticalAlignment="Top"

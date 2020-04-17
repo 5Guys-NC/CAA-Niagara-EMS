@@ -27,6 +27,7 @@ namespace CAA_Event_Management.Views.Games
         List<GameModel> gameQuest = new List<GameModel>();
         int index = 0; //used to go through the list of questions
         int questionCount;
+        int actualQuestionCount = 0;
         IQuestionRepository questRepo;
         IPictureRepository picRepo;
         ImageConverter imageConverter = new ImageConverter();
@@ -44,7 +45,22 @@ namespace CAA_Event_Management.Views.Games
         {
             thisEvent = (Event)e.Parameter;
             SetUpGame();
-            DisplayQuestion();
+
+            bool displayQuestionCheck = false;
+
+            while (displayQuestionCheck == false)
+            {
+                if (gameQuest[index].OptionsText != null && gameQuest[index].ImageIDs != null)
+                {
+                    DisplayQuestion();
+                    displayQuestionCheck = true;
+                    actualQuestionCount++;
+                }
+                else
+                {
+                    index++;
+                }
+            }
         }
 
         public void SetUpGame()
@@ -60,6 +76,22 @@ namespace CAA_Event_Management.Views.Games
             //increases index to move onto next question
             index++;
             DisplayQuestion();
+
+            bool displayQuestionCheck = false;
+
+            while (displayQuestionCheck == false)
+            {
+                if (gameQuest[index].OptionsText != null && gameQuest[index].ImageIDs != null)
+                {
+                    DisplayQuestion();
+                    displayQuestionCheck = true;
+                    actualQuestionCount++;
+                }
+                else
+                {
+                    index++;
+                }
+            }
         }
 
         public void DisplayQuestion()
@@ -73,9 +105,11 @@ namespace CAA_Event_Management.Views.Games
                 imageQuest.Source = image;
             }
 
+
             tbkQuestion.Text = gameQuest[index].QuestionText;
 
             display.Clear();
+
             var options = gameQuest[index].OptionsText.Split('|');
             var images = gameQuest[index].ImageIDs.Split('|');
             var possibleAnswers = gameQuest[index].AnswerText.Split('|');
@@ -86,7 +120,7 @@ namespace CAA_Event_Management.Views.Games
                 //place them in holder and set variables 
                 QuestAnsViewModel t = new QuestAnsViewModel();
                 t.Text = options[i];
-                
+
                 var imageElementExists = images.ElementAtOrDefault(i) != null;
                 var optionElementExists = options.ElementAtOrDefault(i) != null;
                 t.IsTrue = false;
@@ -109,7 +143,6 @@ namespace CAA_Event_Management.Views.Games
                         t.IsTrue = true;
                     }
                 }
-                
                 display.Add(t);
             }
             gameplayView.ItemsSource = display;
@@ -121,6 +154,7 @@ namespace CAA_Event_Management.Views.Games
             await Task.Delay(3000);
             if (index + 1 == questionCount)
             {
+                resultVM.QuestionCount = actualQuestionCount;
                 //If question answered was the last one, goes to the result page
                 Frame.Navigate(typeof(GameResult), resultVM, new SuppressNavigationTransitionInfo());
             }

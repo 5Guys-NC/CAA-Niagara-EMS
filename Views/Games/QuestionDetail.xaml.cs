@@ -82,7 +82,7 @@ namespace CAA_Event_Management.Views.Games
                     if (possibleAnswers.Contains(options[i]))
                     { t.IsTrue = true; }
 
-                    if (images[i] != null && images[i] != "0")
+                    if (images[i] != null && images[i] != "0" && images[i] != "")
                     {
 
                         //gets the image for the question and puts it in the view model
@@ -118,7 +118,7 @@ namespace CAA_Event_Management.Views.Games
                 }
             }
 
-            if (selected.QuestionImageId != null)
+            if (selected.QuestionImageId != null && selected.QuestionImageId != "")
             {
                 imgQuestionImage.Source = null;
                 var q = new Image();

@@ -119,7 +119,7 @@ namespace CAA_Event_Management.Views.EventViews
 
         #endregion
 
-        #region Buttons - Save, Cancel
+        #region Buttons - Save, Back
 
         /// <summary>
         /// The method handles the "Submit" Button click event by a user in the AttendanceTracking view

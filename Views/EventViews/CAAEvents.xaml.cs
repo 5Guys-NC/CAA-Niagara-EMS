@@ -30,7 +30,7 @@ namespace CAA_Event_Management.Views.EventViews
         int deleteMode = 0;
         
         //change this variable to move events to the "past"; lower number to move the event sooner
-        int hoursUntilMovedToPastEvents = 5;
+        int hoursUntilMovedToPastEvents = 3;
         
         //change this variable to auto delete old events; lower the number to "delete" the event sooner
         int daysUntilEventAutoDelete = 7;

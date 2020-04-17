@@ -20,6 +20,9 @@ namespace CAA_Event_Management.Views.EventViews
     /// </summary>
     public sealed partial class EventStartView : Page
     {
+        //variables controlling "Active" event status 
+        int hoursBeforeEventIsActive = 3;
+        int hoursUntilEventIsDisactivated = 3;
 
         IEventRepository eventRepository;
 
@@ -44,7 +47,7 @@ namespace CAA_Event_Management.Views.EventViews
             {
                 bool isDeleted = false;
                 eventsList = eventRepository.GetEvents(isDeleted)
-                    .Where(c => c.EventStart <= now.AddHours(3) && c.EventEnd >= now.AddHours(-5))
+                    .Where(c => c.EventStart <= now.AddHours(hoursBeforeEventIsActive) && c.EventEnd >= now.AddHours(-hoursUntilEventIsDisactivated))
                     .OrderBy(c => c.EventName)
                     .ToList();
             }

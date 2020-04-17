@@ -70,7 +70,7 @@
 
                 <RelativePanel Name="rpCreates" Grid.Row="1" Margin="0,80,0,0" HorizontalAlignment="Center">
                     <Button Name="btnCreateGame" 
-                            Content="CREATE GAME"
+                            Content="CREATE Question"
                             Margin="0,0,10,0"
                             Style="{StaticResource actionButtonStyle}">
                         <Button.Flyout>
@@ -79,7 +79,7 @@
                                     <Style TargetType="FlyoutPresenter"></Style>
                                 </Flyout.FlyoutPresenterStyle>
                                 <StackPanel>
-                                    <TextBlock Name="tbCreateNewGame" Text="Enter A Game Name" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                                    <TextBlock Name="tbCreateNewGame" Text="Enter A Question" FontSize="18" FontWeight="Bold" Foreground="#eaeaea" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                                     <TextBox Name ="txtCreateNewGame" Width="360"/>
                                     <StackPanel Orientation="Horizontal" Margin="10,20,10,20">
                                         <Button Name="btnCreateConfirm" Content="ENTER"  Style="{StaticResource actionButtonStyle}" Margin="0,0,10,0" Tapped="BtnCreateConfirm_Tapped"/>
@@ -89,11 +89,6 @@
                             </Flyout>
                         </Button.Flyout>
                     </Button>
-                    <Button Name="btnCreateQuestion"
-                            Content="CREATE QUESTIONS/ANSWERS"
-                            RelativePanel.RightOf="btnCreateGame"
-                            RelativePanel.AlignBottomWith="btnCreateGame"
-                            Style="{StaticResource secondaryButtonStyle}"/>
                 </RelativePanel>
 
                 <RelativePanel Name="rpGamesTabs" Grid.Row="2" Margin="0,30,0,0" HorizontalAlignment="Center">

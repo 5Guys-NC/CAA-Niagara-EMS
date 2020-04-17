@@ -151,6 +151,21 @@ namespace CAA_Event_Management.Views.Games
                 Frame.Navigate(typeof(GameMenu), null, new SuppressNavigationTransitionInfo());
             }
         }
+
+        private void btnCreateQuestion_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCreateNewQuestAnsConfirm_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCreateNewQuestAnsCancel_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+        }
     }
 }
 
